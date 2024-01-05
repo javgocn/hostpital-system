@@ -712,17 +712,74 @@ CREATE TABLE `patient_relative`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `medication_info`;
 CREATE TABLE `medication_info`  (
-    `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '药品编号',
-    `medication_name` varchar(50) NOT NULL COMMENT '药品名称',
-    `manufacturer` varchar(50) NOT NULL COMMENT '生产厂家',
-    `price` decimal(10,2) NOT NULL COMMENT '单价',
-    `unit` varchar(20) NOT NULL COMMENT '单位',
-    `stock` int(11) NOT NULL COMMENT '库存',
-    `remark` varchar(255) NULL DEFAULT NULL COMMENT '药品备注',
-    `create_time` datetime NOT NULL COMMENT '创建时间',
-    `update_time` datetime NOT NULL COMMENT '更新时间',
+    `id`                int(11) NOT NULL AUTO_INCREMENT COMMENT '药品id',
+    `medication_code`   varchar(50) NOT NULL COMMENT '药品编号',
+    `medication_name`   varchar(50) NOT NULL COMMENT '药品名称',
+    `manufacturer`      varchar(50) NOT NULL COMMENT '生产厂家',
+    `price`             decimal(10,2) NOT NULL COMMENT '单价',
+    `unit`              varchar(20) NOT NULL COMMENT '单位例如片、瓶、盒等',
+    `stock`             int(11) NOT NULL COMMENT '库存',
+    `remark`            varchar(255) NULL DEFAULT NULL COMMENT '关于药品的其他重要信息，例如用法用量、副作用等',
+    `create_time`       datetime NOT NULL COMMENT '创建时间',
+    `update_time`       datetime NOT NULL COMMENT '更新时间',
     PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '药品信息表';
+
+-- ----------------------------
+-- Records of medication_info
+-- ----------------------------
+INSERT INTO `medication_info` (`medication_code`, `medication_name`, `manufacturer`, `price`, `unit`, `stock`, `remark`, `create_time`, `update_time`)
+VALUES
+    ('M001', '阿莫西林', '制药公司A', 10.00, '瓶', 100, '用法用量：按医生建议服用', NOW(), NOW()),
+    ('M002', '布洛芬', '制药公司B', 15.50, '盒', 200, '副作用：可能会引起头痛', NOW(), NOW()),
+    ('M003', '头孢', '制药公司C', 8.75, '片', 150, '注意事项：不适用于儿童', NOW(), NOW()),
+    ('M004', '布地奈德', '制药公司D', 25.00, '瓶', 50, '用法用量：每日两次，饭后服用', NOW(), NOW()),
+    ('M005', '盐酸伪麻黄碱', '制药公司E', 12.60, '盒', 80, NULL, NOW(), NOW()),
+    ('M006', '利巴韦林', '制药公司F', 9.99, '瓶', 120, NULL, NOW(), NOW()),
+    ('M007', '阿莫洛尔', '制药公司G', 7.25, '片', 90, '副作用：可能会引起恶心', NOW(), NOW()),
+    ('M008', '苯巴比妥', '制药公司H', 15.25, '瓶', 60, NULL, NOW(), NOW()),
+    ('M009', '多巴胺', '制药公司I', 18.50, '瓶', 70, '用法用量：按医生建议服用', NOW(), NOW()),
+    ('M010', '阿托伐他汀', '制药公司J', 20.00, '盒', 90, '副作用：可能会引起肌肉疼痛', NOW(), NOW()),
+    ('M011', '伊布前列素', '制药公司K', 13.75, '片', 120, NULL, NOW(), NOW()),
+    ('M012', '奥美拉唑', '制药公司L', 9.50, '瓶', 110, '用法用量：每日一次，空腹服用', NOW(), NOW()),
+    ('M013', '头孢克洛', '制药公司M', 16.75, '片', 130, NULL, NOW(), NOW()),
+    ('M014', '替诺福韦', '制药公司N', 21.00, '盒', 95, '副作用：可能会引起恶心和呕吐', NOW(), NOW()),
+    ('M015', '甲磺酸倍他米松', '制药公司O', 14.25, '瓶', 75, NULL, NOW(), NOW()),
+    ('M016', '非那雄胺', '制药公司P', 19.50, '盒', 85, '用法用量：每日一次，饭后服用', NOW(), NOW()),
+    ('M017', '瑞托普利', '制药公司Q', 11.25, '片', 105, '副作用：可能会引起咳嗽', NOW(), NOW()),
+    ('M018', '格列本脲', '制药公司R', 10.50, '瓶', 115, NULL, NOW(), NOW()),
+    ('M019', '依普利特', '制药公司S', 12.75, '盒', 125, '用法用量：每日一次，餐后服用', NOW(), NOW()),
+    ('M020', '阿普唑仑', '制药公司T', 8.00, '片', 70, '副作用：可能会引起嗜睡', NOW(), NOW()),
+    ('M021', '阿司匹林', '制药公司A', 6.50, '片', 220, NULL, NOW(), NOW()),
+    ('M022', '头孢拉定', '制药公司B', 14.00, '片', 180, '用法用量：每日三次，饭后服用', NOW(), NOW()),
+    ('M023', '氨溴索', '制药公司C', 9.25, '片', 160, NULL, NOW(), NOW()),
+    ('M024', '布比卡因', '制药公司D', 22.00, '瓶', 40, '副作用：可能会引起过敏', NOW(), NOW()),
+    ('M025', '卡托普利', '制药公司E', 17.60, '盒', 95, NULL, NOW(), NOW()),
+    ('M026', '普鲁卡因胺', '制药公司F', 11.99, '瓶', 130, NULL, NOW(), NOW()),
+    ('M027', '托瑞米芬', '制药公司G', 14.50, '盒', 85, '用法用量：每日一次，睡前服用', NOW(), NOW()),
+    ('M028', '葡萄糖', '制药公司H', 8.25, '瓶', 190, NULL, NOW(), NOW()),
+    ('M029', '硝酸甘油', '制药公司I', 18.75, '瓶', 60, '副作用：可能会引起头晕', NOW(), NOW()),
+    ('M030', '依诺肝素', '制药公司J', 16.00, '盒', 70, '注意事项：不适用于孕妇', NOW(), NOW()),
+    ('M031', '曲美他嗪', '制药公司K', 10.75, '片', 140, NULL, NOW(), NOW()),
+    ('M032', '利托考辛', '制药公司L', 15.25, '瓶', 80, NULL, NOW(), NOW()),
+    ('M033', '多潘立酮', '制药公司M', 12.99, '瓶', 90, '用法用量：每餐前30分钟服用', NOW(), NOW()),
+    ('M034', '特布他林', '制药公司N', 8.50, '盒', 120, '副作用：可能会引起心跳加速', NOW(), NOW()),
+    ('M035', '布洛芬缓释片', '制药公司O', 13.25, '片', 100, NULL, NOW(), NOW()),
+    ('M036', '奥硝唑', '制药公司P', 11.00, '瓶', 110, '注意事项：不适用于孕妇', NOW(), NOW()),
+    ('M037', '普瑞巴林', '制药公司Q', 14.75, '盒', 70, '副作用：可能会引起嗜睡', NOW(), NOW()),
+    ('M038', '吲哚美辛', '制药公司R', 9.75, '片', 180, NULL, NOW(), NOW()),
+    ('M039', '酮康唑', '制药公司S', 15.00, '瓶', 55, '用法用量：每日一次，晚上服用', NOW(), NOW()),
+    ('M040', '苯妥英钠', '制药公司T', 17.99, '瓶', 50, '副作用：可能会引起头痛和失眠', NOW(), NOW()),
+    ('M041', '左卡尼汀', '制药公司A', 12.50, '盒', 95, NULL, NOW(), NOW()),
+    ('M042', '达拉宾', '制药公司B', 14.75, '瓶', 80, NULL, NOW(), NOW()),
+    ('M043', '替米沙坦', '制药公司C', 11.25, '片', 135, '用法用量：每日一次，饭后服用', NOW(), NOW()),
+    ('M044', '多巴酚丁胺', '制药公司D', 19.00, '瓶', 65, '副作用：可能会引起恶心和呕吐', NOW(), NOW()),
+    ('M045', '依普利嗪', '制药公司E', 14.60, '盒', 105, NULL, NOW(), NOW()),
+    ('M046', '美托洛尔', '制药公司F', 10.99, '瓶', 125, NULL, NOW(), NOW()),
+    ('M047', '非索非那定', '制药公司G', 16.25, '片', 70, '用法用量：每日一次，睡前服用', NOW(), NOW()),
+    ('M048', '阿莫洛尔', '制药公司H', 9.25, '盒', 155, '副作用：可能会引起心悸', NOW(), NOW()),
+    ('M049', '利巴韦林', '制药公司I', 13.75, '片', 145, NULL, NOW(), NOW()),
+    ('M050', '多奈米特', '制药公司J', 7.60, '瓶', 190, '注意事项：不适用于孕妇', NOW(), NOW());
 
 -- ----------------------------
 -- Table：药品采购表
@@ -730,14 +787,15 @@ CREATE TABLE `medication_info`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `medication_purchase`;
 CREATE TABLE `medication_purchase`  (
-    `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '采购编号',
-    `total_cost` decimal(10,2) NOT NULL COMMENT '总费用',
-    `purchase_date` date NOT NULL COMMENT '采购日期',
-    `remark` varchar(255) NULL DEFAULT NULL COMMENT '备注',
-    `create_time` datetime NOT NULL COMMENT '创建时间',
-    `update_time` datetime NOT NULL COMMENT '更新时间',
+    `id`                int(11) NOT NULL AUTO_INCREMENT COMMENT '采购单id',
+    `purchase_code`     varchar(50) NOT NULL COMMENT '采购单编号',
+    `total_cost`        decimal(10,2) NOT NULL COMMENT '总费用',
+    `purchase_date`     date NOT NULL COMMENT '采购日期',
+    `remark`            varchar(255) NULL DEFAULT NULL COMMENT '备注',
+    `create_time`       datetime NOT NULL COMMENT '创建时间',
+    `update_time`       datetime NOT NULL COMMENT '更新时间',
     PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '药品采购表';
 
 -- ----------------------------
 -- Table：药品采购明细表
@@ -745,31 +803,31 @@ CREATE TABLE `medication_purchase`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `medication_purchase_details`;
 CREATE TABLE `medication_purchase_details`  (
-    `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '采购明细编号',
-    `purchase_id` int(11) NOT NULL COMMENT '采购编号',
-    `medication_id` int(11) NOT NULL COMMENT '药品编号',
-    `quantity` int(11) NOT NULL COMMENT '采购数量',
-    `cost` decimal(10,2) NOT NULL COMMENT '费用',
-    `create_time` datetime NOT NULL COMMENT '创建时间',
-    `update_time` datetime NOT NULL COMMENT '更新时间',
+    `id`                int(11) NOT NULL AUTO_INCREMENT COMMENT '采购明细id',
+    `purchase_id`       int(11) NOT NULL COMMENT '采购单id',
+    `medication_id`     int(11) NOT NULL COMMENT '药品id',
+    `quantity`          int(11) NOT NULL COMMENT '采购数量',
+    `cost`              decimal(10,2) NOT NULL COMMENT '费用',
+    `create_time`       datetime NOT NULL COMMENT '创建时间',
+    `update_time`       datetime NOT NULL COMMENT '更新时间',
     PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '药品采购明细表';
 
 -- ----------------------------
 -- Table：药品入库作业表
--- Desc：该表用于记录药品的入库信息，包括药品编号、入库数量、入库日期等。
+-- Desc：该表用于记录药品的入库信息，包括采购编号、入库数量、入库日期等。
 -- ----------------------------
 DROP TABLE IF EXISTS `medication_stock`;
 CREATE TABLE `medication_stock`  (
-     `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '入库编号',
-     `medication_id` int(11) NOT NULL COMMENT '药品编号',
-     `quantity` int(11) NOT NULL COMMENT '入库数量',
-     `stock_date` date NOT NULL COMMENT '入库日期',
-     `remark` varchar(255) NULL DEFAULT NULL COMMENT '备注',
-     `create_time` datetime NOT NULL COMMENT '创建时间',
-     `update_time` datetime NOT NULL COMMENT '更新时间',
+     `id`               int(11) NOT NULL AUTO_INCREMENT COMMENT '入库id',
+     `purchase_id`      int(11) NOT NULL COMMENT '采购编号',
+     `quantity`         int(11) NOT NULL COMMENT '入库数量',
+     `stock_date`       date NOT NULL COMMENT '入库日期',
+     `remark`           varchar(255) NULL DEFAULT NULL COMMENT '备注',
+     `create_time`      datetime NOT NULL COMMENT '创建时间',
+     `update_time`      datetime NOT NULL COMMENT '更新时间',
      PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '药品入库作业表';
 
 -- ----------------------------
 -- Table：药品财务审核表
@@ -777,15 +835,16 @@ CREATE TABLE `medication_stock`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `medication_financial_audit`;
 CREATE TABLE `medication_financial_audit`  (
-    `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '审核编号',
-    `purchase_id` int(11) NOT NULL COMMENT '采购编号',
-    `audit_status` int(11) NOT NULL DEFAULT 0 COMMENT '审核状态，0为待审核，1为已审核',
-    `audit_date` date NULL DEFAULT NULL COMMENT '审核日期',
-    `remark` varchar(255) NULL DEFAULT NULL COMMENT '备注',
-    `create_time` datetime NOT NULL COMMENT '创建时间',
-    `update_time` datetime NOT NULL COMMENT '更新时间',
+    `id`            int(11) NOT NULL AUTO_INCREMENT COMMENT '审核id',
+    `audit_code`    varchar(50) NOT NULL COMMENT '审核编号,与采购编号一致',
+    `purchase_id`   int(11) NOT NULL COMMENT '采购编号',
+    `audit_status`  int(11) NOT NULL DEFAULT 0 COMMENT '审核状态：0-待审核，1-已审核，2-审核不通过，-1-已删除',
+    `audit_date`    date NULL DEFAULT NULL COMMENT '审核日期',
+    `remark`        varchar(255) NULL DEFAULT NULL COMMENT '备注',
+    `create_time`   datetime NOT NULL COMMENT '创建时间',
+    `update_time`   datetime NOT NULL COMMENT '更新时间',
     PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '药品财务审核表';
 
 -- ----------------------------
 -- Table：医院财务表
@@ -793,15 +852,17 @@ CREATE TABLE `medication_financial_audit`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `financial_info`;
 CREATE TABLE `financial_info`  (
-    `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '财务编号',
-    `type` int(11) NOT NULL COMMENT '类型，0为支出，1为收入',
-    `amount` decimal(10,2) NOT NULL COMMENT '金额',
-    `financial_date` date NOT NULL COMMENT '财务日期',
-    `remark` varchar(255) NULL DEFAULT NULL COMMENT '备注',
-    `create_time` datetime NOT NULL COMMENT '创建时间',
-    `update_time` datetime NOT NULL COMMENT '更新时间',
+    `id`                int(11) NOT NULL AUTO_INCREMENT COMMENT '财务id',
+    `original_id`       int(11) NULL DEFAULT NULL COMMENT '原始id，例如住院信息表的id,处方信息表的id,药品采购表的id等',
+    `category`          int(11) NOT NULL COMMENT '类别：0-住院，1-处方，2-药品采购',
+    `type`              int(11) NOT NULL COMMENT '类型：0-支出，1-收入',
+    `amount`            decimal(10,2) NOT NULL COMMENT '金额',
+    `financial_date`     date NOT NULL COMMENT '财务日期',
+    `remark`            varchar(255) NULL DEFAULT NULL COMMENT '备注',
+    `create_time`       datetime NOT NULL COMMENT '创建时间',
+    `update_time`       datetime NOT NULL COMMENT '更新时间',
     PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '医院财务表';
 
 -- ---------------------------------------------- 处方管理 ----------------------------------------------
 -- ----------------------------
@@ -810,17 +871,17 @@ CREATE TABLE `financial_info`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `prescription_info`;
 CREATE TABLE `prescription_info`  (
-    `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '处方id',
-    `create_date` date NOT NULL COMMENT '开方日期',
-    `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-    `user_id` int(11) NOT NULL COMMENT '用户id',
-    `doctor_id` int(11) NULL DEFAULT NULL,
-    `doctor_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '医生姓名',
-    `total_price` decimal(10,2) NULL DEFAULT 0 COMMENT '总费用',
-    `payment_status` int(11) NOT NULL DEFAULT 0 COMMENT '支付状态,0表示待支付,1表示已支付',
-    `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '处方备注',
+    `id`                int(11) NOT NULL AUTO_INCREMENT COMMENT '处方id',
+    `create_date`       date NOT NULL COMMENT '开方日期',
+    `username`          varchar(50) NOT NULL COMMENT '患者姓名',
+    `user_id`           int(11) NOT NULL COMMENT '用户id',
+    `doctor_id`         int(11) NULL DEFAULT NULL COMMENT '医生id',
+    `doctor_name`       varchar(50) NULL DEFAULT NULL COMMENT '医生姓名',
+    `total_price`       decimal(10,2) NULL DEFAULT 0 COMMENT '总费用',
+    `payment_status`    int(11) NOT NULL DEFAULT 0 COMMENT '支付状态：0-待支付,1-已支付',
+    `remark`            varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '处方备注',
     PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic COMMENT = '处方信息表';
 
 -- ----------------------------
 -- Table：处方药品关联表
@@ -828,16 +889,16 @@ CREATE TABLE `prescription_info`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `prescription_drug`;
 CREATE TABLE `prescription_drug` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `prescription_id` int(11) NOT NULL COMMENT '处方id',
-    `medication_id` int(11) NOT NULL COMMENT '药品id',
-    `medication_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-    `manufacturer` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-    `total_price` decimal(10,2) NOT NULL COMMENT '该药品总价',
-    `unit` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-    `quantity` int(11) NOT NULL COMMENT '药品数量',
+    `id`                    int(11) NOT NULL AUTO_INCREMENT COMMENT '处方药品关联id',
+    `prescription_id`       int(11) NOT NULL COMMENT '处方id',
+    `medication_id`         int(11) NOT NULL COMMENT '药品id',
+    `medication_name`       varchar(50) NOT NULL COMMENT '药品名称',
+    `manufacturer`          varchar(50) NOT NULL COMMENT '生产厂家',
+    `total_price`           decimal(10,2) NOT NULL COMMENT '该药品总价',
+    `unit`                  varchar(10) NOT NULL COMMENT '单位',
+    `quantity`              int(11) NOT NULL COMMENT '药品数量',
     PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic COMMENT = '处方药品关联表';
 
 -- ---------------------------------------------- 附加功能 ----------------------------------------------
 -- ----------------------------
@@ -846,15 +907,20 @@ CREATE TABLE `prescription_drug` (
 -- ----------------------------
 DROP TABLE IF EXISTS `user_feedback`;
 CREATE TABLE `user_feedback`  (
-    `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '反馈id',
-    `user_id` int(11) NOT NULL COMMENT '用户id',
-    `subject` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '反馈主题',
-    `user_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '反馈人',
-    `status` int(11) NOT NULL DEFAULT 0 COMMENT '反馈状态,0为待回复，1为已回复',
-    `feedback` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '反馈内容',
-    `create_time` datetime NOT NULL COMMENT '创建时间',
+    `id`            int(11) NOT NULL AUTO_INCREMENT COMMENT '反馈id',
+    `user_id`       int(11) NOT NULL COMMENT '用户id',
+    `subject`       varchar(255) NOT NULL COMMENT '反馈主题',
+    `user_name`     varchar(50) NOT NULL COMMENT '反馈人',
+    `status`        int(11) NOT NULL DEFAULT 0 COMMENT '反馈状态：0-待回复，1-已回复, -1-已删除',
+    `feedback`      text NULL DEFAULT NULL COMMENT '反馈内容',
+    `reply`         text NULL DEFAULT NULL COMMENT '回复内容',
+    `reply_time`    datetime NULL DEFAULT NULL COMMENT '回复时间',
+    `reply_user`    varchar(50) NULL DEFAULT NULL COMMENT '回复人',
+    `reply_user_id` int(11) NULL DEFAULT NULL COMMENT '回复人id',
+    `remark`        varchar(255) NULL DEFAULT NULL COMMENT '备注',
+    `create_time`   datetime NOT NULL COMMENT '创建时间',
     PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic COMMENT = '用户反馈表';
 
 -- ----------------------------
 -- Table：公告表
@@ -862,12 +928,15 @@ CREATE TABLE `user_feedback`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `announcement`;
 CREATE TABLE `announcement`  (
-    `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '公告id',
-    `subject` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '公告主题',
-    `author` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '发起人',
-    `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '公告内容',
-    `create_time` datetime NOT NULL COMMENT '发布时间',
+    `id`            int(11) NOT NULL AUTO_INCREMENT COMMENT '公告id',
+    `subject`       varchar(200) NOT NULL COMMENT '公告主题',
+    `author`        varchar(50) NOT NULL COMMENT '发起人',
+    `author_id`     int(11) NOT NULL COMMENT '发起人id',
+    `content`       text NULL DEFAULT NULL COMMENT '公告内容',
+    `status`        int(11) NOT NULL DEFAULT 0 COMMENT '公告状态：0-未发布，1-已发布, -1-已删除',
+    `create_time`   datetime NOT NULL COMMENT '发布时间',
+    `update_time`   datetime NOT NULL COMMENT '更新时间',
     PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic COMMENT = '公告表';
 
 SET FOREIGN_KEY_CHECKS = 1;
