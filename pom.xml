@@ -19,7 +19,14 @@
     <properties>
         <java.version>1.8</java.version>
         <!-- 版本管理 -->
-        <mybatis-plus.version>3.4.2</mybatis-plus.version>
+        <mybatis-plus.version>3.5.3</mybatis-plus.version>
+        <mybatis-plus-generator.version>3.5.3</mybatis-plus-generator.version>
+        <velocity.version>2.3</velocity.version>
+        <swagger.version>3.0.0</swagger.version>
+        <commons-collections4.version>4.4</commons-collections4.version>
+        <guava.version>30.1.1-jre</guava.version>
+        <hutool.version>5.7.16</hutool.version>
+        <velocity.version>2.3</velocity.version>
         <pagehelper.version>5.0.0</pagehelper.version>
         <druid.version>1.2.5</druid.version>
         <fastjson.version>1.2.76</fastjson.version>
@@ -65,11 +72,32 @@
             <version>${mybatis-plus.version}</version>
         </dependency>
 
+        <!-- Mybatis-Plus 代码生成器 -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>${mybatis-plus-generator.version}</version>
+        </dependency>
+
+        <!-- Velocity 模板生成引擎 -->
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-engine-core</artifactId>
+            <version>${velocity.version}</version>
+        </dependency>
+
+        <!-- Swagger API 文档 -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+
         <!-- Pagehelper 分页插件 -->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
-            <version>5.0.0</version>
+            <version>${pagehelper.version}</version>
         </dependency>
 
         <!-- Druid 链接池 -->
@@ -91,6 +119,27 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
+        </dependency>
+
+        <!-- Apache Commons -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>${commons-collections4.version}</version>
+        </dependency>
+
+        <!-- Google guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+
+        <!-- Hutool -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
         </dependency>
     </dependencies>
 
