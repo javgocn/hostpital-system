@@ -14,11 +14,14 @@ CREATE TABLE `admin_info`  (
     `password`          VARCHAR(255) NOT NULL COMMENT '密码',
     `tel`               VARCHAR(20) NOT NULL COMMENT '电话',
     `email`             VARCHAR(50) NOT NULL COMMENT '邮箱',
-    `status`            TINYINT NOT NULL DEFAULT 0 COMMENT '启用状态：0-启用，1-禁用',
+    `status`            TINYINT NOT NULL DEFAULT 0 COMMENT '启用状态：0 启用，1 禁用，-1 已删除',
     `create_time`       DATETIME NOT NULL COMMENT '创建时间',
     `update_time`       DATETIME NOT NULL COMMENT '更新时间',
     `last_login_time`   DATETIME NULL DEFAULT NULL COMMENT '最后登录时间',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `unique_user`(`username`),
+    UNIQUE INDEX `unique_tel`(`tel`),
+    UNIQUE INDEX `unique_email`(`email`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT '管理员信息表';
 
 -- ----------------------------
@@ -32,15 +35,18 @@ CREATE TABLE `user_info`  (
     `password`      VARCHAR(255) NOT NULL COMMENT '密码',
     `name`          VARCHAR(30) NOT NULL COMMENT '用户名',
     `id_card`       VARCHAR(30) NULL DEFAULT NULL COMMENT '身份证',
-    `status`        TINYINT NOT NULL DEFAULT 0 COMMENT '启用状态：0-启用，1-禁用',
-    `sex`           TINYINT NOT NULL DEFAULT 1 COMMENT '性别：0-女性，1-男性',
+    `status`        TINYINT NOT NULL DEFAULT 0 COMMENT '启用状态：0 启用，1 禁用，-1 已删除',
+    `sex`           TINYINT NOT NULL DEFAULT 1 COMMENT '性别：0 女性，1 男性, 2 保密',
     `birthday`      DATE NOT NULL COMMENT '生日',
     `telephone`     VARCHAR(30) NULL DEFAULT NULL COMMENT '电话',
     `email`         VARCHAR(50) NULL DEFAULT NULL COMMENT '邮箱',
     `address`       VARCHAR(50) NULL DEFAULT NULL COMMENT '地址',
     `create_time`   DATETIME NOT NULL COMMENT '创建时间',
     `update_time`   DATETIME NOT NULL COMMENT '更新时间',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `unique_user`(`username`),
+    UNIQUE INDEX `unique_id_card`(`id_card`),
+    UNIQUE INDEX `unique_telephone`(`telephone`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT '用户信息表';
 
 -- ----------------------------
@@ -51,10 +57,12 @@ DROP TABLE IF EXISTS `system_roles`;
 CREATE TABLE `system_roles` (
     `role_id`       INT(11) NOT NULL AUTO_INCREMENT COMMENT '角色id',
     `role_name`     VARCHAR(50) NOT NULL COMMENT '角色名称',
+    `status`        TINYINT NOT NULL DEFAULT 0 COMMENT '启用状态：0 启用，1 禁用，-1 已删除',
     `description`   VARCHAR(255) NULL DEFAULT NULL COMMENT '角色描述',
     `create_time`   DATETIME NOT NULL COMMENT '创建时间',
     `update_time`   DATETIME NOT NULL COMMENT '更新时间',
-    PRIMARY KEY (`role_id`)
+    PRIMARY KEY (`role_id`),
+    UNIQUE INDEX `unique_role_name`(`role_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 CHARACTER SET utf8mb4 COLLATE=utf8mb4_general_ci COMMENT '系统角色表';
 
 -- ----------------------------
@@ -77,9 +85,15 @@ CREATE TABLE `system_resources` (
     `resource_name`     VARCHAR(50) NOT NULL COMMENT '资源名称',
     `type`              TINYINT NOT NULL COMMENT '资源类型',
     `url`               VARCHAR(255) NULL DEFAULT NULL COMMENT '资源URL',
+    `method`            VARCHAR(50) NULL DEFAULT NULL COMMENT '资源请求方式',
+    `parent_id`         INT(11) NULL DEFAULT NULL COMMENT '父资源ID',
+    `status`            TINYINT NOT NULL DEFAULT 0 COMMENT '启用状态：0 启用，1 禁用，-1 已删除',
     `create_time`       DATETIME NOT NULL COMMENT '创建时间',
     `update_time`       DATETIME NOT NULL COMMENT '更新时间',
-    PRIMARY KEY (`resource_id`)
+    PRIMARY KEY (`resource_id`),
+    UNIQUE INDEX `unique_resource_name`(`resource_name`),
+    INDEX `index_parent_id`(`parent_id`),
+    INDEX `index_type`(`type`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 CHARACTER SET utf8mb4 COLLATE=utf8mb4_general_ci COMMENT '系统资源表';
 
 -- ----------------------------
@@ -88,9 +102,11 @@ CREATE TABLE `system_resources` (
 -- ----------------------------
 DROP TABLE IF EXISTS `user_role_relations`;
 CREATE TABLE `user_role_relations` (
+    `id`        INT(11) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
     `user_id`   INT(11) NOT NULL COMMENT '用户ID',
     `role_id`   INT(11) NOT NULL COMMENT '角色ID',
-    PRIMARY KEY (`user_id`, `role_id`),
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `unique_user_role`(`user_id`, `role_id`)
 ) ENGINE=InnoDB CHARACTER SET utf8mb4 COLLATE=utf8mb4_general_ci COMMENT '用户角色关系表';
 
 -- ----------------------------
@@ -99,9 +115,11 @@ CREATE TABLE `user_role_relations` (
 -- ----------------------------
 DROP TABLE IF EXISTS `role_resource_relations`;
 CREATE TABLE `role_resource_relations` (
+    `id`            INT(11) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
     `role_id`       INT(11) NOT NULL COMMENT '角色ID',
     `resource_id`   INT(11) NOT NULL COMMENT '资源ID',
-    PRIMARY KEY (`role_id`, `resource_id`),
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `unique_role_resource`(`role_id`, `resource_id`)
 ) ENGINE=InnoDB CHARACTER SET utf8mb4 COLLATE=utf8mb4_general_ci COMMENT '角色资源关系表';
 
 -- ---------------------------------------------- 医院员工管理 ----------------------------------------------
@@ -114,9 +132,11 @@ CREATE TABLE `position_info` (
     `position_id`       INT(11) NOT NULL AUTO_INCREMENT COMMENT '职位id',
     `position_name`     VARCHAR(50) NOT NULL COMMENT '职位名称',
     `description`       VARCHAR(255) NULL DEFAULT NULL COMMENT '职位描述',
+    `status`            TINYINT NOT NULL DEFAULT 0 COMMENT '启用状态：0 启用，1 禁用，-1 已删除',
     `create_time`       DATETIME NOT NULL COMMENT '创建时间',
     `update_time`       DATETIME NOT NULL COMMENT '更新时间',
-    PRIMARY KEY (`position_id`)
+    PRIMARY KEY (`position_id`),
+    UNIQUE INDEX `unique_position_name`(`position_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 CHARACTER SET utf8mb4 COLLATE=utf8mb4_general_ci COMMENT '职位信息表';
 
 -- ----------------------------
@@ -152,15 +172,20 @@ CREATE TABLE `doctor_info`  (
     `position_id`   INT(11) NOT NULL COMMENT '职位id',
     `telephone`     VARCHAR(30) NULL DEFAULT NULL COMMENT '电话',
     `email`         VARCHAR(50) NULL DEFAULT NULL COMMENT '邮箱',
-    `sex`           TINYINT NOT NULL DEFAULT 1 COMMENT '性别：0-女性，1-男性',
+    `sex`           TINYINT NOT NULL DEFAULT 1 COMMENT '性别：0 女性，1 男性，2 保密',
     `birthday`      DATE NULL DEFAULT NULL COMMENT '生日',
     `address`       VARCHAR(50) NULL DEFAULT NULL COMMENT '住址',
-    `status`        TINYINT NOT NULL DEFAULT 0 COMMENT '启用状态：0-启用，1-禁用',
+    `status`        TINYINT NOT NULL DEFAULT 0 COMMENT '启用状态：0 启用，1 禁用，-1 已删除',
     `remark`        VARCHAR(255) NULL DEFAULT NULL COMMENT '备注',
     `create_time`   DATETIME NOT NULL COMMENT '创建时间',
     `update_time`   DATETIME NOT NULL COMMENT '更新时间',
     PRIMARY KEY (`id`),
     UNIQUE INDEX `unique_user`(`username`),
+    UNIQUE INDEX `unique_job_number`(`job_number`),
+    UNIQUE INDEX `unique_telephone`(`telephone`),
+    UNIQUE INDEX `unique_email`(`email`),
+    INDEX `index_department_id`(`department_id`),
+    INDEX `index_position_id`(`position_id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT '医生信息表';
 
 -- ----------------------------
@@ -178,15 +203,21 @@ CREATE TABLE `nurse_info` (
     `position_id`       INT(11) NOT NULL COMMENT '职位id',
     `telephone`         VARCHAR(30) NULL DEFAULT NULL COMMENT '电话',
     `email`             VARCHAR(50) NULL DEFAULT NULL COMMENT '邮箱',
-    `sex`               TINYINT NOT NULL DEFAULT 1 COMMENT '性别，0为女性，1为男性',
+    `sex`               TINYINT NOT NULL DEFAULT 1 COMMENT '性别，0 女性，1 男性， 2 保密',
     `birthday`          DATE NULL DEFAULT NULL COMMENT '生日',
     `address`           VARCHAR(50) NULL DEFAULT NULL COMMENT '住址',
-    `status`            TINYINT NOT NULL DEFAULT 0 COMMENT '启用状态，0为启用，1为禁用',
+    `status`            TINYINT NOT NULL DEFAULT 0 COMMENT '启用状态：0 启用，1 禁用，-1 已删除',
     `remark`            VARCHAR(255) NULL DEFAULT NULL COMMENT '备注',
     `create_time`       DATETIME NOT NULL COMMENT '创建时间',
     `update_time`       DATETIME NOT NULL COMMENT '更新时间',
     PRIMARY KEY (`id`),
     UNIQUE INDEX `unique_user`(`username`),
+    UNIQUE INDEX `unique_job_number`(`job_number`),
+    UNIQUE INDEX `unique_telephone`(`telephone`),
+    UNIQUE INDEX `unique_email`(`email`),
+    INDEX `index_department_id`(`department_id`),
+    INDEX `index_position_id`(`position_id`),
+    INDEX `index_sex`(`sex`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 CHARACTER SET utf8mb4 COLLATE=utf8mb4_general_ci COMMENT '护士信息表';
 
 -- ----------------------------
@@ -202,13 +233,19 @@ CREATE TABLE `employee_info` (
     `position_id`       INT(11) NOT NULL COMMENT '职位id',
     `telephone`         VARCHAR(30) NULL DEFAULT NULL COMMENT '电话',
     `email`             VARCHAR(50) NULL DEFAULT NULL COMMENT '邮箱',
-    `sex`               TINYINT NOT NULL DEFAULT 1 COMMENT '性别：0-女性，1-男性',
+    `sex`               TINYINT NOT NULL DEFAULT 1 COMMENT '性别：0 女性，1 男性， 2 保密',
     `birthday`          DATE NULL DEFAULT NULL COMMENT '生日',
     `address`           VARCHAR(50) NULL DEFAULT NULL COMMENT '住址',
-    `status`            TINYINT NOT NULL DEFAULT 0 COMMENT '启用状态：0-启用，1-禁用',
+    `status`            TINYINT NOT NULL DEFAULT 0 COMMENT '启用状态：0 启用，1 禁用，-1 已删除',
     `create_time`       DATETIME NOT NULL COMMENT '创建时间',
     `update_time`       DATETIME NOT NULL COMMENT '更新时间',
     PRIMARY KEY (`id`),
+    UNIQUE INDEX `unique_job_number`(`job_number`),
+    UNIQUE INDEX `unique_telephone`(`telephone`),
+    UNIQUE INDEX `unique_email`(`email`),
+    INDEX `index_department_id`(`department_id`),
+    INDEX `index_position_id`(`position_id`),
+    INDEX `index_sex`(`sex`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 CHARACTER SET utf8mb4 COLLATE=utf8mb4_general_ci COMMENT '员工信息表';
 
 -- ----------------------------
@@ -220,9 +257,10 @@ CREATE TABLE `employee_attendance` (
     `attendance_id`     INT(11) NOT NULL AUTO_INCREMENT COMMENT '考勤id',
     `employee_id`       INT(11) NOT NULL COMMENT '员工id',
     `date`              DATE NOT NULL COMMENT '考勤日期',
-    `status`            TINYINT NOT NULL COMMENT '考勤状态：0-正常，1-迟到，2-早退，3-旷工，4-请假，5-加班，6-出差，7-外勤，8-休息，9-节假日，10-调休，11-其他，12-已删除',
+    `status`            TINYINT NOT NULL COMMENT '考勤状态：0 正常，1 迟到，2 早退，3 旷工，4 请假，5 加班，6 出差，7 外勤，8 休息，9 节假日，10 调休，11 其他，-1 已删除',
     `remark`            VARCHAR(255) NULL DEFAULT NULL COMMENT '备注',
     PRIMARY KEY (`attendance_id`),
+    INDEX `index_employee_id`(`employee_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 CHARACTER SET utf8mb4 COLLATE=utf8mb4_general_ci COMMENT '员工考勤表';
 
 -- ---------------------------------------------- 排班和预约 ----------------------------------------------
@@ -237,10 +275,14 @@ CREATE TABLE `nurse_schedule`  (
     `dept_id`       INT(11) NOT NULL COMMENT '科室id',
     `work_date`     DATE NOT NULL COMMENT '工作日期',
     `work_time`     VARCHAR(50) NOT NULL COMMENT '工作时间',
-    `status`        TINYINT NOT NULL DEFAULT 0 COMMENT '工作状态：0-上班，1-休息，2-请假，3-出差，4-外勤，5-已删除',
+    `status`        TINYINT NOT NULL DEFAULT 0 COMMENT '排班表状态：0 正常，1 迟到，2 早退，3 旷工，4 请假，5 加班，6 出差，7 外勤，8 休息，9 节假日，10 调休，11 其他，-1 已删除',
     `remark`        VARCHAR(255) NULL DEFAULT NULL COMMENT '备注',
     `create_time`   DATETIME NOT NULL COMMENT '创建时间',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    INDEX `index_nurse_id`(`nurse_id`),
+    INDEX `index_dept_id`(`dept_id`),
+    INDEX `index_work_date`(`work_date`),
+    INDEX `index_work_time`(`work_time`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT '护士排班表';
 
 -- ----------------------------
@@ -254,10 +296,14 @@ CREATE TABLE `user_appointment`  (
     `dept_id`       INT(11) NOT NULL COMMENT '预约科室号',
     `doctor_id`     INT(11) NOT NULL COMMENT '医生id',
     `user_id`       INT(11) NOT NULL COMMENT '就诊用户id',
-    `status`        TINYINT NOT NULL DEFAULT 0 COMMENT '就诊状态：0-待就诊，1-已就诊，2-已取消，3-已删除',
+    `status`        TINYINT NOT NULL DEFAULT 0 COMMENT '就诊状态：0 待就诊，1 已就诊，2 已取消，-1 已删除',
     `remark`        VARCHAR(255) NOT NULL COMMENT '预约描述',
     `create_time`   DATETIME NOT NULL COMMENT '预约时间',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    INDEX `index_consult_time`(`consult_time`),
+    INDEX `index_dept_id`(`dept_id`),
+    INDEX `index_doctor_id`(`doctor_id`),
+    INDEX `index_user_id`(`user_id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT '用户预约表';
 
 -- ----------------------------
@@ -273,10 +319,15 @@ CREATE TABLE `user_registration`  (
     `register_date` DATE NOT NULL COMMENT '挂号日期',
     `register_time` VARCHAR(50) NOT NULL COMMENT '挂号时间',
     `price`         DECIMAL(10, 2) NOT NULL COMMENT '挂号费用',
-    `status`        TINYINT NOT NULL DEFAULT 0 COMMENT '挂号状态：0-待挂号，1-已挂号，2-已取消，3-已叫号，4-已删除',
+    `status`        TINYINT NOT NULL DEFAULT 0 COMMENT '挂号状态：0 待挂号，1 已挂号，2 已取消，3 已叫号，-1 已删除',
     `remark`        VARCHAR(255) NULL DEFAULT NULL COMMENT '挂号备注',
     `create_time`   DATETIME NOT NULL COMMENT '创建时间',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    INDEX `index_user_id`(`user_id`),
+    INDEX `index_doctor_id`(`doctor_id`),
+    INDEX `index_dept_id`(`dept_id`),
+    INDEX `index_register_date`(`register_date`),
+    INDEX `index_register_time`(`register_time`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT '用户挂号表';
 
 -- ---------------------------------------------- 医院基础设施 ----------------------------------------------
@@ -289,9 +340,11 @@ CREATE TABLE `department`  (
     `id`            int(11) NOT NULL AUTO_INCREMENT COMMENT '科室id',
     `name`          varchar(50) NOT NULL COMMENT '科室名称',
     `description`   varchar(255) NULL DEFAULT NULL COMMENT '科室描述',
+    `status`        tinyint NOT NULL DEFAULT 0 COMMENT '科室状态：0 启用，1 禁用，-1 已删除',
     `create_time`   datetime NOT NULL COMMENT '创建时间',
     `update_time`   datetime NOT NULL COMMENT '更新时间',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `unique_name`(`name`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT '科室信息表';
 
 -- ----------------------------
@@ -332,11 +385,13 @@ CREATE TABLE `room`  (
     `room_number`       varchar(20) NOT NULL COMMENT '病房编号，如 A-1-101 表示 A楼1层101房间，B-2-201 表示 B楼2层201房间',
     `department_id`     int(11) NOT NULL COMMENT '科室ID',
     `bed_count`         int(11) NOT NULL COMMENT '床位数量',
-    `status`            int(11) NOT NULL COMMENT '病房状态：0-空闲（默认），1-可用，2-维修，3-已满，4-已删除',
+    `status`            int(11) NOT NULL COMMENT '病房状态：0 空闲（默认），1 可用，2 维修，3 已满，-1 已删除',
     `remark`            varchar(255) NULL DEFAULT NULL COMMENT '病房备注',
     `create_time`       datetime NOT NULL COMMENT '创建时间',
     `update_time`       datetime NOT NULL COMMENT '更新时间',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `unique_room_number`(`room_number`),
+    INDEX `index_department_id`(`department_id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT '病房信息表';
 
 -- ----------------------------
@@ -554,11 +609,13 @@ CREATE TABLE `bed`  (
     `room_id`       int(11) NOT NULL COMMENT '病房ID',
     `bed_number`    int(11) NOT NULL COMMENT '床位编号, 1～4',
     `price`         decimal(10,2) NOT NULL COMMENT '单价',
-    `status`        int(11) NOT NULL COMMENT '占用状态:0-空闲，1-占用, 2-维修，3-预定，4-已删除',
+    `status`        int(11) NOT NULL COMMENT '占用状态:0 空闲，1 占用, 2 维修，3 预定，-1 已删除',
     `remark`        varchar(255) NULL DEFAULT NULL COMMENT '床位备注',
     `create_time`   datetime NOT NULL COMMENT '创建时间',
     `update_time`   datetime NOT NULL COMMENT '更新时间',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `unique_room_id_bed_number`(`room_id`, `bed_number`),
+    INDEX `index_room_id`(`room_id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '床位信息表';
 
 -- ----------------------------
@@ -661,11 +718,14 @@ CREATE TABLE `hospitalization_info`  (
     `admission_date`    date NOT NULL COMMENT '入院日期',
     `discharge_date`    date NULL DEFAULT NULL COMMENT '出院日期',
     `total_cost`        decimal(10,2) NOT NULL COMMENT '总费用',
-    `status`            int(11) NOT NULL DEFAULT 0 COMMENT '住院状态：0-住院中，1-已出院',
+    `status`            int(11) NOT NULL DEFAULT 0 COMMENT '住院状态：0 住院中，1 已出院, -1 已删除',
     `remark`            varchar(255) NULL DEFAULT NULL COMMENT '备注',
     `create_time`       datetime NOT NULL COMMENT '创建时间',
     `update_time`       datetime NOT NULL COMMENT '更新时间',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    INDEX `index_patient_id`(`patient_id`),
+    INDEX `index_room_id`(`room_id`),
+    INDEX `index_bed_id`(`bed_id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '住院信息表';
 
 -- ----------------------------
@@ -683,9 +743,12 @@ CREATE TABLE `medical_record`  (
     `blood_pressure`    int(11) NOT NULL COMMENT '血压',
     `remark`            varchar(255) NULL DEFAULT NULL COMMENT '备注',
     `appointment_date`  date NOT NULL COMMENT '预约时间',
+    `status`            int(11) NOT NULL DEFAULT 0 COMMENT '病历状态：0 未就诊，1 已就诊, -1 已删除',
     `create_time`       datetime NOT NULL COMMENT '创建时间',
     `update_time`       datetime NOT NULL COMMENT '更新时间',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    INDEX `index_patient_id`(`patient_id`),
+    INDEX `index_doctor_id`(`doctor_id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '病历信息表';
 
 -- ----------------------------
@@ -700,9 +763,12 @@ CREATE TABLE `patient_relative`  (
     `relationship`  varchar(20) NOT NULL COMMENT '与患者的关系',
     `phone`         varchar(20) NOT NULL COMMENT '联系电话',
     `address`       varchar(255) NULL DEFAULT NULL COMMENT '联系地址',
+    `remark`        varchar(255) NULL DEFAULT NULL COMMENT '备注',
+    `status`        tinyint NOT NULL DEFAULT 0 COMMENT '状态：0 启用，1 禁用，-1 已删除',
     `create_time`   datetime NOT NULL COMMENT '创建时间',
     `update_time`   datetime NOT NULL COMMENT '更新时间',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    INDEX `index_patient_id`(`patient_id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '患者家属信息表';
 
 -- ---------------------------------------------- 药品管理 ----------------------------------------------
@@ -720,9 +786,11 @@ CREATE TABLE `medication_info`  (
     `unit`              varchar(20) NOT NULL COMMENT '单位例如片、瓶、盒等',
     `stock`             int(11) NOT NULL COMMENT '库存',
     `remark`            varchar(255) NULL DEFAULT NULL COMMENT '关于药品的其他重要信息，例如用法用量、副作用等',
+    `status`            tinyint NOT NULL DEFAULT 0 COMMENT '药品状态：0 启用，1 禁用，-1 已删除',
     `create_time`       datetime NOT NULL COMMENT '创建时间',
     `update_time`       datetime NOT NULL COMMENT '更新时间',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `unique_medication_code`(`medication_code`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '药品信息表';
 
 -- ----------------------------
@@ -792,9 +860,12 @@ CREATE TABLE `medication_purchase`  (
     `total_cost`        decimal(10,2) NOT NULL COMMENT '总费用',
     `purchase_date`     date NOT NULL COMMENT '采购日期',
     `remark`            varchar(255) NULL DEFAULT NULL COMMENT '备注',
+    `status`            tinyint NOT NULL DEFAULT 0 COMMENT '采购单状态：0 未入库，1 已入库, -1 已删除',
     `create_time`       datetime NOT NULL COMMENT '创建时间',
     `update_time`       datetime NOT NULL COMMENT '更新时间',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `unique_purchase_code`(`purchase_code`),
+    INDEX `index_purchase_date`(`purchase_date`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '药品采购表';
 
 -- ----------------------------
@@ -808,9 +879,13 @@ CREATE TABLE `medication_purchase_details`  (
     `medication_id`     int(11) NOT NULL COMMENT '药品id',
     `quantity`          int(11) NOT NULL COMMENT '采购数量',
     `cost`              decimal(10,2) NOT NULL COMMENT '费用',
+    `remark`            varchar(255) NULL DEFAULT NULL COMMENT '备注',
+    `status`            tinyint NOT NULL DEFAULT 0 COMMENT '采购明细状态：0 未入库，1 已入库, -1 已删除',
     `create_time`       datetime NOT NULL COMMENT '创建时间',
     `update_time`       datetime NOT NULL COMMENT '更新时间',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    INDEX `index_purchase_id`(`purchase_id`),
+    INDEX `index_medication_id`(`medication_id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '药品采购明细表';
 
 -- ----------------------------
@@ -824,9 +899,12 @@ CREATE TABLE `medication_stock`  (
      `quantity`         int(11) NOT NULL COMMENT '入库数量',
      `stock_date`       date NOT NULL COMMENT '入库日期',
      `remark`           varchar(255) NULL DEFAULT NULL COMMENT '备注',
+     `status`           tinyint NOT NULL DEFAULT 0 COMMENT '入库状态：0 未审核，1 已审核, -1 已删除',
      `create_time`      datetime NOT NULL COMMENT '创建时间',
      `update_time`      datetime NOT NULL COMMENT '更新时间',
-     PRIMARY KEY (`id`)
+     PRIMARY KEY (`id`),
+     INDEX `index_purchase_id`(`purchase_id`),
+     INDEX `index_stock_date`(`stock_date`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '药品入库作业表';
 
 -- ----------------------------
@@ -838,12 +916,16 @@ CREATE TABLE `medication_financial_audit`  (
     `id`            int(11) NOT NULL AUTO_INCREMENT COMMENT '审核id',
     `audit_code`    varchar(50) NOT NULL COMMENT '审核编号,与采购编号一致',
     `purchase_id`   int(11) NOT NULL COMMENT '采购编号',
-    `audit_status`  int(11) NOT NULL DEFAULT 0 COMMENT '审核状态：0-待审核，1-已审核，2-审核不通过，-1-已删除',
+    `audit_status`  int(11) NOT NULL DEFAULT 0 COMMENT '审核状态：0 待审核，1 已审核，2 审核不通过，-1 已删除',
     `audit_date`    date NULL DEFAULT NULL COMMENT '审核日期',
     `remark`        varchar(255) NULL DEFAULT NULL COMMENT '备注',
     `create_time`   datetime NOT NULL COMMENT '创建时间',
     `update_time`   datetime NOT NULL COMMENT '更新时间',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `unique_audit_code`(`audit_code`),
+    INDEX `index_purchase_id`(`purchase_id`),
+    INDEX `index_audit_date`(`audit_date`),
+    INDEX `index_audit_status`(`audit_status`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '药品财务审核表';
 
 -- ----------------------------
@@ -854,14 +936,20 @@ DROP TABLE IF EXISTS `financial_info`;
 CREATE TABLE `financial_info`  (
     `id`                int(11) NOT NULL AUTO_INCREMENT COMMENT '财务id',
     `original_id`       int(11) NULL DEFAULT NULL COMMENT '原始id，例如住院信息表的id,处方信息表的id,药品采购表的id等',
-    `category`          int(11) NOT NULL COMMENT '类别：0-住院，1-处方，2-药品采购',
-    `type`              int(11) NOT NULL COMMENT '类型：0-支出，1-收入',
+    `category`          int(11) NOT NULL COMMENT '类别：0 住院，1 处方，2 药品采购',
+    `type`              int(11) NOT NULL COMMENT '类型：0 支出，1 收入',
     `amount`            decimal(10,2) NOT NULL COMMENT '金额',
     `financial_date`     date NOT NULL COMMENT '财务日期',
     `remark`            varchar(255) NULL DEFAULT NULL COMMENT '备注',
+    `status`            tinyint NOT NULL DEFAULT 0 COMMENT '财务状态：0 未审核，1 已审核, 2 审核不通过, -1 已删除',
     `create_time`       datetime NOT NULL COMMENT '创建时间',
     `update_time`       datetime NOT NULL COMMENT '更新时间',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    INDEX `index_original_id`(`original_id`),
+    INDEX `index_category`(`category`),
+    INDEX `index_type`(`type`),
+    INDEX `index_financial_date`(`financial_date`),
+    INDEX `index_status`(`status`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '医院财务表';
 
 -- ---------------------------------------------- 处方管理 ----------------------------------------------
@@ -878,9 +966,17 @@ CREATE TABLE `prescription_info`  (
     `doctor_id`         int(11) NULL DEFAULT NULL COMMENT '医生id',
     `doctor_name`       varchar(50) NULL DEFAULT NULL COMMENT '医生姓名',
     `total_price`       decimal(10,2) NULL DEFAULT 0 COMMENT '总费用',
-    `payment_status`    int(11) NOT NULL DEFAULT 0 COMMENT '支付状态：0-待支付,1-已支付',
+    `payment_status`    int(11) NOT NULL DEFAULT 0 COMMENT '支付状态：0 待支付, 1 已支付，2 已退款',
     `remark`            varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '处方备注',
-    PRIMARY KEY (`id`)
+    `status`            tinyint NOT NULL DEFAULT 0 COMMENT '处方状态：0 未审核，1 已审核,2 审核不通过, -1 已删除',
+    `create_time`       datetime NOT NULL COMMENT '创建时间',
+    `update_time`       datetime NOT NULL COMMENT '更新时间',
+    PRIMARY KEY (`id`),
+    INDEX `index_user_id`(`user_id`),
+    INDEX `index_doctor_id`(`doctor_id`),
+    INDEX `index_create_date`(`create_date`),
+    INDEX `index_payment_status`(`payment_status`),
+    INDEX `index_status`(`status`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic COMMENT = '处方信息表';
 
 -- ----------------------------
@@ -897,7 +993,11 @@ CREATE TABLE `prescription_drug` (
     `total_price`           decimal(10,2) NOT NULL COMMENT '该药品总价',
     `unit`                  varchar(10) NOT NULL COMMENT '单位',
     `quantity`              int(11) NOT NULL COMMENT '药品数量',
-    PRIMARY KEY (`id`)
+    `remark`                varchar(255) NULL DEFAULT NULL COMMENT '备注',
+    PRIMARY KEY (`id`),
+    INDEX `index_prescription_id`(`prescription_id`),
+    INDEX `index_medication_id`(`medication_id`),
+    INDEX `index_medication_name`(`medication_name`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic COMMENT = '处方药品关联表';
 
 -- ---------------------------------------------- 附加功能 ----------------------------------------------
@@ -911,7 +1011,7 @@ CREATE TABLE `user_feedback`  (
     `user_id`       int(11) NOT NULL COMMENT '用户id',
     `subject`       varchar(255) NOT NULL COMMENT '反馈主题',
     `user_name`     varchar(50) NOT NULL COMMENT '反馈人',
-    `status`        int(11) NOT NULL DEFAULT 0 COMMENT '反馈状态：0-待回复，1-已回复, -1-已删除',
+    `status`        int(11) NOT NULL DEFAULT 0 COMMENT '反馈状态：0 待回复，1 已回复, -1 已删除',
     `feedback`      text NULL DEFAULT NULL COMMENT '反馈内容',
     `reply`         text NULL DEFAULT NULL COMMENT '回复内容',
     `reply_time`    datetime NULL DEFAULT NULL COMMENT '回复时间',
@@ -919,7 +1019,9 @@ CREATE TABLE `user_feedback`  (
     `reply_user_id` int(11) NULL DEFAULT NULL COMMENT '回复人id',
     `remark`        varchar(255) NULL DEFAULT NULL COMMENT '备注',
     `create_time`   datetime NOT NULL COMMENT '创建时间',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    INDEX `index_user_id`(`user_id`),
+    INDEX `index_status`(`status`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic COMMENT = '用户反馈表';
 
 -- ----------------------------
@@ -933,10 +1035,12 @@ CREATE TABLE `announcement`  (
     `author`        varchar(50) NOT NULL COMMENT '发起人',
     `author_id`     int(11) NOT NULL COMMENT '发起人id',
     `content`       text NULL DEFAULT NULL COMMENT '公告内容',
-    `status`        int(11) NOT NULL DEFAULT 0 COMMENT '公告状态：0-未发布，1-已发布, -1-已删除',
+    `status`        int(11) NOT NULL DEFAULT 0 COMMENT '公告状态：0 未发布，1 已发布, -1 已删除',
     `create_time`   datetime NOT NULL COMMENT '发布时间',
     `update_time`   datetime NOT NULL COMMENT '更新时间',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    INDEX `index_author_id`(`author_id`),
+    INDEX `index_status`(`status`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic COMMENT = '公告表';
 
 SET FOREIGN_KEY_CHECKS = 1;
