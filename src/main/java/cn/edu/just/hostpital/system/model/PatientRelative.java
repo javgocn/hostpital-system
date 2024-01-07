@@ -16,7 +16,7 @@ import lombok.Setter;
  * </p>
  *
  * @author javgo
- * @since 2024-01-06
+ * @since 2024-01-07
  */
 @Getter
 @Setter
@@ -43,6 +43,12 @@ public class PatientRelative implements Serializable {
 
     @ApiModelProperty("联系地址")
     private String address;
+
+    @ApiModelProperty("备注")
+    private String remark;
+
+    @ApiModelProperty("状态：0 启用，1 禁用，-1 已删除")
+    private Byte status;
 
     @ApiModelProperty("创建时间")
     private Timestamp createTime;

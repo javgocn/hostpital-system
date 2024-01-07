@@ -17,7 +17,7 @@ import lombok.Setter;
  * </p>
  *
  * @author javgo
- * @since 2024-01-06
+ * @since 2024-01-07
  */
 @Getter
 @Setter
@@ -43,7 +43,7 @@ public class NurseSchedule implements Serializable {
     @ApiModelProperty("工作时间")
     private String workTime;
 
-    @ApiModelProperty("工作状态：0-上班，1-休息，2-请假，3-出差，4-外勤，5-已删除")
+    @ApiModelProperty("排班表状态：0 正常，1 迟到，2 早退，3 旷工，4 请假，5 加班，6 出差，7 外勤，8 休息，9 节假日，10 调休，11 其他，-1 已删除")
     private Byte status;
 
     @ApiModelProperty("备注")

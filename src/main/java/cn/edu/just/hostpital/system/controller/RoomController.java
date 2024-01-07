@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
  * </p>
  *
  * @author javgo
- * @since 2024-01-06
+ * @since 2024-01-07
  */
 @RestController
 @RequestMapping("/room")

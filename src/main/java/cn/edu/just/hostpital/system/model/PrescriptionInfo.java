@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -17,7 +18,7 @@ import lombok.Setter;
  * </p>
  *
  * @author javgo
- * @since 2024-01-06
+ * @since 2024-01-07
  */
 @Getter
 @Setter
@@ -49,9 +50,18 @@ public class PrescriptionInfo implements Serializable {
     @ApiModelProperty("总费用")
     private BigDecimal totalPrice;
 
-    @ApiModelProperty("支付状态：0-待支付,1-已支付")
+    @ApiModelProperty("支付状态：0 待支付, 1 已支付，2 已退款")
     private Integer paymentStatus;
 
     @ApiModelProperty("处方备注")
     private String remark;
+
+    @ApiModelProperty("处方状态：0 未审核，1 已审核,2 审核不通过, -1 已删除")
+    private Byte status;
+
+    @ApiModelProperty("创建时间")
+    private Timestamp createTime;
+
+    @ApiModelProperty("更新时间")
+    private Timestamp updateTime;
 }

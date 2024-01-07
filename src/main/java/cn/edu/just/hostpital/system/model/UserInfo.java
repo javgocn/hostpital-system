@@ -17,7 +17,7 @@ import lombok.Setter;
  * </p>
  *
  * @author javgo
- * @since 2024-01-06
+ * @since 2024-01-07
  */
 @Getter
 @Setter
@@ -43,10 +43,10 @@ public class UserInfo implements Serializable {
     @ApiModelProperty("身份证")
     private String idCard;
 
-    @ApiModelProperty("启用状态：0-启用，1-禁用")
+    @ApiModelProperty("启用状态：0 启用，1 禁用，-1 已删除")
     private Byte status;
 
-    @ApiModelProperty("性别：0-女性，1-男性")
+    @ApiModelProperty("性别：0 女性，1 男性, 2 保密")
     private Byte sex;
 
     @ApiModelProperty("生日")

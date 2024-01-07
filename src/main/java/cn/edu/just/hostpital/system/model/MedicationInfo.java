@@ -17,7 +17,7 @@ import lombok.Setter;
  * </p>
  *
  * @author javgo
- * @since 2024-01-06
+ * @since 2024-01-07
  */
 @Getter
 @Setter
@@ -51,6 +51,9 @@ public class MedicationInfo implements Serializable {
 
     @ApiModelProperty("关于药品的其他重要信息，例如用法用量、副作用等")
     private String remark;
+
+    @ApiModelProperty("药品状态：0 启用，1 禁用，-1 已删除")
+    private Byte status;
 
     @ApiModelProperty("创建时间")
     private Timestamp createTime;

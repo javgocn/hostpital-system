@@ -17,7 +17,7 @@ import lombok.Setter;
  * </p>
  *
  * @author javgo
- * @since 2024-01-06
+ * @since 2024-01-07
  */
 @Getter
 @Setter
@@ -42,7 +42,7 @@ public class UserAppointment implements Serializable {
     @ApiModelProperty("就诊用户id")
     private Integer userId;
 
-    @ApiModelProperty("就诊状态：0-待就诊，1-已就诊，2-已取消，3-已删除")
+    @ApiModelProperty("就诊状态：0 待就诊，1 已就诊，2 已取消，-1 已删除")
     private Byte status;
 
     @ApiModelProperty("预约描述")

@@ -17,7 +17,7 @@ import lombok.Setter;
  * </p>
  *
  * @author javgo
- * @since 2024-01-06
+ * @since 2024-01-07
  */
 @Getter
 @Setter
@@ -55,7 +55,7 @@ public class NurseInfo implements Serializable {
     @ApiModelProperty("邮箱")
     private String email;
 
-    @ApiModelProperty("性别，0为女性，1为男性")
+    @ApiModelProperty("性别，0 女性，1 男性， 2 保密")
     private Byte sex;
 
     @ApiModelProperty("生日")
@@ -64,7 +64,7 @@ public class NurseInfo implements Serializable {
     @ApiModelProperty("住址")
     private String address;
 
-    @ApiModelProperty("启用状态，0为启用，1为禁用")
+    @ApiModelProperty("启用状态：0 启用，1 禁用，-1 已删除")
     private Byte status;
 
     @ApiModelProperty("备注")

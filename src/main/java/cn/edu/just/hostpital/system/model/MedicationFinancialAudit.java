@@ -17,7 +17,7 @@ import lombok.Setter;
  * </p>
  *
  * @author javgo
- * @since 2024-01-06
+ * @since 2024-01-07
  */
 @Getter
 @Setter
@@ -37,7 +37,7 @@ public class MedicationFinancialAudit implements Serializable {
     @ApiModelProperty("采购编号")
     private Integer purchaseId;
 
-    @ApiModelProperty("审核状态：0-待审核，1-已审核，2-审核不通过，-1-已删除")
+    @ApiModelProperty("审核状态：0 待审核，1 已审核，2 审核不通过，-1 已删除")
     private Integer auditStatus;
 
     @ApiModelProperty("审核日期")

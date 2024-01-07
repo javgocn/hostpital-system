@@ -18,7 +18,7 @@ import lombok.Setter;
  * </p>
  *
  * @author javgo
- * @since 2024-01-06
+ * @since 2024-01-07
  */
 @Getter
 @Setter
@@ -53,7 +53,7 @@ public class HospitalizationInfo implements Serializable {
     @ApiModelProperty("总费用")
     private BigDecimal totalCost;
 
-    @ApiModelProperty("住院状态：0-住院中，1-已出院")
+    @ApiModelProperty("住院状态：0 住院中，1 已出院, -1 已删除")
     private Integer status;
 
     @ApiModelProperty("备注")

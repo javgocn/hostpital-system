@@ -15,7 +15,7 @@ import lombok.Setter;
  * </p>
  *
  * @author javgo
- * @since 2024-01-06
+ * @since 2024-01-07
  */
 @Getter
 @Setter
@@ -40,7 +40,7 @@ public class Announcement implements Serializable {
     @ApiModelProperty("公告内容")
     private String content;
 
-    @ApiModelProperty("公告状态：0-未发布，1-已发布, -1-已删除")
+    @ApiModelProperty("公告状态：0 未发布，1 已发布, -1 已删除")
     private Integer status;
 
     @ApiModelProperty("发布时间")

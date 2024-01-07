@@ -18,7 +18,7 @@ import lombok.Setter;
  * </p>
  *
  * @author javgo
- * @since 2024-01-06
+ * @since 2024-01-07
  */
 @Getter
 @Setter
@@ -35,10 +35,10 @@ public class FinancialInfo implements Serializable {
     @ApiModelProperty("原始id，例如住院信息表的id,处方信息表的id,药品采购表的id等")
     private Integer originalId;
 
-    @ApiModelProperty("类别：0-住院，1-处方，2-药品采购")
+    @ApiModelProperty("类别：0 住院，1 处方，2 药品采购")
     private Integer category;
 
-    @ApiModelProperty("类型：0-支出，1-收入")
+    @ApiModelProperty("类型：0 支出，1 收入")
     private Integer type;
 
     @ApiModelProperty("金额")
@@ -49,6 +49,9 @@ public class FinancialInfo implements Serializable {
 
     @ApiModelProperty("备注")
     private String remark;
+
+    @ApiModelProperty("财务状态：0 未审核，1 已审核, 2 审核不通过, -1 已删除")
+    private Byte status;
 
     @ApiModelProperty("创建时间")
     private Timestamp createTime;

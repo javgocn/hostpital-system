@@ -16,7 +16,7 @@ import lombok.Setter;
  * </p>
  *
  * @author javgo
- * @since 2024-01-06
+ * @since 2024-01-07
  */
 @Getter
 @Setter
@@ -50,4 +50,7 @@ public class PrescriptionDrug implements Serializable {
 
     @ApiModelProperty("药品数量")
     private Integer quantity;
+
+    @ApiModelProperty("备注")
+    private String remark;
 }

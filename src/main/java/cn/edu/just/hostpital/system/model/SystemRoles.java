@@ -16,7 +16,7 @@ import lombok.Setter;
  * </p>
  *
  * @author javgo
- * @since 2024-01-06
+ * @since 2024-01-07
  */
 @Getter
 @Setter
@@ -32,6 +32,9 @@ public class SystemRoles implements Serializable {
 
     @ApiModelProperty("角色名称")
     private String roleName;
+
+    @ApiModelProperty("启用状态：0 启用，1 禁用，-1 已删除")
+    private Byte status;
 
     @ApiModelProperty("角色描述")
     private String description;

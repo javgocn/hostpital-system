@@ -15,7 +15,7 @@ import lombok.Setter;
  * </p>
  *
  * @author javgo
- * @since 2024-01-06
+ * @since 2024-01-07
  */
 @Getter
 @Setter
@@ -25,7 +25,7 @@ public class RoleResourceRelations implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("id")
+    @ApiModelProperty("主键ID")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 

@@ -15,7 +15,7 @@ import lombok.Setter;
  * </p>
  *
  * @author javgo
- * @since 2024-01-06
+ * @since 2024-01-07
  */
 @Getter
 @Setter
@@ -37,7 +37,7 @@ public class Room implements Serializable {
     @ApiModelProperty("床位数量")
     private Integer bedCount;
 
-    @ApiModelProperty("病房状态：0-空闲（默认），1-可用，2-维修，3-已满，4-已删除")
+    @ApiModelProperty("病房状态：0 空闲（默认），1 可用，2 维修，3 已满，-1 已删除")
     private Integer status;
 
     @ApiModelProperty("病房备注")

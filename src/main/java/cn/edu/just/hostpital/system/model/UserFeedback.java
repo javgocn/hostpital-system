@@ -16,7 +16,7 @@ import lombok.Setter;
  * </p>
  *
  * @author javgo
- * @since 2024-01-06
+ * @since 2024-01-07
  */
 @Getter
 @Setter
@@ -39,7 +39,7 @@ public class UserFeedback implements Serializable {
     @ApiModelProperty("反馈人")
     private String userName;
 
-    @ApiModelProperty("反馈状态：0-待回复，1-已回复, -1-已删除")
+    @ApiModelProperty("反馈状态：0 待回复，1 已回复, -1 已删除")
     private Integer status;
 
     @ApiModelProperty("反馈内容")

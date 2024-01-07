@@ -16,7 +16,7 @@ import lombok.Setter;
  * </p>
  *
  * @author javgo
- * @since 2024-01-06
+ * @since 2024-01-07
  */
 @Getter
 @Setter
@@ -38,7 +38,7 @@ public class Bed implements Serializable {
     @ApiModelProperty("单价")
     private BigDecimal price;
 
-    @ApiModelProperty("占用状态:0-空闲，1-占用, 2-维修，3-预定，4-已删除")
+    @ApiModelProperty("占用状态:0 空闲，1 占用, 2 维修，3 预定，-1 已删除")
     private Integer status;
 
     @ApiModelProperty("床位备注")

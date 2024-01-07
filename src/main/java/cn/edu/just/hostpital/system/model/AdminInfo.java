@@ -16,7 +16,7 @@ import lombok.Setter;
  * </p>
  *
  * @author javgo
- * @since 2024-01-06
+ * @since 2024-01-07
  */
 @Getter
 @Setter
@@ -45,7 +45,7 @@ public class AdminInfo implements Serializable {
     @ApiModelProperty("邮箱")
     private String email;
 
-    @ApiModelProperty("启用状态：0-启用，1-禁用")
+    @ApiModelProperty("启用状态：0 启用，1 禁用，-1 已删除")
     private Byte status;
 
     @ApiModelProperty("创建时间")

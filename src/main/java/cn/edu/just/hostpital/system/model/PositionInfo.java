@@ -16,7 +16,7 @@ import lombok.Setter;
  * </p>
  *
  * @author javgo
- * @since 2024-01-06
+ * @since 2024-01-07
  */
 @Getter
 @Setter
@@ -35,6 +35,9 @@ public class PositionInfo implements Serializable {
 
     @ApiModelProperty("职位描述")
     private String description;
+
+    @ApiModelProperty("启用状态：0 启用，1 禁用，-1 已删除")
+    private Byte status;
 
     @ApiModelProperty("创建时间")
     private Timestamp createTime;

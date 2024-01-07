@@ -18,7 +18,7 @@ import lombok.Setter;
  * </p>
  *
  * @author javgo
- * @since 2024-01-06
+ * @since 2024-01-07
  */
 @Getter
 @Setter
@@ -43,6 +43,9 @@ public class MedicationPurchase implements Serializable {
 
     @ApiModelProperty("备注")
     private String remark;
+
+    @ApiModelProperty("采购单状态：0 未入库，1 已入库, -1 已删除")
+    private Byte status;
 
     @ApiModelProperty("创建时间")
     private Timestamp createTime;

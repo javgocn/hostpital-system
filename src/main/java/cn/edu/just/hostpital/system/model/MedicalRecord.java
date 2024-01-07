@@ -17,7 +17,7 @@ import lombok.Setter;
  * </p>
  *
  * @author javgo
- * @since 2024-01-06
+ * @since 2024-01-07
  */
 @Getter
 @Setter
@@ -54,6 +54,9 @@ public class MedicalRecord implements Serializable {
 
     @ApiModelProperty("预约时间")
     private Date appointmentDate;
+
+    @ApiModelProperty("病历状态：0 未就诊，1 已就诊, -1 已删除")
+    private Integer status;
 
     @ApiModelProperty("创建时间")
     private Timestamp createTime;

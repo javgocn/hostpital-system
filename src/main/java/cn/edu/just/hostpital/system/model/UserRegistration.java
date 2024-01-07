@@ -18,7 +18,7 @@ import lombok.Setter;
  * </p>
  *
  * @author javgo
- * @since 2024-01-06
+ * @since 2024-01-07
  */
 @Getter
 @Setter
@@ -50,7 +50,7 @@ public class UserRegistration implements Serializable {
     @ApiModelProperty("挂号费用")
     private BigDecimal price;
 
-    @ApiModelProperty("挂号状态：0-待挂号，1-已挂号，2-已取消，3-已叫号，4-已删除")
+    @ApiModelProperty("挂号状态：0 待挂号，1 已挂号，2 已取消，3 已叫号，-1 已删除")
     private Byte status;
 
     @ApiModelProperty("挂号备注")
