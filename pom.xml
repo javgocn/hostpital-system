@@ -18,11 +18,11 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <!-- 版本管理 -->
         <mybatis-plus.version>3.5.3</mybatis-plus.version>
         <mybatis-plus-generator.version>3.5.3</mybatis-plus-generator.version>
         <velocity.version>2.3</velocity.version>
         <swagger.version>3.0.0</swagger.version>
+        <knife4j.version>3.0.3</knife4j.version>
         <commons-collections4.version>4.4</commons-collections4.version>
         <guava.version>30.1.1-jre</guava.version>
         <hutool.version>5.7.16</hutool.version>
@@ -70,6 +70,19 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatis-plus.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.github.jsqlparser</groupId>
+                    <artifactId>jsqlparser</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- 解决版本兼容问题 -->
+        <dependency>
+            <groupId>com.github.jsqlparser</groupId>
+            <artifactId>jsqlparser</artifactId>
+            <version>4.0</version>
         </dependency>
 
         <!-- Mybatis-Plus 代码生成器 -->
@@ -87,10 +100,17 @@
         </dependency>
 
         <!-- Swagger API 文档 -->
-        <dependency>
+        <!--<dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
             <version>${swagger.version}</version>
+        </dependency>-->
+
+        <!-- knife4j API 文档 -->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <version>${knife4j.version}</version>
         </dependency>
 
         <!-- Pagehelper 分页插件 -->
