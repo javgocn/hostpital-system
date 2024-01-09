@@ -40,7 +40,7 @@ public class Result<T> implements Serializable {
      * 成功返回结果
      * @param data 获取的数据
      */
-    static <T> Result<T> success(T data) {
+    public static <T> Result<T> success(T data) {
         return new Result<>(ResultType.SUCCESS.getCode(), ResultType.SUCCESS.getDesc(), data);
     }
 
@@ -114,5 +114,13 @@ public class Result<T> implements Serializable {
      */
     public static <T> Result<T> noPermission(T data) {
         return new Result<>(ResultType.NO_PERMISSION.getCode(), ResultType.NO_PERMISSION.getDesc(), data);
+    }
+
+    /**
+     * 是否成功
+     * @return true/false
+     */
+    public boolean isSuccess() {
+        return this.code == ResultType.SUCCESS.getCode();
     }
 }

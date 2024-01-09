@@ -2,6 +2,7 @@ package cn.edu.just.hostpital.system.service;
 
 import cn.edu.just.hostpital.system.common.Result;
 import cn.edu.just.hostpital.system.model.UserInfo;
+import cn.edu.just.hostpital.system.req.UserInfoReq;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +23,7 @@ public interface UserInfoService extends IService<UserInfo> {
      * @param user 用户信息
      * @return 注册结果
      */
-     int register(UserInfo user);
+     Result<?> register(UserInfoReq user);
 
     /**
      * 登录用户
@@ -30,7 +31,7 @@ public interface UserInfoService extends IService<UserInfo> {
      * @param request 请求
      * @return 登录结果
      */
-    Result login(UserInfo user, HttpServletRequest request);
+    Result<?> login(UserInfoReq user, HttpServletRequest request);
 
     /**
      * 获取用户
@@ -39,44 +40,44 @@ public interface UserInfoService extends IService<UserInfo> {
      * @param user 用户信息
      * @return 用户列表
      */
-    Result selectByPage(int currentPage, int size, UserInfo user);
+    Result<?> selectByPage(int currentPage, int size, UserInfoReq user);
 
     /**
      * 锁定用户
      * @param user 用户信息
      * @return 锁定结果
      */
-    Result lock(UserInfo user);
+    Result<?> lock(UserInfoReq user);
 
     /**
      * 删除用户
      * @param id 用户id
      * @return 删除结果
      */
-    Result delete(Integer id);
+    Result<?> deleteById(Integer id);
 
     /**
      * 获得用户信息
      * @param id 用户id
      * @return 用户信息
      */
-    Result getitem(Integer id);
+    Result<?> getItemById(Integer id);
 
     /**
      * 更新用户数据
      * @param user 用户信息
      * @return 更新结果
      */
-    Result update(UserInfo user);
+    Result<?> update(UserInfoReq user);
 
     /**
      * 修改密码
      * @param pwd 原密码
-     * @param newpwd 新密码
+     * @param newPwd 新密码
      * @param id 用户id
      * @return 修改结果
      */
-    Result repwd(String pwd, String newpwd, Integer id);
+    Result<?> resetPwdById(String pwd, String newPwd, Integer id);
 
     /**
      * 退出登录
@@ -84,11 +85,11 @@ public interface UserInfoService extends IService<UserInfo> {
      * @param res 响应
      * @return 退出结果
      */
-    Result logout(HttpServletRequest req, HttpServletResponse res);
+    Result<?> logout(HttpServletRequest req, HttpServletResponse res);
 
     /**
      * 获取用户首页内容
      * @return 首页内容
      */
-    Result getnum();
+    Result<?> getUserMenus();
 }
