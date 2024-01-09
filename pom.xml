@@ -30,6 +30,7 @@
         <pagehelper.version>5.0.0</pagehelper.version>
         <druid.version>1.2.5</druid.version>
         <fastjson.version>1.2.76</fastjson.version>
+        <dozer-core.version>6.5.0</dozer-core.version>
     </properties>
 
     <dependencies>
@@ -160,6 +161,13 @@
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>${hutool.version}</version>
+        </dependency>
+
+        <!-- Dozer -->
+        <dependency>
+            <groupId>com.github.dozermapper</groupId>
+            <artifactId>dozer-core</artifactId>
+            <version>${dozer-core.version}</version>
         </dependency>
     </dependencies>
 
