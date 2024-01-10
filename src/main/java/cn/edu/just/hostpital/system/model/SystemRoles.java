@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -34,14 +36,14 @@ public class SystemRoles implements Serializable {
     private String roleName;
 
     @ApiModelProperty("启用状态：0 启用，1 禁用，-1 已删除")
-    private Byte status;
+    private Integer status;
 
     @ApiModelProperty("角色描述")
     private String description;
 
     @ApiModelProperty("创建时间")
-    private Timestamp createTime;
+    private Date createTime;
 
     @ApiModelProperty("更新时间")
-    private Timestamp updateTime;
+    private Date updateTime;
 }

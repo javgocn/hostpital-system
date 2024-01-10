@@ -47,8 +47,8 @@ public class MedicationFinancialAudit implements Serializable {
     private String remark;
 
     @ApiModelProperty("创建时间")
-    private Timestamp createTime;
+    private Date createTime;
 
     @ApiModelProperty("更新时间")
-    private Timestamp updateTime;
+    private Date updateTime;
 }

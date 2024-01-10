@@ -35,7 +35,7 @@ public class UserInfoReq {
     private String idCard;
 
     @ApiModelProperty("性别：0 女性，1 男性, 2 保密")
-    private Byte sex;
+    private Integer sex;
 
     @ApiModelProperty("生日")
     private Date birthday;

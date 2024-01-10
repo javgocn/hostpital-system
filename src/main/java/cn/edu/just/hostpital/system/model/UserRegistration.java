@@ -51,11 +51,11 @@ public class UserRegistration implements Serializable {
     private BigDecimal price;
 
     @ApiModelProperty("挂号状态：0 待挂号，1 已挂号，2 已取消，3 已叫号，-1 已删除")
-    private Byte status;
+    private Integer status;
 
     @ApiModelProperty("挂号备注")
     private String remark;
 
     @ApiModelProperty("创建时间")
-    private Timestamp createTime;
+    private Date createTime;
 }

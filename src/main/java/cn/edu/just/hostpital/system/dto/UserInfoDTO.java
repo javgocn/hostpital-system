@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * 用户信息 DTO
@@ -30,7 +31,7 @@ public class UserInfoDTO {
     private String name;
 
     @ApiModelProperty("性别：0 女性，1 男性, 2 保密")
-    private Byte sex;
+    private Integer sex;
 
     @ApiModelProperty("电话")
     private String telephone;
@@ -42,8 +43,8 @@ public class UserInfoDTO {
     private String address;
 
     @ApiModelProperty("创建时间")
-    private Timestamp createTime;
+    private Date createTime;
 
     @ApiModelProperty("更新时间")
-    private Timestamp updateTime;
+    private Date updateTime;
 }

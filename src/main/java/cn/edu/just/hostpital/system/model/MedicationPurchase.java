@@ -45,11 +45,11 @@ public class MedicationPurchase implements Serializable {
     private String remark;
 
     @ApiModelProperty("采购单状态：0 未入库，1 已入库, -1 已删除")
-    private Byte status;
+    private Integer status;
 
     @ApiModelProperty("创建时间")
-    private Timestamp createTime;
+    private Date createTime;
 
     @ApiModelProperty("更新时间")
-    private Timestamp updateTime;
+    private Date updateTime;
 }

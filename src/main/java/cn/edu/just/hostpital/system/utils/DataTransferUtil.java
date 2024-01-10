@@ -12,7 +12,7 @@ import java.util.Objects;
  * @author javgo.cn
  * @date 2024/1/9
  */
-public final class DataTransferUtils {
+public final class DataTransferUtil {
 
     /**
      * 使用 DozerBeanMapper 单例模式

@@ -44,11 +44,11 @@ public class MedicationStock implements Serializable {
     private String remark;
 
     @ApiModelProperty("入库状态：0 未审核，1 已审核, -1 已删除")
-    private Byte status;
+    private Integer status;
 
     @ApiModelProperty("创建时间")
-    private Timestamp createTime;
+    private Date createTime;
 
     @ApiModelProperty("更新时间")
-    private Timestamp updateTime;
+    private Date updateTime;
 }

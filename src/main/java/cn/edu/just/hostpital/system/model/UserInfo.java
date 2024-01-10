@@ -44,10 +44,10 @@ public class UserInfo implements Serializable {
     private String idCard;
 
     @ApiModelProperty("启用状态：0 启用，1 禁用，-1 已删除")
-    private Byte status;
+    private Integer status;
 
     @ApiModelProperty("性别：0 女性，1 男性, 2 保密")
-    private Byte sex;
+    private Integer sex;
 
     @ApiModelProperty("生日")
     private Date birthday;
@@ -62,8 +62,8 @@ public class UserInfo implements Serializable {
     private String address;
 
     @ApiModelProperty("创建时间")
-    private Timestamp createTime;
+    private Date createTime;
 
     @ApiModelProperty("更新时间")
-    private Timestamp updateTime;
+    private Date updateTime;
 }

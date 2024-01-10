@@ -51,11 +51,11 @@ public class FinancialInfo implements Serializable {
     private String remark;
 
     @ApiModelProperty("财务状态：0 未审核，1 已审核, 2 审核不通过, -1 已删除")
-    private Byte status;
+    private Integer status;
 
     @ApiModelProperty("创建时间")
-    private Timestamp createTime;
+    private Date createTime;
 
     @ApiModelProperty("更新时间")
-    private Timestamp updateTime;
+    private Date updateTime;
 }

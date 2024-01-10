@@ -43,11 +43,11 @@ public class UserAppointment implements Serializable {
     private Integer userId;
 
     @ApiModelProperty("就诊状态：0 待就诊，1 已就诊，2 已取消，-1 已删除")
-    private Byte status;
+    private Integer status;
 
     @ApiModelProperty("预约描述")
     private String remark;
 
     @ApiModelProperty("预约时间")
-    private Timestamp createTime;
+    private Date createTime;
 }
