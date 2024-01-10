@@ -4,7 +4,10 @@ import ${package.Entity}.${entity};
 import ${package.Mapper}.${table.mapperName};
 import ${package.Service}.${table.serviceName};
 import ${superServiceImplClassPackage};
+import cn.edu.just.hostpital.system.common.Result;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -22,5 +25,34 @@ open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperNam
 #else
 public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {
 
+    @Override
+    public Result<?> save${entity}(${entity} ${entity?uncap_first}) {
+        // 实现添加逻辑
+        return new Result<>();
+    }
+
+    @Override
+    public Result<?> get${entity}ById(Long id) {
+        // 实现通过ID获取逻辑
+        return new Result<>();
+    }
+
+    @Override
+    public Result<?> update${entity}(${entity} ${entity?uncap_first}) {
+        // 实现更新逻辑
+        return new Result<>();
+    }
+
+    @Override
+    public Result<?> delete${entity}ById(Long id) {
+        // 实现删除逻辑
+        return new Result<>();
+    }
+
+    @Override
+    public Result<List<${entity}>> listAll${entity}s() {
+        // 实现获取所有实体逻辑
+        return new Result<>();
+    }
 }
 #end
