@@ -1043,4 +1043,25 @@ CREATE TABLE `announcement`  (
     INDEX `index_status`(`status`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic COMMENT = '公告表';
 
+-- ----------------------------
+-- Table：支付宝支付订单表
+-- Desc：该表用于记录支付宝支付订单信息，包括订单号、用户id、订单金额、支付状态等。
+-- ----------------------------
+CREATE TABLE `alipay_order` (
+    `id`                BIGINT(20) NOT NULL AUTO_INCREMENT,
+    `order_id`          VARCHAR(64) NOT NULL COMMENT '订单ID',
+    `subject`           VARCHAR(256) DEFAULT NULL COMMENT '订单标题/商品标题/交易标题',
+    `total_amount`      DECIMAL(10,2) DEFAULT NULL COMMENT '订单总金额',
+    `trade_status`      VARCHAR(32) DEFAULT NULL COMMENT '交易状态，见 TradeStatusType',
+    `trade_no`          VARCHAR(64) DEFAULT NULL COMMENT '支付宝交易号',
+    `buyer_id`          VARCHAR(64) DEFAULT NULL COMMENT '买家支付宝账号',
+    `gmt_payment`       DATETIME DEFAULT NULL COMMENT '交易付款时间',
+    `buyer_pay_amount`  DECIMAL(10,2) DEFAULT NULL COMMENT '用户在交易中支付的金额',
+    `create_time`       DATETIME NOT NULL COMMENT '创建时间',
+    PRIMARY KEY (`ID`),
+    UNIQUE KEY `UNIQ_ORDER_ID` (`order_id`),
+    INDEX `IDX_TRADE_STATUS` (`trade_status`),
+    INDEX `IDX_GMT_PAYMENT` (`gmt_payment`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COMMENT='支付宝支付订单表';
+
 SET FOREIGN_KEY_CHECKS = 1;

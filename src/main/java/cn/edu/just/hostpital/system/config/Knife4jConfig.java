@@ -36,8 +36,8 @@ public class Knife4jConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("医护管理系统 API 文档")
-                .description("医护管理系统 API 文档")
+                .title("支付宝支付 API 文档")
+                .description("支付宝支付 API 文档")
                 .contact(new Contact("JavGO", "http://www.javgo.cn", "javgocn@gmail.com"))
                 .version("1.0")
                 .build();

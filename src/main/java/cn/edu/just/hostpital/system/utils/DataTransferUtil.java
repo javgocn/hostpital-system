@@ -17,7 +17,7 @@ public final class DataTransferUtil {
     /**
      * 使用 DozerBeanMapper 单例模式
      */
-    private static final Mapper dozerMapper = DozerBeanMapperBuilder.create().withMappingFiles("dozer/dozer-mapping.xml").build();
+    // private static final Mapper dozerMapper = DozerBeanMapperBuilder.create().withMappingFiles("classpath:dozer/dozer-mapping.xml").build();
 
     /**
      * 使用 Spring 的 BeanUtils 进行浅拷贝，适用于简单对象和基本数据类型的转换。
@@ -43,7 +43,8 @@ public final class DataTransferUtil {
      * @return 目标类的实例
      */
     public static <S, T> T deepCopy(S source, Class<T> targetClass) {
-        return dozerMapper.map(source, targetClass);
+        // return dozerMapper.map(source, targetClass);
+        return null;
     }
 
     /**
@@ -55,6 +56,7 @@ public final class DataTransferUtil {
      * @return 目标类的实例
      */
     public static <S, T> T customMap(S source, Class<T> targetClass, String mapId) {
-        return dozerMapper.map(source, targetClass, mapId);
+        // return dozerMapper.map(source, targetClass, mapId);
+        return null;
     }
 }

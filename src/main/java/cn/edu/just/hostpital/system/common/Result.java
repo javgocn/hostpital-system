@@ -80,6 +80,15 @@ public class Result<T> implements Serializable {
 
     /**
      * 失败返回结果
+     * @param data 返回数据
+     * @param message 提示信息
+     */
+    public static <T> Result<T> failed(T data, String message) {
+        return new Result<>(ResultType.FAIL.getCode(), message, data);
+    }
+
+    /**
+     * 失败返回结果
      */
     public static <T> Result<T> failed() {
         return failed(ResultType.FAIL);

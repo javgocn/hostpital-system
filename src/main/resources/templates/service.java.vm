@@ -19,43 +19,5 @@ interface ${table.serviceName} : ${superServiceClass}<${entity}>
 #else
 public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
 
-    /**
-     * 新增 ${entity}
-     *
-     * @param ${entity?uncap_first} 要添加的 ${entity}
-     * @return Result<?> 表示成功或失败
-     */
-    Result<?> save${entity}(${entity} ${entity?uncap_first});
-
-    /**
-     * 通过ID获取 ${entity}。
-     *
-     * @param id ${entity} 的ID
-     * @return Result<?> 带有 ${entity} 或错误信息
-     */
-    Result<?> get${entity}ById(Long id);
-
-    /**
-     * 更新 ${entity}。
-     *
-     * @param ${entity?uncap_first} 要更新的 ${entity}
-     * @return Result<?> 表示成功或失败
-     */
-    Result<?> update${entity}(${entity} ${entity?uncap_first});
-
-    /**
-     * 通过ID删除 ${entity}。
-     *
-     * @param id ${entity} 的ID
-     * @return Result<?> 表示成功或失败
-     */
-    Result<?> delete${entity}ById(Long id);
-
-    /**
-     * 列出所有的 ${entity}。
-     *
-     * @return Result<List<${entity}>> 带有 ${entity} 列表或错误信息
-     */
-    Result<List<${entity}>> listAll${entity}s();
 }
 #end

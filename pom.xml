@@ -31,6 +31,7 @@
         <druid.version>1.2.5</druid.version>
         <fastjson.version>1.2.76</fastjson.version>
         <dozer-core.version>6.5.0</dozer-core.version>
+        <alipay-sdk-java.version>4.38.72.ALL</alipay-sdk-java.version>
     </properties>
 
     <dependencies>
@@ -168,6 +169,13 @@
             <groupId>com.github.dozermapper</groupId>
             <artifactId>dozer-core</artifactId>
             <version>${dozer-core.version}</version>
+        </dependency>
+
+        <!-- 支付宝 Java SDK -->
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>${alipay-sdk-java.version}</version>
         </dependency>
     </dependencies>
 
