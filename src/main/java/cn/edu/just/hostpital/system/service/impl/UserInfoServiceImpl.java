@@ -59,9 +59,9 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
 
     @Override
     public Result<?> register(UserInfoReq user) {
-        Result<?> result = checkUserParam(user);
-        if (!result.isSuccess()) {
-            return result;
+        Result<?> Result = checkUserParam(user);
+        if (!Result.isSuccess()) {
+            return Result;
         }
 
         UserInfo userInfo = DataTransferUtil.shallowCopy(user, UserInfo.class);
@@ -70,7 +70,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         queryWrapper.eq("username", userInfo.getUsername());
         Long count = userInfoMapper.selectCount(queryWrapper);
         if (count > 0) {
-            return Result.failed("用户名已存在,请重新输入");
+            return Result.fail("用户名已存在,请重新输入");
         }
 
         String finalPwd = MD5Util.md5(userInfo.getPassword(), UserConstants.USER_SLAT);
@@ -81,19 +81,19 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
 
         int insert = userInfoMapper.insert(userInfo);
         if (insert == 0) {
-            Result.failed("注册失败");
+            Result.fail("注册失败");
         }
 
         UserInfoDTO userInfoDTO = DataTransferUtil.shallowCopy(userInfo, UserInfoDTO.class);
-        return Result.success(userInfoDTO, "注册成功");
+        return Result.success(userInfoDTO);
     }
 
     private Result<?> checkUserParam(UserInfoReq user) {
         if (StringUtils.isBlank(user.getUsername())) {
-            return Result.failed("用户名不能为空");
+            return Result.fail("用户名不能为空");
         }
         if (StringUtils.isBlank(user.getPassword())) {
-            return Result.failed("密码不能为空");
+            return Result.fail("密码不能为空");
         }
         return Result.success(null);
     }
@@ -110,19 +110,19 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         userInfo = userInfoMapper.selectOne(queryWrapper);
 
         if (Objects.isNull(userInfo)) {
-            return Result.failed("登录失败，用户名或密码错误");
+            return Result.fail("登录失败，用户名或密码错误");
         }
         if (Objects.equals(userInfo.getStatus(), StatusType.DISABLE.getCode())) {
-            return Result.failed("登录失败，用户已被锁定");
+            return Result.fail("登录失败，用户已被锁定");
         }
         if (Objects.equals(userInfo.getStatus(), StatusType.DELETED.getCode())) {
-            return Result.failed("登录失败，用户已被删除");
+            return Result.fail("登录失败，用户已被删除");
         }
 
         UserInfoDTO userInfoDTO = DataTransferUtil.shallowCopy(userInfo, UserInfoDTO.class);
         request.getSession().setAttribute("user", userInfoDTO.getName());
 
-        return Result.success(userInfoDTO, "登录成功");
+        return Result.success(userInfoDTO);
     }
 
     @Override
@@ -163,7 +163,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         }
 
         IPage<UserInfoDTO> userInfoDTOIPage = DataTransferUtil.shallowCopy(userInfoIPage, IPage.class);
-        return Result.success(userInfoDTOIPage, "查询成功");
+        return Result.success(userInfoDTOIPage);
     }
 
     @Override
@@ -192,7 +192,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     public Result<?> getItemById(Integer id) {
         UserInfo userInfo = userInfoMapper.selectById(id);
         UserInfoDTO userInfoDTO = DataTransferUtil.shallowCopy(userInfo, UserInfoDTO.class);
-        return Result.success(userInfoDTO, "查询成功");
+        return Result.success(userInfoDTO);
     }
 
     @Override
@@ -210,7 +210,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         UserInfo userInfo = userInfoMapper.selectOne(queryWrapper);
         String md5Pwd = MD5Util.md5(pwd, UserConstants.USER_SLAT);
         if (!Objects.equals(userInfo.getPassword(), md5Pwd)) {
-            return Result.failed("原密码错误");
+            return Result.fail("原密码错误");
         }
         String finalPwd = MD5Util.md5(newPwd, UserConstants.USER_SLAT);
         userInfo.setPassword(finalPwd);
@@ -254,6 +254,6 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         Long noticeNum = announcementMapper.selectCount(announcementQueryWrapper);
         userNumVO.setNoticeNum(noticeNum);
 
-        return Result.success(userNumVO, "查询成功");
+        return Result.success(userNumVO);
     }
 }

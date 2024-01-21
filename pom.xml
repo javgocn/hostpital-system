@@ -32,6 +32,7 @@
         <fastjson.version>1.2.76</fastjson.version>
         <dozer-core.version>6.5.0</dozer-core.version>
         <alipay-sdk-java.version>4.38.72.ALL</alipay-sdk-java.version>
+        <smart-doc.version>2.4.8</smart-doc.version>
     </properties>
 
     <dependencies>
@@ -177,6 +178,14 @@
             <artifactId>alipay-sdk-java</artifactId>
             <version>${alipay-sdk-java.version}</version>
         </dependency>
+
+        <!-- Smart-doc 文档生成工具 -->
+        <dependency>
+            <groupId>com.github.shalousun</groupId>
+            <artifactId>smart-doc</artifactId>
+            <version>${smart-doc.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -192,6 +201,42 @@
                         </exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.shalousun</groupId>
+                <artifactId>smart-doc-maven-plugin</artifactId>
+                <version>${smart-doc.version}</version> <!-- 2.4.8 -->
+                <configuration>
+                    <!-- 生成文档使用的配置文件路径 -->
+                    <configFile>src/main/resources/smart-doc.json</configFile>
+                    <!-- 指定项目名称，若配置文件和此处都未设置，插件将默认使用 pom.xml 中的 <name> 作为项目名称 -->
+                    <!-- <projectName>${project.description}</projectName> -->
+                    <!-- 排除列表：指定不需要 smart-doc 加载的依赖库，通常用于解决依赖分析错误或减少文档构建时间 -->
+                    <excludes>
+                        <!-- 排除格式应为 groupId:artifactId，支持使用通配符*，例如：com.alibaba:* -->
+                        <exclude>com.alibaba:fastjson</exclude>
+                    </excludes>
+                    <!-- 包含列表：配置 smart-doc 插件加载的外部依赖源码，优化插件的加载速度 -->
+                    <!-- 仅加载列入此处的依赖源码，而非自动加载所有依赖 -->
+                    <!-- smart-doc 可自动分析依赖树加载所有依赖源码，为优化构建效率，建议使用这个列表显式指定需要加载的依赖 -->
+                    <includes>
+                        <!-- 包含格式应为 groupId:artifactId，支持通配符*，例如：com.alibaba:* -->
+                        <include>com.alibaba:fastjson</include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <!-- 生命周期阶段：决定在 Maven 的哪个阶段执行 smart-doc 文档生成 -->
+                        <!-- 如果不需要在编译阶段自动执行 smart-doc，可以注释掉下面的 <phase> 标签 -->
+                        <phase>compile</phase>
+                        <goals>
+                            <!-- 指定 smart-doc 目标生成的文档类型 -->
+                            <!-- smart-doc 提供多种文档格式生成的目标，如 html、openapi、markdown 等 -->
+                            <!-- 可根据需要配置相应的目标来生成不同格式的 API 文档 -->
+                            <goal>html</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

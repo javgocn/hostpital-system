@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>药品信息</title>
+
+    <script src="../../plugins/js/vue.js"></script>
+    <script src="../../plugins/element-ui/lib/index.js"></script>
+    <script src="../../plugins/js/axios-0.18.0.js"></script>
+    <link rel="stylesheet" href="../../plugins/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../../css/druginfo.css">
+</head>
+<body>
+<div id="app">
+    <div class="search">
+        <el-input v-model="search.id" placeholder="请输入药品编号"
+                  onKeypress="return(/^[0-9]*$/.test(String.fromCharCode(event.keyCode)))"></el-input>
+        <el-input v-model="search.drugname" placeholder="请输入药品名称"></el-input>
+        <el-button icon="el-icon-search" circle @click="select"></el-button>
+        <el-button icon="el-icon-refresh-right" circle style="float: right" @click="refresh"></el-button>
+    </div>
+    <hr>
+    <br>
+    <div style="height: 400px">
+        <template>
+            <el-table
+                    :data="drug"
+                    border
+                    style="width: 100%;">
+                <el-table-column
+                        type="selection">
+                </el-table-column>
+                <el-table-column
+                        prop="id"
+                        label="药品编号">
+                </el-table-column>
+                <el-table-column
+                        prop="drugname"
+                        label="药品名称">
+                </el-table-column>
+                <el-table-column
+                        prop="manufactor"
+                        label="生产厂家">
+                </el-table-column>
+                <el-table-column
+                        prop="price"
+                        label="单价">
+                </el-table-column>
+                <el-table-column
+                        prop="unit"
+                        label="单位">
+                </el-table-column>
+                <el-table-column
+                        prop="stock"
+                        label="库存">
+                </el-table-column>
+                <el-table-column
+                        prop="remark"
+                        label="药品备注">
+                </el-table-column>
+                <el-table-column
+                        prop="createTime"
+                        label="创建时间"
+                        width="200px">
+                </el-table-column>
+            </el-table>
+        </template>
+    </div>
+    <div>
+        <el-pagination
+                @current-change="handleCurrentChange"
+                :current-page="page.currentPage"
+                :page-size="page.pageSize"
+                layout="prev, pager, next, jumper"
+                :total="page.total">
+        </el-pagination>
+    </div>
+    <el-dialog
+            title="新增药品"
+            :visible.sync="newdrugdialog"
+            :before-close="handleClose"
+            width="60%">
+        <el-form ref="form" :model="newdrug" class="demo-form-inline" :inline="true" label-width="100px">
+            <el-form-item label="药品名称">
+                <el-input v-model="newdrug.drugname"></el-input>
+            </el-form-item>
+            <el-form-item label="生产厂家">
+                <el-input v-model="newdrug.manufactor"></el-input>
+            </el-form-item>
+            <el-form-item label="单价">
+                <el-input v-model="newdrug.price"
+                          onKeypress="return(/^[0-9]*$/.test(String.fromCharCode(event.keyCode)))"></el-input>
+            </el-form-item>
+            <el-form-item label="单位">
+                <el-input v-model="newdrug.unit"></el-input>
+            </el-form-item>
+            <el-form-item label="库存">
+                <el-input v-model="newdrug.stock"
+                          onKeypress="return(/^[0-9]*$/.test(String.fromCharCode(event.keyCode)))"></el-input>
+            </el-form-item>
+            <el-form-item label="药品备注">
+                <el-input
+                        type="textarea"
+                        :rows="2"
+                        placeholder="请输入内容(选填)"
+                        v-model="newdrug.remark">
+                </el-input>
+            </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+    <el-button type="primary" @click="add">添 加</el-button>
+  </span>
+    </el-dialog>
+    <el-dialog
+            title="新增药品"
+            :visible.sync="upddrugdialog"
+            :before-close="handleClose"
+            width="60%">
+        <el-form ref="form" :model="upddrug" class="demo-form-inline" :inline="true" label-width="100px">
+            <el-form-item label="药品编号">
+                <el-input v-model="upddrug.id" :disabled="true"></el-input>
+            </el-form-item>
+            <el-form-item label="药品名称">
+                <el-input v-model="upddrug.drugname"></el-input>
+            </el-form-item>
+            <el-form-item label="生产厂家">
+                <el-input v-model="upddrug.manufactor"></el-input>
+            </el-form-item>
+            <el-form-item label="单价">
+                <el-input v-model="upddrug.price"
+                          onKeypress="return(/^[0-9]*$/.test(String.fromCharCode(event.keyCode)))"></el-input>
+            </el-form-item>
+            <el-form-item label="单位">
+                <el-input v-model="upddrug.unit"></el-input>
+            </el-form-item>
+            <el-form-item label="库存">
+                <el-input v-model="upddrug.stock"
+                          onKeypress="return(/^[0-9]*$/.test(String.fromCharCode(event.keyCode)))"></el-input>
+            </el-form-item>
+            <el-form-item label="药品备注">
+                <el-input
+                        type="textarea"
+                        :rows="2"
+                        placeholder="请输入内容(选填)"
+                        v-model="upddrug.remark">
+                </el-input>
+            </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+    <el-button type="primary" @click="upd">修 改</el-button>
+  </span>
+    </el-dialog>
+
+</div>
+<script>
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                search: {
+                    id: '',
+                    drugname: '',
+                },
+                page: {
+                    currentPage: 1,
+                    pageSize: 5,
+                    total: 0
+                },
+                drug: [{
+                    id: '',
+                    drugname: '',
+                    manufactor: '',
+                    price: '',
+                    unit: '',
+                    stock: '',
+                    remark: '',
+                    createTime: '',
+                }],
+                newdrug: {
+                    drugname: '',
+                    manufactor: '',
+                    price: '',
+                    unit: '',
+                    stock: '',
+                    remark: '',
+                },
+                newdrugdialog: false,
+                upddrugdialog: false,
+                upddrug: {
+                    id: '',
+                    drugname: '',
+                    manufactor: '',
+                    price: '',
+                    unit: '',
+                    stock: '',
+                    remark: '',
+                }
+            }
+        },
+        mounted() {
+            this.select();
+        },
+        methods: {
+            select() {
+                var _this = this;
+                axios.post("/drug/select/" + _this.page.currentPage + "/" + _this.page.pageSize, _this.search).then((res) => {
+                    _this.page.currentPage = res.data.data.current;
+                    _this.page.total = res.data.data.total;
+                    _this.page.pageSize = res.data.data.size;
+                    _this.drug = res.data.data.records;
+                })
+            },
+            handleCurrentChange(currentPage) {
+                this.page.currentPage = currentPage;
+                this.select();
+            },
+            handleClose(done) {
+                this.$confirm('确认关闭？')
+                    .then(_ => {
+                        done();
+                    })
+                    .catch(_ => {
+                    });
+            },
+            add() {
+                var _this = this;
+                if (_this.newdrug.drugname == '' || _this.newdrug.manufactor == '' || _this.newdrug.price == '' || _this.newdrug.unit == '' || _this.newdrug.stock == '') {
+                    this.$notify({
+                        title: '警告',
+                        message: '请将信息填写完整',
+                        type: 'warning'
+                    });
+                } else {
+                    axios.post("/drug/add/", _this.newdrug).then((res) => {
+                        if (res.data.code == "001") {
+                            this.$notify({
+                                title: '成功',
+                                message: res.data.msg,
+                                type: 'success'
+                            });
+                            _this.select();
+                            _this.newdrug.drugname = '';
+                            _this.newdrug.manufactor = '';
+                            _this.newdrug.price = '';
+                            _this.newdrug.unit = '';
+                            _this.newdrug.stock = '';
+                            _this.newdrug.remark = '';
+                        } else {
+                            this.$notify.error({
+                                title: '错误',
+                                message: res.data.msg,
+                            });
+                        }
+                    })
+                }
+            },
+            refresh() {
+                var _this = this;
+                _this.search.drugname = '';
+                _this.search.id = '';
+                _this.select();
+            },
+            edit(row) {
+                var _this = this;
+                _this.upddrugdialog = true;
+                _this.upddrug.id = row.id;
+                _this.upddrug.drugname = row.drugname;
+                _this.upddrug.manufactor = row.manufactor;
+                _this.upddrug.price = row.price;
+                _this.upddrug.unit = row.unit;
+                _this.upddrug.stock = row.stock;
+                _this.upddrug.remark = row.remark;
+            },
+            upd() {
+                var _this = this;
+                axios.post("/drug/update/", _this.upddrug).then((res) => {
+                    if (res.data.code == "001") {
+                        this.$notify({
+                            title: '成功',
+                            message: res.data.msg,
+                            type: 'success'
+                        });
+                        _this.select();
+                        _this.upddrugdialog = false;
+                    } else {
+                        this.$notify.error({
+                            title: '错误',
+                            message: res.data.msg,
+                        });
+                    }
+                })
+            },
+            del(row) {
+                var _this = this;
+                this.$confirm('此药品将从仓库删除, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    axios.delete("/drug/delete/" + row.id).then((res) => {
+                        this.$notify({
+                            title: '成功',
+                            message: res.data.msg,
+                            type: 'success'
+                        });
+                        _this.select();
+                    })
+                }).catch(() => {
+                    this.$notify.info({
+                        title: '消息',
+                        message: '已取消删除'
+                    });
+                });
+            }
+        }
+    })
+</script>
+</body>
+</html>

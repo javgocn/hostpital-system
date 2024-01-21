@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>医生信息</title>
+
+    <script src="../../plugins/js/vue.js"></script>
+    <script src="../../plugins/element-ui/lib/index.js"></script>
+    <script src="../../plugins/js/axios-0.18.0.js"></script>
+    <link rel="stylesheet" href="../../plugins/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../../css/doctorinfo.css">
+</head>
+<body>
+<div id="app">
+    <div class="search">
+        <el-input v-model="search.username" placeholder="请输入工号" class="in"></el-input>
+        <el-input v-model="search.name" placeholder="请输入姓名" class="in"></el-input>
+        <el-button icon="el-icon-search" circle @click="select"></el-button>
+        <el-button icon="el-icon-refresh-right" circle style="float: right" @click="refresh"></el-button>
+    </div>
+    <hr>
+    <br>
+    <div style="height: 400px">
+        <template>
+            <el-table
+                    :data="doctor"
+                    border
+                    style="width: 100%;">
+                <el-table-column
+                        type="selection">
+                </el-table-column>
+                <el-table-column
+                        prop="username"
+                        label="工号"
+                        width="70px">
+                </el-table-column>
+                <el-table-column
+                        prop="name"
+                        label="姓名"
+                        width="70px">
+                </el-table-column>
+                <el-table-column
+                        prop="deptname"
+                        label="科室"
+                        width="70px">
+                </el-table-column>
+                <el-table-column
+                        prop="position"
+                        label="职位"
+                        width="70px">
+                </el-table-column>
+                <el-table-column
+                        prop="telephone"
+                        label="电话">
+                </el-table-column>
+                <el-table-column
+                        prop="email"
+                        label="邮箱">
+                </el-table-column>
+                <el-table-column
+                        prop="sex"
+                        label="性别"
+                        width="70px">
+                    <template slot-scope="scope">
+                        <span>{{scope.row.sex==1? "男":"女"}}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        prop="status"
+                        label="状态"
+                        width="70px">
+                    <template slot-scope="scope">
+                        <el-tag type="success" v-if="scope.row.status==0">启用</el-tag>
+                        <el-tag type="warning" v-if="scope.row.status==1">禁用</el-tag>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        prop="createTime"
+                        label="录入时间">
+                </el-table-column>
+                <el-table-column
+                        label="操作">
+                    <template slot-scope="scope">
+                        <el-tooltip effect="dark" content="医生信息" placement="top-start">
+                            <el-button type="primary" icon="el-icon-collection-tag" circle @click="upd(scope.row)"></el-button>
+                        </el-tooltip>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </template>
+    </div>
+    <div>
+        <el-pagination
+                @current-change="handleCurrentChange"
+                :current-page="page.currentPage"
+                :page-size="page.pageSize"
+                layout="prev, pager, next, jumper"
+                :total="page.total">
+        </el-pagination>
+    </div>
+
+    <el-dialog
+            title="新增医生"
+            :visible.sync="adddialog"
+            :before-close="handleClose"
+    >
+        <el-form ref="form" :model="newdoctor" class="demo-form-inline" :inline="true" label-width="70px">
+            <el-form-item label="工号">
+                <el-input v-model="newdoctor.username"></el-input>
+            </el-form-item>
+            <el-form-item label="密码">
+                <el-input v-model="newdoctor.password" show-password></el-input>
+            </el-form-item>
+            <el-form-item label="姓名">
+                <el-input v-model="newdoctor.name"></el-input>
+            </el-form-item>
+
+            <el-form-item label="部门">
+                <el-select v-model="newdoctor.deptname" placeholder="请选择">
+                    <el-option
+                            v-for="item in dept"
+                            :key="item.deptname"
+                            :label="item.deptname"
+                            :value="item.deptname">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="职位">
+                <el-select v-model="newdoctor.position" placeholder="请选择">
+                    <el-option
+                            v-for="item in posi"
+                            :key="item.value"
+                            :label="item.value"
+                            :value="item.value">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+
+        </el-form>
+        <el-button type="primary" @click="add">确 定</el-button>
+    </el-dialog>
+
+    <el-dialog
+            title="医生信息"
+            :visible.sync="updatedialog"
+            width="60%">
+
+        <el-form ref="form" :model="upddoc" class="demo-form-inline" :inline="true">
+            <el-form-item label="工号">
+                <el-input v-model="upddoc.username" :disabled="true"></el-input>
+            </el-form-item>
+            <el-form-item label="姓名">
+                <el-input v-model="upddoc.name" :disabled="true"></el-input>
+            </el-form-item>
+            <el-form-item label="科室">
+                <el-input v-model="upddoc.deptname" :disabled="true"></el-input>
+            </el-form-item>
+            <el-form-item label="职位">
+                <el-input v-model="upddoc.position" :disabled="true"></el-input>
+            </el-form-item>
+            <el-form-item label="电话">
+                <el-input v-model="upddoc.telephone" style="width: 220px" :disabled="true"></el-input>
+            </el-form-item>
+            <el-form-item label="邮箱">
+                <el-input v-model="upddoc.email" :disabled="true"></el-input>
+            </el-form-item>
+            <el-form-item label="性别">
+                <span>{{upddoc.sex==1? "男":"女"}}</span>
+            </el-form-item>
+            <el-form-item label="生日">
+                <el-input v-model="upddoc.birthday" :disabled="true"></el-input>
+            </el-form-item>
+            <el-form-item label="地址">
+                <el-input v-model="upddoc.address" :disabled="true"></el-input>
+            </el-form-item>
+            <el-form-item label="备注">
+                <el-input
+                        type="textarea"
+                        autosize
+                        v-model="upddoc.remark"
+                        style="width: 210px"
+                        :disabled="true"
+                >
+                </el-input>
+            </el-form-item>
+        </el-form>
+    </el-dialog>
+</div>
+<script>
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                search: {
+                    username: '',
+                    name: '',
+                },
+                doctor: [{
+                    username: '',
+                    name: '',
+                    deptname: '',
+                    position: '',
+                    telephone: '',
+                    email: '',
+                    sex: 1,
+                    status: '',
+                    createTime: '',
+                }],
+                page: {
+                    currentPage: 1,
+                    pageSize: 5,
+                    total: 0
+                },
+                adddialog: false,
+                newdoctor: {
+                    username: '',
+                    password: '',
+                    name: '',
+                    deptname: '',
+                    position: ''
+                },
+                dept: [{
+                    deptname: '',
+                }],
+                posi: [{
+                    value: "主任"
+                }, {
+                    value: "副主任"
+                }, {
+                    value: "主治医师"
+                }, {
+                    value: "医师"
+                }],
+                updatedialog: false,
+                upddoc: {
+                    id: '',
+                    username: '',
+                    name: '',
+                    deptname: '',
+                    position: '',
+                    telephone: '',
+                    email: '',
+                    sex: '',
+                    birthday: '',
+                    address: '',
+                    remark: ''
+                },
+                formpass: '',
+            }
+        },
+        mounted() {
+            this.select();
+            this.searchdept();
+        },
+        methods: {
+            handleCurrentChange(currentPage) {
+                this.page.currentPage = currentPage;
+                this.select();
+            },
+            select() {
+                var _this = this;
+                axios.post("/doctor/select/" + _this.page.currentPage + "/" + _this.page.pageSize, _this.search).then((res) => {
+                    _this.page.currentPage = res.data.data.current;
+                    _this.page.total = res.data.data.total;
+                    _this.page.pageSize = res.data.data.size;
+                    _this.doctor = res.data.data.records;
+                })
+            },
+            handleClose(done) {
+                this.$confirm('确认关闭？')
+                    .then(_ => {
+                        done();
+                    })
+                    .catch(_ => {
+                    });
+            },
+            searchdept() {
+                var _this = this;
+                axios.get("/doctor/dept").then((res) => {
+                    _this.dept = res.data.data;
+                })
+            },
+            add() {
+                var _this = this;
+                if (_this.newdoctor.deptname == '' || _this.newdoctor.name == '' || _this.newdoctor.password == '' || _this.newdoctor.username == '' || _this.newdoctor.position == '') {
+                    this.$notify.error({
+                        title: '错误',
+                        message: '请检查信息是否填写完整'
+                    });
+                } else {
+                    axios.post("/doctor/add/", _this.newdoctor).then((res) => {
+                        if (res.data.code == '001') {
+                            this.$notify({
+                                title: '成功',
+                                message: res.data.msg,
+                                type: 'success'
+                            });
+                            _this.newdoctor.deptname = '';
+                            _this.newdoctor.name = '';
+                            _this.newdoctor.password = '';
+                            _this.newdoctor.username = '';
+                            _this.newdoctor.position = '';
+                        } else {
+                            this.$notify.error({
+                                title: '错误',
+                                message: res.data.msg,
+                            });
+                        }
+                        _this.select();
+                    })
+                }
+            },
+            refresh() {
+                console.log("123");
+                var _this = this;
+                _this.search.username = '';
+                _this.search.name = '';
+                _this.select();
+            },
+            lock(row) {
+                var _this = this;
+                axios.post("/doctor/lock/", row).then((res) => {
+                    this.$notify({
+                        title: '成功',
+                        message: res.data.msg,
+                        type: 'success'
+                    });
+                    _this.select();
+                })
+            },
+            del(row) {
+                var _this = this;
+                this.$confirm('此医生将被删除, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    axios.delete("/doctor/delete/" + row.id).then((res) => {
+                        this.$notify({
+                            title: '成功',
+                            message: res.data.msg,
+                            type: 'success'
+                        });
+                        _this.select();
+                    })
+                }).catch(() => {
+                    this.$notify.info({
+                        title: '消息',
+                        message: '已取消删除'
+                    });
+                });
+            },
+            upd(row) {
+                var _this = this;
+                _this.updatedialog = true;
+                _this.upddoc.id = row.id;
+                _this.upddoc.username = row.username;
+                _this.upddoc.name = row.name;
+                _this.upddoc.deptname = row.deptname;
+                _this.upddoc.position = row.position;
+                _this.upddoc.telephone = row.telephone;
+                _this.upddoc.email = row.email;
+                _this.upddoc.sex = row.sex;
+                _this.upddoc.birthday = row.birthday;
+                _this.upddoc.address = row.address;
+                _this.upddoc.remark = row.remark;
+                _this.formpass = row.password;
+            },
+            updat() {
+                var _this = this;
+                axios.post("/doctor/update/" + _this.formpass, _this.upddoc).then((res) => {
+                    if (res.data.code == '001') {
+                        this.$notify({
+                            title: '成功',
+                            message: res.data.msg,
+                            type: 'success'
+                        });
+                        _this.select();
+                        _this.updatedialog = false;
+                    } else {
+                        this.$notify.error({
+                            title: '错误',
+                            message: res.data.msg,
+                        });
+                    }
+                })
+            }
+        }
+    })
+</script>
+</body>
+</html>

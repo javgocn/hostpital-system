@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员首页</title>
+    <script src="../../plugins/js/echarts.min.js"></script>
+    <script src="../../plugins/js/vue.js"></script>
+    <script src="../../plugins/element-ui/lib/index.js"></script>
+    <script src="../../plugins/js/axios-0.18.0.js"></script>
+    <link rel="stylesheet" href="../../plugins/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../../css/adminindex.css">
+</head>
+<body>
+<div id="app">
+    <div id="top">
+        <div class="moudule" style="margin-left: 7%;background-color: #f98d45">
+            <img class="img" src="../../img/icon/user.png"></img>
+            <p class="t">患者总数</p>
+            <span class="num">{{usernum}}个</span>
+        </div>
+        <div class="moudule" style="background-color: #0abdfe">
+            <img class="img" src="../../img/icon/doctor.png"></img>
+            <p class="t">医生总数</p>
+            <span class="num">{{doctornum}}个</span>
+        </div>
+        <div class="moudule" style="background-color: darkorchid">
+            <img class="img" src="../../img/icon/message.png"></img>
+            <p class="t">留言数量</p>
+            <span class="num">{{messagenum}}条</span>
+        </div>
+        <div class="moudule" style="background-color: #13ce66">
+            <img class="img" src="../../img/icon/appoint.png"></img>
+            <p class="t" style="margin-left: 60px">未处理预约</p>
+            <span class="num">{{appointnum}}条</span>
+        </div>
+    </div>
+    <div style="height: 400px;width: 100%;float: left">
+        <div id="register" style="width: 550px;height: 400px;float: left;"></div>
+        <div id="appoint" style="width: 550px;height: 400px;float: left"></div>
+    </div>
+</div>
+
+
+<script>
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                usernum: 0,
+                doctornum:0,
+                messagenum:0,
+                appointnum:0,
+                option : {
+                    title:{
+                        show:"true",
+                        text:"本年度注册量",
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: ['第一季度','第二季度','第三季度','第四季度']
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [
+                        {
+                            data: [],
+                            type: 'bar'
+                        }
+                    ]
+                },
+                option2 : {
+                    title:{
+                        show:"true",
+                        text:"本年度预约量",
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: ['第一季度','第二季度','第三季度','第四季度']
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [
+                        {
+                            data: [],
+                            type: 'line'
+                        }
+                    ]
+                }
+            }
+        },
+        mounted(){
+            this.getnum();
+            setTimeout(()=>{
+                var chartDom = document.querySelector('#register');
+                var myChart = echarts.init(chartDom);
+                var chartDom2 = document.querySelector('#appoint');
+                var myChart2 = echarts.init(chartDom2);
+                myChart.setOption(this.option);
+                myChart2.setOption(this.option2);
+            },500);
+        },
+        watch:{
+            option(){
+                var chartDom = document.querySelector('#register');
+                var myChart = echarts.init(chartDom);
+                myChart.setOption(this.option);
+            },
+            option2(){
+                var chartDom2 = document.querySelector('#appoint');
+                var myChart2 = echarts.init(chartDom2);
+                myChart2.setOption(this.option2);
+            }
+        },
+        methods:{
+            async getnum(){
+               var _this=this;
+               await axios.post("/admin/getnum").then((res)=>{
+                    _this.usernum=res.data.data.usernum;
+                    _this.doctornum=res.data.data.doctornum;
+                    _this.messagenum=res.data.data.messagenum;
+                    _this.appointnum=res.data.data.appointnum;
+                });
+               await axios.post("/admin/getphoto").then((res)=>{
+                   for(var i=0;i<4;i++){
+                       _this.option.series[0].data.push(res.data.data.option[i]);
+                       _this.option2.series[0].data.push(res.data.data.option2[i]);
+                   }
+                   console.log(_this.option.series[0].data);
+                   console.log(_this.option2.series[0].data);
+                })
+            },
+        }
+    });
+</script>
+</body>
+
+</html>

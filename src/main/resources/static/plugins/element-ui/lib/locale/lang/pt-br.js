@@ -63,12 +63,12 @@ exports.default = {
     },
     select: {
       loading: 'Carregando',
-      noMatch: 'Sem resultados',
+      noMatch: 'Sem Resultados',
       noData: 'Sem dados',
       placeholder: 'Selecione'
     },
     cascader: {
-      noMatch: 'Sem resultados',
+      noMatch: 'Sem Resultados',
       loading: 'Carregando',
       placeholder: 'Selecione',
       noData: 'Sem dados'
@@ -102,7 +102,7 @@ exports.default = {
       emptyText: 'Sem dados'
     },
     transfer: {
-      noMatch: 'Sem resultados',
+      noMatch: 'Sem Resultados',
       noData: 'Sem dados',
       titles: ['Lista 1', 'Lista 2'],
       filterPlaceholder: 'Digite uma palavra-chave',

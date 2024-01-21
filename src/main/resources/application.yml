@@ -14,7 +14,7 @@ mybatis-plus:
     db-config:
       id-type: auto # 主键类型（全局自增）
   configuration:
-    auto-mapping-behavior: partial # 只对非嵌套的 resultMap 进行自动映射
+    auto-mapping-behavior: partial # 只对非嵌套的 ResultMap 进行自动映射
     map-underscore-to-camel-case: true # 开启驼峰命名转换
 
 alipay:
@@ -24,3 +24,42 @@ alipay:
   gatewayUrl: https://openapi-sandbox.dl.alipaydev.com/gateway.do
   returnUrl: alipay.trade.page.pay
   notifyUrl: alipay.trade.query
+
+knife4j:
+  enable: true
+  documents:
+    - group: Test Group
+      name: My Documents
+      locations: classpath:wiki/*
+  setting:
+    # API 文档语言
+    language: en-US # zh-CN | en-US
+    # API 文档 Footer 信息
+    enableFooter: false # 是否显示 Footer 信息
+    enableFooterCustom: true # 是否显示自定义 Footer 信息
+    footerCustomContent: MIT | [JavGo](https://javgo.cn) # 自定义 Footer 内容
+    # API 文档 Header 信息
+    enableHomeCustom: true # 是否显示自定义 Header 信息
+    homeCustomLocation: classpath:wiki/README.md # 自定义 Header 内容
+    # API 文档 Models 信息
+    enableSwaggerModels: true # 是否显示 Models 信息
+    swaggerModelName: My Models # Models 名称
+
+request:
+  white-list: # 白名单
+    adminPage: /page/admin/admin.html
+    userPage: /page/user/user.html
+    doctorPage: /page/doctor/doctor.html
+    loginPage: /page/login/login.html
+    urls:
+      - /admin/login
+      - /user/login
+      - /doctor/login
+      - /user/register
+      - /page/login/**
+      - /css/**
+      - /img/**
+      - /js/**
+      - /plugins/**
+      - /swagger/**
+      - /doc.html

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人信息</title>
+
+    <script src="../../plugins/js/vue.js"></script>
+    <script src="../../plugins/element-ui/lib/index.js"></script>
+    <script src="../../plugins/js/axios-0.18.0.js"></script>
+    <link rel="stylesheet" href="../../plugins/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../../css/myselfinfo.css">
+</head>
+<body>
+<div id="app">
+    <br>
+    <hr>
+    <el-form label-width="100px">
+        <el-form-item label="用户名" style="display:inline-block">
+            <el-input v-model="myself.username" :disabled="true"></el-input>
+        </el-form-item>
+        <br>
+        <el-form-item label="邮箱" style="display:inline-block">
+            <el-input v-model="myself.email" placeholder="请输入邮箱"></el-input>
+        </el-form-item>
+        <br>
+        <el-form-item label="姓名" style="display:inline-block">
+            <el-input v-model="myself.name" placeholder="请输入姓名" ></el-input>
+        </el-form-item>
+        <br>
+        <el-form-item label="性别" style="display:inline-block">
+            <el-radio-group v-model="myself.sex">
+                <el-radio :label="1" @change="$forceUpdate()">男</el-radio>
+                <el-radio :label="0" @change="$forceUpdate()">女</el-radio>
+            </el-radio-group>
+        </el-form-item>
+        <br>
+        <el-form-item label="身份证" style="display:inline-block">
+            <el-input v-model="myself.IDcard" placeholder="请输入身份证"></el-input>
+        </el-form-item>
+        <br>
+        <el-form-item label="生日" style="display:inline-block">
+            <el-date-picker
+                    v-model="myself.birthday"
+                    type="date"
+                    placeholder="请选择生日"
+                    value-format="yyyy-MM-dd"
+                    style="width: 300px">
+            </el-date-picker>
+        </el-form-item>
+        <br>
+        <el-form-item label="电话" style="display:inline-block">
+            <el-input v-model="myself.telphone" placeholder="请输入电话"></el-input>
+        </el-form-item>
+        <br>
+        <el-form-item label="地址" style="display:inline-block">
+            <el-input v-model="myself.address" placeholder="请输入地址"></el-input>
+        </el-form-item>
+    </el-form>
+    <hr>
+    <el-button type="primary" @click="upd">保存</el-button>
+</div>
+<script>
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                myself: {
+                    id:'',
+                    username: '',
+                    email: '',
+                    name:'',
+                    sex:1,
+                    IDcard:'',
+                    birthday:'',
+                    telphone:'',
+                    address:''
+                },
+            }
+        },
+        mounted() {
+            this.getItem();
+        },
+        methods: {
+            getItem() {
+                var _this = this;
+                var userStr = localStorage.getItem("userInfo");
+                var userObj = JSON.parse(userStr);
+                axios.post("/user/getitem/"+userObj.id).then((res)=>{
+                    _this.myself=res.data.data;
+                })
+            },
+            upd(){
+                var _this = this;
+                axios.post("/user/update/",_this.myself).then((res)=>{
+                    this.$notify({
+                        title: '成功',
+                        message: res.data.msg,
+                        type: 'success'
+                    });
+                })
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -157,12 +157,12 @@
         const end = this.end;
         const step = this.step;
 
-        const result = [];
+        const Result = [];
 
         if (start && end && step) {
           let current = start;
           while (compareTime(current, end) <= 0) {
-            result.push({
+            Result.push({
               value: current,
               disabled: compareTime(current, this.minTime || '-1:-1') <= 0 ||
                 compareTime(current, this.maxTime || '100:100') >= 0
@@ -171,7 +171,7 @@
           }
         }
 
-        return result;
+        return Result;
       }
     }
   };

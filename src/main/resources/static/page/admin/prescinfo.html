@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>处方信息</title>
+
+    <script src="../../plugins/js/vue.js"></script>
+    <script src="../../plugins/element-ui/lib/index.js"></script>
+    <script src="../../plugins/js/axios-0.18.0.js"></script>
+    <link rel="stylesheet" href="../../plugins/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../../css/prescinfo.css">
+    <script src="../../js/request.js"></script>
+</head>
+<body>
+<div id="app">
+    <div class="search">
+        <el-date-picker
+                v-model="search.createDate"
+                type="date"
+                placeholder="请选择开具日期"
+                value-format="yyyy-MM-dd">
+        </el-date-picker>
+        <el-input v-model="search.username" placeholder="请输入患者姓名" style="width: 200px"></el-input>
+        <el-button type="primary" @click="select">查询</el-button>
+        <el-button icon="el-icon-refresh-right" circle style="float: right" @click="refresh"></el-button>
+    </div>
+    <hr>
+    <br>
+    <div style="height: 400px">
+        <template>
+            <el-table
+                    :data="presc"
+                    border
+                    style="width: 100%;">
+                <el-table-column
+                        type="selection">
+                </el-table-column>
+                <el-table-column
+                        prop="createDate"
+                        label="开具日期"
+                        width="240px">
+                </el-table-column>
+                <el-table-column
+                        prop="username"
+                        label="患者姓名"
+                        width="80px">
+                </el-table-column>
+                <el-table-column
+                        prop="price"
+                        label="费用"
+                        width="70px">
+                </el-table-column>
+                <el-table-column
+                        prop="status"
+                        label="支付状态"
+                        width="80px">
+                    <template slot-scope="scope">
+                        <el-tag type="success" v-if="scope.row.status==1">已缴费</el-tag>
+                        <el-tag type="warning" v-if="scope.row.status==0">待缴费</el-tag>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        prop="remark"
+                        label="处方信息">
+                </el-table-column>
+                <el-table-column
+                        label="操作"
+                        width="200px">
+                    <template slot-scope="scope">
+                        <el-tooltip effect="dark" content="药方详情" placement="top-start">
+                            <el-button type="primary" icon="el-icon-tickets" circle
+                                       @click="druginfo(scope.row)"></el-button>
+                        </el-tooltip>
+                        <el-tooltip effect="dark" content="缴费" placement="top-start">
+                            <el-button type="warning" icon="el-icon-bank-card" circle
+                                       @click="submit(scope.row)"></el-button>
+                        </el-tooltip>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </template>
+    </div>
+    <div>
+        <el-pagination
+                @current-change="handleCurrentChange"
+                :current-page="page.currentPage"
+                :page-size="page.pageSize"
+                layout="prev, pager, next, jumper"
+                :total="page.total">
+        </el-pagination>
+    </div>
+    <el-dialog
+            title="开药详情"
+            :visible.sync="drugdialog"
+            width="700px">
+        <div style="height: 250px">
+            <template>
+                <el-table
+                        :data="prescdrug"
+                        border
+                        style="width: 100%;"
+                >
+                    <el-table-column
+                            prop="id"
+                            label="药品编码">
+                    </el-table-column>
+                    <el-table-column
+                            prop="drugname"
+                            label="药品名称">
+                    </el-table-column>
+                    <el-table-column
+                            prop="manufactor"
+                            label="药品厂家">
+                    </el-table-column>
+                    <el-table-column
+                            prop="price"
+                            label="单价">
+                    </el-table-column>
+                    <el-table-column
+                            prop="unit"
+                            label="单位">
+                    </el-table-column>
+                    <el-table-column
+                            prop="num"
+                            label="数量">
+                    </el-table-column>
+                    <el-table-column
+                            prop="suum"
+                            label="小计">
+                    </el-table-column>
+                </el-table>
+            </template>
+        </div>
+        <div style="display:inline-block;float: right">
+            <span style="margin-right: 0px;font-size: 20px">总计:{{sum}}元</span>
+        </div>
+        <el-pagination
+                @current-change="CurrentChange"
+                :current-page="drugpage.currentPage"
+                :page-size="drugpage.pageSize"
+                layout="prev, pager, next, jumper"
+                :total="drugpage.total">
+        </el-pagination>
+    </el-dialog>
+</div>
+<script>
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                search: {
+                    createDate: '',
+                    username: ''
+                },
+                page: {
+                    currentPage: 1,
+                    pageSize: 5,
+                    total: 0
+                },
+                drugpage: {
+                    currentPage: 1,
+                    pageSize: 3,
+                    total: 0
+                },
+                presc: [{
+                    createDate: '',
+                    username: '',
+                    price: '',
+                    status: '',
+                    remark: '',
+                }],
+                prescdrug: [{
+                    id: '',
+                    drugname: '',
+                    manufactor: '',
+                    price: '',
+                    unit: '',
+                    num: '',
+                    suum: '',
+                }],
+                drugdialog: false,
+                sum: 0,
+                prescid: '',
+            }
+        },
+        mounted() {
+            this.select();
+        },
+        methods: {
+            handleCurrentChange(currentPage) {
+                this.page.currentPage = currentPage;
+                this.select();
+            },
+            CurrentChange(currentPage) {
+                var _this = this;
+                this.drugpage.currentPage = currentPage;
+                axios.post("/prescdrug/selectdrug/" + _this.drugpage.currentPage + "/" + _this.drugpage.pageSize + "/" + _this.prescid).then((res) => {
+                    _this.drugpage.currentPage = res.data.data.current;
+                    _this.drugpage.total = res.data.data.total;
+                    _this.drugpage.pageSize = res.data.data.size;
+                    _this.prescdrug = res.data.data.records;
+                })
+            },
+            select() {
+                var _this = this;
+                axios.post("/presc/select/" + _this.page.currentPage + "/" + _this.page.pageSize, _this.search).then((res) => {
+                    _this.page.currentPage = res.data.data.current;
+                    _this.page.total = res.data.data.total;
+                    _this.page.pageSize = res.data.data.size;
+                    _this.presc = res.data.data.records;
+                })
+            },
+            refresh() {
+                var _this = this;
+                _this.search.createDate = '';
+                _this.search.username = '';
+                _this.select();
+            },
+            druginfo(row) {
+                var _this = this;
+                _this.drugdialog = true;
+                _this.prescid = row.id;
+                axios.post("/prescdrug/selectdrug/" + _this.drugpage.currentPage + "/" + _this.drugpage.pageSize + "/" + _this.prescid).then((res) => {
+                    _this.drugpage.currentPage = res.data.data.current;
+                    _this.drugpage.total = res.data.data.total;
+                    _this.drugpage.pageSize = res.data.data.size;
+                    _this.prescdrug = res.data.data.records;
+                });
+                _this.getsum();
+            },
+            getsum() {
+                var _this = this;
+                _this.sum = 0;
+                axios.post("/prescdrug/getsum/" + _this.prescid).then((res) => {
+                    for (var it in res.data.data) {
+                        _this.sum += res.data.data[it].suum;
+                    }
+                })
+            },
+            submit(row) {
+                var _this = this;
+                if (row.status === 1) {
+                    this.$notify.info({
+                        title: '消息',
+                        message: '已缴费'
+                    });
+                    return;
+                }
+                this.$confirm('是否进行缴费', '请确认', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    axios.post("/presc/submit/", row).then((res) => {
+                        this.$notify({
+                            title: '成功',
+                            message: '缴费成功',
+                            type: 'success'
+                        });
+                        _this.refresh();
+                    });
+
+                }).catch(() => {
+                    this.$notify.info({
+                        title: '消息',
+                        message: '缴费已取消'
+                    });
+                });
+            }
+        }
+    })
+</script>
+</body>
+</html>

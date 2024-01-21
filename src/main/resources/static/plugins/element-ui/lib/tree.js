@@ -505,15 +505,15 @@ var node_Node = function () {
 
     var walk = function walk(parent) {
       var children = parent.childNodes || [];
-      var result = false;
+      var Result = false;
       for (var i = 0, j = children.length; i < j; i++) {
         var child = children[i];
         if (child === target || deep && walk(child)) {
-          result = true;
+          Result = true;
           break;
         }
       }
-      return result;
+      return Result;
     };
 
     return walk(this);

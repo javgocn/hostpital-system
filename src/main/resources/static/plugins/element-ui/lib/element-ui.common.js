@@ -4470,7 +4470,7 @@ function calcTextareaHeight(targetElement) {
   hiddenTextarea.value = targetElement.value || targetElement.placeholder || '';
 
   var height = hiddenTextarea.scrollHeight;
-  var result = {};
+  var Result = {};
 
   if (boxSizing === 'border-box') {
     height = height + borderSize;
@@ -4487,7 +4487,7 @@ function calcTextareaHeight(targetElement) {
       minHeight = minHeight + paddingSize + borderSize;
     }
     height = Math.max(minHeight, height);
-    result.minHeight = minHeight + 'px';
+    Result.minHeight = minHeight + 'px';
   }
   if (maxRows !== null) {
     var maxHeight = singleRowHeight * maxRows;
@@ -4496,10 +4496,10 @@ function calcTextareaHeight(targetElement) {
     }
     height = Math.min(maxHeight, height);
   }
-  result.height = height + 'px';
+  Result.height = height + 'px';
   hiddenTextarea.parentNode && hiddenTextarea.parentNode.removeChild(hiddenTextarea);
   hiddenTextarea = null;
-  return result;
+  return Result;
 };
 // EXTERNAL MODULE: external "element-ui/lib/utils/merge"
 var merge_ = __webpack_require__(7);
@@ -8799,13 +8799,13 @@ var scroll_into_view_default = /*#__PURE__*/__webpack_require__.n(scroll_into_vi
         if (this.filterable) this.query = this.selectedLabel;
         return;
       }
-      var result = [];
+      var Result = [];
       if (Array.isArray(this.value)) {
         this.value.forEach(function (value) {
-          result.push(_this8.getOption(value));
+          Result.push(_this8.getOption(value));
         });
       }
-      this.selected = result;
+      this.selected = Result;
       this.$nextTick(function () {
         _this8.resetInputHeight();
       });
@@ -10662,15 +10662,15 @@ var watcher_sortData = function sortData(data, states) {
 };
 
 var doFlattenColumns = function doFlattenColumns(columns) {
-  var result = [];
+  var Result = [];
   columns.forEach(function (column) {
     if (column.children) {
-      result.push.apply(result, doFlattenColumns(column.children));
+      Result.push.apply(Result, doFlattenColumns(column.children));
     } else {
-      result.push(column);
+      Result.push(column);
     }
   });
-  return result;
+  return Result;
 };
 
 /* harmony default export */ var watcher = (external_vue_default.a.extend({
@@ -11773,18 +11773,18 @@ var table_body_extends = Object.assign || function (target) { for (var i = 1; i 
       var colspan = 1;
       var fn = this.table.spanMethod;
       if (typeof fn === 'function') {
-        var result = fn({
+        var Result = fn({
           row: row,
           column: column,
           rowIndex: rowIndex,
           columnIndex: columnIndex
         });
-        if (Array.isArray(result)) {
-          rowspan = result[0];
-          colspan = result[1];
-        } else if ((typeof result === 'undefined' ? 'undefined' : table_body_typeof(result)) === 'object') {
-          rowspan = result.rowspan;
-          colspan = result.colspan;
+        if (Array.isArray(Result)) {
+          rowspan = Result[0];
+          colspan = Result[1];
+        } else if ((typeof Result === 'undefined' ? 'undefined' : table_body_typeof(Result)) === 'object') {
+          rowspan = Result.rowspan;
+          colspan = Result.colspan;
         }
       }
       return { rowspan: rowspan, colspan: colspan };
@@ -12562,16 +12562,16 @@ var table_header_extends = Object.assign || function (target) { for (var i = 1; 
 
 
 var getAllColumns = function getAllColumns(columns) {
-  var result = [];
+  var Result = [];
   columns.forEach(function (column) {
     if (column.children) {
-      result.push(column);
-      result.push.apply(result, getAllColumns(column.children));
+      Result.push(column);
+      Result.push.apply(Result, getAllColumns(column.children));
     } else {
-      result.push(column);
+      Result.push(column);
     }
   });
-  return result;
+  return Result;
 };
 
 var convertToRows = function convertToRows(originColumns) {
@@ -14909,10 +14909,10 @@ var TYPE_VALUE_RESOLVER_MAP = {
       return '' + value;
     },
     parser: function parser(text) {
-      var result = Number(text);
+      var Result = Number(text);
 
       if (!isNaN(text)) {
-        return result;
+        return Result;
       } else {
         return null;
       }
@@ -20571,12 +20571,12 @@ var nextTime = function nextTime(time, step) {
       var end = this.end;
       var step = this.step;
 
-      var result = [];
+      var Result = [];
 
       if (start && end && step) {
         var current = start;
         while (compareTime(current, end) <= 0) {
-          result.push({
+          Result.push({
             value: current,
             disabled: compareTime(current, this.minTime || '-1:-1') <= 0 || compareTime(current, this.maxTime || '100:100') >= 0
           });
@@ -20584,7 +20584,7 @@ var nextTime = function nextTime(time, step) {
         }
       }
 
-      return result;
+      return Result;
     }
   }
 });
@@ -24831,15 +24831,15 @@ var node_Node = function () {
 
     var walk = function walk(parent) {
       var children = parent.childNodes || [];
-      var result = false;
+      var Result = false;
       for (var i = 0, j = children.length; i < j; i++) {
         var child = children[i];
         if (child === target || deep && walk(child)) {
-          result = true;
+          Result = true;
           break;
         }
       }
-      return result;
+      return Result;
     };
 
     return walk(this);
@@ -27972,16 +27972,16 @@ src_button_component.options.__file = "packages/slider/src/button.vue"
       }
       var stopCount = (this.max - this.min) / this.step;
       var stepWidth = 100 * this.step / (this.max - this.min);
-      var result = [];
+      var Result = [];
       for (var i = 1; i < stopCount; i++) {
-        result.push(i * stepWidth);
+        Result.push(i * stepWidth);
       }
       if (this.range) {
-        return result.filter(function (step) {
+        return Result.filter(function (step) {
           return step < 100 * (_this3.minValue - _this3.min) / (_this3.max - _this3.min) || step > 100 * (_this3.maxValue - _this3.min) / (_this3.max - _this3.min);
         });
       } else {
-        return result.filter(function (step) {
+        return Result.filter(function (step) {
           return step > 100 * (_this3.firstValue - _this3.min) / (_this3.max - _this3.min);
         });
       }
@@ -31038,13 +31038,13 @@ var types_ = __webpack_require__(18);
 
   computed: {
     text: function text() {
-      var result = '';
+      var Result = '';
       if (this.showScore) {
-        result = this.scoreTemplate.replace(/\{\s*value\s*\}/, this.rateDisabled ? this.value : this.currentValue);
+        Result = this.scoreTemplate.replace(/\{\s*value\s*\}/, this.rateDisabled ? this.value : this.currentValue);
       } else if (this.showText) {
-        result = this.texts[Math.ceil(this.currentValue) - 1];
+        Result = this.texts[Math.ceil(this.currentValue) - 1];
       }
-      return result;
+      return Result;
     },
     decimalStyle: function decimalStyle() {
       var width = '';
@@ -31084,19 +31084,19 @@ var types_ = __webpack_require__(18);
       return this.getValueFromMap(this.currentValue, this.colorMap);
     },
     classes: function classes() {
-      var result = [];
+      var Result = [];
       var i = 0;
       var threshold = this.currentValue;
       if (this.allowHalf && this.currentValue !== Math.floor(this.currentValue)) {
         threshold--;
       }
       for (; i < threshold; i++) {
-        result.push(this.activeClass);
+        Result.push(this.activeClass);
       }
       for (; i < this.max; i++) {
-        result.push(this.voidClass);
+        Result.push(this.voidClass);
       }
-      return result;
+      return Result;
     },
     rateDisabled: function rateDisabled() {
       return this.disabled || (this.elForm || {}).disabled;

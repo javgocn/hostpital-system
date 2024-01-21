@@ -2,6 +2,7 @@ package cn.edu.just.hostpital.system.service;
 
 import cn.edu.just.hostpital.system.common.Result;
 import cn.edu.just.hostpital.system.model.AdminInfo;
+import cn.edu.just.hostpital.system.req.AdminInfoReq;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +25,7 @@ public interface AdminInfoService extends IService<AdminInfo> {
      * @param request 请求
      * @return 登录结果
      */
-    Result<?> login(AdminInfo admin, HttpServletRequest request);
+    Result<?> login(AdminInfoReq adminInfoReq, HttpServletRequest request);
 
     /**
      * 修改密码

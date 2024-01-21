@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>就诊信息</title>
+
+    <script src="../../plugins/js/vue.js"></script>
+    <script src="../../plugins/element-ui/lib/index.js"></script>
+    <script src="../../plugins/js/axios-0.18.0.js"></script>
+    <link rel="stylesheet" href="../../plugins/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../../css/appointinfo.css">
+</head>
+<body>
+<div id="app">
+    <div>
+        <el-date-picker
+                v-model="search.consultTime"
+                type="date"
+                placeholder="请选择就诊日期"
+                value-format="yyyy-MM-dd">
+        </el-date-picker>
+        <el-input v-model="search.username" placeholder="请输入患者姓名" style="width: 250px"></el-input>
+        <el-select v-model="search.status" placeholder="请选择就诊状态">
+            <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+            </el-option>
+        </el-select>
+        <el-button type="primary" @click="select">查询</el-button>
+        <el-button type="success" @click="selecttoday">查询今日患者</el-button>
+        <el-button icon="el-icon-refresh-right" circle style="float: right" @click="refresh"></el-button>
+    </div>
+    <hr>
+    <br>
+    <div style="height: 400px">
+        <template>
+            <el-table
+                    :data="appoint"
+                    border
+                    style="width: 100%;">
+                <el-table-column
+                        type="selection">
+                </el-table-column>
+                <el-table-column
+                        prop="consultTime"
+                        label="就诊日期">
+                </el-table-column>
+                <el-table-column
+                        prop="username"
+                        label="患者姓名">
+                </el-table-column>
+                <el-table-column
+                        prop="status"
+                        label="就诊状态"
+                        width="80px">
+                    <template slot-scope="scope">
+                        <el-tag type="info" v-if="scope.row.status==0">待就诊</el-tag>
+                        <el-tag type="success" v-if="scope.row.status==1">已就诊</el-tag>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        prop="createTime"
+                        label="预约时间">
+                </el-table-column>
+                <el-table-column
+                        label="操作"
+                        width="350px">
+                    <template slot-scope="scope">
+                        <el-tooltip effect="dark" content="患者详情" placement="top-start">
+                            <el-button icon="el-icon-s-operation" circle
+                                       @click="openpatientdetails(scope.row)"></el-button>
+                        </el-tooltip>
+                        <el-tooltip effect="dark" content="编辑病历" placement="top-start">
+                            <el-button type="primary" icon="el-icon-notebook-2" circle
+                                       @click="logedit(scope.row)"></el-button>
+                        </el-tooltip>
+                        <el-tooltip effect="dark" content="开具处方" placement="top-start">
+                            <el-button type="warning" icon="el-icon-document" circle
+                                       @click="createpresc(scope.row)"></el-button>
+                        </el-tooltip>
+                        <el-tooltip effect="dark" content="办理住院" placement="top-start">
+                            <el-button type="info" icon="el-icon-office-building" circle
+                                       @click="opencreatelive(scope.row)"></el-button>
+                        </el-tooltip>
+                        <el-tooltip effect="dark" content="就诊完毕" placement="top-start">
+                            <el-button type="success" icon="el-icon-finished" circle @click="finish(scope.row)"></el-button>
+                        </el-tooltip>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </template>
+    </div>
+    <div>
+        <el-pagination
+                @current-change="handleCurrentChange"
+                :current-page="page.currentPage"
+                :page-size="page.pageSize"
+                layout="prev, pager, next, jumper"
+                :total="page.total">
+        </el-pagination>
+    </div>
+
+    <!--患者详情-->
+    <el-dialog
+            title="患者详情"
+            :visible.sync="patientdetails"
+            width="600px">
+        <el-form ref="form" :model="patient" label-width="100px" :inline="true">
+            <el-form-item label="患者姓名">
+                <el-input v-model="patient.username" :disabled="true"></el-input>
+            </el-form-item>
+            <el-form-item label="患者病情">
+                <el-input v-model="patient.remark" type="textarea"
+                          :rows="4" style="width:300px" :disabled="true"></el-input>
+            </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+    <el-button type="primary" @click="patientdetails = false">确 定</el-button>
+  </span>
+    </el-dialog>
+
+    <!--编辑病历-->
+    <el-dialog
+            title="编辑病历"
+            :visible.sync="caselogedit"
+            width="800px"
+    >
+        <el-form ref="form" :model="caselog" class="a" label-width="100px" :inline="true">
+            <el-form-item label="患者姓名">
+                <el-input v-model="caselog.username" :disabled="true"></el-input>
+            </el-form-item>
+            <el-form-item label="医生姓名">
+                <el-input v-model="caselog.doctorname" :disabled="true"></el-input>
+            </el-form-item>
+            <br>
+            <el-form-item label="体温">
+                <el-input v-model="caselog.temperature" oninput="value=value.replace(/[^0-9.]/g,'')"></el-input>
+            </el-form-item>
+            <el-form-item label="脉搏" style="width: 400px">
+                <el-input v-model="caselog.pulse" oninput="value=value.replace(/[^0-9.]/g,'')"></el-input>
+            </el-form-item>
+            <br>
+            <el-form-item label="血压">
+                <el-input v-model="caselog.bloodpressure" oninput="value=value.replace(/[^0-9.]/g,'')"></el-input>
+            </el-form-item>
+            <el-form-item label="患者病情">
+                <el-input v-model="caselog.remark" type="textarea"
+                          :rows="4" style="width:300px" placeholder="请叙述患者病情"></el-input>
+            </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+    <el-button type="primary" @click="submitcaselog">上传病历</el-button>
+  </span>
+    </el-dialog>
+
+    <!--开具处方-->
+    <el-dialog
+            title="开具处方"
+            :visible.sync="createpsc"
+            width="600px">
+        <el-form ref="form" :model="presc" label-width="100px" :inline="true">
+            <el-form-item label="患者姓名">
+                <el-input v-model="presc.username" :disabled="true"></el-input>
+            </el-form-item>
+            <el-form-item label="处方说明">
+                <el-input v-model="presc.remark" type="textarea"
+                          :rows="4" style="width:300px"></el-input>
+            </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+    <el-button type="primary" @click="submitpresc">提 交</el-button>
+  </span>
+    </el-dialog>
+
+    <!--办理住院-->
+    <el-dialog
+            title="办理住院"
+            :visible.sync="createlive"
+            width="600px">
+        <el-form ref="form" :model="live" label-width="100px" :inline="true">
+            <el-form-item label="床位编号">
+                <el-select v-model="live.bedId" placeholder="请选择床位编号">
+                    <el-option
+                            v-for="item in bed"
+                            :key="item.id"
+                            :label="item.id"
+                            :value="item.id">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="入院时间">
+                <el-date-picker
+                        v-model="live.beginDate"
+                        type="date"
+                        placeholder="请选择入院日期"
+                        value-format="yyyy-MM-dd">
+                </el-date-picker>
+            </el-form-item>
+            <el-form-item label="出院时间">
+                <el-date-picker
+                        v-model="live.endDate"
+                        type="date"
+                        placeholder="请选择出院日期"
+                        value-format="yyyy-MM-dd">
+                </el-date-picker>
+            </el-form-item>
+            <el-form-item label="住院说明">
+                <el-input v-model="live.remark" type="textarea"
+                          :rows="4" style="width:300px"></el-input>
+            </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+    <el-button type="primary" @click="submitlive">提 交</el-button>
+  </span>
+    </el-dialog>
+
+</div>
+<script>
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                search: {
+                    doctorId: '',
+                    consultTime: '',
+                    username: '',
+                    status: '',
+                },
+                options: [{
+                    value: '0',
+                    label: '待就诊'
+                }, {
+                    value: '1',
+                    label: '已就诊'
+                }],
+                appoint: [{
+                    consultTime: '',
+                    username: '',
+                    status: 0,
+                    createTime: '',
+                }],
+                page: {
+                    currentPage: 1,
+                    pageSize: 5,
+                    total: 0
+                },
+                patientdetails: false,
+                patient: {
+                    username: '',
+                    remark: ''
+                },
+                caselogedit: false,
+                caselog: {
+                    userId: '',
+                    username: '',
+                    doctorname: '',
+                    temperature: '',
+                    pulse: '',
+                    bloodpressure: '',
+                    remark: '',
+                    doctorId: '',
+                    appointTime: ''
+                },
+                presc: {
+                    username: '',
+                    userId: '',
+                    remark: '',
+                    doctorId: '',
+                    doctorname: '',
+                },
+                createpsc: false,
+                doctorname: '',
+                createlive: false,
+                live: {
+                    userId: '',
+                    name: '',
+                    bedId: '',
+                    beginDate: '',
+                    endDate: '',
+                    remark: '',
+                },
+                bed: [{
+                    id: ''
+                }],
+
+            }
+        },
+        mounted() {
+            this.selecttoday();
+            this.getdoctorname();
+            this.getbed();
+        },
+        methods: {
+            handleCurrentChange(currentPage) {
+                this.page.currentPage = currentPage;
+                this.select();
+            },
+            select() {
+                var _this = this;
+                var doctorStr = localStorage.getItem("doctorInfo");
+                var doctorObj = JSON.parse(doctorStr);
+                _this.search.doctorId = doctorObj.id;
+                axios.post("/appoint/selectappoint/" + _this.page.currentPage + "/" + _this.page.pageSize, _this.search).then((res) => {
+                    _this.page.currentPage = res.data.data.current;
+                    _this.page.total = res.data.data.total;
+                    _this.page.pageSize = res.data.data.size;
+                    _this.appoint = res.data.data.records;
+                })
+            },
+            selecttoday() {
+                var _this = this;
+                var doctorStr = localStorage.getItem("doctorInfo");
+                var doctorObj = JSON.parse(doctorStr);
+                _this.search.doctorId = doctorObj.id;
+                axios.post("/appoint/selecttoday/" + _this.page.currentPage + "/" + _this.page.pageSize, _this.search).then((res) => {
+                    _this.page.currentPage = res.data.data.current;
+                    _this.page.total = res.data.data.total;
+                    _this.page.pageSize = res.data.data.size;
+                    _this.appoint = res.data.data.records;
+                })
+            },
+            refresh() {
+                var _this = this;
+                _this.search.consultTime = '';
+                _this.search.username = '';
+                _this.search.status = '';
+                _this.select();
+            },
+            openpatientdetails(row) {
+                var _this = this;
+                _this.patientdetails = true;
+                _this.patient.username = row.username;
+                _this.patient.remark = row.remark;
+            },
+            logedit(row) {
+                var _this = this;
+                if (row.status == 1) {
+                    this.$notify({
+                        title: '警告',
+                        message: '该患者已就诊，无需编写病历',
+                        type: 'warning'
+                    });
+                } else {
+                    _this.caselogedit = true;
+                    _this.caselog.username = row.username;
+                    _this.caselog.userId = row.userId;
+                    var doctorStr = localStorage.getItem("doctorInfo");
+                    var doctorObj = JSON.parse(doctorStr);
+                    _this.caselog.doctorId = doctorObj.id;
+                    _this.caselog.appointTime = row.createTime;
+                    _this.caselog.doctorname = _this.doctorname;
+                }
+            },
+            submitcaselog() {
+                var _this = this;
+                if (_this.caselog.temperature == '' || _this.caselog.pulse == '' || _this.caselog.bloodpressure == '' || _this.caselog.remark == '') {
+                    this.$notify({
+                        title: '警告',
+                        message: '请将患者病历填写完整',
+                        type: 'warning'
+                    });
+                } else {
+                    axios.post("/caselog/addcaselog/", _this.caselog).then((res) => {
+                        if (res.data.code == '001') {
+                            this.$notify({
+                                title: '成功',
+                                message: res.data.msg,
+                                type: 'success'
+                            });
+                            _this.caselog.temperature = '';
+                            _this.caselog.pulse = '';
+                            _this.caselog.bloodpressure = '';
+                            _this.caselog.remark = '';
+                            _this.caselogedit = false;
+                        } else {
+                            this.$notify.error({
+                                title: '错误',
+                                message: res.data.msg,
+                            });
+                        }
+
+                    })
+                }
+            },
+            createpresc(row) {
+                var _this = this;
+                if (row.status == 1) {
+                    this.$notify({
+                        title: '警告',
+                        message: '该患者已就诊，无需开具处方',
+                        type: 'warning'
+                    });
+                }else{
+                    _this.createpsc = true;
+                    _this.presc.userId = row.userId;
+                    _this.presc.username = row.username;
+                }
+
+            },
+            getdoctorname() {
+                var _this = this;
+                var doctorStr = localStorage.getItem("doctorInfo");
+                var doctorObj = JSON.parse(doctorStr);
+                axios.post("/doctor/getitem/" + doctorObj.id).then((res) => {
+                    _this.doctorname = res.data.data.name;
+                });
+
+            },
+            submitpresc() {
+                var _this = this;
+                var doctorStr = localStorage.getItem("doctorInfo");
+                var doctorObj = JSON.parse(doctorStr);
+                _this.presc.doctorId = doctorObj.id;
+                _this.presc.doctorname = _this.doctorname;
+                if (_this.presc.remark == '') {
+                    this.$notify({
+                        title: '警告',
+                        message: '请填写处方说明',
+                        type: 'warning'
+                    });
+                } else {
+                    axios.post("/presc/createpresc/", _this.presc).then((res) => {
+                        this.$notify({
+                            title: '成功',
+                            message: res.data.msg,
+                            type: 'success'
+                        });
+                        _this.presc.remark = '';
+                        _this.createpsc = false;
+                    })
+                }
+            },
+            getbed() {
+                var _this = this;
+                axios.get("/bed/getbed").then((res) => {
+                    _this.bed = res.data.data;
+                })
+            },
+            opencreatelive(row) {
+                var _this = this;
+                _this.getbed();
+                if (row.status == 1) {
+                    this.$notify({
+                        title: '警告',
+                        message: '该患者已就诊，无需办理住院',
+                        type: 'warning'
+                    });
+                } else {
+                    _this.createlive=true;
+                    _this.live.userId = row.userId;
+                    _this.live.name = row.username;
+                }
+            },
+            submitlive(){
+                var _this=this;
+                if(_this.live.bid==''||_this.live.beginDate==''||_this.live.endDate==''||_this.live.remark==''){
+                    this.$notify({
+                        title: '警告',
+                        message: '请将住院信息填写完整',
+                        type: 'warning'
+                    });
+                }else {
+                    this.$confirm('是否确认为该患者办理住院', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        axios.post("/live/addlive/",_this.live).then((res)=>{
+                            if(res.data.code=='001'){
+                                this.$notify({
+                                    title: '成功',
+                                    message: res.data.msg,
+                                    type: 'success'
+                                });
+                                _this.live.bedId='';
+                                _this.live.beginDate='';
+                                _this.live.endDate='';
+                                _this.live.remark='';
+                                _this.createlive=false;
+                            }else{
+                                this.$notify.error({
+                                    title: '错误',
+                                    message: res.data.msg,
+                                });
+                                _this.live.bid='';
+                                _this.live.beginDate='';
+                                _this.live.endDate='';
+                                _this.live.remark='';
+                                _this.createlive=false;
+                            }
+                        })
+                    }).catch(() => {
+                        this.$message({
+                            type: 'info',
+                            message: '已取消办理'
+                        });
+                    });
+                }
+
+            },
+            finish(row){
+                var _this=this;
+                if(row.status==1){
+                    this.$notify({
+                        title: '警告',
+                        message: '该预约已完成就诊，请勿重复',
+                        type: 'warning'
+                    });
+                }else {
+                    this.$confirm('是否确认为该患者完成就诊', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        axios.post("/appoint/finish/"+row.id).then((res)=>{
+                            if(res.data.code=="001"){
+                                this.$notify({
+                                    title: '成功',
+                                    message: res.data.msg,
+                                    type: 'success'
+                                });
+                                _this.selecttoday();
+                            }else{
+                                this.$notify.error({
+                                    title: '错误',
+                                    message: res.data.msg,
+                                });
+                            }
+                        })
+                    }).catch(() => {
+                        this.$message({
+                            type: 'info',
+                            message: '已取消'
+                        });
+                    });
+                }
+            }
+        },
+    })
+</script>
+</body>
+</html>

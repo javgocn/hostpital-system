@@ -60,12 +60,12 @@ export default {
     },
     select: {
       loading: 'Laden',
-      noMatch: 'Geen overeenkomende resultaten',
+      noMatch: 'Geen overeenkomende Resultaten',
       noData: 'Geen data',
       placeholder: 'Selecteer'
     },
     cascader: {
-      noMatch: 'Geen overeenkomende resultaten',
+      noMatch: 'Geen overeenkomende Resultaten',
       loading: 'Laden',
       placeholder: 'Selecteer',
       noData: 'Geen data'
@@ -99,7 +99,7 @@ export default {
       emptyText: 'Geen data'
     },
     transfer: {
-      noMatch: 'Geen overeenkomende resultaten',
+      noMatch: 'Geen overeenkomende Resultaten',
       noData: 'Geen data',
       titles: ['Lijst 1', 'Lijst 2'],
       filterPlaceholder: 'Geef zoekwoerd',

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../plugins/js/echarts.js"></script>
+    <script src="../../plugins/js/vue.js"></script>
+    <script src="../../plugins/element-ui/lib/index.js"></script>
+    <script src="../../plugins/js/axios-0.18.0.js"></script>
+    <link rel="stylesheet" href="../../plugins/element-ui/lib/theme-chalk/index.css">
+</head>
+<body>
+<div id="app">
+    <div style="width: 40%;height: 600px;float: left">
+        <img src="../../img/a.jpg" style="width: 100%;height: 100%">
+    </div>
+    <div style="width: 20%;height: 600px;position: absolute;left: 620px;text-align: center;background-color: black">
+        <p style="font-size: 20px;color: #13ce66">当前模式为自动模式</p>
+        <p style="color: red">经度：113.1543917</p>
+        <p style="color:red;">维度：113.1516352</p>
+
+        <p>
+            <el-button type="success">启动</el-button>
+            <el-button type="success" style="margin-left: 50px">急停</el-button>
+        </p>
+        <p style="color: white;text-align: left">自动区</p>
+        <p><el-input v-model="input" placeholder="输入经度" style="width: 100px"></el-input>
+            <el-input v-model="input" placeholder="输入纬度" style="width: 100px"></el-input>
+            <el-button>定位</el-button>
+        </p>
+        <p style="color: white;text-align: left">手动区</p>
+        <p>
+            <el-button type="primary">前进</el-button>
+        </p>
+        <p>
+            <el-button type="primary">向左</el-button>
+
+            <el-button type="primary" style="margin-left: 50px">向右</el-button>
+        </p>
+        <p>
+            <el-button type="primary">后退</el-button>
+        </p>
+        <p>
+            <el-button type="warning">start</el-button>
+            <el-button type="warning">stop</el-button>
+        </p>
+        <p>
+            <el-button>退出地图</el-button>
+        </p>
+    </div>
+</div>
+<script>
+    new Vue({
+        el:"#app",
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户信息</title>
+
+    <script src="../../plugins/js/vue.js"></script>
+    <script src="../../plugins/element-ui/lib/index.js"></script>
+    <script src="../../plugins/js/axios-0.18.0.js"></script>
+    <link rel="stylesheet" href="../../plugins/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../../css/userinfo.css">
+</head>
+<body>
+<div id="app">
+    <div class="search">
+        <el-input v-model="search.username" placeholder="请输入用户名"></el-input>
+        <el-input v-model="search.name" placeholder="请输入姓名"></el-input>
+        <el-input v-model="search.IDcard" placeholder="请输入身份证号"></el-input>
+        <el-button icon="el-icon-search" @click="selects" circle></el-button>
+        <el-button icon="el-icon-refresh-right" @click="refresh" circle style="float: right"></el-button>
+    </div>
+    <hr>
+    <br>
+    <div style="height: 400px">
+        <template>
+            <el-table
+                    :data="user"
+                    border
+                    style="width: 100%;">
+                <el-table-column
+                        type="selection">
+                </el-table-column>
+                <el-table-column
+                        prop="username"
+                        label="账号"
+                        width="120px">
+                </el-table-column>
+                <el-table-column
+                        prop="name"
+                        label="姓名"
+                        width="80px">
+                </el-table-column>
+                <el-table-column
+                        prop="IDcard"
+                        label="身份证">
+                </el-table-column>
+                <el-table-column
+                        prop="telphone"
+                        label="电话"
+                        width="150px">
+                </el-table-column>
+                <el-table-column
+                        prop="email"
+                        label="邮箱">
+                </el-table-column>
+                <el-table-column
+                        prop="sex"
+                        label="性别"
+                        width="60px">
+                    <template slot-scope="scope">
+                        <span>{{scope.row.sex==1? "男":"女"}}</span>
+                    </template>
+
+                </el-table-column>
+                <el-table-column
+                        prop="status"
+                        label="状态"
+                        width="70px">
+                    <template slot-scope="scope">
+                        <el-tag type="success" v-if="scope.row.status==0">启用</el-tag>
+                        <el-tag type="warning" v-if="scope.row.status==1">禁用</el-tag>
+                    </template>
+
+                </el-table-column>
+                <el-table-column
+                        prop="createTime"
+                        label="录入时间">
+                </el-table-column>
+                <el-table-column
+                        label="操作">
+                    <template slot-scope="scope">
+                        <el-tooltip effect="dark" content="锁定" placement="top-start">
+                            <el-button type="warning" icon="el-icon-lock" circle @click="lock(scope.row)"></el-button>
+                        </el-tooltip>
+                        <el-tooltip effect="dark" content="删除" placement="top-start">
+                            <el-button type="danger" icon="el-icon-delete" circle @click="del(scope.row)"></el-button>
+                        </el-tooltip>
+                    </template>
+
+                </el-table-column>
+            </el-table>
+        </template>
+    </div>
+    <div>
+        <el-pagination
+                @current-change="handleCurrentChange"
+                :current-page="page.currentPage"
+                :page-size="page.pageSize"
+                layout="prev, pager, next, jumper"
+                :total="page.total">
+        </el-pagination>
+    </div>
+</div>
+</body>
+<script>
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                user: [{
+                    username: '',
+                    name: '',
+                    IDcard: '',
+                    telphone: '',
+                    email: '',
+                    sex: 1,
+                    status: 1,
+                    createTime: '',
+                },],
+                search: {
+                    username: '',
+                    name: '',
+                    IDcard: '',
+                },
+                page: {
+                    currentPage: 1,
+                    pageSize: 5,
+                    total: 0
+                }
+            }
+        },
+        mounted() {
+            this.selects();
+        },
+        methods: {
+            handleCurrentChange(currentPage) {
+                this.page.currentPage = currentPage;
+                this.selects();
+            },
+            selects() {
+                var _this = this;
+                axios.post("/user/select/" + _this.page.currentPage + "/" + _this.page.pageSize, _this.search).then((res) => {
+                    _this.page.currentPage = res.data.data.current;
+                    _this.page.total = res.data.data.total;
+                    _this.page.pageSize = res.data.data.size;
+                    _this.user = res.data.data.records;
+                })
+            },
+            refresh() {
+                var _this = this;
+                _this.search.username = '';
+                _this.search.name = '';
+                _this.search.IDcard = '';
+                _this.selects();
+            },
+            lock(row) {
+                var _this = this;
+                axios.post("/user/lock/", row).then((res) => {
+                    this.$notify({
+                        title: '成功',
+                        message: res.data.msg,
+                        type: 'success'
+                    });
+                    _this.selects();
+                })
+            },
+            del(row) {
+                var _this = this;
+                this.$confirm('此用户将被删除, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    axios.delete("/user/delete/" + row.id).then((res) => {
+                        if(res.data.code=='001'){
+                            this.$notify({
+                                title: '成功',
+                                message: res.data.msg,
+                                type: 'success'
+                            });
+                            _this.selects();
+                        }else {
+                            this.$notify.error({
+                                title: '失败',
+                                message: res.data.msg
+                            });
+                        }
+                    })
+                }).catch(() => {
+                    this.$notify.info({
+                        title: '消息',
+                        message: '已取消删除'
+                    });
+                });
+            }
+        },
+    })
+</script>
+</html>

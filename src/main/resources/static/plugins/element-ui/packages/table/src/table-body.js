@@ -133,18 +133,18 @@ export default {
       let colspan = 1;
       const fn = this.table.spanMethod;
       if (typeof fn === 'function') {
-        const result = fn({
+        const Result = fn({
           row,
           column,
           rowIndex,
           columnIndex
         });
-        if (Array.isArray(result)) {
-          rowspan = result[0];
-          colspan = result[1];
-        } else if (typeof result === 'object') {
-          rowspan = result.rowspan;
-          colspan = result.colspan;
+        if (Array.isArray(Result)) {
+          rowspan = Result[0];
+          colspan = Result[1];
+        } else if (typeof Result === 'object') {
+          rowspan = Result.rowspan;
+          colspan = Result.colspan;
         }
       }
       return { rowspan, colspan };

@@ -1037,7 +1037,7 @@
 *2018-07-03*
 
 - Corregido `allow-drop` que no funcionaba correctamente cuando los nodos de árbol tenian una altura personalizada, #11797
-- Ahora puede pasar un parámetro al método `clearValidate` de Form, especificando qué resultados de validación de `FormItems` necesita borrar, #11821
+- Ahora puede pasar un parámetro al método `clearValidate` de Form, especificando qué Resultados de validación de `FormItems` necesita borrar, #11821
 - Añadido el atributo `distinguishCancelAndClose` para MessageBox, #11831
 
 ### 2.4.2
@@ -1123,7 +1123,7 @@
 - Corregido que cuando los datos de origen no tenian el campo especificado por el atributo `prop` de una TableColumn, se producía un error al moverse el ratón dentro de las celdas de esa columna, #11137.
 - El atributo `lockScroll` de los componentes pop-up ya no añade un inline style al elemento padre, sino que añade un nombre de clase, #1111114.
 - Arreglado el icono de Progreso que no se mostraba cuando su `status` era `exception`, #11172
-- El atributo `disabled` no funcionaba en la lista de resultados del filtro de Cascader, #11185
+- El atributo `disabled` no funcionaba en la lista de Resultados del filtro de Cascader, #11185
 - Se ha corregido un problema por el que la fila expandida de la Tabla no se podía contraer si los datos de origen se actualizaban después de su expansión, #11186.
 - `setCurrentKey` de Tree ahora acepta `null` como parámetro para cancelar el nodo actualmente resaltado, #11205
 
@@ -1545,7 +1545,7 @@
   - Añadido el atributo `status-icon` para mostrar un icono de retroalimentación cuando se valida #7032
   - Form y FormItem ahora tienen un atributo `size`. Los componentes internos heredarán este tamaño si no se especifica en ellos mismos, #7428
   - Método `validate` devolverá ahora una promesa si se omite la llamada de retorno, #7405
-  - Añadido método `clearValidate` para limpiar los resultados de las validaciones de todos los form items, #7623
+  - Añadido método `clearValidate` para limpiar los Resultados de las validaciones de todos los form items, #7623
 - Input
   - Añadido slots con nombres `suffix` y `prefix` y atributos `suffixIcon` y `prefixIcon` para añadir contenido dentro del input #7032
 - Breadcrumb

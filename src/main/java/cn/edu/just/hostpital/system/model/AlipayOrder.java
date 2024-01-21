@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -29,7 +28,7 @@ public class AlipayOrder implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    private Integer id;
 
     @ApiModelProperty("订单ID")
     private String orderId;
@@ -40,8 +39,20 @@ public class AlipayOrder implements Serializable {
     @ApiModelProperty("订单总金额")
     private BigDecimal totalAmount;
 
-    @ApiModelProperty("交易状态")
-    private String tradeStatus;
+    @ApiModelProperty("交易状态，见 TradeStatusType")
+    private Integer tradeStatus;
+
+    @ApiModelProperty("商户订单号")
+    private String outTradeNo;
+
+    @ApiModelProperty("支付方式，见 PayMethod")
+    private Integer payMethod;
+
+    @ApiModelProperty("产品码")
+    private String productCode;
+
+    @ApiModelProperty("产品名称")
+    private String productName;
 
     @ApiModelProperty("支付宝交易号")
     private String tradeNo;

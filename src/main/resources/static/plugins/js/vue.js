@@ -880,7 +880,7 @@
       var args = [], len = arguments.length;
       while ( len-- ) args[ len ] = arguments[ len ];
 
-      var result = original.apply(this, args);
+      var Result = original.apply(this, args);
       var ob = this.__ob__;
       var inserted;
       switch (method) {
@@ -895,7 +895,7 @@
       if (inserted) { ob.observeArray(inserted); }
       // notify change
       ob.dep.notify();
-      return result
+      return Result
     });
   });
 
@@ -1224,7 +1224,7 @@
       }
       // when parentVal & childVal are both present,
       // we need to return a function that returns the
-      // merged result of both functions... no need to
+      // merged Result of both functions... no need to
       // check if parentVal is a function here because
       // it has to be a function to pass previous merges.
       return function mergedDataFn () {
@@ -1537,7 +1537,7 @@
 
     // Apply extends and mixins on the child options,
     // but only if it is a raw options object that isn't
-    // the result of another mergeOptions call.
+    // the Result of another mergeOptions call.
     // Only merged options has the _base property.
     if (!child._base) {
       if (child.extends) {
@@ -2433,13 +2433,13 @@
   }
 
   function initInjections (vm) {
-    var result = resolveInject(vm.$options.inject, vm);
-    if (result) {
+    var Result = resolveInject(vm.$options.inject, vm);
+    if (Result) {
       toggleObserving(false);
-      Object.keys(result).forEach(function (key) {
+      Object.keys(Result).forEach(function (key) {
         /* istanbul ignore else */
         {
-          defineReactive$$1(vm, key, result[key], function () {
+          defineReactive$$1(vm, key, Result[key], function () {
             warn(
               "Avoid mutating an injected value directly since the changes will be " +
               "overwritten whenever the provided component re-renders. " +
@@ -2456,7 +2456,7 @@
   function resolveInject (inject, vm) {
     if (inject) {
       // inject is :any because flow is not smart enough to figure out cached
-      var result = Object.create(null);
+      var Result = Object.create(null);
       var keys = hasSymbol
         ? Reflect.ownKeys(inject)
         : Object.keys(inject);
@@ -2469,7 +2469,7 @@
         var source = vm;
         while (source) {
           if (source._provided && hasOwn(source._provided, provideKey)) {
-            result[key] = source._provided[provideKey];
+            Result[key] = source._provided[provideKey];
             break
           }
           source = source.$parent;
@@ -2477,7 +2477,7 @@
         if (!source) {
           if ('default' in inject[key]) {
             var provideDefault = inject[key].default;
-            result[key] = typeof provideDefault === 'function'
+            Result[key] = typeof provideDefault === 'function'
               ? provideDefault.call(vm)
               : provideDefault;
           } else {
@@ -2485,7 +2485,7 @@
           }
         }
       }
-      return result
+      return Result
     }
   }
 
@@ -2645,10 +2645,10 @@
       if (hasSymbol && val[Symbol.iterator]) {
         ret = [];
         var iterator = val[Symbol.iterator]();
-        var result = iterator.next();
-        while (!result.done) {
-          ret.push(render(result.value, ret.length));
-          result = iterator.next();
+        var Result = iterator.next();
+        while (!Result.done) {
+          ret.push(render(Result.value, ret.length));
+          Result = iterator.next();
         }
       } else {
         keys = Object.keys(val);
@@ -3545,7 +3545,7 @@
         vnode = render.call(vm._renderProxy, vm.$createElement);
       } catch (e) {
         handleError(e, vm, "render");
-        // return error render result,
+        // return error render Result,
         // or previous vnode to prevent render error causing blank component
         /* istanbul ignore else */
         if (vm.$options.renderError) {
@@ -11607,16 +11607,16 @@
   }
 
   function repeat$1 (str, n) {
-    var result = '';
+    var Result = '';
     if (n > 0) {
       while (true) { // eslint-disable-line
-        if (n & 1) { result += str; }
+        if (n & 1) { Result += str; }
         n >>>= 1;
         if (n <= 0) { break }
         str += str;
       }
     }
-    return result
+    return Result
   }
 
   /*  */

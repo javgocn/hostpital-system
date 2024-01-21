@@ -1058,16 +1058,16 @@ var emitter_default = /*#__PURE__*/__webpack_require__.n(emitter_);
       }
       var stopCount = (this.max - this.min) / this.step;
       var stepWidth = 100 * this.step / (this.max - this.min);
-      var result = [];
+      var Result = [];
       for (var i = 1; i < stopCount; i++) {
-        result.push(i * stepWidth);
+        Result.push(i * stepWidth);
       }
       if (this.range) {
-        return result.filter(function (step) {
+        return Result.filter(function (step) {
           return step < 100 * (_this3.minValue - _this3.min) / (_this3.max - _this3.min) || step > 100 * (_this3.maxValue - _this3.min) / (_this3.max - _this3.min);
         });
       } else {
-        return result.filter(function (step) {
+        return Result.filter(function (step) {
           return step > 100 * (_this3.firstValue - _this3.min) / (_this3.max - _this3.min);
         });
       }

@@ -551,13 +551,13 @@
           if (this.filterable) this.query = this.selectedLabel;
           return;
         }
-        let result = [];
+        let Result = [];
         if (Array.isArray(this.value)) {
           this.value.forEach(value => {
-            result.push(this.getOption(value));
+            Result.push(this.getOption(value));
           });
         }
-        this.selected = result;
+        this.selected = Result;
         this.$nextTick(() => {
           this.resetInputHeight();
         });

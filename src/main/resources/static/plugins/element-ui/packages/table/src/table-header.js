@@ -6,16 +6,16 @@ import LayoutObserver from './layout-observer';
 import { mapStates } from './store/helper';
 
 const getAllColumns = (columns) => {
-  const result = [];
+  const Result = [];
   columns.forEach((column) => {
     if (column.children) {
-      result.push(column);
-      result.push.apply(result, getAllColumns(column.children));
+      Result.push(column);
+      Result.push.apply(Result, getAllColumns(column.children));
     } else {
-      result.push(column);
+      Result.push(column);
     }
   });
-  return result;
+  return Result;
 };
 
 const convertToRows = (originColumns) => {

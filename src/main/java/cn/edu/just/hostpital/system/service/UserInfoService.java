@@ -23,7 +23,7 @@ public interface UserInfoService extends IService<UserInfo> {
      * @param user 用户信息
      * @return 注册结果
      */
-     Result<?> register(UserInfoReq user);
+    Result<?> register(UserInfoReq user);
 
     /**
      * 登录用户

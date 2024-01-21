@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户首页</title>
+    <script src="../../plugins/js/echarts.js"></script>
+    <script src="../../plugins/js/vue.js"></script>
+    <script src="../../plugins/element-ui/lib/index.js"></script>
+    <script src="../../plugins/js/axios-0.18.0.js"></script>
+    <link rel="stylesheet" href="../../plugins/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../../css/adminindex.css">
+</head>
+<body>
+<div id="app">
+    <div id="top">
+        <div class="moudule" style="margin-left: 7%;background-color: #f98d45">
+            <img class="img" src="../../img/icon/user.png"></img>
+            <p class="t">科室数量</p>
+            <span class="num">{{deptnum}}个</span>
+        </div>
+        <div class="moudule" style="background-color: #0abdfe">
+            <img class="img" src="../../img/icon/doctor.png"></img>
+            <p class="t">医生数量</p>
+            <span class="num">{{doctornum}}个</span>
+        </div>
+        <div class="moudule" style="background-color: darkorchid">
+            <img class="img" src="../../img/icon/message.png"></img>
+            <p class="t">床位数量</p>
+            <span class="num">{{bednum}}个</span>
+        </div>
+        <div class="moudule" style="background-color: #13ce66">
+            <img class="img" src="../../img/icon/appoint.png"></img>
+            <p class="t">公告数量</p>
+            <span class="num">{{noticenum}}条</span>
+        </div>
+    </div>
+    <div style="height: 447px;width: 100%;float: left;">
+        <img src="../../img/doctor.jpeg" style="width: 100%;height: 100%"/>
+    </div>
+</div>
+
+
+<script>
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                deptnum: 0,
+                doctornum:0,
+                bednum:0,
+                noticenum:0,
+            }
+        },
+        mounted(){
+            this.getnum();
+        },
+        methods:{
+            async getnum(){
+                var _this=this;
+                await axios.post("/user/getnum").then((res)=>{
+                    _this.deptnum=res.data.data.deptnum;
+                    _this.doctornum=res.data.data.doctornum;
+                    _this.bednum=res.data.data.bednum;
+                    _this.noticenum=res.data.data.noticenum;
+                });
+            },
+        }
+    });
+</script>
+</body>
+</html>

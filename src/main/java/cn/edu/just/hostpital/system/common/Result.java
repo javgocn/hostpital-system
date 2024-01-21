@@ -1,5 +1,6 @@
 package cn.edu.just.hostpital.system.common;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,112 +25,128 @@ public class Result<T> implements Serializable {
     /**
      * 返回码
      */
-    private long code;
+    private String code;
 
     /**
      * 返回信息
      */
-    private String desc;
+    @JsonInclude(JsonInclude.Include.NON_NULL) // 为空时不序列化
+    private String msg;
 
     /**
      * 返回数据
      */
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private T data;
 
     /**
-     * 成功返回结果
-     * @param data 获取的数据
+     * 返回数据总数
+     */
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Integer total;
+
+    public Result(String code, String msg, T data) {
+        this.code = code;
+        this.msg = msg;
+        this.data = data;
+    }
+
+    /**
+     * 成功返回结果，不带数据
+     *
+     * @return 返回封装了成功状态码和信息的结果对象
+     */
+    public static <T> Result<T> success() {
+        return new Result<>(ResponseStatus.SUCCESS.getResponseCode(), ResponseStatus.SUCCESS.getDescription(), null);
+    }
+
+    /**
+     * 成功返回结果，带数据
+     *
+     * @param data 返回的数据
+     * @return 返回封装了成功状态码、信息和数据的结果对象
      */
     public static <T> Result<T> success(T data) {
-        return new Result<>(ResultType.SUCCESS.getCode(), ResultType.SUCCESS.getDesc(), data);
+        return new Result<>(ResponseStatus.SUCCESS.getResponseCode(), ResponseStatus.SUCCESS.getDescription(), data);
     }
 
     /**
-     * 成功返回结果
-     * @param data 获取的数据
-     * @param message 提示信息
+     * 成功返回结果，带数据和信息
+     *
+     * @param data 返回的数据
+     * @param message 返回的信息
+     * @return 返回封装了成功状态码、信息和数据的结果对象
      */
     public static <T> Result<T> success(T data, String message) {
-        return new Result<>(ResultType.SUCCESS.getCode(), message, data);
+        return new Result<>(ResponseStatus.SUCCESS.getResponseCode(), message, data);
     }
 
     /**
-     * 失败返回结果
-     * @param errorCode 错误码
+     * 失败返回结果，不带数据
+     *
+     * @return 返回封装了失败状态码和信息的结果对象
      */
-    public static <T> Result<T> failed(IErrorCode errorCode) {
-        return new Result<>(errorCode.getCode(), errorCode.getDesc(), null);
+    public static <T> Result<T> fail() {
+        return new Result<>(ResponseStatus.FAIL.getResponseCode(), ResponseStatus.FAIL.getDescription(), null);
     }
 
     /**
-     * 失败返回结果
-     * @param errorCode 错误码
-     * @param message 错误信息
+     * 失败返回结果，带数据
+     *
+     * @param data 返回的数据
+     * @return 返回封装了失败状态码、信息和数据的结果对象
      */
-    public static <T> Result<T> failed(IErrorCode errorCode, String message) {
-        return new Result<>(errorCode.getCode(), message, null);
+    public static <T> Result<T> fail(T data) {
+        return new Result<>(ResponseStatus.FAIL.getResponseCode(), ResponseStatus.FAIL.getDescription(), data);
     }
 
     /**
-     * 失败返回结果
-     * @param message 提示信息
+     * 失败返回结果，自定义错误信息
+     *
+     * @param message 自定义的错误信息
+     * @return 返回封装了失败状态码和自定义错误信息的结果对象
      */
-    public static <T> Result<T> failed(String message) {
-        return new Result<>(ResultType.FAIL.getCode(), message, null);
+    public static <T> Result<T> fail(String message) {
+        return new Result<>(ResponseStatus.FAIL.getResponseCode(), message, null);
     }
 
     /**
-     * 失败返回结果
-     * @param data 返回数据
-     * @param message 提示信息
+     * 失败返回结果，自定义错误码和消息
+     *
+     * @param responseCode 自定义的错误码
+     * @param message      自定义的错误信息
+     * @return 返回封装了自定义错误码和错误信息的结果对象
      */
-    public static <T> Result<T> failed(T data, String message) {
-        return new Result<>(ResultType.FAIL.getCode(), message, data);
+    public static <T> Result<T> fail(String responseCode, String message) {
+        return new Result<>(responseCode, message, null);
     }
 
     /**
-     * 失败返回结果
+     * 使用枚举返回结果，带数据
+     *
+     * @param status 指定的响应状态枚举
+     * @param data   返回的数据
+     * @return 返回封装了指定响应状态码、信息和数据的结果对象
      */
-    public static <T> Result<T> failed() {
-        return failed(ResultType.FAIL);
+    public static <T> Result<T> of(ResponseStatus status, T data) {
+        return new Result<>(status.getResponseCode(), status.getDescription(), data);
     }
 
     /**
-     * 参数验证失败返回结果
-     */
-    public static <T> Result<T> validateFailed() {
-        return failed(ResultType.PARAMETER_ERROR);
-    }
-
-    /**
-     * 参数验证失败返回结果
-     * @param message 提示信息
-     */
-    public static <T> Result<T> parameterError(String message) {
-        return new Result<>(ResultType.PARAMETER_ERROR.getCode(), message, null);
-    }
-
-    /**
-     * 未登录返回结果
-     * @param data 返回数据
-     */
-    public static <T> Result<T> unauthorized(T data) {
-        return new Result<>(ResultType.UNAUTHORIZED.getCode(), ResultType.UNAUTHORIZED.getDesc(), data);
-    }
-
-    /**
-     * 未授权返回结果
-     * @param data 返回数据
-     */
-    public static <T> Result<T> noPermission(T data) {
-        return new Result<>(ResultType.NO_PERMISSION.getCode(), ResultType.NO_PERMISSION.getDesc(), data);
-    }
-
-    /**
-     * 是否成功
-     * @return true/false
+     * 判断操作是否成功
+     *
+     * @return 如果返回码为 SUCCESS 状态码，则为true
      */
     public boolean isSuccess() {
-        return this.code == ResultType.SUCCESS.getCode();
+        return ResponseStatus.SUCCESS.getResponseCode().equals(this.code);
+    }
+
+    /**
+     * 判断操作是否失败
+     *
+     * @return 如果返回码不为 SUCCESS 状态码，则为true
+     */
+    public boolean isFail() {
+        return !isSuccess();
     }
 }

@@ -2,7 +2,7 @@ package cn.edu.just.hostpital.system.service.impl;
 
 import cn.edu.just.hostpital.system.common.Result;
 import cn.edu.just.hostpital.system.config.AlipayConfig;
-import cn.edu.just.hostpital.system.dto.AlipayOrderDTO;
+import cn.edu.just.hostpital.system.enums.PayMethod;
 import cn.edu.just.hostpital.system.enums.TradeStatusType;
 import cn.edu.just.hostpital.system.model.AlipayOrder;
 import cn.edu.just.hostpital.system.req.AliPayReq;
@@ -78,7 +78,7 @@ public class AlipayServiceImpl implements AlipayService {
             signVerified = AlipaySignature.rsaCheckV1(params, alipayConfig.getAlipayPublicKey(), alipayConfig.getCharset(), alipayConfig.getSignType());
         } catch (AlipayApiException e) {
             e.printStackTrace();
-            return Result.failed("支付宝支付结果通知签名验证失败");
+            return Result.fail("支付宝支付结果通知签名验证失败");
         }
         if (signVerified) {
             // 2. 验证交易状态
@@ -89,18 +89,21 @@ public class AlipayServiceImpl implements AlipayService {
                 AlipayOrder alipayOrder = BeanUtil.mapToBean(params, AlipayOrder.class, true, null);
                 alipayOrder.setOrderId(params.get("out_trade_no"));
                 alipayOrder.setTradeStatus(TradeStatusType.TRADE_SUCCESS.getCode());
+                alipayOrder.setPayMethod(PayMethod.ALIPAY.getCode());
                 log.info("支付宝支付结果通知参数：{}", JSON.toJSONString(alipayOrder));
                 QueryWrapper<AlipayOrder> queryWrapper = new QueryWrapper<>();
                 queryWrapper.eq("order_id", alipayOrder.getOrderId());
                 alipayOrderService.update(alipayOrder, queryWrapper);
                 log.info("支付宝订单交易成功，交易状态：{}", tradeStatus);
+                // 4.执行回调
+                alipayOrderService.paySuccessByOrderId(alipayOrder.getOrderId(), alipayOrder.getPayMethod());
             } else {
                 log.error("支付宝订单交易失败，交易状态：{}", tradeStatus);
             }
         } else {
             log.error("支付宝支付结果通知签名验证失败");
         }
-        return result.equals("success") ? Result.success("支付宝支付结果通知处理成功") : Result.failed("支付宝支付结果通知处理失败");
+        return result.equals("success") ? Result.success() : Result.fail("支付宝支付结果通知处理失败");
     }
 
     @Override
@@ -127,15 +130,17 @@ public class AlipayServiceImpl implements AlipayService {
             alipayResponse = alipayClient.execute(alipayRequest);
         } catch (AlipayApiException e) {
             log.error("支付宝支付查询请求失败", e);
-            return Result.failed("支付宝支付查询请求失败");
+            return Result.fail("支付宝支付查询请求失败");
         }
         // 4. 处理支付宝支付查询结果（支付状态见 TradeStatusType）
         if (alipayResponse.isSuccess()) {
             log.info("支付宝支付查询请求成功");
-            return Result.success(alipayResponse.getTradeStatus(), "支付宝支付查询请求成功");
+            // 5.执行回调
+            alipayOrderService.paySuccessByOrderId(outTradeNo, PayMethod.ALIPAY.getCode());
+            return Result.success(alipayResponse.getTradeStatus());
         } else {
             log.error("支付宝支付查询请求失败");
-            return Result.failed(alipayResponse.getTradeStatus(), "支付宝支付查询请求失败");
+            return Result.fail(alipayResponse.getTradeStatus(), "支付宝支付查询请求失败");
         }
     }
 
@@ -160,10 +165,10 @@ public class AlipayServiceImpl implements AlipayService {
         String formHtml = null;
         try {
             formHtml = alipayClient.pageExecute(alipayRequest).getBody();
-            return Result.success(formHtml, successMessage);
+            return Result.success(formHtml);
         } catch (Exception e) {
             log.error(failMessage, e);
-            return Result.failed(formHtml, failMessage);
+            return Result.fail(formHtml, failMessage);
         }
     }
 

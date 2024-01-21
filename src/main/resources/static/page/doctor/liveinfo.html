@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>住院信息</title>
+
+    <script src="../../plugins/js/vue.js"></script>
+    <script src="../../plugins/element-ui/lib/index.js"></script>
+    <script src="../../plugins/js/axios-0.18.0.js"></script>
+    <link rel="stylesheet" href="../../plugins/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../../css/liveinfo.css">
+</head>
+<body>
+<div id="app">
+    <div class="search">
+        <el-input v-model="search.name" placeholder="请输入患者姓名"></el-input>
+        <el-select v-model="search.status" placeholder="请选择住院状态">
+            <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+            </el-option>
+        </el-select>
+        <el-button type="primary" @click="select">查询</el-button>
+        <el-button icon="el-icon-refresh-right" @click="refresh" circle style="float: right"></el-button>
+    </div>
+    <hr>
+    <br>
+    <div style="height: 400px">
+        <template>
+            <el-table
+                    :data="live"
+                    border
+                    style="width: 100%;">
+                <el-table-column
+                        type="selection">
+                </el-table-column>
+                <el-table-column
+                        prop="name"
+                        label="患者姓名">
+                </el-table-column>
+                <el-table-column
+                        prop="room"
+                        label="病房">
+                </el-table-column>
+                <el-table-column
+                        prop="bid"
+                        label="床位">
+                </el-table-column>
+                <el-table-column
+                        prop="beginDate"
+                        label="开始日期">
+                </el-table-column>
+                <el-table-column
+                        prop="endDate"
+                        label="结束日期">
+                </el-table-column>
+                <el-table-column
+                        prop="price"
+                        label="费用">
+                </el-table-column>
+                <el-table-column
+                        prop="status"
+                        label="状态">
+                    <template slot-scope="scope">
+                        <el-tag type="info" v-if="scope.row.status==0">住院中</el-tag>
+                        <el-tag type="success" v-if="scope.row.status==1">已出院</el-tag>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        label="操作">
+                    <template slot-scope="scope">
+                        <el-tooltip effect="dark" content="详情" placement="top-start">
+                            <el-button type="info" icon="el-icon-notebook-2" circle
+                                       @click="check(scope.row)"></el-button>
+                        </el-tooltip>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </template>
+    </div>
+    <div>
+        <el-pagination
+                @current-change="handleCurrentChange"
+                :current-page="page.currentPage"
+                :page-size="page.pageSize"
+                layout="prev, pager, next, jumper"
+                :total="page.total">
+        </el-pagination>
+    </div>
+    <el-dialog
+            title="住院信息"
+            :visible.sync="dialogVisible"
+            width="30%">
+        <el-form ref="form" :model="form" label-width="80px">
+            <el-form-item label="床位">
+                <el-input v-model="form.place" :disabled="true"></el-input>
+            </el-form-item>
+            <el-form-item label="开始日期">
+                <el-input v-model="form.beginDate" :disabled="true"></el-input>
+            </el-form-item>
+            <el-form-item label="结束日期">
+                <el-input v-model="form.endDate" :disabled="true"></el-input>
+            </el-form-item>
+            <el-form-item label="备注信息">
+                <el-input
+                        type="textarea"
+                        autosize
+                        :disabled="true"
+                        v-model="form.remark">
+                </el-input>
+            </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+  </span>
+    </el-dialog>
+</div>
+<script>
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                options: [{
+                    value: '0',
+                    label:'住院中'
+                }, {
+                    value: '1',
+                    label:'已出院'
+                }],
+                search: {
+                    name: '',
+                    status: ''
+                },
+                live: [{
+                    name: '',
+                    room: '',
+                    bid: '',
+                    beginDate: '',
+                    endDate: '',
+                    price: '',
+                    status: 0,
+                }],
+                page: {
+                    currentPage: 1,
+                    pageSize: 5,
+                    total: 0
+                },
+                dialogVisible: false,
+                form: {
+                    place:'',
+                    beginDate:'',
+                    endDate:'',
+                    remark:''
+                }
+            }
+
+        },
+        mounted() {
+            this.select();
+        },
+        methods: {
+            handleCurrentChange(currentPage) {
+                this.page.currentPage = currentPage;
+                this.select();
+            },
+            select() {
+                var _this = this;
+                axios.post("/live/select/" + _this.page.currentPage + "/" + _this.page.pageSize, _this.search).then((res) => {
+                    _this.page.currentPage = res.data.data.current;
+                    _this.page.total = res.data.data.total;
+                    _this.page.pageSize = res.data.data.size;
+                    _this.live = res.data.data.records;
+                })
+            },
+            refresh() {
+                var _this = this;
+                _this.search.name = '';
+                _this.search.status = '';
+                _this.select();
+            },
+            outlive(row) {
+                var _this = this;
+                this.$confirm('是否办理出院', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    axios.post("/live/outlive/", row).then((res) => {
+                        if (res.data.code == "001") {
+                            this.$notify({
+                                title: '成功',
+                                message: res.data.msg,
+                                type: 'success'
+                            });
+                            _this.refresh();
+                        } else {
+                            this.$notify.error({
+                                title: '错误',
+                                message: res.data.msg
+                            });
+                        }
+                    })
+                }).catch(() => {
+                    this.$notify.info({
+                        title: '消息',
+                        message: '已取消出院'
+                    });
+                });
+            },
+            check(row){
+                var _this=this;
+                _this.dialogVisible=true;
+                _this.form.place=row.room+"房--"+row.bid+"号床";
+                _this.form.beginDate=row.beginDate;
+                _this.form.endDate=row.endDate;
+                _this.form.remark=row.remark;
+            }
+        },
+    })
+</script>
+</body>
+</html>

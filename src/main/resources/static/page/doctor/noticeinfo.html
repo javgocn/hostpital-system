@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>公告信息</title>
+
+    <script src="../../plugins/js/vue.js"></script>
+    <script src="../../plugins/element-ui/lib/index.js"></script>
+    <script src="../../plugins/js/axios-0.18.0.js"></script>
+    <link rel="stylesheet" href="../../plugins/element-ui/lib/theme-chalk/index.css">
+</head>
+<body>
+<div id="app">
+    <el-input v-model="search.theme" placeholder="请输入查询主题" style="width: 200px"></el-input>
+    <el-button type="primary" @click="select">查询</el-button>
+    <el-button icon="el-icon-refresh-right"circle style="float: right" @click="refresh"></el-button>
+    <hr>
+    <br>
+    <div style="height: 400px">
+        <template>
+            <el-table
+                    :data="notice"
+                    border
+                    style="width: 100%;">
+                <el-table-column
+                        type="selection">
+                </el-table-column>
+                <el-table-column
+                        prop="theme"
+                        label="公告主题">
+                </el-table-column>
+                <el-table-column
+                        prop="initiator"
+                        label="发布人">
+                </el-table-column>
+                <el-table-column
+                        prop="createTime"
+                        label="发布时间">
+                </el-table-column>
+                <el-table-column
+                        label="操作"
+                width="80px">
+                    <template slot-scope="scope">
+                        <el-tooltip effect="dark" content="查看公告" placement="top-start">
+                            <el-button type="primary" icon="el-icon-s-order" circle @click="check(scope.row)"></el-button>
+                        </el-tooltip>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </template>
+    </div>
+    <div>
+        <el-pagination
+                @current-change="handleCurrentChange"
+                :current-page="page.currentPage"
+                :page-size="page.pageSize"
+                layout="prev, pager, next, jumper"
+                :total="page.total">
+        </el-pagination>
+    </div>
+    <el-dialog
+            title="发布公告"
+            :visible.sync="dialog">
+        <el-form ref="form" :model="form" label-width="80px">
+            <el-form-item label="公告主题">
+                <el-input v-model="form.theme"></el-input>
+            </el-form-item>
+            <el-form-item label="公告内容">
+                <el-input
+                        type="textarea"
+                        :rows="4"
+                        v-model="form.content">
+                </el-input>
+            </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+    <el-button type="primary" @click="submit">确 定</el-button>
+  </span>
+    </el-dialog>
+    <el-dialog
+            title="公告"
+            :visible.sync="contentdialog">
+        <el-form ref="form" :model="form" label-width="80px">
+            <el-form-item label="公告内容">
+                <el-input
+                        type="textarea"
+                        :rows="5"
+                        v-model="content"
+                        :disabled="true">
+                </el-input>
+            </el-form-item>
+
+        </el-form>
+
+        <span slot="footer" class="dialog-footer">
+    <el-button type="primary" @click="contentdialog=false">确 定</el-button>
+  </span>
+    </el-dialog>
+
+</div>
+
+<script>
+    new Vue({
+        el:"#app",
+        data(){
+            return{
+                search:{
+                    theme:'',
+                },
+                notice:[{
+                    theme:'',
+                    initiator:'',
+                    createTime:'',
+                    content:'',
+                }],
+                page: {
+                    currentPage: 1,
+                    pageSize: 5,
+                    total: 0
+                },
+                form:{
+                    theme:'',
+                    content:''
+                },
+                dialog:false,
+                contentdialog:false,
+                content:'',
+            }
+        },
+        mounted() {
+            this.select();
+        },
+        methods: {
+            handleCurrentChange(currentPage) {
+                this.page.currentPage = currentPage;
+                this.select();
+            },
+            select() {
+                var _this = this;
+                axios.post("/notice/select/" + _this.page.currentPage + "/" + _this.page.pageSize, _this.search).then((res) => {
+                    _this.page.currentPage = res.data.data.current;
+                    _this.page.total = res.data.data.total;
+                    _this.page.pageSize = res.data.data.size;
+                    _this.notice = res.data.data.records;
+                })
+            },
+            refresh() {
+                var _this = this;
+                _this.search.theme = '';
+                _this.select();
+            },
+            submit(){
+                var _this=this;
+                var adminStr=localStorage.getItem("adminInfo");
+                var adminObj = JSON.parse(adminStr);
+                var name=adminObj.name;
+                if(_this.form.theme==''||_this.form.content==''){
+                    this.$notify({
+                        title: '警告',
+                        message: "请将公告信息输入完整",
+                        type: 'warning'
+                    });
+                }else{
+                    axios.post("/notice/lunch/"+name+"/",_this.form).then((res)=>{
+                        if(res.data.code=="001"){
+                            this.$notify({
+                                title: '成功',
+                                message: res.data.msg,
+                                type: 'success'
+                            });
+                            _this.refresh();
+                            _this.form.theme='';
+                            _this.form.content='';
+                            _this.dialog=false;
+                        }else{
+                            this.$notify.error({
+                                title: '错误',
+                                message: "公告发布失败"
+                            });
+                        }
+                    })
+                }
+            },
+            check(row){
+                var _this=this;
+                _this.contentdialog=true;
+                _this.content=row.content;
+            },
+            del(row){
+                var _this=this;
+                this.$confirm('是否删除此条公告?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    axios.post("/notice/delete/"+row.id).then((res)=>{
+                        this.$message({
+                            type: 'success',
+                            message: res.data.msg
+                        });
+                        _this.refresh();
+                    })
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>床位信息</title>
+
+    <script src="../../plugins/js/vue.js"></script>
+    <script src="../../plugins/element-ui/lib/index.js"></script>
+    <script src="../../plugins/js/axios-0.18.0.js"></script>
+    <link rel="stylesheet" href="../../plugins/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../../css/bedinfo.css">
+</head>
+<body>
+<div id="app">
+    <div class="search">
+        <el-input v-model="search.room" placeholder="请输入病房编号"></el-input>
+        <el-input v-model="search.bedid" placeholder="请输入床位编号"></el-input>
+        <el-button icon="el-icon-search" circle @click="select"></el-button>
+        <el-button type="primary" @click="newbeddialog=true">新增</el-button>
+        <el-button icon="el-icon-refresh-right" circle style="float: right" @click="refresh"></el-button>
+    </div>
+    <hr>
+    <br>
+    <div style="height: 400px">
+        <template>
+            <el-table
+                    :data="bed"
+                    border
+                    style="width: 100%;">
+                <el-table-column
+                        type="selection">
+                </el-table-column>
+                <el-table-column
+                        prop="room"
+                        label="病房编号">
+                </el-table-column>
+                <el-table-column
+                        prop="bedid"
+                        label="床位编号">
+                </el-table-column>
+                <el-table-column
+                        prop="price"
+                        label="单价(天)">
+                </el-table-column>
+                <el-table-column
+                        prop="status"
+                        label="状态">
+                    <template slot-scope="scope">
+                        <el-tag type="success" v-if="scope.row.status==0">空闲中</el-tag>
+                        <el-tag type="warning" v-if="scope.row.status==1">使用中</el-tag>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        prop="remark"
+                        label="床位备注">
+                </el-table-column>
+                <el-table-column
+                        prop="createTime"
+                        label="创建时间">
+                </el-table-column>
+
+                <el-table-column
+                        label="操作">
+                    <template slot-scope="scope">
+                        <el-tooltip effect="dark" content="编辑" placement="top-start">
+                            <el-button type="primary" icon="el-icon-edit"  circle @click="edit(scope.row)"></el-button>
+                        </el-tooltip>
+                        <el-tooltip effect="dark" content="删除" placement="top-start">
+                            <el-button type="danger" icon="el-icon-delete" circle @click="del(scope.row)"></el-button>
+                        </el-tooltip>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </template>
+    </div>
+    <div>
+        <el-pagination
+                @current-change="handleCurrentChange"
+                :current-page="page.currentPage"
+                :page-size="page.pageSize"
+                layout="prev, pager, next, jumper"
+                :total="page.total">
+        </el-pagination>
+    </div>
+    <el-dialog
+            title="新增床位"
+            :visible.sync="newbeddialog"
+            :before-close="handleClose">
+        <el-form ref="form" :model="newbed" class="demo-form-inline" :inline="true" label-width="100px">
+            <el-form-item label="病房号">
+                <el-input v-model="newbed.room" ></el-input>
+            </el-form-item>
+            <el-form-item label="病床号">
+                <el-input v-model="newbed.bedid"></el-input>
+            </el-form-item>
+            <el-form-item label="单价(天)">
+                <el-input v-model="newbed.price" onKeypress="return(/^[0-9]*$/.test(String.fromCharCode(event.keyCode)))"></el-input>
+            </el-form-item>
+            <el-form-item label="备注">
+                <el-input type="textarea" v-model="newbed.remark" style="width:300px" placeholder="非必填"></el-input>
+            </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+    <el-button type="primary" @click="add">确 定</el-button>
+  </span>
+    </el-dialog>
+    <el-dialog
+            title="修改信息"
+            :visible.sync="editdialog"
+            :before-close="handleClose">
+
+        <el-form ref="form" :model="rebed" class="demo-form-inline" :inline="true">
+            <el-form-item label="病房号">
+                <el-input v-model="rebed.room" :disabled="true"></el-input>
+            </el-form-item>
+            <el-form-item label="病床号">
+                <el-input v-model="rebed.bedid" :disabled="true"></el-input>
+            </el-form-item>
+            <el-form-item label="单价(天)">
+                <el-input v-model="rebed.price" onKeypress="return(/^[0-9]*$/.test(String.fromCharCode(event.keyCode)))"></el-input>
+            </el-form-item>
+            <el-form-item label="备注">
+                <el-input type="textarea" v-model="rebed.remark" placeholder="非必填"></el-input>
+            </el-form-item>
+        </el-form>
+
+        <span slot="footer" class="dialog-footer">
+    <el-button type="primary" @click="upd">确 定</el-button>
+  </span>
+    </el-dialog>
+</div>
+
+
+
+<script>
+    new Vue({
+        el: "#app",
+        data(){
+            return{
+                search: {
+                    room: '',
+                    bedid:'',
+                },
+                bed:[{
+                    room:'',
+                    bedid:'',
+                    price:100,
+                    status:0,
+                    remark:'',
+                    createTime:'',
+                }],
+                page: {
+                    currentPage: 1,
+                    pageSize: 5,
+                    total: 0
+                },
+                newbeddialog:false,
+                newbed:{
+                    room:'',
+                    bedid:'',
+                    price:'',
+                    remark:'',
+                },
+                rebed:{
+                    id:'',
+                    room:'',
+                    bedid:'',
+                    price:'',
+                    remark:'',
+                },
+                editdialog : false
+            }
+        },
+        mounted() {
+            this.select();
+        },
+        methods:{
+            handleCurrentChange(currentPage) {
+                this.page.currentPage = currentPage;
+                this.select();
+            },
+            select(){
+                var _this=this;
+                axios.post("/bed/select/" + _this.page.currentPage + "/" + _this.page.pageSize, _this.search).then((res) => {
+                    _this.page.currentPage = res.data.data.current;
+                    _this.page.total = res.data.data.total;
+                    _this.page.pageSize = res.data.data.size;
+                    _this.bed = res.data.data.records;
+                })
+            },
+            refresh(){
+                var _this=this;
+                _this.search.bedid='';
+                _this.search.room='';
+                _this.select();
+            },
+            handleClose(done) {
+                this.$confirm('确认关闭？')
+                    .then(_ => {
+                        done();
+                    })
+                    .catch(_ => {});
+            },
+            add(){
+                var _this=this;
+                axios.post("/bed/add/",_this.newbed).then((res)=>{
+                    if(res.data.code=='001'){
+                        this.$notify({
+                            title: '成功',
+                            message: res.data.msg,
+                            type: 'success'
+                        });
+                        _this.newbed.room='';
+                        _this.newbed.bedid='';
+                        _this.newbed.price='';
+                        _this.newbed.remark='';
+                        _this.select();
+                    }else{
+                        this.$notify.error({
+                            title: '错误',
+                            message: res.data.msg,
+                        });
+                    }
+                })
+            },
+            del(row){
+                var _this=this;
+                this.$confirm('此床位将被删除, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    axios.post("/bed/delete/",row).then((res)=>{
+
+                        if(res.data.code=="001"){
+                            this.$notify({
+                                title: '成功',
+                                message: res.data.msg,
+                                type: 'success'
+                            });
+                            _this.select();
+                        }else{
+                            this.$notify.error({
+                                title: '错误',
+                                message: res.data.msg,
+                            });
+                        }
+
+                    })
+                }).catch(() => {
+                    this.$notify.info({
+                        title: '消息',
+                        message: '已取消删除'
+                    });
+                });
+
+            },
+            edit(row){
+                var _this=this;
+                _this.editdialog=true;
+                _this.rebed.id=row.id;
+                _this.rebed.bedid=row.bedid;
+                _this.rebed.room=row.room;
+                _this.rebed.remark=row.remark;
+                _this.rebed.price=row.price;
+            },
+            upd(){
+                var _this=this;
+                axios.post("/bed/update",_this.rebed).then((res)=>{
+                    if(res.data.code=="001"){
+                        this.$notify({
+                            title: '成功',
+                            message: res.data.msg,
+                            type: 'success'
+                        });
+                        _this.select();
+                    }else{
+                        this.$notify.error({
+                            title: '错误',
+                            message: res.data.msg,
+                        });
+                    }
+                });
+
+                _this.editdialog=false;
+            }
+        }
+    })
+</script>
+</body>
+</html>

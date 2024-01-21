@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的预约</title>
+
+    <script src="../../plugins/js/vue.js"></script>
+    <script src="../../plugins/element-ui/lib/index.js"></script>
+    <script src="../../plugins/js/axios-0.18.0.js"></script>
+    <link rel="stylesheet" href="../../plugins/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../../css/deptinfo.css">
+</head>
+<body>
+<div id="app">
+    <div>
+        <el-date-picker
+                v-model="search.consultTime"
+                type="date"
+                placeholder="请选择就诊日期"
+                value-format="yyyy-MM-dd">
+        </el-date-picker>
+        <el-button type="primary" @click="select">查询</el-button>
+        <el-button icon="el-icon-refresh-right" circle style="float: right" @click="refresh"></el-button>
+    </div>
+    <hr>
+    <br>
+    <div style="height: 400px">
+        <template>
+            <el-table
+                    :data="appoint"
+                    border
+                    style="width: 100%;">
+                <el-table-column
+                        type="selection">
+                </el-table-column>
+                <el-table-column
+                        prop="consultTime"
+                        label="就诊日期">
+                </el-table-column>
+                <el-table-column
+                        prop="deptname"
+                        label="预约科室">
+                </el-table-column>
+                <el-table-column
+                        prop="doctorname"
+                        label="医生姓名">
+                </el-table-column>
+                <el-table-column
+                        prop="status"
+                        label="就诊状态"
+                        width="80px">
+                    <template slot-scope="scope">
+                        <el-tag type="info" v-if="scope.row.status==0">待就诊</el-tag>
+                        <el-tag type="success" v-if="scope.row.status==1">已就诊</el-tag>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        prop="createTime"
+                        label="预约时间">
+                </el-table-column>
+                <el-table-column
+                        label="操作"
+                        width="80px">
+                    <template slot-scope="scope">
+                        <el-tooltip effect="dark" content="查看信息" placement="top-start">
+                            <el-button type="primary" icon="el-icon-postcard" circle @click="openinfo(scope.row)"></el-button>
+                        </el-tooltip>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </template>
+    </div>
+    <div>
+        <el-pagination
+                @current-change="handleCurrentChange"
+                :current-page="page.currentPage"
+                :page-size="page.pageSize"
+                layout="prev, pager, next, jumper"
+                :total="page.total">
+        </el-pagination>
+    </div>
+
+    <el-dialog
+            title="预约信息"
+            :visible.sync="dialogVisible"
+            width="30%">
+        <el-form ref="form" :model="form" label-width="80px">
+            <el-form-item label="医生姓名">
+                <el-input v-model="form.doctorname" :disabled="true"></el-input>
+            </el-form-item>
+            <el-form-item label="预约科室">
+                <el-input v-model="form.deptname" :disabled="true"></el-input>
+            </el-form-item>
+            <el-form-item label="病患情况">
+                <el-input
+                        type="textarea"
+                        :rows="2"
+                        v-model="form.remark"
+                        :disabled="true">
+                </el-input>
+            </el-form-item>
+        </el-form>
+    </el-dialog>
+</div>
+<script>
+    new Vue({
+        el:"#app",
+        data(){
+            return{
+                search:{
+                    userId:'',
+                    consultTime:'',
+                },
+                appoint:[{
+                    consultTime:'',
+                    deptname:'',
+                    doctorname:'',
+                    status:'',
+                    createTime:'',
+                }],
+                page: {
+                    currentPage: 1,
+                    pageSize: 5,
+                    total: 0
+                },
+                dialogVisible:false,
+                form:{
+                    username:'',
+                    deptname:'',
+                    remark:'',
+                }
+            }
+        },
+        mounted() {
+            this.select();
+        },
+        methods:{
+            handleCurrentChange(currentPage) {
+                this.page.currentPage = currentPage;
+                this.select();
+            },
+            select(){
+                var _this = this;
+                var userStr = localStorage.getItem("userInfo");
+                var userObj = JSON.parse(userStr);
+                _this.search.userId = userObj.id;
+                axios.post("/appoint/sel/" + _this.page.currentPage + "/" + _this.page.pageSize, _this.search).then((res) => {
+                    _this.page.currentPage = res.data.data.current;
+                    _this.page.total = res.data.data.total;
+                    _this.page.pageSize = res.data.data.size;
+                    _this.appoint = res.data.data.records;
+                })
+            },
+            refresh(){
+                var _this=this;
+                _this.search.consultTime='';
+                _this.select();
+            },
+            openinfo(row){
+                var _this=this;
+                _this.dialogVisible=true;
+                _this.form.doctorname=row.doctorname;
+                _this.form.deptname=row.deptname;
+                _this.form.remark=row.remark;
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

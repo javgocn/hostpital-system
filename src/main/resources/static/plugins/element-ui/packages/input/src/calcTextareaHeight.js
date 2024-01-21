@@ -71,7 +71,7 @@ export default function calcTextareaHeight(
   hiddenTextarea.value = targetElement.value || targetElement.placeholder || '';
 
   let height = hiddenTextarea.scrollHeight;
-  const result = {};
+  const Result = {};
 
   if (boxSizing === 'border-box') {
     height = height + borderSize;
@@ -88,7 +88,7 @@ export default function calcTextareaHeight(
       minHeight = minHeight + paddingSize + borderSize;
     }
     height = Math.max(minHeight, height);
-    result.minHeight = `${ minHeight }px`;
+    Result.minHeight = `${ minHeight }px`;
   }
   if (maxRows !== null) {
     let maxHeight = singleRowHeight * maxRows;
@@ -97,8 +97,8 @@ export default function calcTextareaHeight(
     }
     height = Math.min(maxHeight, height);
   }
-  result.height = `${ height }px`;
+  Result.height = `${ height }px`;
   hiddenTextarea.parentNode && hiddenTextarea.parentNode.removeChild(hiddenTextarea);
   hiddenTextarea = null;
-  return result;
+  return Result;
 };
