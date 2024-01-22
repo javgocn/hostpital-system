@@ -48,15 +48,15 @@ public class LoginCheckFilter implements Filter {
         }
 
         // 判断登录状态，如果已登录则直接放行
-        if (Objects.nonNull(request.getSession().getAttribute("admin")) && requestURI.equals(requestWhiteList.getAdminPage())) {
+        if (Objects.nonNull(request.getSession().getAttribute("admin")) && ANT_PATH_MATCHER.match(requestWhiteList.getAdminPage(), requestURI)) {
             filterChain.doFilter(request, response);
             return;
         }
-        if (Objects.nonNull(request.getSession().getAttribute("user")) && requestURI.equals(requestWhiteList.getUserPage())) {
+        if (Objects.nonNull(request.getSession().getAttribute("user")) && ANT_PATH_MATCHER.match(requestWhiteList.getUserPage(), requestURI)) {
             filterChain.doFilter(request, response);
             return;
         }
-        if (Objects.nonNull(request.getSession().getAttribute("doctor")) && requestURI.equals(requestWhiteList.getDoctorPage())) {
+        if (Objects.nonNull(request.getSession().getAttribute("doctor")) && ANT_PATH_MATCHER.match(requestWhiteList.getDoctorPage(), requestURI)) {
             filterChain.doFilter(request, response);
             return;
         }

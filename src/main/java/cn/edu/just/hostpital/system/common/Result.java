@@ -61,6 +61,15 @@ public class Result<T> implements Serializable {
     }
 
     /**
+     * 成功返回结果，带信息
+     * @param message 返回的信息
+     * @return 返回封装了成功状态码和信息的结果对象
+     */
+    public static <T> Result<T> success(String message) {
+        return new Result<>(ResponseStatus.SUCCESS.getResponseCode(), message, null);
+    }
+
+    /**
      * 成功返回结果，带数据
      *
      * @param data 返回的数据

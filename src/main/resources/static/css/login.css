@@ -54,9 +54,9 @@ img {
 
 .title {
     width: 100%;
-    margin-top: 0px;
+    margin-top: 35px;
     font-size: 35px;
     text-align: center;
-    color: dodgerblue;
+    color: #409eff;
     margin-bottom: 40px;
 }

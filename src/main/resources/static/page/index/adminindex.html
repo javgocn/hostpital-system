@@ -13,34 +13,32 @@
 <body>
 <div id="app">
     <div id="top">
-        <div class="moudule" style="margin-left: 7%;background-color: #f98d45">
+        <div class="moudule" style="margin-left: 7%; background-color: #67C23A">
             <img class="img" src="../../img/icon/user.png"></img>
             <p class="t">患者总数</p>
             <span class="num">{{usernum}}个</span>
         </div>
-        <div class="moudule" style="background-color: #0abdfe">
+        <div class="moudule" style="background-color: #409EFF">
             <img class="img" src="../../img/icon/doctor.png"></img>
             <p class="t">医生总数</p>
             <span class="num">{{doctornum}}个</span>
         </div>
-        <div class="moudule" style="background-color: darkorchid">
+        <div class="moudule" style="background-color: #E6A23C">
             <img class="img" src="../../img/icon/message.png"></img>
             <p class="t">留言数量</p>
             <span class="num">{{messagenum}}条</span>
         </div>
-        <div class="moudule" style="background-color: #13ce66">
+        <div class="moudule" style="background-color: #F56C6C">
             <img class="img" src="../../img/icon/appoint.png"></img>
             <p class="t" style="margin-left: 60px">未处理预约</p>
             <span class="num">{{appointnum}}条</span>
         </div>
     </div>
-    <div style="height: 400px;width: 100%;float: left">
-        <div id="register" style="width: 550px;height: 400px;float: left;"></div>
-        <div id="appoint" style="width: 550px;height: 400px;float: left"></div>
+    <div style="height: 400px; width: 100%; float: left">
+        <div id="register" style="width: 550px; height: 400px; float: left;"></div>
+        <div id="appoint" style="width: 550px; height: 400px; float: left"></div>
     </div>
 </div>
-
-
 <script>
     new Vue({
         el: "#app",
@@ -53,7 +51,7 @@
                 option : {
                     title:{
                         show:"true",
-                        text:"本年度注册量",
+                        text:"本年度用户注册量",
                     },
                     xAxis: {
                         type: 'category',
@@ -72,7 +70,7 @@
                 option2 : {
                     title:{
                         show:"true",
-                        text:"本年度预约量",
+                        text:"本年度用户预约量",
                     },
                     xAxis: {
                         type: 'category',
