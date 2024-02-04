@@ -26,18 +26,18 @@ export default function(Vue) {
     }
 
     return string.replace(RE_NARGS, (match, prefix, i, index) => {
-      let Result;
+      let result;
 
       if (string[index - 1] === '{' &&
         string[index + match.length] === '}') {
         return i;
       } else {
-        Result = hasOwn(args, i) ? args[i] : null;
-        if (Result === null || Result === undefined) {
+        result = hasOwn(args, i) ? args[i] : null;
+        if (result === null || result === undefined) {
           return '';
         }
 
-        return Result;
+        return result;
       }
     });
   }

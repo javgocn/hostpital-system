@@ -120,7 +120,7 @@
 - Transfer
   - Fix style error  (#17206 by @iamkun)
 - Dialog
-  - update sass let (#16365 by @haoranyu)
+  - update sass var (#16365 by @haoranyu)
 - RadioGroup
   - Not produce invalid HTML in table if "is" attribute is specify (#17070 by @nullptru)
 - Divider
@@ -298,7 +298,7 @@
 - Badge
   - Update badge prop check (#16198 by @iamkun)
 - Avatar
-  - Update theme config let (#16202 by @luckyCao)
+  - Update theme config var (#16202 by @luckyCao)
 - I18n
   - Update pt-br.js (#15776 by @gigioSouza)
   - Update Farsi translation (#15881 by @pamenary)
@@ -1036,7 +1036,7 @@ Docs
 *2018-07-03*
 
 - Fixed `allow-drop` not working properly when Tree nodes have a custom height, #11797
-- Now you can pass a parameter to the `clearValidate` method of Form, specifying which FormItems' validation Results need to be cleared, #11821
+- Now you can pass a parameter to the `clearValidate` method of Form, specifying which FormItems' validation results need to be cleared, #11821
 - Added `distinguishCancelAndClose` attribute for MessageBox, #11831
 
 ### 2.4.2
@@ -1122,7 +1122,7 @@ Docs
 - Fixed when the source data does not have the field specified by a TableColumn's `prop` attribute, an error would occur when the mouse moves into that column's cells, #11137
 - The `lockScroll` attribute of pop up components no longer adds an inline style to the parent element, but instead adds a class name, #11114
 - Fixed the icon of Progress not displaying when its `status` is exception, #11172
-- Fixed options' `disabled` attribute not working in filterable Cascader's filter Result list, #11185
+- Fixed options' `disabled` attribute not working in filterable Cascader's filter result list, #11185
 - Fixed an issue where Table's expanded row cannot be collapsed if the data source is updated after its expansion, #11186
 - `setCurrentKey` of Tree now accepts `null` as its param to cancel the currently highlighted node, #11205
 
@@ -1539,7 +1539,7 @@ Docs
   - Added `status-icon` attribute to display a feedback icon when validated #7032
   - Form and FormItem now have a `size` attribute. Inner components will inherit this size if not specified on themselves, #7428
   - `validate` method will now return a promise if the callback is omitted, #7405
-  - Added `clearValidate` method for clearing validating Results for all form items, #7623
+  - Added `clearValidate` method for clearing validating results for all form items, #7623
 - Input
   - Added `suffix` and `prefix` named slots, `suffixIcon` and `prefixIcon` attributes to add contents inside the input box #7032
 - Breadcrumb

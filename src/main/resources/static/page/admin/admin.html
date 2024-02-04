@@ -15,7 +15,7 @@
     <el-container>
         <el-header id="header">
             <div id="title">
-                <img id="hospital" src="../../img/icon/logo.png"></img>
+                <img id="hospital" src="../../img/icon/hospital.png"></img>
                 <p style="float: left;margin-left: 5px">医院管理系统</p>
             </div>
             <div id="name">
@@ -40,10 +40,10 @@
                         <i class="el-icon-s-home"></i><span slot="title">首&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;页</span>
                     </el-menu-item>
                     <el-submenu index="2">
-                        <template slot="title"><i class="el-icon-user"></i><span>用户管理</span></template>
+                        <template slot="title"><i class="el-icon-user-solid"></i><span>用户管理</span></template>
                         <el-menu-item-group>
                             <el-menu-item index="2-1" style="font-size: 12px" @click="address='../admin/userinfo.html'">
-                                <i class="el-icon-caret-right"></i>用户信息
+                                用户信息
                             </el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
@@ -51,79 +51,79 @@
                         <template slot="title"><i class="el-icon-s-marketing"></i><span>科室管理</span></template>
                         <el-menu-item-group>
                             <el-menu-item index="3-1" style="font-size: 12px" @click="address='../admin/deptinfo.html'">
-                                <i class="el-icon-caret-right"></i>科室信息
+                                科室信息
                             </el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="4">
                         <template slot="title"><i class="el-icon-s-help"></i><span>医生管理</span></template>
                         <el-menu-item-group>
-                            <el-menu-item index="4-1" style="font-size: 12px" @click="address='../admin/doctorinfo.html'">
-                                <i class="el-icon-caret-right"></i>医生信息
+                            <el-menu-item index="4-1" style="font-size: 12px"
+                                          @click="address='../admin/doctorinfo.html'">医生信息
                             </el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="5">
-                        <template slot="title"><i class="el-icon-school"></i><span>病房管理</span></template>
+                        <template slot="title"><i class="el-icon-s-grid"></i><span>床位管理</span></template>
                         <el-menu-item-group>
                             <el-menu-item index="5-1" style="font-size: 12px" @click="address='../admin/bedinfo.html'">
-                                <i class="el-icon-caret-right"></i>病房信息
+                                床位信息
                             </el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="6">
-                        <template slot="title"><i class="el-icon-first-aid-kit"></i><span>药品管理</span></template>
+                        <template slot="title"><i class="el-icon-refrigerator"></i><span>药品管理</span></template>
                         <el-menu-item-group>
                             <el-menu-item index="6-1" style="font-size: 12px" @click="address='../admin/druginfo.html'">
-                                <i class="el-icon-caret-right"></i>药品信息
+                                药品信息
                             </el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="7">
                         <template slot="title"><i class="el-icon-phone"></i><span>预约就诊</span></template>
                         <el-menu-item-group>
-                            <el-menu-item index="7-1" style="font-size: 12px" @click="address='../admin/appointinfo.html'">
-                                <i class="el-icon-caret-right"></i>预约信息
+                            <el-menu-item index="7-1" style="font-size: 12px"
+                                          @click="address='../admin/appointinfo.html'">预约信息
                             </el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="8">
                         <template slot="title"><i class="el-icon-notebook-1"></i><span>病历管理</span></template>
                         <el-menu-item-group>
-                            <el-menu-item index="8-1" style="font-size: 12px" @click="address='../admin/caseloginfo.html'">
-                                <i class="el-icon-caret-right"></i>病历信息
+                            <el-menu-item index="8-1" style="font-size: 12px"
+                                          @click="address='../admin/caseloginfo.html'">病历信息
                             </el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="9">
                         <template slot="title"><i class="el-icon-document-copy"></i><span>处方管理</span></template>
                         <el-menu-item-group>
-                            <el-menu-item index="9-1" style="font-size: 12px" @click="address='../admin/prescinfo.html'">
-                                <i class="el-icon-caret-right"></i>处方信息
+                            <el-menu-item index="9-1" style="font-size: 12px"
+                                          @click="address='../admin/prescinfo.html'">处方信息
                             </el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="10">
                         <template slot="title"><i class="el-icon-office-building"></i><span>住院管理</span></template>
                         <el-menu-item-group>
-                            <el-menu-item index="10-1" style="font-size: 12px" @click="address='../admin/liveinfo.html'">
-                                <i class="el-icon-caret-right"></i>住院信息
+                            <el-menu-item index="10-1" style="font-size: 12px"
+                                          @click="address='../admin/liveinfo.html'">住院信息
                             </el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="11">
                         <template slot="title"><i class="el-icon-chat-line-round"></i><span>反馈留言</span></template>
                         <el-menu-item-group>
-                            <el-menu-item index="11-1" style="font-size: 12px" @click="address='../admin/feedbackinfo.html'">
-                                <i class="el-icon-caret-right"></i>反馈信息
+                            <el-menu-item index="11-1" style="font-size: 12px"
+                                          @click="address='../admin/feedbackinfo.html'">反馈信息
                             </el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="12">
                         <template slot="title"><i class="el-icon-data-board"></i><span>公告管理</span></template>
                         <el-menu-item-group>
-                            <el-menu-item index="12-1" style="font-size: 12px" @click="address='../admin/noticeinfo.html'">
-                                <i class="el-icon-caret-right"></i>公告信息
+                            <el-menu-item index="12-1" style="font-size: 12px"
+                                          @click="address='../admin/noticeinfo.html'">公告信息
                             </el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
@@ -256,21 +256,21 @@
                 var adminStr = localStorage.getItem("adminInfo");
                 var adminObj = JSON.parse(adminStr);
                 var id = adminObj.id;
-                if (_this.pwd.password == '' || _this.pwd.newpassword == '' || _this.pwd.npassword == '') {
+                if (_this.pwd.password === '' || _this.pwd.newpassword === '' || _this.pwd.npassword === '') {
                     this.$notify({
                         title: '警告',
                         message: '请将输入框填写完整',
                         type: 'warning'
                     });
                 } else {
-                    if (_this.pwd.newpassword != _this.pwd.npassword) {
+                    if (_this.pwd.newpassword !== _this.pwd.npassword) {
                         this.$notify.error({
                             title: '错误',
                             message: '两次输入密码不一致'
                         });
                     } else {
                         axios.post("/admin/repwd/" + _this.pwd.password + "/" + _this.pwd.newpassword + "/" + id).then((res) => {
-                            if (res.data.code == "001") {
+                            if (res.data.code === "200") {
                                 this.$notify({
                                     title: '成功',
                                     message: res.data.msg,

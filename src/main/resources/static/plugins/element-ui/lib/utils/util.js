@@ -49,18 +49,18 @@ var getValueByPath = exports.getValueByPath = function getValueByPath(object, pr
   prop = prop || '';
   var paths = prop.split('.');
   var current = object;
-  var Result = null;
+  var result = null;
   for (var i = 0, j = paths.length; i < j; i++) {
     var path = paths[i];
     if (!current) break;
 
     if (i === j - 1) {
-      Result = current[path];
+      result = current[path];
       break;
     }
     current = current[path];
   }
-  return Result;
+  return result;
 };
 
 function getPropByPath(obj, path, strict) {

@@ -1023,10 +1023,10 @@ var TYPE_VALUE_RESOLVER_MAP = {
       return '' + value;
     },
     parser: function parser(text) {
-      var Result = Number(text);
+      var result = Number(text);
 
       if (!isNaN(text)) {
-        return Result;
+        return result;
       } else {
         return null;
       }

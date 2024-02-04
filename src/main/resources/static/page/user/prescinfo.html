@@ -138,7 +138,7 @@
         data() {
             return {
                 search: {
-                    userId:'',
+                    userId: '',
                     createDate: '',
                 },
                 page: {
@@ -194,7 +194,7 @@
                 var _this = this;
                 var userStr = localStorage.getItem("userInfo");
                 var userObj = JSON.parse(userStr);
-                _this.search.userId=userObj.id;
+                _this.search.userId = userObj.id;
                 axios.post("/presc/sel/" + _this.page.currentPage + "/" + _this.page.pageSize, _this.search).then((res) => {
                     _this.page.currentPage = res.data.data.current;
                     _this.page.total = res.data.data.total;

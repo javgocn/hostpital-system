@@ -1836,13 +1836,13 @@ var shared_ = __webpack_require__(21);
         if (this.filterable) this.query = this.selectedLabel;
         return;
       }
-      var Result = [];
+      var result = [];
       if (Array.isArray(this.value)) {
         this.value.forEach(function (value) {
-          Result.push(_this8.getOption(value));
+          result.push(_this8.getOption(value));
         });
       }
-      this.selected = Result;
+      this.selected = result;
       this.$nextTick(function () {
         _this8.resetInputHeight();
       });

@@ -4470,7 +4470,7 @@ function calcTextareaHeight(targetElement) {
   hiddenTextarea.value = targetElement.value || targetElement.placeholder || '';
 
   var height = hiddenTextarea.scrollHeight;
-  var Result = {};
+  var result = {};
 
   if (boxSizing === 'border-box') {
     height = height + borderSize;
@@ -4487,7 +4487,7 @@ function calcTextareaHeight(targetElement) {
       minHeight = minHeight + paddingSize + borderSize;
     }
     height = Math.max(minHeight, height);
-    Result.minHeight = minHeight + 'px';
+    result.minHeight = minHeight + 'px';
   }
   if (maxRows !== null) {
     var maxHeight = singleRowHeight * maxRows;
@@ -4496,10 +4496,10 @@ function calcTextareaHeight(targetElement) {
     }
     height = Math.min(maxHeight, height);
   }
-  Result.height = height + 'px';
+  result.height = height + 'px';
   hiddenTextarea.parentNode && hiddenTextarea.parentNode.removeChild(hiddenTextarea);
   hiddenTextarea = null;
-  return Result;
+  return result;
 };
 // EXTERNAL MODULE: external "element-ui/lib/utils/merge"
 var merge_ = __webpack_require__(7);
@@ -8799,13 +8799,13 @@ var scroll_into_view_default = /*#__PURE__*/__webpack_require__.n(scroll_into_vi
         if (this.filterable) this.query = this.selectedLabel;
         return;
       }
-      var Result = [];
+      var result = [];
       if (Array.isArray(this.value)) {
         this.value.forEach(function (value) {
-          Result.push(_this8.getOption(value));
+          result.push(_this8.getOption(value));
         });
       }
-      this.selected = Result;
+      this.selected = result;
       this.$nextTick(function () {
         _this8.resetInputHeight();
       });
@@ -10662,15 +10662,15 @@ var watcher_sortData = function sortData(data, states) {
 };
 
 var doFlattenColumns = function doFlattenColumns(columns) {
-  var Result = [];
+  var result = [];
   columns.forEach(function (column) {
     if (column.children) {
-      Result.push.apply(Result, doFlattenColumns(column.children));
+      result.push.apply(result, doFlattenColumns(column.children));
     } else {
-      Result.push(column);
+      result.push(column);
     }
   });
-  return Result;
+  return result;
 };
 
 /* harmony default export */ var watcher = (external_vue_default.a.extend({
@@ -11773,18 +11773,18 @@ var table_body_extends = Object.assign || function (target) { for (var i = 1; i 
       var colspan = 1;
       var fn = this.table.spanMethod;
       if (typeof fn === 'function') {
-        var Result = fn({
+        var result = fn({
           row: row,
           column: column,
           rowIndex: rowIndex,
           columnIndex: columnIndex
         });
-        if (Array.isArray(Result)) {
-          rowspan = Result[0];
-          colspan = Result[1];
-        } else if ((typeof Result === 'undefined' ? 'undefined' : table_body_typeof(Result)) === 'object') {
-          rowspan = Result.rowspan;
-          colspan = Result.colspan;
+        if (Array.isArray(result)) {
+          rowspan = result[0];
+          colspan = result[1];
+        } else if ((typeof result === 'undefined' ? 'undefined' : table_body_typeof(result)) === 'object') {
+          rowspan = result.rowspan;
+          colspan = result.colspan;
         }
       }
       return { rowspan: rowspan, colspan: colspan };
@@ -12562,16 +12562,16 @@ var table_header_extends = Object.assign || function (target) { for (var i = 1; 
 
 
 var getAllColumns = function getAllColumns(columns) {
-  var Result = [];
+  var result = [];
   columns.forEach(function (column) {
     if (column.children) {
-      Result.push(column);
-      Result.push.apply(Result, getAllColumns(column.children));
+      result.push(column);
+      result.push.apply(result, getAllColumns(column.children));
     } else {
-      Result.push(column);
+      result.push(column);
     }
   });
-  return Result;
+  return result;
 };
 
 var convertToRows = function convertToRows(originColumns) {
@@ -14909,10 +14909,10 @@ var TYPE_VALUE_RESOLVER_MAP = {
       return '' + value;
     },
     parser: function parser(text) {
-      var Result = Number(text);
+      var result = Number(text);
 
       if (!isNaN(text)) {
-        return Result;
+        return result;
       } else {
         return null;
       }
@@ -20571,12 +20571,12 @@ var nextTime = function nextTime(time, step) {
       var end = this.end;
       var step = this.step;
 
-      var Result = [];
+      var result = [];
 
       if (start && end && step) {
         var current = start;
         while (compareTime(current, end) <= 0) {
-          Result.push({
+          result.push({
             value: current,
             disabled: compareTime(current, this.minTime || '-1:-1') <= 0 || compareTime(current, this.maxTime || '100:100') >= 0
           });
@@ -20584,7 +20584,7 @@ var nextTime = function nextTime(time, step) {
         }
       }
 
-      return Result;
+      return result;
     }
   }
 });
@@ -24831,15 +24831,15 @@ var node_Node = function () {
 
     var walk = function walk(parent) {
       var children = parent.childNodes || [];
-      var Result = false;
+      var result = false;
       for (var i = 0, j = children.length; i < j; i++) {
         var child = children[i];
         if (child === target || deep && walk(child)) {
-          Result = true;
+          result = true;
           break;
         }
       }
-      return Result;
+      return result;
     };
 
     return walk(this);
@@ -27972,16 +27972,16 @@ src_button_component.options.__file = "packages/slider/src/button.vue"
       }
       var stopCount = (this.max - this.min) / this.step;
       var stepWidth = 100 * this.step / (this.max - this.min);
-      var Result = [];
+      var result = [];
       for (var i = 1; i < stopCount; i++) {
-        Result.push(i * stepWidth);
+        result.push(i * stepWidth);
       }
       if (this.range) {
-        return Result.filter(function (step) {
+        return result.filter(function (step) {
           return step < 100 * (_this3.minValue - _this3.min) / (_this3.max - _this3.min) || step > 100 * (_this3.maxValue - _this3.min) / (_this3.max - _this3.min);
         });
       } else {
-        return Result.filter(function (step) {
+        return result.filter(function (step) {
           return step > 100 * (_this3.firstValue - _this3.min) / (_this3.max - _this3.min);
         });
       }
@@ -31038,13 +31038,13 @@ var types_ = __webpack_require__(18);
 
   computed: {
     text: function text() {
-      var Result = '';
+      var result = '';
       if (this.showScore) {
-        Result = this.scoreTemplate.replace(/\{\s*value\s*\}/, this.rateDisabled ? this.value : this.currentValue);
+        result = this.scoreTemplate.replace(/\{\s*value\s*\}/, this.rateDisabled ? this.value : this.currentValue);
       } else if (this.showText) {
-        Result = this.texts[Math.ceil(this.currentValue) - 1];
+        result = this.texts[Math.ceil(this.currentValue) - 1];
       }
-      return Result;
+      return result;
     },
     decimalStyle: function decimalStyle() {
       var width = '';
@@ -31084,19 +31084,19 @@ var types_ = __webpack_require__(18);
       return this.getValueFromMap(this.currentValue, this.colorMap);
     },
     classes: function classes() {
-      var Result = [];
+      var result = [];
       var i = 0;
       var threshold = this.currentValue;
       if (this.allowHalf && this.currentValue !== Math.floor(this.currentValue)) {
         threshold--;
       }
       for (; i < threshold; i++) {
-        Result.push(this.activeClass);
+        result.push(this.activeClass);
       }
       for (; i < this.max; i++) {
-        Result.push(this.voidClass);
+        result.push(this.voidClass);
       }
-      return Result;
+      return result;
     },
     rateDisabled: function rateDisabled() {
       return this.disabled || (this.elForm || {}).disabled;

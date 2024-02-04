@@ -46,22 +46,22 @@
         data() {
             return {
                 deptnum: 0,
-                doctornum:0,
-                bednum:0,
-                noticenum:0,
+                doctornum: 0,
+                bednum: 0,
+                noticenum: 0,
             }
         },
-        mounted(){
+        mounted() {
             this.getnum();
         },
-        methods:{
-            async getnum(){
-                var _this=this;
-                await axios.post("/user/getnum").then((res)=>{
-                    _this.deptnum=res.data.data.deptnum;
-                    _this.doctornum=res.data.data.doctornum;
-                    _this.bednum=res.data.data.bednum;
-                    _this.noticenum=res.data.data.noticenum;
+        methods: {
+            async getnum() {
+                var _this = this;
+                await axios.post("/user/getnum").then((res) => {
+                    _this.deptnum = res.data.data.deptnum;
+                    _this.doctornum = res.data.data.doctornum;
+                    _this.bednum = res.data.data.bednum;
+                    _this.noticenum = res.data.data.noticenum;
                 });
             },
         }

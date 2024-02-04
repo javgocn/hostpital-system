@@ -5,11 +5,11 @@ const weeks = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
 
 const newArray = function(start, end) {
-  let Result = [];
+  let result = [];
   for (let i = start; i <= end; i++) {
-    Result.push(i);
+    result.push(i);
   }
-  return Result;
+  return result;
 };
 
 export const getI18nSettings = () => {
@@ -86,13 +86,13 @@ export const nextDate = function(date, amount = 1) {
 };
 
 export const getStartDateOfMonth = function(year, month) {
-  const Result = new Date(year, month, 1);
-  const day = Result.getDay();
+  const result = new Date(year, month, 1);
+  const day = result.getDay();
 
   if (day === 0) {
-    return prevDate(Result, 7);
+    return prevDate(result, 7);
   } else {
-    return prevDate(Result, day);
+    return prevDate(result, day);
   }
 };
 

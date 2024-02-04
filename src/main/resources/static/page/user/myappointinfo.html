@@ -63,7 +63,8 @@
                         width="80px">
                     <template slot-scope="scope">
                         <el-tooltip effect="dark" content="查看信息" placement="top-start">
-                            <el-button type="primary" icon="el-icon-postcard" circle @click="openinfo(scope.row)"></el-button>
+                            <el-button type="primary" icon="el-icon-postcard" circle
+                                       @click="openinfo(scope.row)"></el-button>
                         </el-tooltip>
                     </template>
                 </el-table-column>
@@ -104,42 +105,42 @@
 </div>
 <script>
     new Vue({
-        el:"#app",
-        data(){
-            return{
-                search:{
-                    userId:'',
-                    consultTime:'',
+        el: "#app",
+        data() {
+            return {
+                search: {
+                    userId: '',
+                    consultTime: '',
                 },
-                appoint:[{
-                    consultTime:'',
-                    deptname:'',
-                    doctorname:'',
-                    status:'',
-                    createTime:'',
+                appoint: [{
+                    consultTime: '',
+                    deptname: '',
+                    doctorname: '',
+                    status: '',
+                    createTime: '',
                 }],
                 page: {
                     currentPage: 1,
                     pageSize: 5,
                     total: 0
                 },
-                dialogVisible:false,
-                form:{
-                    username:'',
-                    deptname:'',
-                    remark:'',
+                dialogVisible: false,
+                form: {
+                    username: '',
+                    deptname: '',
+                    remark: '',
                 }
             }
         },
         mounted() {
             this.select();
         },
-        methods:{
+        methods: {
             handleCurrentChange(currentPage) {
                 this.page.currentPage = currentPage;
                 this.select();
             },
-            select(){
+            select() {
                 var _this = this;
                 var userStr = localStorage.getItem("userInfo");
                 var userObj = JSON.parse(userStr);
@@ -151,17 +152,17 @@
                     _this.appoint = res.data.data.records;
                 })
             },
-            refresh(){
-                var _this=this;
-                _this.search.consultTime='';
+            refresh() {
+                var _this = this;
+                _this.search.consultTime = '';
                 _this.select();
             },
-            openinfo(row){
-                var _this=this;
-                _this.dialogVisible=true;
-                _this.form.doctorname=row.doctorname;
-                _this.form.deptname=row.deptname;
-                _this.form.remark=row.remark;
+            openinfo(row) {
+                var _this = this;
+                _this.dialogVisible = true;
+                _this.form.doctorname = row.doctorname;
+                _this.form.deptname = row.deptname;
+                _this.form.remark = row.remark;
             }
         }
     })

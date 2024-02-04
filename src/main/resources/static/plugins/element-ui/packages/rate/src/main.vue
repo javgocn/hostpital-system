@@ -135,15 +135,15 @@
 
     computed: {
       text() {
-        let Result = '';
+        let result = '';
         if (this.showScore) {
-          Result = this.scoreTemplate.replace(/\{\s*value\s*\}/, this.rateDisabled
+          result = this.scoreTemplate.replace(/\{\s*value\s*\}/, this.rateDisabled
             ? this.value
             : this.currentValue);
         } else if (this.showText) {
-          Result = this.texts[Math.ceil(this.currentValue) - 1];
+          result = this.texts[Math.ceil(this.currentValue) - 1];
         }
-        return Result;
+        return result;
       },
 
       decimalStyle() {
@@ -198,19 +198,19 @@
       },
 
       classes() {
-        let Result = [];
+        let result = [];
         let i = 0;
         let threshold = this.currentValue;
         if (this.allowHalf && this.currentValue !== Math.floor(this.currentValue)) {
           threshold--;
         }
         for (; i < threshold; i++) {
-          Result.push(this.activeClass);
+          result.push(this.activeClass);
         }
         for (; i < this.max; i++) {
-          Result.push(this.voidClass);
+          result.push(this.voidClass);
         }
-        return Result;
+        return result;
       },
 
       rateDisabled() {

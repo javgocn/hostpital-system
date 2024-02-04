@@ -97,27 +97,27 @@
 </div>
 <script>
     new Vue({
-        el:"#app",
-        data(){
-            return{
-                feedback:[{
-                    theme:'',
-                    name:'',
-                    status:'',
-                    fdback:'',
-                    createTime:''
+        el: "#app",
+        data() {
+            return {
+                feedback: [{
+                    theme: '',
+                    name: '',
+                    status: '',
+                    fdback: '',
+                    createTime: ''
                 }],
                 page: {
                     currentPage: 1,
                     pageSize: 5,
                     total: 0
                 },
-                dialogVisible:false,
-                form:{
-                    id:'',
-                    theme:'',
-                    status:'',
-                    fdback:''
+                dialogVisible: false,
+                form: {
+                    id: '',
+                    theme: '',
+                    status: '',
+                    fdback: ''
                 }
             }
         },
@@ -138,31 +138,31 @@
                     _this.feedback = res.data.data.records;
                 })
             },
-            check(row){
-                var _this=this;
-                _this.dialogVisible=true;
-                _this.form.id=row.id;
-                _this.form.status=row.status;
-                _this.form.theme=row.theme;
+            check(row) {
+                var _this = this;
+                _this.dialogVisible = true;
+                _this.form.id = row.id;
+                _this.form.status = row.status;
+                _this.form.theme = row.theme;
             },
-            fd(){
-                var _this=this;
-                if(_this.form.fdback==''){
+            fd() {
+                var _this = this;
+                if (_this.form.fdback == '') {
                     this.$notify({
                         title: '警告',
                         message: "请输入回复",
                         type: 'warning'
                     });
-                }else{
-                    axios.post("/feedback/fd/",_this.form).then((res)=>{
-                        if(res.data.code=="001"){
+                } else {
+                    axios.post("/feedback/fd/", _this.form).then((res) => {
+                        if (res.data.code == "001") {
                             this.$notify({
                                 title: '成功',
                                 message: res.data.msg,
                                 type: 'success'
                             });
                             _this.select();
-                        }else{
+                        } else {
                             this.$notify.error({
                                 title: '错误',
                                 message: res.data.msg
@@ -170,7 +170,7 @@
                         }
                     })
                 }
-                _this.dialogVisible=false;
+                _this.dialogVisible = false;
             }
         },
     })

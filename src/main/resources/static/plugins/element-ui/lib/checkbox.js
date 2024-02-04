@@ -1,7 +1,7 @@
 module.exports =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
-/******/ 	let installedModules = {};
+/******/ 	var installedModules = {};
 /******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
@@ -11,7 +11,7 @@ module.exports =
 /******/ 			return installedModules[moduleId].exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
-/******/ 		let module = installedModules[moduleId] = {
+/******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
@@ -58,16 +58,16 @@ module.exports =
 /******/ 		if(mode & 1) value = __webpack_require__(value);
 /******/ 		if(mode & 8) return value;
 /******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		let ns = Object.create(null);
+/******/ 		var ns = Object.create(null);
 /******/ 		__webpack_require__.r(ns);
 /******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(let key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
 /******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
-/******/ 		let getter = module && module.__esModule ?
+/******/ 		var getter = module && module.__esModule ?
 /******/ 			function getDefault() { return module['default']; } :
 /******/ 			function getModuleExports() { return module; };
 /******/ 		__webpack_require__.d(getter, 'a', getter);
@@ -109,7 +109,7 @@ function normalizeComponent (
   shadowMode /* vue-cli only */
 ) {
   // Vue.extend constructor export interop
-  let options = typeof scriptExports === 'function'
+  var options = typeof scriptExports === 'function'
     ? scriptExports.options
     : scriptExports
 
@@ -130,7 +130,7 @@ function normalizeComponent (
     options._scopeId = 'data-v-' + scopeId
   }
 
-  let hook
+  var hook
   if (moduleIdentifier) { // server build
     hook = function (context) {
       // 2.3 injection
@@ -166,14 +166,14 @@ function normalizeComponent (
       // go through the normalizer
       options._injectStyles = hook
       // register for functioal component in vue file
-      let originalRender = options.render
+      var originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
         return originalRender(h, context)
       }
     } else {
       // inject component registration as beforeCreate hook
-      let existing = options.beforeCreate
+      var existing = options.beforeCreate
       options.beforeCreate = existing
         ? [].concat(existing, hook)
         : [hook]
@@ -203,10 +203,10 @@ module.exports = require("element-ui/lib/mixins/emitter");
 __webpack_require__.r(__webpack_exports__);
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./packages/checkbox/src/checkbox.vue?vue&type=template&id=d0387074&
-let render = function() {
-  let _vm = this
-  let _h = _vm.$createElement
-  let _c = _vm._self._c || _h
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
   return _c(
     "label",
     {
@@ -267,11 +267,11 @@ let render = function() {
                 on: {
                   change: [
                     function($event) {
-                      let $$a = _vm.model,
+                      var $$a = _vm.model,
                         $$el = $event.target,
                         $$c = $$el.checked ? _vm.trueLabel : _vm.falseLabel
                       if (Array.isArray($$a)) {
-                        let $$v = null,
+                        var $$v = null,
                           $$i = _vm._i($$a, $$v)
                         if ($$el.checked) {
                           $$i < 0 && (_vm.model = $$a.concat([$$v]))
@@ -320,11 +320,11 @@ let render = function() {
                 on: {
                   change: [
                     function($event) {
-                      let $$a = _vm.model,
+                      var $$a = _vm.model,
                         $$el = $event.target,
                         $$c = $$el.checked ? true : false
                       if (Array.isArray($$a)) {
-                        let $$v = _vm.label,
+                        var $$v = _vm.label,
                           $$i = _vm._i($$a, $$v)
                         if ($$el.checked) {
                           $$i < 0 && (_vm.model = $$a.concat([$$v]))
@@ -364,15 +364,15 @@ let render = function() {
     ]
   )
 }
-let staticRenderFns = []
+var staticRenderFns = []
 render._withStripped = true
 
 
 // CONCATENATED MODULE: ./packages/checkbox/src/checkbox.vue?vue&type=template&id=d0387074&
 
 // EXTERNAL MODULE: external "element-ui/lib/mixins/emitter"
-let emitter_ = __webpack_require__(4);
-let emitter_default = /*#__PURE__*/__webpack_require__.n(emitter_);
+var emitter_ = __webpack_require__(4);
+var emitter_default = /*#__PURE__*/__webpack_require__.n(emitter_);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/checkbox/src/checkbox.vue?vue&type=script&lang=js&
 //
@@ -433,7 +433,7 @@ let emitter_default = /*#__PURE__*/__webpack_require__.n(emitter_);
 
 
 
-/* harmony default export */ let checkboxvue_type_script_lang_js_ = ({
+/* harmony default export */ var checkboxvue_type_script_lang_js_ = ({
   name: 'ElCheckbox',
 
   mixins: [emitter_default.a],
@@ -488,7 +488,7 @@ let emitter_default = /*#__PURE__*/__webpack_require__.n(emitter_);
       }
     },
     isGroup: function isGroup() {
-      let parent = this.$parent;
+      var parent = this.$parent;
       while (parent) {
         if (parent.$options.componentName !== 'ElCheckboxGroup') {
           parent = parent.$parent;
@@ -506,7 +506,7 @@ let emitter_default = /*#__PURE__*/__webpack_require__.n(emitter_);
 
     /* used to make the isDisabled judgment under max/min props */
     isLimitDisabled: function isLimitDisabled() {
-      let _checkboxGroup = this._checkboxGroup,
+      var _checkboxGroup = this._checkboxGroup,
           max = _checkboxGroup.max,
           min = _checkboxGroup.min;
 
@@ -519,7 +519,7 @@ let emitter_default = /*#__PURE__*/__webpack_require__.n(emitter_);
       return (this.elFormItem || {}).elFormItemSize;
     },
     checkboxSize: function checkboxSize() {
-      let temCheckboxSize = this.size || this._elFormItemSize || (this.$ELEMENT || {}).size;
+      var temCheckboxSize = this.size || this._elFormItemSize || (this.$ELEMENT || {}).size;
       return this.isGroup ? this._checkboxGroup.checkboxGroupSize || temCheckboxSize : temCheckboxSize;
     }
   },
@@ -548,10 +548,10 @@ let emitter_default = /*#__PURE__*/__webpack_require__.n(emitter_);
       }
     },
     handleChange: function handleChange(ev) {
-      let _this = this;
+      var _this = this;
 
       if (this.isLimitExceeded) return;
-      let value = void 0;
+      var value = void 0;
       if (ev.target.checked) {
         value = this.trueLabel === undefined ? true : this.trueLabel;
       } else {
@@ -584,9 +584,9 @@ let emitter_default = /*#__PURE__*/__webpack_require__.n(emitter_);
   }
 });
 // CONCATENATED MODULE: ./packages/checkbox/src/checkbox.vue?vue&type=script&lang=js&
- /* harmony default export */ let src_checkboxvue_type_script_lang_js_ = (checkboxvue_type_script_lang_js_); 
+ /* harmony default export */ var src_checkboxvue_type_script_lang_js_ = (checkboxvue_type_script_lang_js_); 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-let componentNormalizer = __webpack_require__(0);
+var componentNormalizer = __webpack_require__(0);
 
 // CONCATENATED MODULE: ./packages/checkbox/src/checkbox.vue
 
@@ -596,7 +596,7 @@ let componentNormalizer = __webpack_require__(0);
 
 /* normalize component */
 
-let component = Object(componentNormalizer["a" /* default */])(
+var component = Object(componentNormalizer["a" /* default */])(
   src_checkboxvue_type_script_lang_js_,
   render,
   staticRenderFns,
@@ -608,9 +608,9 @@ let component = Object(componentNormalizer["a" /* default */])(
 )
 
 /* hot reload */
-if (false) { let api; }
+if (false) { var api; }
 component.options.__file = "packages/checkbox/src/checkbox.vue"
-/* harmony default export */ let src_checkbox = (component.exports);
+/* harmony default export */ var src_checkbox = (component.exports);
 // CONCATENATED MODULE: ./packages/checkbox/index.js
 
 
@@ -619,7 +619,7 @@ src_checkbox.install = function (Vue) {
   Vue.component(src_checkbox.name, src_checkbox);
 };
 
-/* harmony default export */ let packages_checkbox = __webpack_exports__["default"] = (src_checkbox);
+/* harmony default export */ var packages_checkbox = __webpack_exports__["default"] = (src_checkbox);
 
 /***/ })
 

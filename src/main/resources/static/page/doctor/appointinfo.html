@@ -85,7 +85,8 @@
                                        @click="opencreatelive(scope.row)"></el-button>
                         </el-tooltip>
                         <el-tooltip effect="dark" content="就诊完毕" placement="top-start">
-                            <el-button type="success" icon="el-icon-finished" circle @click="finish(scope.row)"></el-button>
+                            <el-button type="success" icon="el-icon-finished" circle
+                                       @click="finish(scope.row)"></el-button>
                         </el-tooltip>
                     </template>
                 </el-table-column>
@@ -392,7 +393,7 @@
                         message: '该患者已就诊，无需开具处方',
                         type: 'warning'
                     });
-                }else{
+                } else {
                     _this.createpsc = true;
                     _this.presc.userId = row.userId;
                     _this.presc.username = row.username;
@@ -448,47 +449,47 @@
                         type: 'warning'
                     });
                 } else {
-                    _this.createlive=true;
+                    _this.createlive = true;
                     _this.live.userId = row.userId;
                     _this.live.name = row.username;
                 }
             },
-            submitlive(){
-                var _this=this;
-                if(_this.live.bid==''||_this.live.beginDate==''||_this.live.endDate==''||_this.live.remark==''){
+            submitlive() {
+                var _this = this;
+                if (_this.live.bid == '' || _this.live.beginDate == '' || _this.live.endDate == '' || _this.live.remark == '') {
                     this.$notify({
                         title: '警告',
                         message: '请将住院信息填写完整',
                         type: 'warning'
                     });
-                }else {
+                } else {
                     this.$confirm('是否确认为该患者办理住院', '提示', {
                         confirmButtonText: '确定',
                         cancelButtonText: '取消',
                         type: 'warning'
                     }).then(() => {
-                        axios.post("/live/addlive/",_this.live).then((res)=>{
-                            if(res.data.code=='001'){
+                        axios.post("/live/addlive/", _this.live).then((res) => {
+                            if (res.data.code == '001') {
                                 this.$notify({
                                     title: '成功',
                                     message: res.data.msg,
                                     type: 'success'
                                 });
-                                _this.live.bedId='';
-                                _this.live.beginDate='';
-                                _this.live.endDate='';
-                                _this.live.remark='';
-                                _this.createlive=false;
-                            }else{
+                                _this.live.bedId = '';
+                                _this.live.beginDate = '';
+                                _this.live.endDate = '';
+                                _this.live.remark = '';
+                                _this.createlive = false;
+                            } else {
                                 this.$notify.error({
                                     title: '错误',
                                     message: res.data.msg,
                                 });
-                                _this.live.bid='';
-                                _this.live.beginDate='';
-                                _this.live.endDate='';
-                                _this.live.remark='';
-                                _this.createlive=false;
+                                _this.live.bid = '';
+                                _this.live.beginDate = '';
+                                _this.live.endDate = '';
+                                _this.live.remark = '';
+                                _this.createlive = false;
                             }
                         })
                     }).catch(() => {
@@ -500,29 +501,29 @@
                 }
 
             },
-            finish(row){
-                var _this=this;
-                if(row.status==1){
+            finish(row) {
+                var _this = this;
+                if (row.status == 1) {
                     this.$notify({
                         title: '警告',
                         message: '该预约已完成就诊，请勿重复',
                         type: 'warning'
                     });
-                }else {
+                } else {
                     this.$confirm('是否确认为该患者完成就诊', '提示', {
                         confirmButtonText: '确定',
                         cancelButtonText: '取消',
                         type: 'warning'
                     }).then(() => {
-                        axios.post("/appoint/finish/"+row.id).then((res)=>{
-                            if(res.data.code=="001"){
+                        axios.post("/appoint/finish/" + row.id).then((res) => {
+                            if (res.data.code == "001") {
                                 this.$notify({
                                     title: '成功',
                                     message: res.data.msg,
                                     type: 'success'
                                 });
                                 _this.selecttoday();
-                            }else{
+                            } else {
                                 this.$notify.error({
                                     title: '错误',
                                     message: res.data.msg,

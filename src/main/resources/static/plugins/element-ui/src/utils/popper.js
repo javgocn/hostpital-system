@@ -963,11 +963,11 @@
         var styles = root.getComputedStyle(element);
         var x = parseFloat(styles.marginTop) + parseFloat(styles.marginBottom);
         var y = parseFloat(styles.marginLeft) + parseFloat(styles.marginRight);
-        var Result = { width: element.offsetWidth + y, height: element.offsetHeight + x };
+        var result = { width: element.offsetWidth + y, height: element.offsetHeight + x };
 
         // reset element styles
         element.style.display = _display; element.style.visibility = _visibility;
-        return Result;
+        return result;
     }
 
     /**

@@ -1537,15 +1537,15 @@ var watcher_sortData = function sortData(data, states) {
 };
 
 var doFlattenColumns = function doFlattenColumns(columns) {
-  var Result = [];
+  var result = [];
   columns.forEach(function (column) {
     if (column.children) {
-      Result.push.apply(Result, doFlattenColumns(column.children));
+      result.push.apply(result, doFlattenColumns(column.children));
     } else {
-      Result.push(column);
+      result.push(column);
     }
   });
-  return Result;
+  return result;
 };
 
 /* harmony default export */ var watcher = (external_vue_default.a.extend({
@@ -2659,18 +2659,18 @@ var table_body_extends = Object.assign || function (target) { for (var i = 1; i 
       var colspan = 1;
       var fn = this.table.spanMethod;
       if (typeof fn === 'function') {
-        var Result = fn({
+        var result = fn({
           row: row,
           column: column,
           rowIndex: rowIndex,
           columnIndex: columnIndex
         });
-        if (Array.isArray(Result)) {
-          rowspan = Result[0];
-          colspan = Result[1];
-        } else if ((typeof Result === 'undefined' ? 'undefined' : _typeof(Result)) === 'object') {
-          rowspan = Result.rowspan;
-          colspan = Result.colspan;
+        if (Array.isArray(result)) {
+          rowspan = result[0];
+          colspan = result[1];
+        } else if ((typeof result === 'undefined' ? 'undefined' : _typeof(result)) === 'object') {
+          rowspan = result.rowspan;
+          colspan = result.colspan;
         }
       }
       return { rowspan: rowspan, colspan: colspan };
@@ -3466,16 +3466,16 @@ var table_header_extends = Object.assign || function (target) { for (var i = 1; 
 
 
 var getAllColumns = function getAllColumns(columns) {
-  var Result = [];
+  var result = [];
   columns.forEach(function (column) {
     if (column.children) {
-      Result.push(column);
-      Result.push.apply(Result, getAllColumns(column.children));
+      result.push(column);
+      result.push.apply(result, getAllColumns(column.children));
     } else {
-      Result.push(column);
+      result.push(column);
     }
   });
-  return Result;
+  return result;
 };
 
 var convertToRows = function convertToRows(originColumns) {

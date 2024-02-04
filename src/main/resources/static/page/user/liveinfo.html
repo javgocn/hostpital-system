@@ -65,7 +65,7 @@
                 </el-table-column>
                 <el-table-column
                         label="操作"
-                width="80px">
+                        width="80px">
                     <template slot-scope="scope">
                         <el-tooltip effect="dark" content="详情" placement="top-start">
                             <el-button type="info" icon="el-icon-notebook-2" circle
@@ -120,13 +120,13 @@
             return {
                 options: [{
                     value: '0',
-                    label:'住院中'
+                    label: '住院中'
                 }, {
                     value: '1',
-                    label:'已出院'
+                    label: '已出院'
                 }],
                 search: {
-                    userId:'',
+                    userId: '',
                     status: ''
                 },
                 live: [{
@@ -145,10 +145,10 @@
                 },
                 dialogVisible: false,
                 form: {
-                    place:'',
-                    beginDate:'',
-                    endDate:'',
-                    remark:''
+                    place: '',
+                    beginDate: '',
+                    endDate: '',
+                    remark: ''
                 }
             }
 
@@ -165,7 +165,7 @@
                 var _this = this;
                 var userStr = localStorage.getItem("userInfo");
                 var userObj = JSON.parse(userStr);
-                _this.search.userId=userObj.id;
+                _this.search.userId = userObj.id;
                 axios.post("/live/sel/" + _this.page.currentPage + "/" + _this.page.pageSize, _this.search).then((res) => {
                     _this.page.currentPage = res.data.data.current;
                     _this.page.total = res.data.data.total;
@@ -208,13 +208,13 @@
                     });
                 });
             },
-            check(row){
-                var _this=this;
-                _this.dialogVisible=true;
-                _this.form.place=row.room+"房--"+row.bid+"号床";
-                _this.form.beginDate=row.beginDate;
-                _this.form.endDate=row.endDate;
-                _this.form.remark=row.remark;
+            check(row) {
+                var _this = this;
+                _this.dialogVisible = true;
+                _this.form.place = row.room + "房--" + row.bid + "号床";
+                _this.form.beginDate = row.beginDate;
+                _this.form.endDate = row.endDate;
+                _this.form.remark = row.remark;
             }
         },
     })

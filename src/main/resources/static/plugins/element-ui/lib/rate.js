@@ -443,13 +443,13 @@ var migrating_default = /*#__PURE__*/__webpack_require__.n(migrating_);
 
   computed: {
     text: function text() {
-      var Result = '';
+      var result = '';
       if (this.showScore) {
-        Result = this.scoreTemplate.replace(/\{\s*value\s*\}/, this.rateDisabled ? this.value : this.currentValue);
+        result = this.scoreTemplate.replace(/\{\s*value\s*\}/, this.rateDisabled ? this.value : this.currentValue);
       } else if (this.showText) {
-        Result = this.texts[Math.ceil(this.currentValue) - 1];
+        result = this.texts[Math.ceil(this.currentValue) - 1];
       }
-      return Result;
+      return result;
     },
     decimalStyle: function decimalStyle() {
       var width = '';
@@ -489,19 +489,19 @@ var migrating_default = /*#__PURE__*/__webpack_require__.n(migrating_);
       return this.getValueFromMap(this.currentValue, this.colorMap);
     },
     classes: function classes() {
-      var Result = [];
+      var result = [];
       var i = 0;
       var threshold = this.currentValue;
       if (this.allowHalf && this.currentValue !== Math.floor(this.currentValue)) {
         threshold--;
       }
       for (; i < threshold; i++) {
-        Result.push(this.activeClass);
+        result.push(this.activeClass);
       }
       for (; i < this.max; i++) {
-        Result.push(this.voidClass);
+        result.push(this.voidClass);
       }
-      return Result;
+      return result;
     },
     rateDisabled: function rateDisabled() {
       return this.disabled || (this.elForm || {}).disabled;

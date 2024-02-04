@@ -481,7 +481,7 @@ function calcTextareaHeight(targetElement) {
   hiddenTextarea.value = targetElement.value || targetElement.placeholder || '';
 
   var height = hiddenTextarea.scrollHeight;
-  var Result = {};
+  var result = {};
 
   if (boxSizing === 'border-box') {
     height = height + borderSize;
@@ -498,7 +498,7 @@ function calcTextareaHeight(targetElement) {
       minHeight = minHeight + paddingSize + borderSize;
     }
     height = Math.max(minHeight, height);
-    Result.minHeight = minHeight + 'px';
+    result.minHeight = minHeight + 'px';
   }
   if (maxRows !== null) {
     var maxHeight = singleRowHeight * maxRows;
@@ -507,10 +507,10 @@ function calcTextareaHeight(targetElement) {
     }
     height = Math.min(maxHeight, height);
   }
-  Result.height = height + 'px';
+  result.height = height + 'px';
   hiddenTextarea.parentNode && hiddenTextarea.parentNode.removeChild(hiddenTextarea);
   hiddenTextarea = null;
-  return Result;
+  return result;
 };
 // EXTERNAL MODULE: external "element-ui/lib/utils/merge"
 var merge_ = __webpack_require__(9);

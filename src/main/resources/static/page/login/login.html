@@ -3,51 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>欢迎使用本系统</title>
-    <!-- 引入Vue.js -->
     <script src="../../plugins/js/vue.js"></script>
-    <!-- 引入Element UI库 -->
     <script src="../../plugins/element-ui/lib/index.js"></script>
-    <!-- 引入Axios库 -->
     <script src="../../plugins/js/axios-0.18.0.js"></script>
-    <!-- 引入Element UI样式 -->
     <link rel="stylesheet" href="../../plugins/element-ui/lib/theme-chalk/index.css">
-    <!-- 引入自定义登录样式 -->
     <link rel="stylesheet" href="../../css/login.css">
+
 </head>
 <body style="height: 100%">
 <div id="main">
     <el-container>
-        <!-- 页面头部 -->
-        <el-header>
-            <!-- 医护管理系统Logo -->
-            <img style="width: 50px;height: 50px;margin-top:5px;float:left;" src="../../img/icon/logo.png"/>
-            <!-- 医护管理系统标题 -->
-            <p style="float: left;margin-left: 10px">医护管理系统</p>
-        </el-header>
+
+        <el-header><img style="width: 50px;height: 50px;margin-top:5px;float:left;" src="../../img/icon/hospital.png"/>
+            <p style="float: left;margin-left: 10px">医护管理系统</p></el-header>
         <el-main>
             <div style="height: 100%;width: 100%;border-radius: 3%;">
-                <!-- 登录页大图 -->
                 <div id="img">
                     <img src="../../img/theme2.jpg"/>
                 </div>
-                <!-- 登录信息部分 -->
                 <div id="login-info" v-show="login">
-                    <!-- 登录页标题 -->
                     <h2 class="title">登录系统</h2>
                     <br>
-                    <!-- 登录页表单 -->
                     <el-form ref="form" style="text-align: center">
-                        <!-- 用户名输入框 -->
                         <el-form-item>
                             <el-input v-model="logins.username" prefix-icon="el-icon-user" placeholder="请输入用户名"
                                       style="width: 70%"></el-input>
                         </el-form-item>
-                        <!-- 密码输入框 -->
                         <el-form-item>
                             <el-input v-model="logins.password" prefix-icon="el-icon-lock" type="password"
                                       placeholder="请输入密码" style="width: 70%"></el-input>
                         </el-form-item>
-                        <!-- 身份选择框 -->
                         <el-form-item>
                             <template>
                                 <el-select v-model="value" placeholder="请选择身份" style="width: 70%">
@@ -60,59 +45,49 @@
                                 </el-select>
                             </template>
                         </el-form-item>
-                        <!-- 登录按钮 -->
-                        <el-form-item style="margin-bottom: 0;">
+                        <el-form-item style="margin-bottom: 0">
                             <el-button type="success" @click="logi">立即登录</el-button>
                         </el-form-item>
-                        <!-- 注册链接 -->
                         <el-form-item style="text-align: right;padding-right: 10px">
                             <el-link type="primary" @click="regi_open">没有账号？注册用户</el-link>
                         </el-form-item>
                     </el-form>
                 </div>
-                <!-- 注册信息部分 -->
                 <div id="regis-info" v-show="register">
-                    <!-- 注册页标题 -->
                     <h2 class="title">注册系统</h2>
                     <br>
                     <el-form ref="form" style="text-align: center">
-                        <!-- 用户名输入框 -->
                         <el-form-item>
                             <el-input v-model="regi.username" prefix-icon="el-icon-user" placeholder="请输入用户名"
                                       style="width: 70%"></el-input>
                         </el-form-item>
-                        <!-- 姓名输入框 -->
                         <el-form-item>
                             <el-input v-model="regi.name" prefix-icon="el-icon-s-custom" placeholder="请输入姓名"
                                       style="width: 70%"></el-input>
                         </el-form-item>
-                        <!-- 密码输入框 -->
                         <el-form-item>
                             <el-input v-model="regi.password" prefix-icon="el-icon-lock" type="password"
                                       placeholder="请输入密码" style="width: 70%"></el-input>
                         </el-form-item>
-                        <!-- 确认密码输入框 -->
                         <el-form-item>
                             <el-input v-model="repassword" prefix-icon="el-icon-lock" type="password"
                                       placeholder="请再次输入密码" style="width: 70%"></el-input>
                         </el-form-item>
-                        <!-- 注册按钮 -->
                         <el-form-item style="margin-bottom: 0">
                             <el-button type="success" @click="regist">立即注册</el-button>
                         </el-form-item>
-                        <!-- 登录链接 -->
                         <el-form-item style="text-align: right;padding-right: 10px;">
                             <el-link type="primary" @click="login_open">已有账号，立即登录</el-link>
                         </el-form-item>
                     </el-form>
                 </div>
             </div>
+
         </el-main>
     </el-container>
 </div>
 </body>
 <script>
-    // 登录页面的 Vue 实例，用于控制登录页面的数据和方法
     new Vue({
         el: "#main",
         data() {
@@ -127,7 +102,6 @@
                     password: '',
                 },
                 repassword: '',
-                // 登录页面身份枚举
                 options: [{
                     value: '1',
                     label: '管理员'
@@ -137,9 +111,6 @@
                 }, {
                     value: '3',
                     label: '用户'
-                }, {
-                    value: '4',
-                    label: '护士'
                 }],
                 value: '',
                 login: true,
@@ -147,19 +118,16 @@
             }
         },
         methods: {
-            // 打开注册信息部分
             regi_open() {
                 var _this = this;
                 _this.login = false;
                 _this.register = true;
             },
-            // 打开登录信息部分
             login_open() {
                 var _this = this;
                 _this.register = false;
                 _this.login = true;
             },
-            // 注册操作
             regist() {
                 var _this = this;
                 if (_this.regi.username == '' || _this.regi.name == '' || _this.regi.password == '' || _this.repassword == '') {
@@ -175,7 +143,7 @@
                         });
                     } else {
                         axios.post("/user/register", _this.regi).then((res) => {
-                            if (res.data.code == '200') {
+                            if (res.data.code == '001') {
                                 this.$message({
                                     message: res.data.msg,
                                     type: 'success'
@@ -194,28 +162,27 @@
                     }
                 }
             },
-            // 登录操作
             logi() {
                 var _this = this;
-                if (_this.logins.username == '') {
+                if (_this.logins.username === '') {
                     _this.$message({
                         message: '请输入用户名',
                         type: 'warning'
                     });
-                } else if (_this.logins.password == '') {
+                } else if (_this.logins.password === '') {
                     _this.$message({
                         message: '请输入密码',
                         type: 'warning'
                     });
-                } else if (_this.value == '') {
+                } else if (_this.value === '') {
                     _this.$message({
                         message: '请选择登录身份',
                         type: 'warning'
                     });
                 } else {
-                    if (_this.value == '1') {
+                    if (_this.value === '1') {
                         axios.post("/admin/login", _this.logins).then((res) => {
-                            if (res.data.code != "200") {
+                            if (res.data.code !== "200") {
                                 this.$message.error(res.data.msg);
                             } else {
                                 this.$message({
@@ -227,9 +194,9 @@
                             }
                         })
 
-                    } else if (_this.value == '2') {
+                    } else if (_this.value === '2') {
                         axios.post("/doctor/login", _this.logins).then((res) => {
-                            if (res.data.code != "200") {
+                            if (res.data.code !== "200") {
                                 this.$message.error(res.data.msg);
                             } else {
                                 this.$message({
@@ -240,9 +207,9 @@
                                 window.location.href = "/page/doctor/doctor.html";
                             }
                         })
-                    } else if (_this.value == '3') {
+                    } else if (_this.value === '3') {
                         axios.post("/user/login", _this.logins).then((res) => {
-                            if (res.data.code != "200") {
+                            if (res.data.code !== "200") {
                                 this.$message.error(res.data.msg);
                             } else {
                                 this.$message({

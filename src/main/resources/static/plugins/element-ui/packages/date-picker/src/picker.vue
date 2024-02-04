@@ -237,10 +237,10 @@ const TYPE_VALUE_RESOLVER_MAP = {
       return '' + value;
     },
     parser(text) {
-      let Result = Number(text);
+      let result = Number(text);
 
       if (!isNaN(text)) {
-        return Result;
+        return result;
       } else {
         return null;
       }

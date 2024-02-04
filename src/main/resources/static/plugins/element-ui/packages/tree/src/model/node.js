@@ -194,15 +194,15 @@ export default class Node {
   contains(target, deep = true) {
     const walk = function(parent) {
       const children = parent.childNodes || [];
-      let Result = false;
+      let result = false;
       for (let i = 0, j = children.length; i < j; i++) {
         const child = children[i];
         if (child === target || (deep && walk(child))) {
-          Result = true;
+          result = true;
           break;
         }
       }
-      return Result;
+      return result;
     };
 
     return walk(this);

@@ -362,8 +362,8 @@
             },
             alocatedrug(row) {
                 var _this = this;
-                _this.drugsearch.drugname='';
-                _this.drugsearch.id='';
+                _this.drugsearch.drugname = '';
+                _this.drugsearch.id = '';
                 _this.prescreptionid = row.id;
                 _this.alocatedrugVisible = true;
             },
@@ -419,22 +419,22 @@
                     _this.select();
                 })
             },
-            deletepresc(row){
+            deletepresc(row) {
                 var _this = this;
                 this.$confirm('是否删除本条处方信息', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    axios.post("/presc/deletepresc/"+row.id).then((res)=>{
-                        if(res.data.code=='001'){
+                    axios.post("/presc/deletepresc/" + row.id).then((res) => {
+                        if (res.data.code == '001') {
                             this.$notify({
                                 title: '成功',
                                 message: res.data.msg,
                                 type: 'success'
                             });
                             _this.select();
-                        }else{
+                        } else {
                             this.$notify.error({
                                 title: '错误',
                                 message: res.data.msg,

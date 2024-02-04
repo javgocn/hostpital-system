@@ -69,7 +69,7 @@
                         label="性别"
                         width="70px">
                     <template slot-scope="scope">
-                        <span>{{scope.row.sex==1? "男":"女"}}</span>
+                        <span>{{scope.row.sex == 1 ? "男" : "女"}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -90,10 +90,12 @@
                         width="180px">
                     <template slot-scope="scope">
                         <el-tooltip effect="dark" content="医生信息" placement="top-start">
-                            <el-button type="primary" icon="el-icon-collection-tag" circle @click="upd(scope.row)"></el-button>
+                            <el-button type="primary" icon="el-icon-collection-tag" circle
+                                       @click="upd(scope.row)"></el-button>
                         </el-tooltip>
                         <el-tooltip effect="dark" content="预约" placement="top-start">
-                            <el-button type="success" icon="el-icon-chat-dot-square" circle @click="openappoint(scope.row)"></el-button>
+                            <el-button type="success" icon="el-icon-chat-dot-square" circle
+                                       @click="openappoint(scope.row)"></el-button>
                         </el-tooltip>
                     </template>
                 </el-table-column>
@@ -134,7 +136,7 @@
                 <el-input v-model="upddoc.email" :disabled="true"></el-input>
             </el-form-item>
             <el-form-item label="性别">
-                <span>{{upddoc.sex==1? "男":"女"}}</span>
+                <span>{{upddoc.sex == 1 ? "男" : "女"}}</span>
             </el-form-item>
             <el-form-item label="生日">
                 <el-input v-model="upddoc.birthday" :disabled="true"></el-input>
@@ -191,7 +193,7 @@
                     name: '',
                 },
                 doctor: [{
-                    id:'',
+                    id: '',
                     username: '',
                     name: '',
                     deptname: '',
@@ -242,13 +244,13 @@
                     remark: ''
                 },
                 formpass: '',
-                appoint:{
+                appoint: {
                     consultTime: '',
                     deptname: '',
-                    doctorId:'',
-                    userId:'',
+                    doctorId: '',
+                    userId: '',
                     doctorname: '',
-                    remark:''
+                    remark: ''
                 }
             }
         },
@@ -298,42 +300,42 @@
                 _this.upddoc.remark = row.remark;
                 _this.formpass = row.password;
             },
-            openappoint(row){
+            openappoint(row) {
                 var _this = this;
                 var userStr = localStorage.getItem("userInfo");
                 var userObj = JSON.parse(userStr);
-                _this.appointdialog=true;
-                _this.appoint.deptname=row.deptname;
-                _this.appoint.doctorId=row.id;
-                _this.appoint.userId=userObj.id;
-                _this.appoint.doctorname=row.name;
+                _this.appointdialog = true;
+                _this.appoint.deptname = row.deptname;
+                _this.appoint.doctorId = row.id;
+                _this.appoint.userId = userObj.id;
+                _this.appoint.doctorname = row.name;
             },
-            yuyue(){
+            yuyue() {
                 var _this = this;
-                if(_this.appoint.remark==''){
+                if (_this.appoint.remark == '') {
                     this.$notify({
                         title: '提示',
                         message: '请填写病情描述',
                         type: 'warning'
                     });
-                }else if(_this.appoint.consultTime==''){
+                } else if (_this.appoint.consultTime == '') {
                     this.$notify({
                         title: '提示',
                         message: '请选择就诊时间',
                         type: 'warning'
                     });
-                }else{
-                    axios.post("/appoint/yuyue/",_this.appoint).then((res)=>{
-                        if(res.data.code=="001"){
+                } else {
+                    axios.post("/appoint/yuyue/", _this.appoint).then((res) => {
+                        if (res.data.code == "001") {
                             this.$notify({
                                 title: '成功',
                                 message: res.data.msg,
                                 type: 'success'
                             });
-                            _this.appoint.remark='';
-                            _this.appoint.consultTime='';
-                            _this.appointdialog=false;
-                        }else{
+                            _this.appoint.remark = '';
+                            _this.appoint.consultTime = '';
+                            _this.appointdialog = false;
+                        } else {
                             this.$notify.error({
                                 title: '错误',
                                 message: res.data.msg,

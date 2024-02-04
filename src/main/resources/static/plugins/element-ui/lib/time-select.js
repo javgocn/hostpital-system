@@ -660,10 +660,10 @@ var TYPE_VALUE_RESOLVER_MAP = {
       return '' + value;
     },
     parser: function parser(text) {
-      var Result = Number(text);
+      var result = Number(text);
 
       if (!isNaN(text)) {
-        return Result;
+        return result;
       } else {
         return null;
       }
@@ -1645,12 +1645,12 @@ var nextTime = function nextTime(time, step) {
       var end = this.end;
       var step = this.step;
 
-      var Result = [];
+      var result = [];
 
       if (start && end && step) {
         var current = start;
         while (compareTime(current, end) <= 0) {
-          Result.push({
+          result.push({
             value: current,
             disabled: compareTime(current, this.minTime || '-1:-1') <= 0 || compareTime(current, this.maxTime || '100:100') >= 0
           });
@@ -1658,7 +1658,7 @@ var nextTime = function nextTime(time, step) {
         }
       }
 
-      return Result;
+      return result;
     }
   }
 });

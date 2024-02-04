@@ -2,61 +2,51 @@
     margin: 0;
     padding: 0;
 }
-
 #main {
     display: inline-block;
     height: 100%;
     margin: 0;
-    background-color: #f4f4f4;
+    background-color: #3c8dbc;
     width: 100%;
 }
-
-.el-header {
+.el-header{
     background-color: white;
     color: #333;
     text-align: left;
     line-height: 60px;
     font-size: 20px;
 }
-
-.el-main {
+.el-main{
     background-color: white;
     height: 450px;
     margin-top: 100px;
     margin-left: 300px;
     margin-right: 300px;
-    padding: 0;
-    /* 登录页框圆角 */
-    border-radius: 0.8%;
-    /*  阴影上浮效果  */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding:0;
+    border-radius: 3%;
 }
-
-#img {
+#img{
     float: left;
     height: 100%;
     width: 60%;
     overflow: hidden;
 }
-
-img {
+img{
     height: 100%;
     width: 100%;
 }
-
-#login-info, #regis-info {
+#login-info,#regis-info{
     float: left;
     margin-right: 0;
     height: 100%;
     width: 40%;
     overflow: hidden;
 }
-
-.title {
+.title{
     width: 100%;
-    margin-top: 35px;
+    margin-top: 0px;
     font-size: 35px;
     text-align: center;
-    color: #409eff;
-    margin-bottom: 40px;
+    color: dodgerblue;
+    margin-bottom: 0px;
 }

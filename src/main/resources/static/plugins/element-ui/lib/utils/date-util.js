@@ -15,11 +15,11 @@ var weeks = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 var months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
 
 var newArray = function newArray(start, end) {
-  var Result = [];
+  var result = [];
   for (var i = start; i <= end; i++) {
-    Result.push(i);
+    result.push(i);
   }
-  return Result;
+  return result;
 };
 
 var getI18nSettings = exports.getI18nSettings = function getI18nSettings() {
@@ -108,13 +108,13 @@ var nextDate = exports.nextDate = function nextDate(date) {
 };
 
 var getStartDateOfMonth = exports.getStartDateOfMonth = function getStartDateOfMonth(year, month) {
-  var Result = new Date(year, month, 1);
-  var day = Result.getDay();
+  var result = new Date(year, month, 1);
+  var day = result.getDay();
 
   if (day === 0) {
-    return prevDate(Result, 7);
+    return prevDate(result, 7);
   } else {
-    return prevDate(Result, day);
+    return prevDate(result, day);
   }
 };
 

@@ -120,7 +120,7 @@
 - Transfer
   - Fix style error  (#17206 by @iamkun)
 - Dialog
-  - update sass let (#16365 by @haoranyu)
+  - update sass var (#16365 by @haoranyu)
 - RadioGroup
   - Not produce invalid HTML in table if "is" attribute is specify (#17070 by @nullptru)
 - Divider
@@ -298,7 +298,7 @@
 - Badge
   - Update badge prop check (#16198 by @iamkun)
 - Avatar
-  - Update theme config let (#16202 by @luckyCao)
+  - Update theme config var (#16202 by @luckyCao)
 - I18n
   - Update pt-br.js (#15776 by @gigioSouza)
   - Update Farsi translation (#15881 by @pamenary)

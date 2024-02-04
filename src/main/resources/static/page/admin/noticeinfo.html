@@ -14,7 +14,7 @@
     <el-input v-model="search.theme" placeholder="请输入查询主题" style="width: 200px"></el-input>
     <el-button type="primary" @click="select">查询</el-button>
     <el-button type="primary" @click="dialog=true">新增公告</el-button>
-    <el-button icon="el-icon-refresh-right"circle style="float: right" @click="refresh"></el-button>
+    <el-button icon="el-icon-refresh-right" circle style="float: right" @click="refresh"></el-button>
     <hr>
     <br>
     <div style="height: 400px">
@@ -42,7 +42,8 @@
                         label="操作">
                     <template slot-scope="scope">
                         <el-tooltip effect="dark" content="查看公告" placement="top-start">
-                            <el-button type="primary" icon="el-icon-s-order" circle @click="check(scope.row)"></el-button>
+                            <el-button type="primary" icon="el-icon-s-order" circle
+                                       @click="check(scope.row)"></el-button>
                         </el-tooltip>
                         <el-tooltip effect="dark" content="删除" placement="top-start">
                             <el-button type="danger" icon="el-icon-delete" circle @click="del(scope.row)"></el-button>
@@ -104,30 +105,30 @@
 
 <script>
     new Vue({
-        el:"#app",
-        data(){
-            return{
-                search:{
-                    theme:'',
+        el: "#app",
+        data() {
+            return {
+                search: {
+                    theme: '',
                 },
-                notice:[{
-                    theme:'',
-                    initiator:'',
-                    createTime:'',
-                    content:'',
+                notice: [{
+                    theme: '',
+                    initiator: '',
+                    createTime: '',
+                    content: '',
                 }],
                 page: {
                     currentPage: 1,
                     pageSize: 5,
                     total: 0
                 },
-                form:{
-                    theme:'',
-                    content:''
+                form: {
+                    theme: '',
+                    content: ''
                 },
-                dialog:false,
-                contentdialog:false,
-                content:'',
+                dialog: false,
+                contentdialog: false,
+                content: '',
             }
         },
         mounted() {
@@ -152,30 +153,30 @@
                 _this.search.theme = '';
                 _this.select();
             },
-            submit(){
-                var _this=this;
-                var adminStr=localStorage.getItem("adminInfo");
+            submit() {
+                var _this = this;
+                var adminStr = localStorage.getItem("adminInfo");
                 var adminObj = JSON.parse(adminStr);
-                var name=adminObj.name;
-                if(_this.form.theme==''||_this.form.content==''){
+                var name = adminObj.name;
+                if (_this.form.theme == '' || _this.form.content == '') {
                     this.$notify({
                         title: '警告',
                         message: "请将公告信息输入完整",
                         type: 'warning'
                     });
-                }else{
-                    axios.post("/notice/lunch/"+name+"/",_this.form).then((res)=>{
-                        if(res.data.code=="001"){
+                } else {
+                    axios.post("/notice/lunch/" + name + "/", _this.form).then((res) => {
+                        if (res.data.code == "001") {
                             this.$notify({
                                 title: '成功',
                                 message: res.data.msg,
                                 type: 'success'
                             });
                             _this.refresh();
-                            _this.form.theme='';
-                            _this.form.content='';
-                            _this.dialog=false;
-                        }else{
+                            _this.form.theme = '';
+                            _this.form.content = '';
+                            _this.dialog = false;
+                        } else {
                             this.$notify.error({
                                 title: '错误',
                                 message: "公告发布失败"
@@ -184,19 +185,19 @@
                     })
                 }
             },
-            check(row){
-                var _this=this;
-                _this.contentdialog=true;
-                _this.content=row.content;
+            check(row) {
+                var _this = this;
+                _this.contentdialog = true;
+                _this.content = row.content;
             },
-            del(row){
-                var _this=this;
+            del(row) {
+                var _this = this;
                 this.$confirm('是否删除此条公告?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    axios.post("/notice/delete/"+row.id).then((res)=>{
+                    axios.post("/notice/delete/" + row.id).then((res) => {
                         this.$message({
                             type: 'success',
                             message: res.data.msg

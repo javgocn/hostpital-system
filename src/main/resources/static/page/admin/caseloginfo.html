@@ -67,7 +67,8 @@
                         width="80px">
                     <template slot-scope="scope">
                         <el-tooltip effect="dark" content="查看信息" placement="top-start">
-                            <el-button type="primary" icon="el-icon-postcard" circle @click="opendialog(scope.row)"></el-button>
+                            <el-button type="primary" icon="el-icon-postcard" circle
+                                       @click="opendialog(scope.row)"></el-button>
                         </el-tooltip>
 
                     </template>
@@ -114,41 +115,41 @@
 </div>
 <script>
     new Vue({
-        el:"#app",
-        data(){
-            return{
-                search:{
-                    logTime:'',
-                    username:''
+        el: "#app",
+        data() {
+            return {
+                search: {
+                    logTime: '',
+                    username: ''
                 },
-                caselog:[{
-                    logTime:'',
-                    username:'',
-                    doctorname:'',
-                    temperature:'',
-                    pulse:'',
-                    bloodpressure:'',
-                    appointTime:'',
+                caselog: [{
+                    logTime: '',
+                    username: '',
+                    doctorname: '',
+                    temperature: '',
+                    pulse: '',
+                    bloodpressure: '',
+                    appointTime: '',
                 }],
                 page: {
                     currentPage: 1,
                     pageSize: 5,
                     total: 0
                 },
-                dialogVisible:false,
-                form:{
-                    username:'',
-                    temperature:'',
-                    pulse:'',
-                    bloodpressure:'',
-                    remark:'',
+                dialogVisible: false,
+                form: {
+                    username: '',
+                    temperature: '',
+                    pulse: '',
+                    bloodpressure: '',
+                    remark: '',
                 }
             }
         },
         mounted() {
             this.select();
         },
-        methods:{
+        methods: {
             handleCurrentChange(currentPage) {
                 this.page.currentPage = currentPage;
                 this.select();
@@ -162,16 +163,16 @@
                     _this.caselog = res.data.data.records;
                 })
             },
-            refresh(){
-                var _this=this;
-                _this.search.username='';
-                _this.search.logTime='';
+            refresh() {
+                var _this = this;
+                _this.search.username = '';
+                _this.search.logTime = '';
                 _this.select();
             },
-            opendialog(row){
-                var _this=this;
-                _this.dialogVisible=true;
-                _this.form=row;
+            opendialog(row) {
+                var _this = this;
+                _this.dialogVisible = true;
+                _this.form = row;
             }
         }
     })

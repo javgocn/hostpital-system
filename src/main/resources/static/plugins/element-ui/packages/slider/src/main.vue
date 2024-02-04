@@ -312,17 +312,17 @@
         }
         const stopCount = (this.max - this.min) / this.step;
         const stepWidth = 100 * this.step / (this.max - this.min);
-        const Result = [];
+        const result = [];
         for (let i = 1; i < stopCount; i++) {
-          Result.push(i * stepWidth);
+          result.push(i * stepWidth);
         }
         if (this.range) {
-          return Result.filter(step => {
+          return result.filter(step => {
             return step < 100 * (this.minValue - this.min) / (this.max - this.min) ||
               step > 100 * (this.maxValue - this.min) / (this.max - this.min);
           });
         } else {
-          return Result.filter(step => step > 100 * (this.firstValue - this.min) / (this.max - this.min));
+          return result.filter(step => step > 100 * (this.firstValue - this.min) / (this.max - this.min));
         }
       },
 

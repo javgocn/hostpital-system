@@ -44,7 +44,8 @@
                         label="操作">
                     <template slot-scope="scope">
                         <el-tooltip effect="dark" content="查看该部门医生" placement="top-start">
-                            <el-button type="primary" icon="el-icon-notebook-1" circle @click="check(scope.row)"></el-button>
+                            <el-button type="primary" icon="el-icon-notebook-1" circle
+                                       @click="check(scope.row)"></el-button>
                         </el-tooltip>
                     </template>
                 </el-table-column>
@@ -75,7 +76,7 @@
                     prop="sex"
                     label="性别">
                 <template slot-scope="scope">
-                    <span>{{scope.row.sex==1? "男":"女"}}</span>
+                    <span>{{scope.row.sex == 1 ? "男" : "女"}}</span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -117,18 +118,18 @@
                     remark: '',
                 },
                 updates: {
-                    id:1,
+                    id: 1,
                     deptname: '',
                     remark: '',
                 },
-                doctorData:[{
-                    name:'',
-                    sex:'',
-                    position:'',
-                    telephone:'',
-                    remark:'',
+                doctorData: [{
+                    name: '',
+                    sex: '',
+                    position: '',
+                    telephone: '',
+                    remark: '',
                 }],
-                doctorVisible:false,
+                doctorVisible: false,
             }
         },
         mounted() {
@@ -161,11 +162,11 @@
                 _this.search.deptname = '';
                 _this.select();
             },
-            check(row){
+            check(row) {
                 var _this = this;
-                _this.doctorVisible=true;
-                axios.post("/doctor/selectdoctor/"+row.deptname).then((res)=>{
-                    _this.doctorData=res.data.data;
+                _this.doctorVisible = true;
+                axios.post("/doctor/selectdoctor/" + row.deptname).then((res) => {
+                    _this.doctorData = res.data.data;
                 })
             }
         }

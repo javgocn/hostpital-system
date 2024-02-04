@@ -45,7 +45,8 @@
                         label="操作">
                     <template slot-scope="scope">
                         <el-tooltip effect="dark" content="编辑" placement="top-start">
-                            <el-button type="primary" icon="el-icon-edit" circle @click="updatedept(scope.row)"></el-button>
+                            <el-button type="primary" icon="el-icon-edit" circle
+                                       @click="updatedept(scope.row)"></el-button>
                         </el-tooltip>
                         <el-tooltip effect="dark" content="删除" placement="top-start">
                             <el-button type="danger" icon="el-icon-delete" circle @click="del(scope.row)"></el-button>
@@ -129,7 +130,7 @@
                     remark: '',
                 },
                 updates: {
-                    id:1,
+                    id: 1,
                     deptname: '',
                     remark: '',
                 }
@@ -165,22 +166,22 @@
                 _this.search.deptname = '';
                 _this.select();
             },
-            updatedept(row){
+            updatedept(row) {
                 var _this = this;
-                _this.updates.id=row.id;
-                _this.updates.deptname=row.deptname;
-                _this.updates.remark=row.remark;
-                _this.diaVisible=true;
+                _this.updates.id = row.id;
+                _this.updates.deptname = row.deptname;
+                _this.updates.remark = row.remark;
+                _this.diaVisible = true;
             },
-            upd(){
+            upd() {
                 var _this = this;
-                if(_this.updates.deptname==''){
+                if (_this.updates.deptname == '') {
                     this.$notify.error({
                         title: '错误',
                         message: '科室名不能为空'
                     });
-                }else{
-                    axios.post("/dept/update/",_this.updates).then((res)=>{
+                } else {
+                    axios.post("/dept/update/", _this.updates).then((res) => {
                         this.$notify({
                             title: '成功',
                             message: res.data.msg,
@@ -190,24 +191,24 @@
                     });
 
                 }
-                _this.diaVisible=false;
+                _this.diaVisible = false;
             },
-            add(){
+            add() {
                 var _this = this;
-                if(_this.newdept.deptname==''){
+                if (_this.newdept.deptname == '') {
                     this.$notify.error({
                         title: '错误',
                         message: '请输入科室名'
                     });
-                }else{
-                    axios.post("/dept/add/",_this.newdept).then((res)=>{
-                        if(res.data.code=="001"){
+                } else {
+                    axios.post("/dept/add/", _this.newdept).then((res) => {
+                        if (res.data.code == "001") {
                             this.$notify({
                                 title: '成功',
                                 message: res.data.msg,
                                 type: 'success'
                             });
-                        }else{
+                        } else {
                             this.$notify.error({
                                 title: '错误',
                                 message: res.data.msg,
@@ -217,15 +218,15 @@
                     });
 
                 }
-                _this.dialogVisible=false;
+                _this.dialogVisible = false;
             },
-            opendialog(){
-                var _this=this;
-                _this.newdept.deptname='';
-                _this.newdept.remark='';
-                _this.dialogVisible=true;
+            opendialog() {
+                var _this = this;
+                _this.newdept.deptname = '';
+                _this.newdept.remark = '';
+                _this.dialogVisible = true;
             },
-            del(row){
+            del(row) {
                 var _this = this;
                 this.$confirm('此科室将被删除, 是否继续?', '提示', {
                     confirmButtonText: '确定',

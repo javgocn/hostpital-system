@@ -69,16 +69,16 @@
         data() {
             return {
                 myself: {
-                    username:'',
-                    name:'',
-                    deptname:'',
-                    sex:1,
-                    position:'',
-                    telephone:'',
-                    email:'',
-                    birthday:'',
-                    address:'',
-                    remark:''
+                    username: '',
+                    name: '',
+                    deptname: '',
+                    sex: 1,
+                    position: '',
+                    telephone: '',
+                    email: '',
+                    birthday: '',
+                    address: '',
+                    remark: ''
                 },
             }
         },
@@ -90,13 +90,13 @@
                 var _this = this;
                 var doctorStr = localStorage.getItem("doctorInfo");
                 var doctorObj = JSON.parse(doctorStr);
-                axios.post("/doctor/getitem/"+doctorObj.id).then((res)=>{
-                    _this.myself=res.data.data;
+                axios.post("/doctor/getitem/" + doctorObj.id).then((res) => {
+                    _this.myself = res.data.data;
                 })
             },
-            upd(){
+            upd() {
                 var _this = this;
-                axios.post("/doctor/update/",_this.myself).then((res)=>{
+                axios.post("/doctor/update/", _this.myself).then((res) => {
                     this.$notify({
                         title: '成功',
                         message: res.data.msg,

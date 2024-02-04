@@ -124,10 +124,10 @@
             return {
                 options: [{
                     value: '0',
-                    label:'住院中'
+                    label: '住院中'
                 }, {
                     value: '1',
-                    label:'已出院'
+                    label: '已出院'
                 }],
                 search: {
                     name: '',
@@ -149,10 +149,10 @@
                 },
                 dialogVisible: false,
                 form: {
-                    place:'',
-                    beginDate:'',
-                    endDate:'',
-                    remark:''
+                    place: '',
+                    beginDate: '',
+                    endDate: '',
+                    remark: ''
                 }
             }
 
@@ -209,13 +209,13 @@
                     });
                 });
             },
-            check(row){
-                var _this=this;
-                _this.dialogVisible=true;
-                _this.form.place=row.room+"房--"+row.bid+"号床";
-                _this.form.beginDate=row.beginDate;
-                _this.form.endDate=row.endDate;
-                _this.form.remark=row.remark;
+            check(row) {
+                var _this = this;
+                _this.dialogVisible = true;
+                _this.form.place = row.room + "房--" + row.bid + "号床";
+                _this.form.beginDate = row.beginDate;
+                _this.form.endDate = row.endDate;
+                _this.form.remark = row.remark;
             }
         },
     })

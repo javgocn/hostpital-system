@@ -1,7 +1,7 @@
 module.exports =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
-/******/ 	let installedModules = {};
+/******/ 	var installedModules = {};
 /******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
@@ -11,7 +11,7 @@ module.exports =
 /******/ 			return installedModules[moduleId].exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
-/******/ 		let module = installedModules[moduleId] = {
+/******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
@@ -58,16 +58,16 @@ module.exports =
 /******/ 		if(mode & 1) value = __webpack_require__(value);
 /******/ 		if(mode & 8) return value;
 /******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		let ns = Object.create(null);
+/******/ 		var ns = Object.create(null);
 /******/ 		__webpack_require__.r(ns);
 /******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(let key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
 /******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
-/******/ 		let getter = module && module.__esModule ?
+/******/ 		var getter = module && module.__esModule ?
 /******/ 			function getDefault() { return module['default']; } :
 /******/ 			function getModuleExports() { return module; };
 /******/ 		__webpack_require__.d(getter, 'a', getter);
@@ -109,7 +109,7 @@ function normalizeComponent (
   shadowMode /* vue-cli only */
 ) {
   // Vue.extend constructor export interop
-  let options = typeof scriptExports === 'function'
+  var options = typeof scriptExports === 'function'
     ? scriptExports.options
     : scriptExports
 
@@ -130,7 +130,7 @@ function normalizeComponent (
     options._scopeId = 'data-v-' + scopeId
   }
 
-  let hook
+  var hook
   if (moduleIdentifier) { // server build
     hook = function (context) {
       // 2.3 injection
@@ -166,14 +166,14 @@ function normalizeComponent (
       // go through the normalizer
       options._injectStyles = hook
       // register for functioal component in vue file
-      let originalRender = options.render
+      var originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
         return originalRender(h, context)
       }
     } else {
       // inject component registration as beforeCreate hook
-      let existing = options.beforeCreate
+      var existing = options.beforeCreate
       options.beforeCreate = existing
         ? [].concat(existing, hook)
         : [hook]
@@ -203,10 +203,10 @@ module.exports = require("element-ui/lib/utils/vue-popper");
 __webpack_require__.r(__webpack_exports__);
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./packages/dropdown/src/dropdown-menu.vue?vue&type=template&id=0da6b714&
-let render = function() {
-  let _vm = this
-  let _h = _vm.$createElement
-  let _c = _vm._self._c || _h
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
   return _c(
     "transition",
     { attrs: { name: "el-zoom-in-top" }, on: { "after-leave": _vm.doDestroy } },
@@ -231,15 +231,15 @@ let render = function() {
     ]
   )
 }
-let staticRenderFns = []
+var staticRenderFns = []
 render._withStripped = true
 
 
 // CONCATENATED MODULE: ./packages/dropdown/src/dropdown-menu.vue?vue&type=template&id=0da6b714&
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/vue-popper"
-let vue_popper_ = __webpack_require__(5);
-let vue_popper_default = /*#__PURE__*/__webpack_require__.n(vue_popper_);
+var vue_popper_ = __webpack_require__(5);
+var vue_popper_default = /*#__PURE__*/__webpack_require__.n(vue_popper_);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/dropdown/src/dropdown-menu.vue?vue&type=script&lang=js&
 //
@@ -252,7 +252,7 @@ let vue_popper_default = /*#__PURE__*/__webpack_require__.n(vue_popper_);
 
 
 
-/* harmony default export */ let dropdown_menuvue_type_script_lang_js_ = ({
+/* harmony default export */ var dropdown_menuvue_type_script_lang_js_ = ({
   name: 'ElDropdownMenu',
 
   componentName: 'ElDropdownMenu',
@@ -280,7 +280,7 @@ let vue_popper_default = /*#__PURE__*/__webpack_require__.n(vue_popper_);
   inject: ['dropdown'],
 
   created: function created() {
-    let _this = this;
+    var _this = this;
 
     this.$on('updatePopper', function () {
       if (_this.showPopper) _this.updatePopper();
@@ -308,9 +308,9 @@ let vue_popper_default = /*#__PURE__*/__webpack_require__.n(vue_popper_);
   }
 });
 // CONCATENATED MODULE: ./packages/dropdown/src/dropdown-menu.vue?vue&type=script&lang=js&
- /* harmony default export */ let src_dropdown_menuvue_type_script_lang_js_ = (dropdown_menuvue_type_script_lang_js_); 
+ /* harmony default export */ var src_dropdown_menuvue_type_script_lang_js_ = (dropdown_menuvue_type_script_lang_js_); 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-let componentNormalizer = __webpack_require__(0);
+var componentNormalizer = __webpack_require__(0);
 
 // CONCATENATED MODULE: ./packages/dropdown/src/dropdown-menu.vue
 
@@ -320,7 +320,7 @@ let componentNormalizer = __webpack_require__(0);
 
 /* normalize component */
 
-let component = Object(componentNormalizer["a" /* default */])(
+var component = Object(componentNormalizer["a" /* default */])(
   src_dropdown_menuvue_type_script_lang_js_,
   render,
   staticRenderFns,
@@ -332,9 +332,9 @@ let component = Object(componentNormalizer["a" /* default */])(
 )
 
 /* hot reload */
-if (false) { let api; }
+if (false) { var api; }
 component.options.__file = "packages/dropdown/src/dropdown-menu.vue"
-/* harmony default export */ let dropdown_menu = (component.exports);
+/* harmony default export */ var dropdown_menu = (component.exports);
 // CONCATENATED MODULE: ./packages/dropdown-menu/index.js
 
 
@@ -343,7 +343,7 @@ dropdown_menu.install = function (Vue) {
   Vue.component(dropdown_menu.name, dropdown_menu);
 };
 
-/* harmony default export */ let packages_dropdown_menu = __webpack_exports__["default"] = (dropdown_menu);
+/* harmony default export */ var packages_dropdown_menu = __webpack_exports__["default"] = (dropdown_menu);
 
 /***/ })
 

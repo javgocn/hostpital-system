@@ -1,7 +1,7 @@
 module.exports =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
-/******/ 	let installedModules = {};
+/******/ 	var installedModules = {};
 /******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
@@ -11,7 +11,7 @@ module.exports =
 /******/ 			return installedModules[moduleId].exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
-/******/ 		let module = installedModules[moduleId] = {
+/******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
@@ -58,16 +58,16 @@ module.exports =
 /******/ 		if(mode & 1) value = __webpack_require__(value);
 /******/ 		if(mode & 8) return value;
 /******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		let ns = Object.create(null);
+/******/ 		var ns = Object.create(null);
 /******/ 		__webpack_require__.r(ns);
 /******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(let key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
 /******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
-/******/ 		let getter = module && module.__esModule ?
+/******/ 		var getter = module && module.__esModule ?
 /******/ 			function getDefault() { return module['default']; } :
 /******/ 			function getModuleExports() { return module; };
 /******/ 		__webpack_require__.d(getter, 'a', getter);
@@ -94,22 +94,22 @@ module.exports =
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/vue-popper"
-let vue_popper_ = __webpack_require__(5);
-let vue_popper_default = /*#__PURE__*/__webpack_require__.n(vue_popper_);
+var vue_popper_ = __webpack_require__(5);
+var vue_popper_default = /*#__PURE__*/__webpack_require__.n(vue_popper_);
 
 // EXTERNAL MODULE: external "throttle-debounce/debounce"
-let debounce_ = __webpack_require__(17);
-let debounce_default = /*#__PURE__*/__webpack_require__.n(debounce_);
+var debounce_ = __webpack_require__(17);
+var debounce_default = /*#__PURE__*/__webpack_require__.n(debounce_);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/dom"
-let dom_ = __webpack_require__(2);
+var dom_ = __webpack_require__(2);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/util"
-let util_ = __webpack_require__(3);
+var util_ = __webpack_require__(3);
 
 // EXTERNAL MODULE: external "vue"
-let external_vue_ = __webpack_require__(7);
-let external_vue_default = /*#__PURE__*/__webpack_require__.n(external_vue_);
+var external_vue_ = __webpack_require__(7);
+var external_vue_default = /*#__PURE__*/__webpack_require__.n(external_vue_);
 
 // CONCATENATED MODULE: ./packages/tooltip/src/main.js
 
@@ -118,7 +118,7 @@ let external_vue_default = /*#__PURE__*/__webpack_require__.n(external_vue_);
 
 
 
-/* harmony default export */ let main = ({
+/* harmony default export */ var main = ({
   name: 'ElTooltip',
 
   mixins: [vue_popper_default.a],
@@ -177,7 +177,7 @@ let external_vue_default = /*#__PURE__*/__webpack_require__.n(external_vue_);
     };
   },
   beforeCreate: function beforeCreate() {
-    let _this = this;
+    var _this = this;
 
     if (this.$isServer) return;
 
@@ -193,7 +193,7 @@ let external_vue_default = /*#__PURE__*/__webpack_require__.n(external_vue_);
     });
   },
   render: function render(h) {
-    let _this2 = this;
+    var _this2 = this;
 
     if (this.popperVM) {
       this.popperVM.node = h(
@@ -234,16 +234,16 @@ let external_vue_default = /*#__PURE__*/__webpack_require__.n(external_vue_);
       );
     }
 
-    let firstElement = this.getFirstElement();
+    var firstElement = this.getFirstElement();
     if (!firstElement) return null;
 
-    let data = firstElement.data = firstElement.data || {};
+    var data = firstElement.data = firstElement.data || {};
     data.staticClass = this.addTooltipClass(data.staticClass);
 
     return firstElement;
   },
   mounted: function mounted() {
-    let _this3 = this;
+    var _this3 = this;
 
     this.referenceElm = this.$el;
     if (this.$el.nodeType === 1) {
@@ -256,7 +256,7 @@ let external_vue_default = /*#__PURE__*/__webpack_require__.n(external_vue_);
           _this3.handleFocus();
           return;
         }
-        let instance = _this3.$slots.default[0].componentInstance;
+        var instance = _this3.$slots.default[0].componentInstance;
         if (instance && instance.focus) {
           instance.focus();
         } else {
@@ -313,7 +313,7 @@ let external_vue_default = /*#__PURE__*/__webpack_require__.n(external_vue_);
       }
     },
     handleShowPopper: function handleShowPopper() {
-      let _this4 = this;
+      var _this4 = this;
 
       if (!this.expectedState || this.manual) return;
       clearTimeout(this.timeout);
@@ -347,10 +347,10 @@ let external_vue_default = /*#__PURE__*/__webpack_require__.n(external_vue_);
       this.expectedState = expectedState;
     },
     getFirstElement: function getFirstElement() {
-      let slots = this.$slots.default;
+      var slots = this.$slots.default;
       if (!Array.isArray(slots)) return null;
-      let element = null;
-      for (let index = 0; index < slots.length; index++) {
+      var element = null;
+      for (var index = 0; index < slots.length; index++) {
         if (slots[index] && slots[index].tag) {
           element = slots[index];
         };
@@ -363,7 +363,7 @@ let external_vue_default = /*#__PURE__*/__webpack_require__.n(external_vue_);
     this.popperVM && this.popperVM.$destroy();
   },
   destroyed: function destroyed() {
-    let reference = this.referenceElm;
+    var reference = this.referenceElm;
     if (reference.nodeType === 1) {
       Object(dom_["off"])(reference, 'mouseenter', this.show);
       Object(dom_["off"])(reference, 'mouseleave', this.hide);
@@ -381,7 +381,7 @@ main.install = function (Vue) {
   Vue.component(main.name, main);
 };
 
-/* harmony default export */ let tooltip = __webpack_exports__["default"] = (main);
+/* harmony default export */ var tooltip = __webpack_exports__["default"] = (main);
 
 /***/ }),
 

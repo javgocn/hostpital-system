@@ -77,12 +77,12 @@
       },
       select: {
         loading: 'Carregando',
-        noMatch: 'Sem Resultados',
+        noMatch: 'Sem resultados',
         noData: 'Sem dados',
         placeholder: 'Selecione'
       },
       cascader: {
-        noMatch: 'Sem Resultados',
+        noMatch: 'Sem resultados',
         loading: 'Carregando',
         placeholder: 'Selecione',
         noData: 'Sem dados'
@@ -116,7 +116,7 @@
         emptyText: 'Sem dados'
       },
       transfer: {
-        noMatch: 'Sem Resultados',
+        noMatch: 'Sem resultados',
         noData: 'Sem dados',
         titles: ['Lista 1', 'Lista 2'],
         filterPlaceholder: 'Digite uma palavra-chave',

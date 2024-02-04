@@ -78,7 +78,8 @@
                         width="80px">
                     <template slot-scope="scope">
                         <el-tooltip effect="dark" content="查看信息" placement="top-start">
-                            <el-button type="primary" icon="el-icon-postcard" circle @click="check(scope.row)"></el-button>
+                            <el-button type="primary" icon="el-icon-postcard" circle
+                                       @click="check(scope.row)"></el-button>
                         </el-tooltip>
                     </template>
                 </el-table-column>
@@ -127,9 +128,9 @@
                     deptname: '',
                     consultTime: ''
                 },
-                form:{
-                    remark:'',
-                    username:'',
+                form: {
+                    remark: '',
+                    username: '',
                 },
                 appoint: [{
                     consultTime: '',
@@ -147,7 +148,7 @@
                 dept: [{
                     deptname: '',
                 }],
-                dialogVisible:false,
+                dialogVisible: false,
             }
 
         },
@@ -155,10 +156,10 @@
             this.select();
             this.searchdept();
         },
-        methods:{
+        methods: {
             handleCurrentChange(currentPage) {
                 this.page.currentPage = currentPage;
-               this.select();
+                this.select();
             },
             select() {
                 var _this = this;
@@ -175,27 +176,27 @@
                     _this.dept = res.data.data;
                 })
             },
-            refresh(){
-                var _this=this;
-                _this.search.consultTime='';
-                _this.search.username='';
-                _this.search.deptname='';
+            refresh() {
+                var _this = this;
+                _this.search.consultTime = '';
+                _this.search.username = '';
+                _this.search.deptname = '';
                 _this.select();
             },
-            check(row){
-                var _this=this;
-                _this.dialogVisible=true;
-                _this.form.username=row.username;
-                _this.form.remark=row.remark;
+            check(row) {
+                var _this = this;
+                _this.dialogVisible = true;
+                _this.form.username = row.username;
+                _this.form.remark = row.remark;
             },
-            del(){
-                var _this=this;
+            del() {
+                var _this = this;
                 this.$confirm('是否确认删除?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    axios.delete("/appoint/delete").then((res)=>{
+                    axios.delete("/appoint/delete").then((res) => {
                         this.$message({
                             type: 'success',
                             message: res.data.msg,

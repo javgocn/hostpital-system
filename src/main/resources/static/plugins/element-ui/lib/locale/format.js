@@ -28,17 +28,17 @@ exports.default = function (Vue) {
     }
 
     return string.replace(RE_NARGS, function (match, prefix, i, index) {
-      var Result = void 0;
+      var result = void 0;
 
       if (string[index - 1] === '{' && string[index + match.length] === '}') {
         return i;
       } else {
-        Result = (0, _util.hasOwn)(args, i) ? args[i] : null;
-        if (Result === null || Result === undefined) {
+        result = (0, _util.hasOwn)(args, i) ? args[i] : null;
+        if (result === null || result === undefined) {
           return '';
         }
 
-        return Result;
+        return result;
       }
     });
   }

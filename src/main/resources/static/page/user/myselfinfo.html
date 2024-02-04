@@ -24,7 +24,7 @@
         </el-form-item>
         <br>
         <el-form-item label="姓名" style="display:inline-block">
-            <el-input v-model="myself.name" placeholder="请输入姓名" ></el-input>
+            <el-input v-model="myself.name" placeholder="请输入姓名"></el-input>
         </el-form-item>
         <br>
         <el-form-item label="性别" style="display:inline-block">
@@ -65,15 +65,15 @@
         data() {
             return {
                 myself: {
-                    id:'',
+                    id: '',
                     username: '',
                     email: '',
-                    name:'',
-                    sex:1,
-                    IDcard:'',
-                    birthday:'',
-                    telphone:'',
-                    address:''
+                    name: '',
+                    sex: 1,
+                    IDcard: '',
+                    birthday: '',
+                    telphone: '',
+                    address: ''
                 },
             }
         },
@@ -85,13 +85,13 @@
                 var _this = this;
                 var userStr = localStorage.getItem("userInfo");
                 var userObj = JSON.parse(userStr);
-                axios.post("/user/getitem/"+userObj.id).then((res)=>{
-                    _this.myself=res.data.data;
+                axios.post("/user/getitem/" + userObj.id).then((res) => {
+                    _this.myself = res.data.data;
                 })
             },
-            upd(){
+            upd() {
                 var _this = this;
-                axios.post("/user/update/",_this.myself).then((res)=>{
+                axios.post("/user/update/", _this.myself).then((res) => {
                     this.$notify({
                         title: '成功',
                         message: res.data.msg,

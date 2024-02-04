@@ -14,15 +14,15 @@ const sortData = (data, states) => {
 };
 
 const doFlattenColumns = (columns) => {
-  const Result = [];
+  const result = [];
   columns.forEach((column) => {
     if (column.children) {
-      Result.push.apply(Result, doFlattenColumns(column.children));
+      result.push.apply(result, doFlattenColumns(column.children));
     } else {
-      Result.push(column);
+      result.push(column);
     }
   });
-  return Result;
+  return result;
 };
 
 export default Vue.extend({
