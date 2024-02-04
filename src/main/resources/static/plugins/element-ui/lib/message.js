@@ -1,7 +1,7 @@
 module.exports =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
-/******/ 	var installedModules = {};
+/******/ 	let installedModules = {};
 /******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
@@ -11,7 +11,7 @@ module.exports =
 /******/ 			return installedModules[moduleId].exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
+/******/ 		let module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
@@ -58,16 +58,16 @@ module.exports =
 /******/ 		if(mode & 1) value = __webpack_require__(value);
 /******/ 		if(mode & 8) return value;
 /******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
+/******/ 		let ns = Object.create(null);
 /******/ 		__webpack_require__.r(ns);
 /******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		if(mode & 2 && typeof value != 'string') for(let key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
 /******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
+/******/ 		let getter = module && module.__esModule ?
 /******/ 			function getDefault() { return module['default']; } :
 /******/ 			function getModuleExports() { return module; };
 /******/ 		__webpack_require__.d(getter, 'a', getter);
@@ -109,7 +109,7 @@ function normalizeComponent (
   shadowMode /* vue-cli only */
 ) {
   // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
+  let options = typeof scriptExports === 'function'
     ? scriptExports.options
     : scriptExports
 
@@ -130,7 +130,7 @@ function normalizeComponent (
     options._scopeId = 'data-v-' + scopeId
   }
 
-  var hook
+  let hook
   if (moduleIdentifier) { // server build
     hook = function (context) {
       // 2.3 injection
@@ -166,14 +166,14 @@ function normalizeComponent (
       // go through the normalizer
       options._injectStyles = hook
       // register for functioal component in vue file
-      var originalRender = options.render
+      let originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
         return originalRender(h, context)
       }
     } else {
       // inject component registration as beforeCreate hook
-      var existing = options.beforeCreate
+      let existing = options.beforeCreate
       options.beforeCreate = existing
         ? [].concat(existing, hook)
         : [hook]
@@ -217,14 +217,14 @@ module.exports = require("vue");
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: external "vue"
-var external_vue_ = __webpack_require__(7);
-var external_vue_default = /*#__PURE__*/__webpack_require__.n(external_vue_);
+let external_vue_ = __webpack_require__(7);
+let external_vue_default = /*#__PURE__*/__webpack_require__.n(external_vue_);
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./packages/message/src/main.vue?vue&type=template&id=455b9f60&
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
+let render = function() {
+  let _vm = this
+  let _h = _vm.$createElement
+  let _c = _vm._self._c || _h
   return _c(
     "transition",
     {
@@ -280,7 +280,7 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = []
+let staticRenderFns = []
 render._withStripped = true
 
 
@@ -314,14 +314,14 @@ render._withStripped = true
 //
 //
 
-var typeMap = {
+let typeMap = {
   success: 'success',
   info: 'info',
   warning: 'warning',
   error: 'error'
 };
 
-/* harmony default export */ var mainvue_type_script_lang_js_ = ({
+/* harmony default export */ let mainvue_type_script_lang_js_ = ({
   data: function data() {
     return {
       visible: false,
@@ -375,7 +375,7 @@ var typeMap = {
       clearTimeout(this.timer);
     },
     startTimer: function startTimer() {
-      var _this = this;
+      let _this = this;
 
       if (this.duration > 0) {
         this.timer = setTimeout(function () {
@@ -403,9 +403,9 @@ var typeMap = {
   }
 });
 // CONCATENATED MODULE: ./packages/message/src/main.vue?vue&type=script&lang=js&
- /* harmony default export */ var src_mainvue_type_script_lang_js_ = (mainvue_type_script_lang_js_); 
+ /* harmony default export */ let src_mainvue_type_script_lang_js_ = (mainvue_type_script_lang_js_); 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(0);
+let componentNormalizer = __webpack_require__(0);
 
 // CONCATENATED MODULE: ./packages/message/src/main.vue
 
@@ -415,7 +415,7 @@ var componentNormalizer = __webpack_require__(0);
 
 /* normalize component */
 
-var component = Object(componentNormalizer["a" /* default */])(
+let component = Object(componentNormalizer["a" /* default */])(
   src_mainvue_type_script_lang_js_,
   render,
   staticRenderFns,
@@ -427,27 +427,27 @@ var component = Object(componentNormalizer["a" /* default */])(
 )
 
 /* hot reload */
-if (false) { var api; }
+if (false) { let api; }
 component.options.__file = "packages/message/src/main.vue"
-/* harmony default export */ var main = (component.exports);
+/* harmony default export */ let main = (component.exports);
 // EXTERNAL MODULE: external "element-ui/lib/utils/popup"
-var popup_ = __webpack_require__(15);
+let popup_ = __webpack_require__(15);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/vdom"
-var vdom_ = __webpack_require__(23);
+let vdom_ = __webpack_require__(23);
 
 // CONCATENATED MODULE: ./packages/message/src/main.js
 
 
 
 
-var MessageConstructor = external_vue_default.a.extend(main);
+let MessageConstructor = external_vue_default.a.extend(main);
 
-var instance = void 0;
-var instances = [];
-var seed = 1;
+let instance = void 0;
+let instances = [];
+let seed = 1;
 
-var main_Message = function Message(options) {
+let main_Message = function Message(options) {
   if (external_vue_default.a.prototype.$isServer) return;
   options = options || {};
   if (typeof options === 'string') {
@@ -455,8 +455,8 @@ var main_Message = function Message(options) {
       message: options
     };
   }
-  var userOnClose = options.onClose;
-  var id = 'message_' + seed++;
+  let userOnClose = options.onClose;
+  let id = 'message_' + seed++;
 
   options.onClose = function () {
     Message.close(id, userOnClose);
@@ -471,7 +471,7 @@ var main_Message = function Message(options) {
   }
   instance.$mount();
   document.body.appendChild(instance.$el);
-  var verticalOffset = options.offset || 20;
+  let verticalOffset = options.offset || 20;
   instances.forEach(function (item) {
     verticalOffset += item.$el.offsetHeight + 16;
   });
@@ -495,10 +495,10 @@ var main_Message = function Message(options) {
 });
 
 main_Message.close = function (id, userOnClose) {
-  var len = instances.length;
-  var index = -1;
-  var removedHeight = void 0;
-  for (var i = 0; i < len; i++) {
+  let len = instances.length;
+  let index = -1;
+  let removedHeight = void 0;
+  for (let i = 0; i < len; i++) {
     if (id === instances[i].id) {
       removedHeight = instances[i].$el.offsetHeight;
       index = i;
@@ -510,14 +510,14 @@ main_Message.close = function (id, userOnClose) {
     }
   }
   if (len <= 1 || index === -1 || index > instances.length - 1) return;
-  for (var _i = index; _i < len - 1; _i++) {
-    var dom = instances[_i].$el;
+  for (let _i = index; _i < len - 1; _i++) {
+    let dom = instances[_i].$el;
     dom.style['top'] = parseInt(dom.style['top'], 10) - removedHeight - 16 + 'px';
   }
 };
 
 main_Message.closeAll = function () {
-  for (var i = instances.length - 1; i >= 0; i--) {
+  for (let i = instances.length - 1; i >= 0; i--) {
     instances[i].close();
   }
 };

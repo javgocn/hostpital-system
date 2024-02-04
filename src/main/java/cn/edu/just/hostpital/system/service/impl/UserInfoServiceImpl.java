@@ -8,7 +8,6 @@ import cn.edu.just.hostpital.system.enums.BedType;
 import cn.edu.just.hostpital.system.enums.StatusType;
 import cn.edu.just.hostpital.system.mapper.*;
 import cn.edu.just.hostpital.system.model.*;
-import cn.edu.just.hostpital.system.req.UserInfoReq;
 import cn.edu.just.hostpital.system.service.UserInfoService;
 import cn.edu.just.hostpital.system.utils.DataTransferUtil;
 import cn.edu.just.hostpital.system.utils.MD5Util;
@@ -58,7 +57,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     private DepartmentMapper departmentMapper;
 
     @Override
-    public Result<?> register(UserInfoReq user) {
+    public Result<?> register(UserInfoDTO user) {
         Result<?> Result = checkUserParam(user);
         if (!Result.isSuccess()) {
             return Result;
@@ -88,7 +87,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         return Result.success(userInfoDTO);
     }
 
-    private Result<?> checkUserParam(UserInfoReq user) {
+    private Result<?> checkUserParam(UserInfoDTO user) {
         if (StringUtils.isBlank(user.getUsername())) {
             return Result.fail("用户名不能为空");
         }
@@ -99,7 +98,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     }
 
     @Override
-    public Result<?> login(UserInfoReq user, HttpServletRequest request) {
+    public Result<?> login(UserInfoDTO user, HttpServletRequest request) {
         checkUserParam(user);
         UserInfo userInfo = DataTransferUtil.shallowCopy(user, UserInfo.class);
         String md5Pwd = MD5Util.md5(userInfo.getPassword(), UserConstants.USER_SLAT);
@@ -126,7 +125,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     }
 
     @Override
-    public Result<?> selectByPage(int currentPage, int size, UserInfoReq user) {
+    public Result<?> selectByPage(int currentPage, int size, UserInfoDTO user) {
         UserInfo userInfo = DataTransferUtil.shallowCopy(user, UserInfo.class);
         IPage<UserInfo> page = new Page<>(currentPage, size);
         QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
@@ -167,7 +166,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     }
 
     @Override
-    public Result<?> lock(UserInfoReq user) {
+    public Result<?> lock(UserInfoDTO user) {
         UserInfo userInfo = DataTransferUtil.shallowCopy(user, UserInfo.class);
         if (Objects.equals(userInfo.getStatus(), StatusType.DISABLE.getCode())) {
             userInfo.setStatus(0);
@@ -196,7 +195,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     }
 
     @Override
-    public Result<?> update(UserInfoReq user) {
+    public Result<?> update(UserInfoDTO user) {
         UserInfo userInfo = DataTransferUtil.shallowCopy(user, UserInfo.class);
         userInfo.setUpdateTime(new Date());
         userInfoMapper.updateById(userInfo);

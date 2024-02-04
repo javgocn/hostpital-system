@@ -1,7 +1,7 @@
 package cn.edu.just.hostpital.system.controller;
 
 import cn.edu.just.hostpital.system.common.Result;
-import cn.edu.just.hostpital.system.req.UserInfoReq;
+import cn.edu.just.hostpital.system.dto.UserInfoDTO;
 import cn.edu.just.hostpital.system.service.UserInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,14 +29,14 @@ public class UserInfoController {
 
     @ApiOperation(value = "注册用户")
     @PostMapping("/register")
-    public Result<?> register(@RequestBody UserInfoReq userInfoReq) {
-        return userInfoService.register(userInfoReq);
+    public Result<?> register(@RequestBody UserInfoDTO UserInfoDTO) {
+        return userInfoService.register(UserInfoDTO);
     }
 
     @ApiOperation(value = "登录")
     @PostMapping("/login")
-    public Result<?> login(@RequestBody UserInfoReq userInfoReq, HttpServletRequest request) {
-        return userInfoService.login(userInfoReq, request);
+    public Result<?> login(@RequestBody UserInfoDTO UserInfoDTO, HttpServletRequest request) {
+        return userInfoService.login(UserInfoDTO, request);
     }
 
     @ApiOperation(value = "注销")
@@ -47,14 +47,14 @@ public class UserInfoController {
 
     @ApiOperation(value = "分页获取用户信息")
     @PostMapping("/select/{currentPage}/{size}")
-    Result<?> selectByPage(@PathVariable("currentPage") int currentPage, @PathVariable("size") int size, @RequestBody UserInfoReq userInfoReq) {
-        return userInfoService.selectByPage(currentPage, size, userInfoReq);
+    Result<?> selectByPage(@PathVariable("currentPage") int currentPage, @PathVariable("size") int size, @RequestBody UserInfoDTO UserInfoDTO) {
+        return userInfoService.selectByPage(currentPage, size, UserInfoDTO);
     }
 
     @ApiOperation(value = "锁定用户")
     @PostMapping("/lock")
-    Result<?> lock(@RequestBody UserInfoReq userInfoReq) {
-        return userInfoService.lock(userInfoReq);
+    Result<?> lock(@RequestBody UserInfoDTO UserInfoDTO) {
+        return userInfoService.lock(UserInfoDTO);
     }
 
     @ApiOperation(value = "删除用户")
@@ -65,8 +65,8 @@ public class UserInfoController {
 
     @ApiOperation(value = "修改用户信息")
     @PostMapping("/update")
-    Result<?> update(@RequestBody UserInfoReq userInfoReq) {
-        return userInfoService.update(userInfoReq);
+    Result<?> update(@RequestBody UserInfoDTO UserInfoDTO) {
+        return userInfoService.update(UserInfoDTO);
     }
 
     @ApiOperation(value = "修改密码")

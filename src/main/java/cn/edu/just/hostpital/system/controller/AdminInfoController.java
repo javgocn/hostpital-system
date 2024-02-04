@@ -1,7 +1,7 @@
 package cn.edu.just.hostpital.system.controller;
 
 import cn.edu.just.hostpital.system.common.Result;
-import cn.edu.just.hostpital.system.req.AdminInfoReq;
+import cn.edu.just.hostpital.system.dto.AdminInfoDTO;
 import cn.edu.just.hostpital.system.service.AdminInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,8 +32,8 @@ public class AdminInfoController {
 
     @ApiOperation(value = "登录")
     @PostMapping("/login")
-    public Result<?> login(@RequestBody AdminInfoReq adminInfoReq, HttpServletRequest request) {
-        return adminInfoService.login(adminInfoReq, request);
+    public Result<?> login(@RequestBody AdminInfoDTO adminInfoDTO, HttpServletRequest request) {
+        return adminInfoService.login(adminInfoDTO, request);
     }
 
     @ApiOperation(value = "注销")

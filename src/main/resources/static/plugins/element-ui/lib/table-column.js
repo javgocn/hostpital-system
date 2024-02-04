@@ -1,7 +1,7 @@
 module.exports =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
-/******/ 	var installedModules = {};
+/******/ 	let installedModules = {};
 /******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
@@ -11,7 +11,7 @@ module.exports =
 /******/ 			return installedModules[moduleId].exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
+/******/ 		let module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
@@ -58,16 +58,16 @@ module.exports =
 /******/ 		if(mode & 1) value = __webpack_require__(value);
 /******/ 		if(mode & 8) return value;
 /******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
+/******/ 		let ns = Object.create(null);
 /******/ 		__webpack_require__.r(ns);
 /******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		if(mode & 2 && typeof value != 'string') for(let key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
 /******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
+/******/ 		let getter = module && module.__esModule ?
 /******/ 			function getDefault() { return module['default']; } :
 /******/ 			function getModuleExports() { return module; };
 /******/ 		__webpack_require__.d(getter, 'a', getter);
@@ -94,12 +94,12 @@ module.exports =
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/util"
-var util_ = __webpack_require__(3);
+let util_ = __webpack_require__(3);
 
 // CONCATENATED MODULE: ./packages/table/src/config.js
 
 
-var cellStarts = {
+let cellStarts = {
   default: {
     order: ''
   },
@@ -125,10 +125,10 @@ var cellStarts = {
 };
 
 // 这些选项不应该被覆盖
-var cellForced = {
+let cellForced = {
   selection: {
     renderHeader: function renderHeader(h, _ref) {
-      var store = _ref.store;
+      let store = _ref.store;
 
       return h('el-checkbox', {
         attrs: {
@@ -142,7 +142,7 @@ var cellForced = {
       });
     },
     renderCell: function renderCell(h, _ref2) {
-      var row = _ref2.row,
+      let row = _ref2.row,
           column = _ref2.column,
           store = _ref2.store,
           $index = _ref2.$index;
@@ -169,16 +169,16 @@ var cellForced = {
   },
   index: {
     renderHeader: function renderHeader(h, _ref3) {
-      var column = _ref3.column;
+      let column = _ref3.column;
 
       return column.label || '#';
     },
     renderCell: function renderCell(h, _ref4) {
-      var $index = _ref4.$index,
+      let $index = _ref4.$index,
           column = _ref4.column;
 
-      var i = $index + 1;
-      var index = column.index;
+      let i = $index + 1;
+      let index = column.index;
 
       if (typeof index === 'number') {
         i = $index + index;
@@ -192,19 +192,19 @@ var cellForced = {
   },
   expand: {
     renderHeader: function renderHeader(h, _ref5) {
-      var column = _ref5.column;
+      let column = _ref5.column;
 
       return column.label || '';
     },
     renderCell: function renderCell(h, _ref6) {
-      var row = _ref6.row,
+      let row = _ref6.row,
           store = _ref6.store;
 
-      var classes = ['el-table__expand-icon'];
+      let classes = ['el-table__expand-icon'];
       if (store.states.expandRows.indexOf(row) > -1) {
         classes.push('el-table__expand-icon--expanded');
       }
-      var callback = function callback(e) {
+      let callback = function callback(e) {
         e.stopPropagation();
         store.toggleRowExpansion(row);
       };
@@ -225,12 +225,12 @@ var cellForced = {
 };
 
 function defaultRenderCell(h, _ref7) {
-  var row = _ref7.row,
+  let row = _ref7.row,
       column = _ref7.column,
       $index = _ref7.$index;
 
-  var property = column.property;
-  var value = property && Object(util_["getPropByPath"])(row, property).v;
+  let property = column.property;
+  let value = property && Object(util_["getPropByPath"])(row, property).v;
   if (column && column.formatter) {
     return column.formatter(row, column, value, $index);
   }
@@ -238,13 +238,13 @@ function defaultRenderCell(h, _ref7) {
 }
 
 function treeCellPrefix(h, _ref8) {
-  var row = _ref8.row,
+  let row = _ref8.row,
       treeNode = _ref8.treeNode,
       store = _ref8.store;
 
   if (!treeNode) return null;
-  var ele = [];
-  var callback = function callback(e) {
+  let ele = [];
+  let callback = function callback(e) {
     e.stopPropagation();
     store.loadOrToggle(row);
   };
@@ -252,8 +252,8 @@ function treeCellPrefix(h, _ref8) {
     ele.push(h('span', { 'class': 'el-table__indent', style: { 'padding-left': treeNode.indent + 'px' } }));
   }
   if (typeof treeNode.expanded === 'boolean' && !treeNode.noLazyChildren) {
-    var expandClasses = ['el-table__expand-icon', treeNode.expanded ? 'el-table__expand-icon--expanded' : ''];
-    var iconClasses = ['el-icon-arrow-right'];
+    let expandClasses = ['el-table__expand-icon', treeNode.expanded ? 'el-table__expand-icon--expanded' : ''];
+    let iconClasses = ['el-icon-arrow-right'];
     if (treeNode.loading) {
       iconClasses = ['el-icon-loading'];
     }
@@ -272,22 +272,22 @@ function treeCellPrefix(h, _ref8) {
   return ele;
 }
 // EXTERNAL MODULE: ./packages/table/src/util.js
-var util = __webpack_require__(8);
+let util = __webpack_require__(8);
 
 // EXTERNAL MODULE: external "element-ui/lib/checkbox"
-var checkbox_ = __webpack_require__(18);
-var checkbox_default = /*#__PURE__*/__webpack_require__.n(checkbox_);
+let checkbox_ = __webpack_require__(18);
+let checkbox_default = /*#__PURE__*/__webpack_require__.n(checkbox_);
 
 // CONCATENATED MODULE: ./packages/table/src/table-column.js
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+let _extends = Object.assign || function (target) { for (let i = 1; i < arguments.length; i++) { let source = arguments[i]; for (let key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 
 
 
 
-var columnIdSeed = 1;
+let columnIdSeed = 1;
 
-/* harmony default export */ var table_column = ({
+/* harmony default export */ let table_column = ({
   name: 'ElTableColumn',
 
   props: {
@@ -354,14 +354,14 @@ var columnIdSeed = 1;
 
   computed: {
     owner: function owner() {
-      var parent = this.$parent;
+      let parent = this.$parent;
       while (parent && !parent.tableId) {
         parent = parent.$parent;
       }
       return parent;
     },
     columnOrTableParent: function columnOrTableParent() {
-      var parent = this.$parent;
+      let parent = this.$parent;
       while (parent && !parent.tableId && !parent.columnId) {
         parent = parent.$parent;
       }
@@ -383,9 +383,9 @@ var columnIdSeed = 1;
 
   methods: {
     getPropsData: function getPropsData() {
-      var _this = this;
+      let _this = this;
 
-      for (var _len = arguments.length, props = Array(_len), _key = 0; _key < _len; _key++) {
+      for (let _len = arguments.length, props = Array(_len), _key = 0; _key < _len; _key++) {
         props[_key] = arguments[_key];
       }
 
@@ -416,10 +416,10 @@ var columnIdSeed = 1;
     },
     setColumnForcedProps: function setColumnForcedProps(column) {
       // 对于特定类型的 column，某些属性不允许设置
-      var type = column.type;
-      var source = cellForced[type] || {};
+      let type = column.type;
+      let source = cellForced[type] || {};
       Object.keys(source).forEach(function (prop) {
-        var value = source[prop];
+        let value = source[prop];
         if (value !== undefined) {
           column[prop] = prop === 'className' ? column[prop] + ' ' + value : value;
         }
@@ -427,21 +427,21 @@ var columnIdSeed = 1;
       return column;
     },
     setColumnRenders: function setColumnRenders(column) {
-      var _this2 = this;
+      let _this2 = this;
 
-      var h = this.$createElement;
+      let h = this.$createElement;
 
       // renderHeader 属性不推荐使用。
       if (this.renderHeader) {
         console.warn('[Element Warn][TableColumn]Comparing to render-header, scoped-slot header is easier to use. We recommend users to use scoped-slot header.');
       } else if (column.type !== 'selection') {
         column.renderHeader = function (h, scope) {
-          var renderHeader = _this2.$scopedSlots.header;
+          let renderHeader = _this2.$scopedSlots.header;
           return renderHeader ? renderHeader(scope) : column.label;
         };
       }
 
-      var originRenderCell = column.renderCell;
+      let originRenderCell = column.renderCell;
       // TODO: 这里的实现调整
       if (column.type === 'expand') {
         // 对于展开行，renderCell 不允许配置的。在上一步中已经设置过，这里需要简单封装一下。
@@ -459,14 +459,14 @@ var columnIdSeed = 1;
         originRenderCell = originRenderCell || defaultRenderCell;
         // 对 renderCell 进行包装
         column.renderCell = function (h, data) {
-          var children = null;
+          let children = null;
           if (_this2.$scopedSlots.default) {
             children = _this2.$scopedSlots.default(data);
           } else {
             children = originRenderCell(h, data);
           }
-          var prefix = treeCellPrefix(h, data);
-          var props = {
+          let prefix = treeCellPrefix(h, data);
+          let props = {
             class: 'cell',
             style: {}
           };
@@ -484,23 +484,23 @@ var columnIdSeed = 1;
       return column;
     },
     registerNormalWatchers: function registerNormalWatchers() {
-      var _this3 = this;
+      let _this3 = this;
 
-      var props = ['label', 'property', 'filters', 'filterMultiple', 'sortable', 'index', 'formatter', 'className', 'labelClassName', 'showOverflowTooltip'];
+      let props = ['label', 'property', 'filters', 'filterMultiple', 'sortable', 'index', 'formatter', 'className', 'labelClassName', 'showOverflowTooltip'];
       // 一些属性具有别名
-      var aliases = {
+      let aliases = {
         prop: 'property',
         realAlign: 'align',
         realHeaderAlign: 'headerAlign',
         realWidth: 'width'
       };
-      var allAliases = props.reduce(function (prev, cur) {
+      let allAliases = props.reduce(function (prev, cur) {
         prev[cur] = cur;
         return prev;
       }, aliases);
 
       Object.keys(allAliases).forEach(function (key) {
-        var columnKey = aliases[key];
+        let columnKey = aliases[key];
 
         _this3.$watch(key, function (newVal) {
           _this3.columnConfig[columnKey] = newVal;
@@ -508,24 +508,24 @@ var columnIdSeed = 1;
       });
     },
     registerComplexWatchers: function registerComplexWatchers() {
-      var _this4 = this;
+      let _this4 = this;
 
-      var props = ['fixed'];
-      var aliases = {
+      let props = ['fixed'];
+      let aliases = {
         realWidth: 'width',
         realMinWidth: 'minWidth'
       };
-      var allAliases = props.reduce(function (prev, cur) {
+      let allAliases = props.reduce(function (prev, cur) {
         prev[cur] = cur;
         return prev;
       }, aliases);
 
       Object.keys(allAliases).forEach(function (key) {
-        var columnKey = aliases[key];
+        let columnKey = aliases[key];
 
         _this4.$watch(key, function (newVal) {
           _this4.columnConfig[columnKey] = newVal;
-          var updateColumns = columnKey === 'fixed';
+          let updateColumns = columnKey === 'fixed';
           _this4.owner.store.scheduleLayout(updateColumns);
         });
       });
@@ -543,13 +543,13 @@ var columnIdSeed = 1;
     this.columnId = '';
   },
   created: function created() {
-    var parent = this.columnOrTableParent;
+    let parent = this.columnOrTableParent;
     this.isSubColumn = this.owner !== parent;
     this.columnId = (parent.tableId || parent.columnId) + '_column_' + columnIdSeed++;
 
-    var type = this.type || 'default';
-    var sortable = this.sortable === '' ? true : this.sortable;
-    var defaults = _extends({}, cellStarts[type], {
+    let type = this.type || 'default';
+    let sortable = this.sortable === '' ? true : this.sortable;
+    let defaults = _extends({}, cellStarts[type], {
       id: this.columnId,
       type: type,
       property: this.prop || this.property,
@@ -568,16 +568,16 @@ var columnIdSeed = 1;
       index: this.index
     });
 
-    var basicProps = ['columnKey', 'label', 'className', 'labelClassName', 'type', 'renderHeader', 'formatter', 'fixed', 'resizable'];
-    var sortProps = ['sortMethod', 'sortBy', 'sortOrders'];
-    var selectProps = ['selectable', 'reserveSelection'];
-    var filterProps = ['filterMethod', 'filters', 'filterMultiple', 'filterOpened', 'filteredValue', 'filterPlacement'];
+    let basicProps = ['columnKey', 'label', 'className', 'labelClassName', 'type', 'renderHeader', 'formatter', 'fixed', 'resizable'];
+    let sortProps = ['sortMethod', 'sortBy', 'sortOrders'];
+    let selectProps = ['selectable', 'reserveSelection'];
+    let filterProps = ['filterMethod', 'filters', 'filterMultiple', 'filterOpened', 'filteredValue', 'filterPlacement'];
 
-    var column = this.getPropsData(basicProps, sortProps, selectProps, filterProps);
+    let column = this.getPropsData(basicProps, sortProps, selectProps, filterProps);
     column = Object(util["h" /* mergeOptions */])(defaults, column);
 
     // 注意 compose 中函数执行的顺序是从右到左
-    var chains = Object(util["a" /* compose */])(this.setColumnRenders, this.setColumnWidth, this.setColumnForcedProps);
+    let chains = Object(util["a" /* compose */])(this.setColumnRenders, this.setColumnWidth, this.setColumnForcedProps);
     column = chains(column);
 
     this.columnConfig = column;
@@ -587,16 +587,16 @@ var columnIdSeed = 1;
     this.registerComplexWatchers();
   },
   mounted: function mounted() {
-    var owner = this.owner;
-    var parent = this.columnOrTableParent;
-    var children = this.isSubColumn ? parent.$el.children : parent.$refs.hiddenColumns.children;
-    var columnIndex = this.getColumnElIndex(children, this.$el);
+    let owner = this.owner;
+    let parent = this.columnOrTableParent;
+    let children = this.isSubColumn ? parent.$el.children : parent.$refs.hiddenColumns.children;
+    let columnIndex = this.getColumnElIndex(children, this.$el);
 
     owner.store.commit('insertColumn', this.columnConfig, columnIndex, this.isSubColumn ? parent.columnConfig : null);
   },
   destroyed: function destroyed() {
     if (!this.$parent) return;
-    var parent = this.$parent;
+    let parent = this.$parent;
     this.owner.store.commit('removeColumn', this.columnConfig, this.isSubColumn ? parent.columnConfig : null);
   },
   render: function render(h) {
@@ -612,7 +612,7 @@ table_column.install = function (Vue) {
   Vue.component(table_column.name, table_column);
 };
 
-/* harmony default export */ var packages_table_column = __webpack_exports__["default"] = (table_column);
+/* harmony default export */ let packages_table_column = __webpack_exports__["default"] = (table_column);
 
 /***/ }),
 
@@ -648,9 +648,9 @@ module.exports = require("element-ui/lib/utils/util");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return compose; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return toggleRowStatus; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return walkTreeNode; });
-/* harmony import */ var element_ui_src_utils_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
-/* harmony import */ var element_ui_src_utils_util__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(element_ui_src_utils_util__WEBPACK_IMPORTED_MODULE_0__);
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+/* harmony import */ let element_ui_src_utils_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ let element_ui_src_utils_util__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(element_ui_src_utils_util__WEBPACK_IMPORTED_MODULE_0__);
+let _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 
 

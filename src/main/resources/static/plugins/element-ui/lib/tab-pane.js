@@ -1,7 +1,7 @@
 module.exports =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
-/******/ 	var installedModules = {};
+/******/ 	let installedModules = {};
 /******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
@@ -11,7 +11,7 @@ module.exports =
 /******/ 			return installedModules[moduleId].exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
+/******/ 		let module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
@@ -58,16 +58,16 @@ module.exports =
 /******/ 		if(mode & 1) value = __webpack_require__(value);
 /******/ 		if(mode & 8) return value;
 /******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
+/******/ 		let ns = Object.create(null);
 /******/ 		__webpack_require__.r(ns);
 /******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		if(mode & 2 && typeof value != 'string') for(let key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
 /******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
+/******/ 		let getter = module && module.__esModule ?
 /******/ 			function getDefault() { return module['default']; } :
 /******/ 			function getModuleExports() { return module; };
 /******/ 		__webpack_require__.d(getter, 'a', getter);
@@ -109,7 +109,7 @@ function normalizeComponent (
   shadowMode /* vue-cli only */
 ) {
   // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
+  let options = typeof scriptExports === 'function'
     ? scriptExports.options
     : scriptExports
 
@@ -130,7 +130,7 @@ function normalizeComponent (
     options._scopeId = 'data-v-' + scopeId
   }
 
-  var hook
+  let hook
   if (moduleIdentifier) { // server build
     hook = function (context) {
       // 2.3 injection
@@ -166,14 +166,14 @@ function normalizeComponent (
       // go through the normalizer
       options._injectStyles = hook
       // register for functioal component in vue file
-      var originalRender = options.render
+      let originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
         return originalRender(h, context)
       }
     } else {
       // inject component registration as beforeCreate hook
-      var existing = options.beforeCreate
+      let existing = options.beforeCreate
       options.beforeCreate = existing
         ? [].concat(existing, hook)
         : [hook]
@@ -196,10 +196,10 @@ function normalizeComponent (
 __webpack_require__.r(__webpack_exports__);
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./packages/tabs/src/tab-pane.vue?vue&type=template&id=9145a070&
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
+let render = function() {
+  let _vm = this
+  let _h = _vm.$createElement
+  let _c = _vm._self._c || _h
   return !_vm.lazy || _vm.loaded || _vm.active
     ? _c(
         "div",
@@ -225,7 +225,7 @@ var render = function() {
       )
     : _vm._e()
 }
-var staticRenderFns = []
+let staticRenderFns = []
 render._withStripped = true
 
 
@@ -246,7 +246,7 @@ render._withStripped = true
 //
 //
 
-/* harmony default export */ var tab_panevue_type_script_lang_js_ = ({
+/* harmony default export */ let tab_panevue_type_script_lang_js_ = ({
   name: 'ElTabPane',
 
   componentName: 'ElTabPane',
@@ -273,7 +273,7 @@ render._withStripped = true
       return this.closable || this.$parent.closable;
     },
     active: function active() {
-      var active = this.$parent.currentName === (this.name || this.index);
+      let active = this.$parent.currentName === (this.name || this.index);
       if (active) {
         this.loaded = true;
       }
@@ -289,9 +289,9 @@ render._withStripped = true
   }
 });
 // CONCATENATED MODULE: ./packages/tabs/src/tab-pane.vue?vue&type=script&lang=js&
- /* harmony default export */ var src_tab_panevue_type_script_lang_js_ = (tab_panevue_type_script_lang_js_); 
+ /* harmony default export */ let src_tab_panevue_type_script_lang_js_ = (tab_panevue_type_script_lang_js_); 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(0);
+let componentNormalizer = __webpack_require__(0);
 
 // CONCATENATED MODULE: ./packages/tabs/src/tab-pane.vue
 
@@ -301,7 +301,7 @@ var componentNormalizer = __webpack_require__(0);
 
 /* normalize component */
 
-var component = Object(componentNormalizer["a" /* default */])(
+let component = Object(componentNormalizer["a" /* default */])(
   src_tab_panevue_type_script_lang_js_,
   render,
   staticRenderFns,
@@ -313,9 +313,9 @@ var component = Object(componentNormalizer["a" /* default */])(
 )
 
 /* hot reload */
-if (false) { var api; }
+if (false) { let api; }
 component.options.__file = "packages/tabs/src/tab-pane.vue"
-/* harmony default export */ var tab_pane = (component.exports);
+/* harmony default export */ let tab_pane = (component.exports);
 // CONCATENATED MODULE: ./packages/tab-pane/index.js
 
 
@@ -324,7 +324,7 @@ tab_pane.install = function (Vue) {
   Vue.component(tab_pane.name, tab_pane);
 };
 
-/* harmony default export */ var packages_tab_pane = __webpack_exports__["default"] = (tab_pane);
+/* harmony default export */ let packages_tab_pane = __webpack_exports__["default"] = (tab_pane);
 
 /***/ })
 

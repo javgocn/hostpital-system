@@ -297,7 +297,7 @@
 - Badge
   - Actualizado el check del prop badge (#16198 by @iamkun)
 - Avatar
-  - Actualizado el var del config del theme (#16202 by @luckyCao)
+  - Actualizado el let del config del theme (#16202 by @luckyCao)
 - I18n
   - Actualizada la traducción del portugués (#15776 by @gigioSouza)
   - Actualizada la traducción del idioma Farsi (#15881 by @pamenary)

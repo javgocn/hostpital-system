@@ -1,7 +1,7 @@
 module.exports =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
-/******/ 	var installedModules = {};
+/******/ 	let installedModules = {};
 /******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
@@ -11,7 +11,7 @@ module.exports =
 /******/ 			return installedModules[moduleId].exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
+/******/ 		let module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
@@ -58,16 +58,16 @@ module.exports =
 /******/ 		if(mode & 1) value = __webpack_require__(value);
 /******/ 		if(mode & 8) return value;
 /******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
+/******/ 		let ns = Object.create(null);
 /******/ 		__webpack_require__.r(ns);
 /******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		if(mode & 2 && typeof value != 'string') for(let key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
 /******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
+/******/ 		let getter = module && module.__esModule ?
 /******/ 			function getDefault() { return module['default']; } :
 /******/ 			function getModuleExports() { return module; };
 /******/ 		__webpack_require__.d(getter, 'a', getter);
@@ -109,7 +109,7 @@ function normalizeComponent (
   shadowMode /* vue-cli only */
 ) {
   // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
+  let options = typeof scriptExports === 'function'
     ? scriptExports.options
     : scriptExports
 
@@ -130,7 +130,7 @@ function normalizeComponent (
     options._scopeId = 'data-v-' + scopeId
   }
 
-  var hook
+  let hook
   if (moduleIdentifier) { // server build
     hook = function (context) {
       // 2.3 injection
@@ -166,14 +166,14 @@ function normalizeComponent (
       // go through the normalizer
       options._injectStyles = hook
       // register for functioal component in vue file
-      var originalRender = options.render
+      let originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
         return originalRender(h, context)
       }
     } else {
       // inject component registration as beforeCreate hook
-      var existing = options.beforeCreate
+      let existing = options.beforeCreate
       options.beforeCreate = existing
         ? [].concat(existing, hook)
         : [hook]
@@ -197,7 +197,7 @@ __webpack_require__.r(__webpack_exports__);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/avatar/src/main.vue?vue&type=script&lang=js&
 
-/* harmony default export */ var mainvue_type_script_lang_js_ = ({
+/* harmony default export */ let mainvue_type_script_lang_js_ = ({
   name: 'ElAvatar',
 
   props: {
@@ -237,11 +237,11 @@ __webpack_require__.r(__webpack_exports__);
 
   computed: {
     avatarClass: function avatarClass() {
-      var size = this.size,
+      let size = this.size,
           icon = this.icon,
           shape = this.shape;
 
-      var classList = ['el-avatar'];
+      let classList = ['el-avatar'];
 
       if (size && typeof size === 'string') {
         classList.push('el-avatar--' + size);
@@ -261,16 +261,16 @@ __webpack_require__.r(__webpack_exports__);
 
   methods: {
     handleError: function handleError() {
-      var error = this.error;
+      let error = this.error;
 
-      var errorFlag = error ? error() : undefined;
+      let errorFlag = error ? error() : undefined;
       if (errorFlag !== false) {
         this.isImageExist = false;
       }
     },
     renderAvatar: function renderAvatar() {
-      var h = this.$createElement;
-      var icon = this.icon,
+      let h = this.$createElement;
+      let icon = this.icon,
           src = this.src,
           alt = this.alt,
           isImageExist = this.isImageExist,
@@ -301,12 +301,12 @@ __webpack_require__.r(__webpack_exports__);
   },
 
   render: function render() {
-    var h = arguments[0];
-    var avatarClass = this.avatarClass,
+    let h = arguments[0];
+    let avatarClass = this.avatarClass,
         size = this.size;
 
 
-    var sizeStyle = typeof size === 'number' ? {
+    let sizeStyle = typeof size === 'number' ? {
       height: size + 'px',
       width: size + 'px',
       lineHeight: size + 'px'
@@ -320,19 +320,19 @@ __webpack_require__.r(__webpack_exports__);
   }
 });
 // CONCATENATED MODULE: ./packages/avatar/src/main.vue?vue&type=script&lang=js&
- /* harmony default export */ var src_mainvue_type_script_lang_js_ = (mainvue_type_script_lang_js_); 
+ /* harmony default export */ let src_mainvue_type_script_lang_js_ = (mainvue_type_script_lang_js_); 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(0);
+let componentNormalizer = __webpack_require__(0);
 
 // CONCATENATED MODULE: ./packages/avatar/src/main.vue
-var render, staticRenderFns
+let render, staticRenderFns
 
 
 
 
 /* normalize component */
 
-var component = Object(componentNormalizer["a" /* default */])(
+let component = Object(componentNormalizer["a" /* default */])(
   src_mainvue_type_script_lang_js_,
   render,
   staticRenderFns,
@@ -344,9 +344,9 @@ var component = Object(componentNormalizer["a" /* default */])(
 )
 
 /* hot reload */
-if (false) { var api; }
+if (false) { let api; }
 component.options.__file = "packages/avatar/src/main.vue"
-/* harmony default export */ var main = (component.exports);
+/* harmony default export */ let main = (component.exports);
 // CONCATENATED MODULE: ./packages/avatar/index.js
 
 
@@ -355,7 +355,7 @@ main.install = function (Vue) {
   Vue.component(main.name, main);
 };
 
-/* harmony default export */ var avatar = __webpack_exports__["default"] = (main);
+/* harmony default export */ let avatar = __webpack_exports__["default"] = (main);
 
 /***/ })
 

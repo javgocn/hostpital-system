@@ -1,13 +1,13 @@
 package cn.edu.just.hostpital.system.service.impl;
 
 import cn.edu.just.hostpital.system.common.Result;
+import cn.edu.just.hostpital.system.dto.UserAppointmentDTO;
 import cn.edu.just.hostpital.system.enums.AppointmentType;
 import cn.edu.just.hostpital.system.mapper.DepartmentMapper;
 import cn.edu.just.hostpital.system.mapper.UserInfoMapper;
 import cn.edu.just.hostpital.system.model.UserAppointment;
 import cn.edu.just.hostpital.system.mapper.UserAppointmentMapper;
 import cn.edu.just.hostpital.system.model.UserInfo;
-import cn.edu.just.hostpital.system.req.UserAppointmentReq;
 import cn.edu.just.hostpital.system.service.UserAppointmentService;
 import cn.edu.just.hostpital.system.utils.DataTransferUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -43,10 +43,10 @@ public class UserAppointmentServiceImpl extends ServiceImpl<UserAppointmentMappe
     private UserInfoMapper userInfoMapper;
 
     @Override
-    public Result<?> selectByPage(Integer currentPage, Integer size, UserAppointmentReq userAppointmentReq) {
+    public Result<?> selectByPage(Integer currentPage, Integer size, UserAppointmentDTO userAppointmentDTO) {
         IPage<UserAppointment> page = new Page<>(currentPage, size);
         IPage<UserAppointment> appointmentIPage = null;
-        UserAppointment userAppointment = DataTransferUtil.shallowCopy(userAppointmentReq, UserAppointment.class);
+        UserAppointment userAppointment = DataTransferUtil.shallowCopy(userAppointmentDTO, UserAppointment.class);
         QueryWrapper<UserAppointment> appointmentQueryWrapper = new QueryWrapper<>();
         if (Objects.nonNull(userAppointment.getCreateTime())) {
             appointmentQueryWrapper.eq("create_time", userAppointment.getCreateTime());
@@ -54,8 +54,8 @@ public class UserAppointmentServiceImpl extends ServiceImpl<UserAppointmentMappe
         if (Objects.nonNull(userAppointment.getConsultTime())) {
             appointmentQueryWrapper.eq("consult_time", userAppointment.getConsultTime());
         }
-        if (Objects.nonNull(userAppointmentReq.getUserName())) {
-            String userName = userAppointmentReq.getUserName();
+        if (Objects.nonNull(userAppointmentDTO.getUserName())) {
+            String userName = userAppointmentDTO.getUserName();
             QueryWrapper<UserInfo> userInfoQueryWrapper = new QueryWrapper<>();
             userInfoQueryWrapper.eq("name", userName);
             UserInfo userInfo = userInfoMapper.selectOne(userInfoQueryWrapper);
@@ -89,8 +89,8 @@ public class UserAppointmentServiceImpl extends ServiceImpl<UserAppointmentMappe
     }
 
     @Override
-    public Result<?> appointmentWithDoctor(UserAppointmentReq userAppointmentReq) {
-        UserAppointment userAppointment = DataTransferUtil.shallowCopy(userAppointmentReq, UserAppointment.class);
+    public Result<?> appointmentWithDoctor(UserAppointmentDTO userAppointmentDTO) {
+        UserAppointment userAppointment = DataTransferUtil.shallowCopy(userAppointmentDTO, UserAppointment.class);
         if (Objects.isNull(userAppointment.getUserId())) {
             return Result.fail("用户id不能为空");
         }

@@ -3,12 +3,9 @@ package cn.edu.just.hostpital.system.service.impl;
 import cn.edu.just.hostpital.system.common.Result;
 import cn.edu.just.hostpital.system.constans.UserConstants;
 import cn.edu.just.hostpital.system.dto.AdminInfoDTO;
-import cn.edu.just.hostpital.system.enums.AnnouncementType;
-import cn.edu.just.hostpital.system.enums.BedType;
 import cn.edu.just.hostpital.system.enums.StatusType;
 import cn.edu.just.hostpital.system.mapper.*;
 import cn.edu.just.hostpital.system.model.*;
-import cn.edu.just.hostpital.system.req.AdminInfoReq;
 import cn.edu.just.hostpital.system.service.AdminInfoService;
 import cn.edu.just.hostpital.system.utils.DataTransferUtil;
 import cn.edu.just.hostpital.system.utils.DateUtil;
@@ -20,6 +17,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -48,31 +46,15 @@ public class AdminInfoServiceImpl extends ServiceImpl<AdminInfoMapper, AdminInfo
     private DoctorInfoMapper doctorInfoMapper;
 
     @Resource
-    private DepartmentMapper departmentMapper;
-
-    @Resource
-    private AnnouncementMapper announcementMapper;
-
-    @Resource
-    private RoomMapper roomMapper;
-
-    @Resource
-    private BedMapper bedMapper;
-
-    @Resource
     private UserAppointmentMapper userAppointmentMapper;
+
+    @Resource
+    private UserFeedbackMapper userFeedbackMapper;
 
 
     @Override
-    public Result<?> login(AdminInfoReq adminInfoReq, HttpServletRequest request) {
-        if (StringUtils.isBlank(adminInfoReq.getUsername())) {
-            return Result.fail("用户名不能为空");
-        }
-        if (StringUtils.isBlank(adminInfoReq.getPassword())) {
-            return Result.fail("密码不能为空");
-        }
-
-        AdminInfo adminInfo = DataTransferUtil.shallowCopy(adminInfoReq, AdminInfo.class);
+    public Result<?> login(@Validated AdminInfoDTO adminInfoDTO, HttpServletRequest request) {
+        AdminInfo adminInfo = DataTransferUtil.shallowCopy(adminInfoDTO, AdminInfo.class);
         String md5Pwd = MD5Util.md5(adminInfo.getPassword(), UserConstants.USER_SLAT);
 
         QueryWrapper<AdminInfo> queryWrapper = new QueryWrapper<>();
@@ -90,9 +72,34 @@ public class AdminInfoServiceImpl extends ServiceImpl<AdminInfoMapper, AdminInfo
             return Result.fail("登录失败，管理员已被删除");
         }
 
-        AdminInfoDTO adminInfoDTO = DataTransferUtil.shallowCopy(adminInfo, AdminInfoDTO.class);
         request.getSession().setAttribute("admin", adminInfoDTO.getName());
-        return Result.success(adminInfoDTO);
+        return Result.success(DataTransferUtil.shallowCopy(adminInfo, AdminInfoDTO.class));
+    }
+
+    @Override
+    public Result<?> add(AdminInfoDTO adminInfoDTO) {
+        if (StringUtils.isBlank(adminInfoDTO.getUsername())) {
+            return Result.fail("用户名不能为空");
+        }
+        if (StringUtils.isBlank(adminInfoDTO.getPassword())) {
+            return Result.fail("密码不能为空");
+        }
+        if (StringUtils.isBlank(adminInfoDTO.getName())) {
+            return Result.fail("姓名不能为空");
+        }
+        if (StringUtils.isBlank(adminInfoDTO.getEmail())) {
+            return Result.fail("邮箱不能为空");
+        }
+        if (StringUtils.isBlank(adminInfoDTO.getTel())) {
+            return Result.fail("手机号不能为空");
+        }
+
+        AdminInfo adminInfo = DataTransferUtil.shallowCopy(adminInfoDTO, AdminInfo.class);
+        String md5Pwd = MD5Util.md5(adminInfo.getPassword(), UserConstants.USER_SLAT);
+        adminInfo.setPassword(md5Pwd);
+        adminInfo.setStatus(StatusType.ENABLE.getCode());
+        adminInfoMapper.insert(adminInfo);
+        return Result.success("添加成功");
     }
 
     @Override
@@ -138,30 +145,20 @@ public class AdminInfoServiceImpl extends ServiceImpl<AdminInfoMapper, AdminInfo
         Long userNum = userInfoMapper.selectCount(userInfoQueryWrapper);
         numVO.setUserNum(userNum);
 
-        QueryWrapper<Department> departmentQueryWrapper = new QueryWrapper<>();
-        departmentQueryWrapper.eq("status", StatusType.ENABLE.getCode());
-        Long departmentNum = departmentMapper.selectCount(departmentQueryWrapper);
-        numVO.setDeptNum(departmentNum);
-
         QueryWrapper<DoctorInfo> doctorInfoQueryWrapper = new QueryWrapper<>();
         doctorInfoQueryWrapper.eq("status", StatusType.ENABLE.getCode());
         Long doctorNum = doctorInfoMapper.selectCount(doctorInfoQueryWrapper);
         numVO.setDoctorNum(doctorNum);
 
-        QueryWrapper<Room> roomQueryWrapper = new QueryWrapper<>();
-        roomQueryWrapper.eq("status", BedType.FREE.getCode());
-        Long roomNum = roomMapper.selectCount(roomQueryWrapper);
-        numVO.setRoomNum(roomNum);
+        QueryWrapper<UserFeedback> userFeedbackQueryWrapper = new QueryWrapper<>();
+        userFeedbackQueryWrapper.eq("status", StatusType.ENABLE.getCode());
+        Long feedbackNum = userFeedbackMapper.selectCount(userFeedbackQueryWrapper);
+        numVO.setFeedBackNum(feedbackNum);
 
-        QueryWrapper<Bed> bedQueryWrapper = new QueryWrapper<>();
-        bedQueryWrapper.eq("status", BedType.FREE.getCode());
-        Long bedNum = bedMapper.selectCount(bedQueryWrapper);
-        numVO.setBedNum(bedNum);
-
-        QueryWrapper<Announcement> announcementQueryWrapper = new QueryWrapper<>();
-        announcementQueryWrapper.eq("status", AnnouncementType.PUBLISHED.getCode());
-        Long noticeNum = announcementMapper.selectCount(announcementQueryWrapper);
-        numVO.setNoticeNum(noticeNum);
+        QueryWrapper<UserAppointment> userAppointmentQueryWrapper = new QueryWrapper<>();
+        userAppointmentQueryWrapper.eq("status", StatusType.ENABLE.getCode());
+        Long appointmentNum = userAppointmentMapper.selectCount(userAppointmentQueryWrapper);
+        numVO.setAppointNum(appointmentNum);
 
         return Result.success(numVO);
     }

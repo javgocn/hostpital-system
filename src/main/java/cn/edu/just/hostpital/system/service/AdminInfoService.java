@@ -1,8 +1,8 @@
 package cn.edu.just.hostpital.system.service;
 
 import cn.edu.just.hostpital.system.common.Result;
+import cn.edu.just.hostpital.system.dto.AdminInfoDTO;
 import cn.edu.just.hostpital.system.model.AdminInfo;
-import cn.edu.just.hostpital.system.req.AdminInfoReq;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,12 +20,16 @@ public interface AdminInfoService extends IService<AdminInfo> {
 
     /**
      * 管理员登录
-     *
-     * @param admin   管理员信息
-     * @param request 请求
-     * @return 登录结果
      */
-    Result<?> login(AdminInfoReq adminInfoReq, HttpServletRequest request);
+    Result<?> login(AdminInfoDTO adminInfoDTO, HttpServletRequest request);
+
+    /**
+     * 添加管理员
+     *
+     * @param adminInfoDTO 管理员信息
+     * @return 添加结果
+     */
+    Result<?> add(AdminInfoDTO adminInfoDTO);
 
     /**
      * 修改密码

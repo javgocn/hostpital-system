@@ -1,7 +1,7 @@
 module.exports =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
-/******/ 	var installedModules = {};
+/******/ 	let installedModules = {};
 /******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
@@ -11,7 +11,7 @@ module.exports =
 /******/ 			return installedModules[moduleId].exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
+/******/ 		let module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
@@ -58,16 +58,16 @@ module.exports =
 /******/ 		if(mode & 1) value = __webpack_require__(value);
 /******/ 		if(mode & 8) return value;
 /******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
+/******/ 		let ns = Object.create(null);
 /******/ 		__webpack_require__.r(ns);
 /******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		if(mode & 2 && typeof value != 'string') for(let key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
 /******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
+/******/ 		let getter = module && module.__esModule ?
 /******/ 			function getDefault() { return module['default']; } :
 /******/ 			function getModuleExports() { return module; };
 /******/ 		__webpack_require__.d(getter, 'a', getter);
@@ -108,7 +108,7 @@ function normalizeComponent (
   shadowMode /* vue-cli only */
 ) {
   // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
+  let options = typeof scriptExports === 'function'
     ? scriptExports.options
     : scriptExports
 
@@ -129,7 +129,7 @@ function normalizeComponent (
     options._scopeId = 'data-v-' + scopeId
   }
 
-  var hook
+  let hook
   if (moduleIdentifier) { // server build
     hook = function (context) {
       // 2.3 injection
@@ -165,14 +165,14 @@ function normalizeComponent (
       // go through the normalizer
       options._injectStyles = hook
       // register for functioal component in vue file
-      var originalRender = options.render
+      let originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
         return originalRender(h, context)
       }
     } else {
       // inject component registration as beforeCreate hook
-      var existing = options.beforeCreate
+      let existing = options.beforeCreate
       options.beforeCreate = existing
         ? [].concat(existing, hook)
         : [hook]
@@ -279,10 +279,10 @@ module.exports = require("element-ui/lib/scrollbar");
 "use strict";
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./packages/date-picker/src/panel/time.vue?vue&type=template&id=3d939089&
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
+let render = function() {
+  let _vm = this
+  let _h = _vm.$createElement
+  let _c = _vm._self._c || _h
   return _c(
     "transition",
     {
@@ -362,21 +362,21 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = []
+let staticRenderFns = []
 render._withStripped = true
 
 
 // CONCATENATED MODULE: ./packages/date-picker/src/panel/time.vue?vue&type=template&id=3d939089&
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/date-util"
-var date_util_ = __webpack_require__(1);
+let date_util_ = __webpack_require__(1);
 
 // EXTERNAL MODULE: external "element-ui/lib/mixins/locale"
-var locale_ = __webpack_require__(6);
-var locale_default = /*#__PURE__*/__webpack_require__.n(locale_);
+let locale_ = __webpack_require__(6);
+let locale_default = /*#__PURE__*/__webpack_require__.n(locale_);
 
 // EXTERNAL MODULE: ./packages/date-picker/src/basic/time-spinner.vue + 4 modules
-var time_spinner = __webpack_require__(35);
+let time_spinner = __webpack_require__(35);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/date-picker/src/panel/time.vue?vue&type=script&lang=js&
 //
@@ -416,7 +416,7 @@ var time_spinner = __webpack_require__(35);
 
 
 
-/* harmony default export */ var timevue_type_script_lang_js_ = ({
+/* harmony default export */ let timevue_type_script_lang_js_ = ({
   mixins: [locale_default.a],
 
   components: {
@@ -430,7 +430,7 @@ var time_spinner = __webpack_require__(35);
 
   watch: {
     visible: function visible(val) {
-      var _this = this;
+      let _this = this;
 
       if (val) {
         this.oldValue = this.value;
@@ -442,9 +442,9 @@ var time_spinner = __webpack_require__(35);
       }
     },
     value: function value(newVal) {
-      var _this2 = this;
+      let _this2 = this;
 
-      var date = void 0;
+      let date = void 0;
       if (newVal instanceof Date) {
         date = Object(date_util_["limitTimeRange"])(newVal, this.selectableRange, this.format);
       } else if (!newVal) {
@@ -519,20 +519,20 @@ var time_spinner = __webpack_require__(35);
       this.selectionRange = [start, end];
     },
     handleConfirm: function handleConfirm() {
-      var visible = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-      var first = arguments[1];
+      let visible = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+      let first = arguments[1];
 
       if (first) return;
-      var date = Object(date_util_["clearMilliseconds"])(Object(date_util_["limitTimeRange"])(this.date, this.selectableRange, this.format));
+      let date = Object(date_util_["clearMilliseconds"])(Object(date_util_["limitTimeRange"])(this.date, this.selectableRange, this.format));
       this.$emit('pick', date, visible, first);
     },
     handleKeydown: function handleKeydown(event) {
-      var keyCode = event.keyCode;
-      var mapping = { 38: -1, 40: 1, 37: -1, 39: 1 };
+      let keyCode = event.keyCode;
+      let mapping = { 38: -1, 40: 1, 37: -1, 39: 1 };
 
       // Left or Right
       if (keyCode === 37 || keyCode === 39) {
-        var step = mapping[keyCode];
+        let step = mapping[keyCode];
         this.changeSelectionRange(step);
         event.preventDefault();
         return;
@@ -540,7 +540,7 @@ var time_spinner = __webpack_require__(35);
 
       // Up or Down
       if (keyCode === 38 || keyCode === 40) {
-        var _step = mapping[keyCode];
+        let _step = mapping[keyCode];
         this.$refs.spinner.scrollDown(_step);
         event.preventDefault();
         return;
@@ -553,16 +553,16 @@ var time_spinner = __webpack_require__(35);
       return this.$refs.spinner.adjustSpinners();
     },
     changeSelectionRange: function changeSelectionRange(step) {
-      var list = [0, 3].concat(this.showSeconds ? [6] : []);
-      var mapping = ['hours', 'minutes'].concat(this.showSeconds ? ['seconds'] : []);
-      var index = list.indexOf(this.selectionRange[0]);
-      var next = (index + step + list.length) % list.length;
+      let list = [0, 3].concat(this.showSeconds ? [6] : []);
+      let mapping = ['hours', 'minutes'].concat(this.showSeconds ? ['seconds'] : []);
+      let index = list.indexOf(this.selectionRange[0]);
+      let next = (index + step + list.length) % list.length;
       this.$refs.spinner.emitSelectRange(mapping[next]);
     }
   },
 
   mounted: function mounted() {
-    var _this3 = this;
+    let _this3 = this;
 
     this.$nextTick(function () {
       return _this3.handleConfirm(true, true);
@@ -571,9 +571,9 @@ var time_spinner = __webpack_require__(35);
   }
 });
 // CONCATENATED MODULE: ./packages/date-picker/src/panel/time.vue?vue&type=script&lang=js&
- /* harmony default export */ var panel_timevue_type_script_lang_js_ = (timevue_type_script_lang_js_); 
+ /* harmony default export */ let panel_timevue_type_script_lang_js_ = (timevue_type_script_lang_js_); 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(0);
+let componentNormalizer = __webpack_require__(0);
 
 // CONCATENATED MODULE: ./packages/date-picker/src/panel/time.vue
 
@@ -583,7 +583,7 @@ var componentNormalizer = __webpack_require__(0);
 
 /* normalize component */
 
-var component = Object(componentNormalizer["a" /* default */])(
+let component = Object(componentNormalizer["a" /* default */])(
   panel_timevue_type_script_lang_js_,
   render,
   staticRenderFns,
@@ -595,9 +595,9 @@ var component = Object(componentNormalizer["a" /* default */])(
 )
 
 /* hot reload */
-if (false) { var api; }
+if (false) { let api; }
 component.options.__file = "packages/date-picker/src/panel/time.vue"
-/* harmony default export */ var time = __webpack_exports__["a"] = (component.exports);
+/* harmony default export */ let time = __webpack_exports__["a"] = (component.exports);
 
 /***/ }),
 /* 28 */,
@@ -606,18 +606,18 @@ component.options.__file = "packages/date-picker/src/panel/time.vue"
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var element_ui_src_utils_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var element_ui_src_utils_dom__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(element_ui_src_utils_dom__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ let element_ui_src_utils_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ let element_ui_src_utils_dom__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(element_ui_src_utils_dom__WEBPACK_IMPORTED_MODULE_0__);
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
   bind: function bind(el, binding, vnode) {
-    var interval = null;
-    var startTime = void 0;
-    var handler = function handler() {
+    let interval = null;
+    let startTime = void 0;
+    let handler = function handler() {
       return vnode.context[binding.expression].apply();
     };
-    var clear = function clear() {
+    let clear = function clear() {
       if (Date.now() - startTime < 100) {
         handler();
       }
@@ -644,10 +644,10 @@ component.options.__file = "packages/date-picker/src/panel/time.vue"
 "use strict";
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./packages/date-picker/src/picker.vue?vue&type=template&id=79ae069f&
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
+let render = function() {
+  let _vm = this
+  let _h = _vm.$createElement
+  let _c = _vm._self._c || _h
   return !_vm.ranged
     ? _c(
         "el-input",
@@ -815,38 +815,38 @@ var render = function() {
         2
       )
 }
-var staticRenderFns = []
+let staticRenderFns = []
 render._withStripped = true
 
 
 // CONCATENATED MODULE: ./packages/date-picker/src/picker.vue?vue&type=template&id=79ae069f&
 
 // EXTERNAL MODULE: external "vue"
-var external_vue_ = __webpack_require__(7);
-var external_vue_default = /*#__PURE__*/__webpack_require__.n(external_vue_);
+let external_vue_ = __webpack_require__(7);
+let external_vue_default = /*#__PURE__*/__webpack_require__.n(external_vue_);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/clickoutside"
-var clickoutside_ = __webpack_require__(12);
-var clickoutside_default = /*#__PURE__*/__webpack_require__.n(clickoutside_);
+let clickoutside_ = __webpack_require__(12);
+let clickoutside_default = /*#__PURE__*/__webpack_require__.n(clickoutside_);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/date-util"
-var date_util_ = __webpack_require__(1);
+let date_util_ = __webpack_require__(1);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/vue-popper"
-var vue_popper_ = __webpack_require__(5);
-var vue_popper_default = /*#__PURE__*/__webpack_require__.n(vue_popper_);
+let vue_popper_ = __webpack_require__(5);
+let vue_popper_default = /*#__PURE__*/__webpack_require__.n(vue_popper_);
 
 // EXTERNAL MODULE: external "element-ui/lib/mixins/emitter"
-var emitter_ = __webpack_require__(4);
-var emitter_default = /*#__PURE__*/__webpack_require__.n(emitter_);
+let emitter_ = __webpack_require__(4);
+let emitter_default = /*#__PURE__*/__webpack_require__.n(emitter_);
 
 // EXTERNAL MODULE: external "element-ui/lib/input"
-var input_ = __webpack_require__(10);
-var input_default = /*#__PURE__*/__webpack_require__.n(input_);
+let input_ = __webpack_require__(10);
+let input_default = /*#__PURE__*/__webpack_require__.n(input_);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/merge"
-var merge_ = __webpack_require__(9);
-var merge_default = /*#__PURE__*/__webpack_require__.n(merge_);
+let merge_ = __webpack_require__(9);
+let merge_default = /*#__PURE__*/__webpack_require__.n(merge_);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/date-picker/src/picker.vue?vue&type=script&lang=js&
 //
@@ -943,7 +943,7 @@ var merge_default = /*#__PURE__*/__webpack_require__.n(merge_);
 
 
 
-var NewPopper = {
+let NewPopper = {
   props: {
     appendToBody: vue_popper_default.a.props.appendToBody,
     offset: vue_popper_default.a.props.offset,
@@ -958,7 +958,7 @@ var NewPopper = {
   beforeDestroy: vue_popper_default.a.beforeDestroy
 };
 
-var DEFAULT_FORMATS = {
+let DEFAULT_FORMATS = {
   date: 'yyyy-MM-dd',
   month: 'yyyy-MM',
   datetime: 'yyyy-MM-dd HH:mm:ss',
@@ -970,19 +970,19 @@ var DEFAULT_FORMATS = {
   datetimerange: 'yyyy-MM-dd HH:mm:ss',
   year: 'yyyy'
 };
-var HAVE_TRIGGER_TYPES = ['date', 'datetime', 'time', 'time-select', 'week', 'month', 'year', 'daterange', 'monthrange', 'timerange', 'datetimerange', 'dates'];
-var pickervue_type_script_lang_js_DATE_FORMATTER = function DATE_FORMATTER(value, format) {
+let HAVE_TRIGGER_TYPES = ['date', 'datetime', 'time', 'time-select', 'week', 'month', 'year', 'daterange', 'monthrange', 'timerange', 'datetimerange', 'dates'];
+let pickervue_type_script_lang_js_DATE_FORMATTER = function DATE_FORMATTER(value, format) {
   if (format === 'timestamp') return value.getTime();
   return Object(date_util_["formatDate"])(value, format);
 };
-var pickervue_type_script_lang_js_DATE_PARSER = function DATE_PARSER(text, format) {
+let pickervue_type_script_lang_js_DATE_PARSER = function DATE_PARSER(text, format) {
   if (format === 'timestamp') return new Date(Number(text));
   return Object(date_util_["parseDate"])(text, format);
 };
-var RANGE_FORMATTER = function RANGE_FORMATTER(value, format) {
+let RANGE_FORMATTER = function RANGE_FORMATTER(value, format) {
   if (Array.isArray(value) && value.length === 2) {
-    var start = value[0];
-    var end = value[1];
+    let start = value[0];
+    let end = value[1];
 
     if (start && end) {
       return [pickervue_type_script_lang_js_DATE_FORMATTER(start, format), pickervue_type_script_lang_js_DATE_FORMATTER(end, format)];
@@ -990,19 +990,19 @@ var RANGE_FORMATTER = function RANGE_FORMATTER(value, format) {
   }
   return '';
 };
-var RANGE_PARSER = function RANGE_PARSER(array, format, separator) {
+let RANGE_PARSER = function RANGE_PARSER(array, format, separator) {
   if (!Array.isArray(array)) {
     array = array.split(separator);
   }
   if (array.length === 2) {
-    var range1 = array[0];
-    var range2 = array[1];
+    let range1 = array[0];
+    let range2 = array[1];
 
     return [pickervue_type_script_lang_js_DATE_PARSER(range1, format), pickervue_type_script_lang_js_DATE_PARSER(range2, format)];
   }
   return [];
 };
-var TYPE_VALUE_RESOLVER_MAP = {
+let TYPE_VALUE_RESOLVER_MAP = {
   default: {
     formatter: function formatter(value) {
       if (!value) return '';
@@ -1015,14 +1015,14 @@ var TYPE_VALUE_RESOLVER_MAP = {
   },
   week: {
     formatter: function formatter(value, format) {
-      var week = Object(date_util_["getWeekNumber"])(value);
-      var month = value.getMonth();
-      var trueDate = new Date(value);
+      let week = Object(date_util_["getWeekNumber"])(value);
+      let month = value.getMonth();
+      let trueDate = new Date(value);
       if (week === 1 && month === 11) {
         trueDate.setHours(0, 0, 0, 0);
         trueDate.setDate(trueDate.getDate() + 3 - (trueDate.getDay() + 6) % 7);
       }
-      var date = Object(date_util_["formatDate"])(trueDate, format);
+      let date = Object(date_util_["formatDate"])(trueDate, format);
 
       date = /WW/.test(date) ? date.replace(/WW/, week < 10 ? '0' + week : week) : date.replace(/W/, week);
       return date;
@@ -1074,7 +1074,7 @@ var TYPE_VALUE_RESOLVER_MAP = {
       return '' + value;
     },
     parser: function parser(text) {
-      var Result = Number(text);
+      let Result = Number(text);
 
       if (!isNaN(text)) {
         return Result;
@@ -1096,25 +1096,25 @@ var TYPE_VALUE_RESOLVER_MAP = {
     }
   }
 };
-var PLACEMENT_MAP = {
+let PLACEMENT_MAP = {
   left: 'bottom-start',
   center: 'bottom',
   right: 'bottom-end'
 };
 
-var parseAsFormatAndType = function parseAsFormatAndType(value, customFormat, type) {
-  var rangeSeparator = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '-';
+let parseAsFormatAndType = function parseAsFormatAndType(value, customFormat, type) {
+  let rangeSeparator = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '-';
 
   if (!value) return null;
-  var parser = (TYPE_VALUE_RESOLVER_MAP[type] || TYPE_VALUE_RESOLVER_MAP['default']).parser;
-  var format = customFormat || DEFAULT_FORMATS[type];
+  let parser = (TYPE_VALUE_RESOLVER_MAP[type] || TYPE_VALUE_RESOLVER_MAP['default']).parser;
+  let format = customFormat || DEFAULT_FORMATS[type];
   return parser(value, format, rangeSeparator);
 };
 
-var formatAsFormatAndType = function formatAsFormatAndType(value, customFormat, type) {
+let formatAsFormatAndType = function formatAsFormatAndType(value, customFormat, type) {
   if (!value) return null;
-  var formatter = (TYPE_VALUE_RESOLVER_MAP[type] || TYPE_VALUE_RESOLVER_MAP['default']).formatter;
-  var format = customFormat || DEFAULT_FORMATS[type];
+  let formatter = (TYPE_VALUE_RESOLVER_MAP[type] || TYPE_VALUE_RESOLVER_MAP['default']).formatter;
+  let format = customFormat || DEFAULT_FORMATS[type];
   return formatter(value, format);
 };
 
@@ -1124,11 +1124,11 @@ var formatAsFormatAndType = function formatAsFormatAndType(value, customFormat, 
  *   2. date string
  *   3. array of 1 or 2
  */
-var valueEquals = function valueEquals(a, b) {
+let valueEquals = function valueEquals(a, b) {
   // considers Date object and string
-  var dateEquals = function dateEquals(a, b) {
-    var aIsDate = a instanceof Date;
-    var bIsDate = b instanceof Date;
+  let dateEquals = function dateEquals(a, b) {
+    let aIsDate = a instanceof Date;
+    let bIsDate = b instanceof Date;
     if (aIsDate && bIsDate) {
       return a.getTime() === b.getTime();
     }
@@ -1138,8 +1138,8 @@ var valueEquals = function valueEquals(a, b) {
     return false;
   };
 
-  var aIsArray = a instanceof Array;
-  var bIsArray = b instanceof Array;
+  let aIsArray = a instanceof Array;
+  let bIsArray = b instanceof Array;
   if (aIsArray && bIsArray) {
     if (a.length !== b.length) {
       return false;
@@ -1154,16 +1154,16 @@ var valueEquals = function valueEquals(a, b) {
   return false;
 };
 
-var isString = function isString(val) {
+let isString = function isString(val) {
   return typeof val === 'string' || val instanceof String;
 };
 
-var validator = function validator(val) {
+let validator = function validator(val) {
   // either: String, Array of String, null / undefined
   return val === null || val === undefined || isString(val) || Array.isArray(val) && val.length === 2 && val.every(isString);
 };
 
-/* harmony default export */ var pickervue_type_script_lang_js_ = ({
+/* harmony default export */ let pickervue_type_script_lang_js_ = ({
   mixins: [emitter_default.a, NewPopper],
 
   inject: {
@@ -1283,7 +1283,7 @@ var validator = function validator(val) {
       return this.type.indexOf('range') > -1;
     },
     reference: function reference() {
-      var reference = this.$refs.reference;
+      let reference = this.$refs.reference;
       return reference.$el || reference;
     },
     refInput: function refInput() {
@@ -1293,9 +1293,9 @@ var validator = function validator(val) {
       return [];
     },
     valueIsEmpty: function valueIsEmpty() {
-      var val = this.value;
+      let val = this.value;
       if (Array.isArray(val)) {
-        for (var i = 0, len = val.length; i < len; i++) {
+        for (let i = 0, len = val.length; i < len; i++) {
           if (val[i]) {
             return false;
           }
@@ -1330,7 +1330,7 @@ var validator = function validator(val) {
       return HAVE_TRIGGER_TYPES.indexOf(this.type) !== -1;
     },
     displayValue: function displayValue() {
-      var formattedValue = formatAsFormatAndType(this.parsedValue, this.format, this.type, this.rangeSeparator);
+      let formattedValue = formatAsFormatAndType(this.parsedValue, this.format, this.type, this.rangeSeparator);
       if (Array.isArray(this.userInput)) {
         return [this.userInput[0] || formattedValue && formattedValue[0] || '', this.userInput[1] || formattedValue && formattedValue[1] || ''];
       } else if (this.userInput !== null) {
@@ -1345,7 +1345,7 @@ var validator = function validator(val) {
       if (!this.value) return this.value; // component value is not set
       if (this.type === 'time-select') return this.value; // time-select does not require parsing, this might change in next major version
 
-      var valueIsDateObject = Object(date_util_["isDateObject"])(this.value) || Array.isArray(this.value) && this.value.every(date_util_["isDateObject"]);
+      let valueIsDateObject = Object(date_util_["isDateObject"])(this.value) || Array.isArray(this.value) && this.value.every(date_util_["isDateObject"]);
       if (valueIsDateObject) {
         return this.value;
       }
@@ -1370,8 +1370,8 @@ var validator = function validator(val) {
       return this.disabled || (this.elForm || {}).disabled;
     },
     firstInputId: function firstInputId() {
-      var obj = {};
-      var id = void 0;
+      let obj = {};
+      let id = void 0;
       if (this.ranged) {
         id = this.id && this.id[0];
       } else {
@@ -1381,8 +1381,8 @@ var validator = function validator(val) {
       return obj;
     },
     secondInputId: function secondInputId() {
-      var obj = {};
-      var id = void 0;
+      let obj = {};
+      let id = void 0;
       if (this.ranged) {
         id = this.id && this.id[1];
       }
@@ -1420,7 +1420,7 @@ var validator = function validator(val) {
 
     // {parse, formatTo} Value deals maps component value with internal Date
     parseValue: function parseValue(value) {
-      var isParsed = Object(date_util_["isDateObject"])(value) || Array.isArray(value) && value.every(date_util_["isDateObject"]);
+      let isParsed = Object(date_util_["isDateObject"])(value) || Array.isArray(value) && value.every(date_util_["isDateObject"]);
       if (this.valueFormat && !isParsed) {
         return parseAsFormatAndType(value, this.valueFormat, this.type, this.rangeSeparator) || value;
       } else {
@@ -1428,7 +1428,7 @@ var validator = function validator(val) {
       }
     },
     formatToValue: function formatToValue(date) {
-      var isFormattable = Object(date_util_["isDateObject"])(date) || Array.isArray(date) && date.every(date_util_["isDateObject"]);
+      let isFormattable = Object(date_util_["isDateObject"])(date) || Array.isArray(date) && date.every(date_util_["isDateObject"]);
       if (this.valueFormat && isFormattable) {
         return formatAsFormatAndType(date, this.valueFormat, this.type, this.rangeSeparator);
       } else {
@@ -1439,11 +1439,11 @@ var validator = function validator(val) {
 
     // {parse, formatTo} String deals with user input
     parseString: function parseString(value) {
-      var type = Array.isArray(value) ? this.type : this.type.replace('range', '');
+      let type = Array.isArray(value) ? this.type : this.type.replace('range', '');
       return parseAsFormatAndType(value, this.format, type);
     },
     formatToString: function formatToString(value) {
-      var type = Array.isArray(value) ? this.type : this.type.replace('range', '');
+      let type = Array.isArray(value) ? this.type : this.type.replace('range', '');
       return formatAsFormatAndType(value, this.format, type);
     },
     handleMouseEnter: function handleMouseEnter() {
@@ -1454,7 +1454,7 @@ var validator = function validator(val) {
     },
     handleChange: function handleChange() {
       if (this.userInput) {
-        var value = this.parseString(this.displayValue);
+        let value = this.parseString(this.displayValue);
         if (value) {
           this.picker.value = value;
           if (this.isValidValue(value)) {
@@ -1484,10 +1484,10 @@ var validator = function validator(val) {
       }
     },
     handleStartChange: function handleStartChange(event) {
-      var value = this.parseString(this.userInput && this.userInput[0]);
+      let value = this.parseString(this.userInput && this.userInput[0]);
       if (value) {
         this.userInput = [this.formatToString(value), this.displayValue[1]];
-        var newValue = [value, this.picker.value && this.picker.value[1]];
+        let newValue = [value, this.picker.value && this.picker.value[1]];
         this.picker.value = newValue;
         if (this.isValidValue(newValue)) {
           this.emitInput(newValue);
@@ -1496,10 +1496,10 @@ var validator = function validator(val) {
       }
     },
     handleEndChange: function handleEndChange(event) {
-      var value = this.parseString(this.userInput && this.userInput[1]);
+      let value = this.parseString(this.userInput && this.userInput[1]);
       if (value) {
         this.userInput = [this.displayValue[0], this.formatToString(value)];
-        var newValue = [this.picker.value && this.picker.value[0], value];
+        let newValue = [this.picker.value && this.picker.value[0], value];
         this.picker.value = newValue;
         if (this.isValidValue(newValue)) {
           this.emitInput(newValue);
@@ -1528,7 +1528,7 @@ var validator = function validator(val) {
 
       if (this.type === 'dates') {
         // restore to former value
-        var oldValue = parseAsFormatAndType(this.valueOnOpen, this.valueFormat, this.type, this.rangeSeparator) || this.valueOnOpen;
+        let oldValue = parseAsFormatAndType(this.valueOnOpen, this.valueFormat, this.type, this.rangeSeparator) || this.valueOnOpen;
         this.emitInput(oldValue);
       }
     },
@@ -1536,7 +1536,7 @@ var validator = function validator(val) {
       this.userInput = initialValue === '' ? null : initialValue;
     },
     handleFocus: function handleFocus() {
-      var type = this.type;
+      let type = this.type;
 
       if (HAVE_TRIGGER_TYPES.indexOf(type) !== -1 && !this.pickerVisible) {
         this.pickerVisible = true;
@@ -1544,9 +1544,9 @@ var validator = function validator(val) {
       this.$emit('focus', this);
     },
     handleKeydown: function handleKeydown(event) {
-      var _this = this;
+      let _this = this;
 
-      var keyCode = event.keyCode;
+      let keyCode = event.keyCode;
 
       // ESC
       if (keyCode === 27) {
@@ -1598,7 +1598,7 @@ var validator = function validator(val) {
       }
     },
     handleRangeClick: function handleRangeClick() {
-      var type = this.type;
+      let type = this.type;
 
       if (HAVE_TRIGGER_TYPES.indexOf(type) !== -1 && !this.pickerVisible) {
         this.pickerVisible = true;
@@ -1613,7 +1613,7 @@ var validator = function validator(val) {
       }
     },
     showPicker: function showPicker() {
-      var _this2 = this;
+      let _this2 = this;
 
       if (this.$isServer) return;
       if (!this.picker) {
@@ -1631,7 +1631,7 @@ var validator = function validator(val) {
       });
     },
     mountPicker: function mountPicker() {
-      var _this3 = this;
+      let _this3 = this;
 
       this.picker = new external_vue_default.a(this.panel).$mount();
       this.picker.defaultValue = this.defaultValue;
@@ -1647,8 +1647,8 @@ var validator = function validator(val) {
         _this3.picker.format = format;
       });
 
-      var updateOptions = function updateOptions() {
-        var options = _this3.pickerOptions;
+      let updateOptions = function updateOptions() {
+        let options = _this3.pickerOptions;
 
         if (options && options.selectableRange) {
           var ranges = options.selectableRange;

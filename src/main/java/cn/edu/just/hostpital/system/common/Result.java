@@ -96,7 +96,7 @@ public class Result<T> implements Serializable {
      * @return 返回封装了失败状态码和信息的结果对象
      */
     public static <T> Result<T> fail() {
-        return new Result<>(ResponseStatus.FAIL.getResponseCode(), ResponseStatus.FAIL.getDescription(), null);
+        return new Result<>(ResponseStatus.SERVER_EXCEPTION.getResponseCode(), ResponseStatus.SERVER_EXCEPTION.getDescription(), null);
     }
 
     /**
@@ -106,7 +106,7 @@ public class Result<T> implements Serializable {
      * @return 返回封装了失败状态码、信息和数据的结果对象
      */
     public static <T> Result<T> fail(T data) {
-        return new Result<>(ResponseStatus.FAIL.getResponseCode(), ResponseStatus.FAIL.getDescription(), data);
+        return new Result<>(ResponseStatus.SERVER_EXCEPTION.getResponseCode(), ResponseStatus.SERVER_EXCEPTION.getDescription(), data);
     }
 
     /**
@@ -116,7 +116,7 @@ public class Result<T> implements Serializable {
      * @return 返回封装了失败状态码和自定义错误信息的结果对象
      */
     public static <T> Result<T> fail(String message) {
-        return new Result<>(ResponseStatus.FAIL.getResponseCode(), message, null);
+        return new Result<>(ResponseStatus.SERVER_EXCEPTION.getResponseCode(), message, null);
     }
 
     /**

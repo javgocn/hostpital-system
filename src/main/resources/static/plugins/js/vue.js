@@ -11,7 +11,7 @@
 
   /*  */
 
-  var emptyObject = Object.freeze({});
+  let emptyObject = Object.freeze({});
 
   // These helpers produce better VM code in JS engines due to their
   // explicitness and function inlining.
@@ -56,7 +56,7 @@
   /**
    * Get the raw type string of a value, e.g., [object Object].
    */
-  var _toString = Object.prototype.toString;
+  let _toString = Object.prototype.toString;
 
   function toRawType (value) {
     return _toString.call(value).slice(8, -1)
@@ -78,7 +78,7 @@
    * Check if val is a valid array index.
    */
   function isValidArrayIndex (val) {
-    var n = parseFloat(String(val));
+    let n = parseFloat(String(val));
     return n >= 0 && Math.floor(n) === n && isFinite(val)
   }
 
@@ -106,7 +106,7 @@
    * If the conversion fails, return original string.
    */
   function toNumber (val) {
-    var n = parseFloat(val);
+    let n = parseFloat(val);
     return isNaN(n) ? val : n
   }
 
@@ -118,9 +118,9 @@
     str,
     expectsLowerCase
   ) {
-    var map = Object.create(null);
-    var list = str.split(',');
-    for (var i = 0; i < list.length; i++) {
+    let map = Object.create(null);
+    let list = str.split(',');
+    for (let i = 0; i < list.length; i++) {
       map[list[i]] = true;
     }
     return expectsLowerCase
@@ -131,19 +131,19 @@
   /**
    * Check if a tag is a built-in tag.
    */
-  var isBuiltInTag = makeMap('slot,component', true);
+  let isBuiltInTag = makeMap('slot,component', true);
 
   /**
    * Check if an attribute is a reserved attribute.
    */
-  var isReservedAttribute = makeMap('key,ref,slot,slot-scope,is');
+  let isReservedAttribute = makeMap('key,ref,slot,slot-scope,is');
 
   /**
    * Remove an item from an array.
    */
   function remove (arr, item) {
     if (arr.length) {
-      var index = arr.indexOf(item);
+      let index = arr.indexOf(item);
       if (index > -1) {
         return arr.splice(index, 1)
       }
@@ -153,7 +153,7 @@
   /**
    * Check whether an object has the property.
    */
-  var hasOwnProperty = Object.prototype.hasOwnProperty;
+  let hasOwnProperty = Object.prototype.hasOwnProperty;
   function hasOwn (obj, key) {
     return hasOwnProperty.call(obj, key)
   }
@@ -162,9 +162,9 @@
    * Create a cached version of a pure function.
    */
   function cached (fn) {
-    var cache = Object.create(null);
+    let cache = Object.create(null);
     return (function cachedFn (str) {
-      var hit = cache[str];
+      let hit = cache[str];
       return hit || (cache[str] = fn(str))
     })
   }
@@ -172,23 +172,23 @@
   /**
    * Camelize a hyphen-delimited string.
    */
-  var camelizeRE = /-(\w)/g;
-  var camelize = cached(function (str) {
+  let camelizeRE = /-(\w)/g;
+  let camelize = cached(function (str) {
     return str.replace(camelizeRE, function (_, c) { return c ? c.toUpperCase() : ''; })
   });
 
   /**
    * Capitalize a string.
    */
-  var capitalize = cached(function (str) {
+  let capitalize = cached(function (str) {
     return str.charAt(0).toUpperCase() + str.slice(1)
   });
 
   /**
    * Hyphenate a camelCase string.
    */
-  var hyphenateRE = /\B([A-Z])/g;
-  var hyphenate = cached(function (str) {
+  let hyphenateRE = /\B([A-Z])/g;
+  let hyphenate = cached(function (str) {
     return str.replace(hyphenateRE, '-$1').toLowerCase()
   });
 
@@ -203,7 +203,7 @@
   /* istanbul ignore next */
   function polyfillBind (fn, ctx) {
     function boundFn (a) {
-      var l = arguments.length;
+      let l = arguments.length;
       return l
         ? l > 1
           ? fn.apply(ctx, arguments)
@@ -219,7 +219,7 @@
     return fn.bind(ctx)
   }
 
-  var bind = Function.prototype.bind
+  let bind = Function.prototype.bind
     ? nativeBind
     : polyfillBind;
 
@@ -228,8 +228,8 @@
    */
   function toArray (list, start) {
     start = start || 0;
-    var i = list.length - start;
-    var ret = new Array(i);
+    let i = list.length - start;
+    let ret = new Array(i);
     while (i--) {
       ret[i] = list[i + start];
     }
@@ -240,7 +240,7 @@
    * Mix properties into target object.
    */
   function extend (to, _from) {
-    for (var key in _from) {
+    for (let key in _from) {
       to[key] = _from[key];
     }
     return to
@@ -250,8 +250,8 @@
    * Merge an Array of Objects into a single Object.
    */
   function toObject (arr) {
-    var res = {};
-    for (var i = 0; i < arr.length; i++) {
+    let res = {};
+    for (let i = 0; i < arr.length; i++) {
       if (arr[i]) {
         extend(res, arr[i]);
       }
@@ -271,14 +271,14 @@
   /**
    * Always return false.
    */
-  var no = function (a, b, c) { return false; };
+  let no = function (a, b, c) { return false; };
 
   /* eslint-enable no-unused-vars */
 
   /**
    * Return the same value.
    */
-  var identity = function (_) { return _; };
+  let identity = function (_) { return _; };
 
   /**
    * Generate a string containing static keys from compiler modules.
@@ -295,12 +295,12 @@
    */
   function looseEqual (a, b) {
     if (a === b) { return true }
-    var isObjectA = isObject(a);
-    var isObjectB = isObject(b);
+    let isObjectA = isObject(a);
+    let isObjectB = isObject(b);
     if (isObjectA && isObjectB) {
       try {
-        var isArrayA = Array.isArray(a);
-        var isArrayB = Array.isArray(b);
+        let isArrayA = Array.isArray(a);
+        let isArrayB = Array.isArray(b);
         if (isArrayA && isArrayB) {
           return a.length === b.length && a.every(function (e, i) {
             return looseEqual(e, b[i])
@@ -308,8 +308,8 @@
         } else if (a instanceof Date && b instanceof Date) {
           return a.getTime() === b.getTime()
         } else if (!isArrayA && !isArrayB) {
-          var keysA = Object.keys(a);
-          var keysB = Object.keys(b);
+          let keysA = Object.keys(a);
+          let keysB = Object.keys(b);
           return keysA.length === keysB.length && keysA.every(function (key) {
             return looseEqual(a[key], b[key])
           })
@@ -334,7 +334,7 @@
    * contain an object of the same shape), or -1 if it is not present.
    */
   function looseIndexOf (arr, val) {
-    for (var i = 0; i < arr.length; i++) {
+    for (let i = 0; i < arr.length; i++) {
       if (looseEqual(arr[i], val)) { return i }
     }
     return -1
@@ -344,7 +344,7 @@
    * Ensure a function is called only once.
    */
   function once (fn) {
-    var called = false;
+    let called = false;
     return function () {
       if (!called) {
         called = true;
@@ -353,15 +353,15 @@
     }
   }
 
-  var SSR_ATTR = 'data-server-rendered';
+  let SSR_ATTR = 'data-server-rendered';
 
-  var ASSET_TYPES = [
+  let ASSET_TYPES = [
     'component',
     'directive',
     'filter'
   ];
 
-  var LIFECYCLE_HOOKS = [
+  let LIFECYCLE_HOOKS = [
     'beforeCreate',
     'created',
     'beforeMount',
@@ -380,7 +380,7 @@
 
 
 
-  var config = ({
+  let config = ({
     /**
      * Option merge strategies (used in core/util/options)
      */
@@ -481,13 +481,13 @@
    * using https://www.w3.org/TR/html53/semantics-scripting.html#potentialcustomelementname
    * skipping \u10000-\uEFFFF due to it freezing up PhantomJS
    */
-  var unicodeRegExp = /a-zA-Z\u00B7\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u037D\u037F-\u1FFF\u200C-\u200D\u203F-\u2040\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD/;
+  let unicodeRegExp = /a-zA-Z\u00B7\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u037D\u037F-\u1FFF\u200C-\u200D\u203F-\u2040\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD/;
 
   /**
    * Check if a string starts with $ or _
    */
   function isReserved (str) {
-    var c = (str + '').charCodeAt(0);
+    let c = (str + '').charCodeAt(0);
     return c === 0x24 || c === 0x5F
   }
 
@@ -506,14 +506,14 @@
   /**
    * Parse simple path.
    */
-  var bailRE = new RegExp(("[^" + (unicodeRegExp.source) + ".$_\\d]"));
+  let bailRE = new RegExp(("[^" + (unicodeRegExp.source) + ".$_\\d]"));
   function parsePath (path) {
     if (bailRE.test(path)) {
       return
     }
-    var segments = path.split('.');
+    let segments = path.split('.');
     return function (obj) {
-      for (var i = 0; i < segments.length; i++) {
+      for (let i = 0; i < segments.length; i++) {
         if (!obj) { return }
         obj = obj[segments[i]];
       }
@@ -524,29 +524,29 @@
   /*  */
 
   // can we use __proto__?
-  var hasProto = '__proto__' in {};
+  let hasProto = '__proto__' in {};
 
   // Browser environment sniffing
-  var inBrowser = typeof window !== 'undefined';
-  var inWeex = typeof WXEnvironment !== 'undefined' && !!WXEnvironment.platform;
-  var weexPlatform = inWeex && WXEnvironment.platform.toLowerCase();
-  var UA = inBrowser && window.navigator.userAgent.toLowerCase();
-  var isIE = UA && /msie|trident/.test(UA);
-  var isIE9 = UA && UA.indexOf('msie 9.0') > 0;
-  var isEdge = UA && UA.indexOf('edge/') > 0;
-  var isAndroid = (UA && UA.indexOf('android') > 0) || (weexPlatform === 'android');
-  var isIOS = (UA && /iphone|ipad|ipod|ios/.test(UA)) || (weexPlatform === 'ios');
-  var isChrome = UA && /chrome\/\d+/.test(UA) && !isEdge;
-  var isPhantomJS = UA && /phantomjs/.test(UA);
-  var isFF = UA && UA.match(/firefox\/(\d+)/);
+  let inBrowser = typeof window !== 'undefined';
+  let inWeex = typeof WXEnvironment !== 'undefined' && !!WXEnvironment.platform;
+  let weexPlatform = inWeex && WXEnvironment.platform.toLowerCase();
+  let UA = inBrowser && window.navigator.userAgent.toLowerCase();
+  let isIE = UA && /msie|trident/.test(UA);
+  let isIE9 = UA && UA.indexOf('msie 9.0') > 0;
+  let isEdge = UA && UA.indexOf('edge/') > 0;
+  let isAndroid = (UA && UA.indexOf('android') > 0) || (weexPlatform === 'android');
+  let isIOS = (UA && /iphone|ipad|ipod|ios/.test(UA)) || (weexPlatform === 'ios');
+  let isChrome = UA && /chrome\/\d+/.test(UA) && !isEdge;
+  let isPhantomJS = UA && /phantomjs/.test(UA);
+  let isFF = UA && UA.match(/firefox\/(\d+)/);
 
   // Firefox has a "watch" function on Object.prototype...
-  var nativeWatch = ({}).watch;
+  let nativeWatch = ({}).watch;
 
-  var supportsPassive = false;
+  let supportsPassive = false;
   if (inBrowser) {
     try {
-      var opts = {};
+      let opts = {};
       Object.defineProperty(opts, 'passive', ({
         get: function get () {
           /* istanbul ignore next */
@@ -559,8 +559,8 @@
 
   // this needs to be lazy-evaled because vue may be required before
   // vue-server-renderer can set VUE_ENV
-  var _isServer;
-  var isServerRendering = function () {
+  let _isServer;
+  let isServerRendering = function () {
     if (_isServer === undefined) {
       /* istanbul ignore if */
       if (!inBrowser && !inWeex && typeof global !== 'undefined') {
@@ -575,18 +575,18 @@
   };
 
   // detect devtools
-  var devtools = inBrowser && window.__VUE_DEVTOOLS_GLOBAL_HOOK__;
+  let devtools = inBrowser && window.__VUE_DEVTOOLS_GLOBAL_HOOK__;
 
   /* istanbul ignore next */
   function isNative (Ctor) {
     return typeof Ctor === 'function' && /native code/.test(Ctor.toString())
   }
 
-  var hasSymbol =
+  let hasSymbol =
     typeof Symbol !== 'undefined' && isNative(Symbol) &&
     typeof Reflect !== 'undefined' && isNative(Reflect.ownKeys);
 
-  var _Set;
+  let _Set;
   /* istanbul ignore if */ // $flow-disable-line
   if (typeof Set !== 'undefined' && isNative(Set)) {
     // use native Set when available.
@@ -613,20 +613,20 @@
 
   /*  */
 
-  var warn = noop;
-  var tip = noop;
-  var generateComponentTrace = (noop); // work around flow check
-  var formatComponentName = (noop);
+  let warn = noop;
+  let tip = noop;
+  let generateComponentTrace = (noop); // work around flow check
+  let formatComponentName = (noop);
 
   {
-    var hasConsole = typeof console !== 'undefined';
-    var classifyRE = /(?:^|[-_])(\w)/g;
-    var classify = function (str) { return str
+    let hasConsole = typeof console !== 'undefined';
+    let classifyRE = /(?:^|[-_])(\w)/g;
+    let classify = function (str) { return str
       .replace(classifyRE, function (c) { return c.toUpperCase(); })
       .replace(/[-_]/g, ''); };
 
     warn = function (msg, vm) {
-      var trace = vm ? generateComponentTrace(vm) : '';
+      let trace = vm ? generateComponentTrace(vm) : '';
 
       if (config.warnHandler) {
         config.warnHandler.call(null, msg, vm, trace);
@@ -647,15 +647,15 @@
       if (vm.$root === vm) {
         return '<Root>'
       }
-      var options = typeof vm === 'function' && vm.cid != null
+      let options = typeof vm === 'function' && vm.cid != null
         ? vm.options
         : vm._isVue
           ? vm.$options || vm.constructor.options
           : vm;
-      var name = options.name || options._componentTag;
-      var file = options.__file;
+      let name = options.name || options._componentTag;
+      let file = options.__file;
       if (!name && file) {
-        var match = file.match(/([^/\\]+)\.vue$/);
+        let match = file.match(/([^/\\]+)\.vue$/);
         name = match && match[1];
       }
 
@@ -665,8 +665,8 @@
       )
     };
 
-    var repeat = function (str, n) {
-      var res = '';
+    let repeat = function (str, n) {
+      let res = '';
       while (n) {
         if (n % 2 === 1) { res += str; }
         if (n > 1) { str += str; }
@@ -677,11 +677,11 @@
 
     generateComponentTrace = function (vm) {
       if (vm._isVue && vm.$parent) {
-        var tree = [];
-        var currentRecursiveSequence = 0;
+        let tree = [];
+        let currentRecursiveSequence = 0;
         while (vm) {
           if (tree.length > 0) {
-            var last = tree[tree.length - 1];
+            let last = tree[tree.length - 1];
             if (last.constructor === vm.constructor) {
               currentRecursiveSequence++;
               vm = vm.$parent;
@@ -707,13 +707,13 @@
 
   /*  */
 
-  var uid = 0;
+  let uid = 0;
 
   /**
    * A dep is an observable that can have multiple
    * directives subscribing to it.
    */
-  var Dep = function Dep () {
+  let Dep = function Dep () {
     this.id = uid++;
     this.subs = [];
   };
@@ -734,14 +734,14 @@
 
   Dep.prototype.notify = function notify () {
     // stabilize the subscriber list first
-    var subs = this.subs.slice();
+    let subs = this.subs.slice();
     if (!config.async) {
       // subs aren't sorted in scheduler if not running async
       // we need to sort them now to make sure they fire in correct
       // order
       subs.sort(function (a, b) { return a.id - b.id; });
     }
-    for (var i = 0, l = subs.length; i < l; i++) {
+    for (let i = 0, l = subs.length; i < l; i++) {
       subs[i].update();
     }
   };
@@ -750,7 +750,7 @@
   // This is globally unique because only one watcher
   // can be evaluated at a time.
   Dep.target = null;
-  var targetStack = [];
+  let targetStack = [];
 
   function pushTarget (target) {
     targetStack.push(target);
@@ -764,7 +764,7 @@
 
   /*  */
 
-  var VNode = function VNode (
+  let VNode = function VNode (
     tag,
     data,
     children,
@@ -799,7 +799,7 @@
     this.isAsyncPlaceholder = false;
   };
 
-  var prototypeAccessors = { child: { configurable: true } };
+  let prototypeAccessors = { child: { configurable: true } };
 
   // DEPRECATED: alias for componentInstance for backwards compat.
   /* istanbul ignore next */
@@ -809,10 +809,10 @@
 
   Object.defineProperties( VNode.prototype, prototypeAccessors );
 
-  var createEmptyVNode = function (text) {
+  let createEmptyVNode = function (text) {
     if ( text === void 0 ) text = '';
 
-    var node = new VNode();
+    let node = new VNode();
     node.text = text;
     node.isComment = true;
     return node
@@ -827,7 +827,7 @@
   // multiple renders, cloning them avoids errors when DOM manipulations rely
   // on their elm reference.
   function cloneVNode (vnode) {
-    var cloned = new VNode(
+    let cloned = new VNode(
       vnode.tag,
       vnode.data,
       // #7975
@@ -857,10 +857,10 @@
    * dynamically accessing methods on Array prototype
    */
 
-  var arrayProto = Array.prototype;
-  var arrayMethods = Object.create(arrayProto);
+  let arrayProto = Array.prototype;
+  let arrayMethods = Object.create(arrayProto);
 
-  var methodsToPatch = [
+  let methodsToPatch = [
     'push',
     'pop',
     'shift',
@@ -875,14 +875,14 @@
    */
   methodsToPatch.forEach(function (method) {
     // cache original method
-    var original = arrayProto[method];
+    let original = arrayProto[method];
     def(arrayMethods, method, function mutator () {
-      var args = [], len = arguments.length;
+      let args = [], len = arguments.length;
       while ( len-- ) args[ len ] = arguments[ len ];
 
-      var Result = original.apply(this, args);
-      var ob = this.__ob__;
-      var inserted;
+      let Result = original.apply(this, args);
+      let ob = this.__ob__;
+      let inserted;
       switch (method) {
         case 'push':
         case 'unshift':
@@ -901,13 +901,13 @@
 
   /*  */
 
-  var arrayKeys = Object.getOwnPropertyNames(arrayMethods);
+  let arrayKeys = Object.getOwnPropertyNames(arrayMethods);
 
   /**
    * In some cases we may want to disable observation inside a component's
    * update computation.
    */
-  var shouldObserve = true;
+  let shouldObserve = true;
 
   function toggleObserving (value) {
     shouldObserve = value;
@@ -919,7 +919,7 @@
    * object's property keys into getter/setters that
    * collect dependencies and dispatch updates.
    */
-  var Observer = function Observer (value) {
+  let Observer = function Observer (value) {
     this.value = value;
     this.dep = new Dep();
     this.vmCount = 0;
@@ -942,8 +942,8 @@
    * value type is Object.
    */
   Observer.prototype.walk = function walk (obj) {
-    var keys = Object.keys(obj);
-    for (var i = 0; i < keys.length; i++) {
+    let keys = Object.keys(obj);
+    for (let i = 0; i < keys.length; i++) {
       defineReactive$$1(obj, keys[i]);
     }
   };
@@ -952,7 +952,7 @@
    * Observe a list of Array items.
    */
   Observer.prototype.observeArray = function observeArray (items) {
-    for (var i = 0, l = items.length; i < l; i++) {
+    for (let i = 0, l = items.length; i < l; i++) {
       observe(items[i]);
     }
   };
@@ -975,8 +975,8 @@
    */
   /* istanbul ignore next */
   function copyAugment (target, src, keys) {
-    for (var i = 0, l = keys.length; i < l; i++) {
-      var key = keys[i];
+    for (let i = 0, l = keys.length; i < l; i++) {
+      let key = keys[i];
       def(target, key, src[key]);
     }
   }
@@ -990,7 +990,7 @@
     if (!isObject(value) || value instanceof VNode) {
       return
     }
-    var ob;
+    let ob;
     if (hasOwn(value, '__ob__') && value.__ob__ instanceof Observer) {
       ob = value.__ob__;
     } else if (
@@ -1018,26 +1018,26 @@
     customSetter,
     shallow
   ) {
-    var dep = new Dep();
+    let dep = new Dep();
 
-    var property = Object.getOwnPropertyDescriptor(obj, key);
+    let property = Object.getOwnPropertyDescriptor(obj, key);
     if (property && property.configurable === false) {
       return
     }
 
     // cater for pre-defined getter/setters
-    var getter = property && property.get;
-    var setter = property && property.set;
+    let getter = property && property.get;
+    let setter = property && property.set;
     if ((!getter || setter) && arguments.length === 2) {
       val = obj[key];
     }
 
-    var childOb = !shallow && observe(val);
+    let childOb = !shallow && observe(val);
     Object.defineProperty(obj, key, {
       enumerable: true,
       configurable: true,
       get: function reactiveGetter () {
-        var value = getter ? getter.call(obj) : val;
+        let value = getter ? getter.call(obj) : val;
         if (Dep.target) {
           dep.depend();
           if (childOb) {
@@ -1050,7 +1050,7 @@
         return value
       },
       set: function reactiveSetter (newVal) {
-        var value = getter ? getter.call(obj) : val;
+        let value = getter ? getter.call(obj) : val;
         /* eslint-disable no-self-compare */
         if (newVal === value || (newVal !== newVal && value !== value)) {
           return
@@ -1091,7 +1091,7 @@
       target[key] = val;
       return val
     }
-    var ob = (target).__ob__;
+    let ob = (target).__ob__;
     if (target._isVue || (ob && ob.vmCount)) {
       warn(
         'Avoid adding reactive properties to a Vue instance or its root $data ' +
@@ -1120,7 +1120,7 @@
       target.splice(key, 1);
       return
     }
-    var ob = (target).__ob__;
+    let ob = (target).__ob__;
     if (target._isVue || (ob && ob.vmCount)) {
       warn(
         'Avoid deleting properties on a Vue instance or its root $data ' +
@@ -1143,7 +1143,7 @@
    * we cannot intercept array element access like property getters.
    */
   function dependArray (value) {
-    for (var e = (void 0), i = 0, l = value.length; i < l; i++) {
+    for (let e = (void 0), i = 0, l = value.length; i < l; i++) {
       e = value[i];
       e && e.__ob__ && e.__ob__.dep.depend();
       if (Array.isArray(e)) {
@@ -1159,7 +1159,7 @@
    * how to merge a parent option value and a child option
    * value into the final value.
    */
-  var strats = config.optionMergeStrategies;
+  let strats = config.optionMergeStrategies;
 
   /**
    * Options with restrictions
@@ -1181,13 +1181,13 @@
    */
   function mergeData (to, from) {
     if (!from) { return to }
-    var key, toVal, fromVal;
+    let key, toVal, fromVal;
 
-    var keys = hasSymbol
+    let keys = hasSymbol
       ? Reflect.ownKeys(from)
       : Object.keys(from);
 
-    for (var i = 0; i < keys.length; i++) {
+    for (let i = 0; i < keys.length; i++) {
       key = keys[i];
       // in case the object is already observed...
       if (key === '__ob__') { continue }
@@ -1236,10 +1236,10 @@
     } else {
       return function mergedInstanceDataFn () {
         // instance merge
-        var instanceData = typeof childVal === 'function'
+        let instanceData = typeof childVal === 'function'
           ? childVal.call(vm, vm)
           : childVal;
-        var defaultData = typeof parentVal === 'function'
+        let defaultData = typeof parentVal === 'function'
           ? parentVal.call(vm, vm)
           : parentVal;
         if (instanceData) {
@@ -1280,7 +1280,7 @@
     parentVal,
     childVal
   ) {
-    var res = childVal
+    let res = childVal
       ? parentVal
         ? parentVal.concat(childVal)
         : Array.isArray(childVal)
@@ -1293,8 +1293,8 @@
   }
 
   function dedupeHooks (hooks) {
-    var res = [];
-    for (var i = 0; i < hooks.length; i++) {
+    let res = [];
+    for (let i = 0; i < hooks.length; i++) {
       if (res.indexOf(hooks[i]) === -1) {
         res.push(hooks[i]);
       }
@@ -1319,7 +1319,7 @@
     vm,
     key
   ) {
-    var res = Object.create(parentVal || null);
+    let res = Object.create(parentVal || null);
     if (childVal) {
       assertObjectType(key, childVal, vm);
       return extend(res, childVal)
@@ -1353,11 +1353,11 @@
       assertObjectType(key, childVal, vm);
     }
     if (!parentVal) { return childVal }
-    var ret = {};
+    let ret = {};
     extend(ret, parentVal);
-    for (var key$1 in childVal) {
-      var parent = ret[key$1];
-      var child = childVal[key$1];
+    for (let key$1 in childVal) {
+      let parent = ret[key$1];
+      let child = childVal[key$1];
       if (parent && !Array.isArray(parent)) {
         parent = [parent];
       }
@@ -1384,7 +1384,7 @@
       assertObjectType(key, childVal, vm);
     }
     if (!parentVal) { return childVal }
-    var ret = Object.create(null);
+    let ret = Object.create(null);
     extend(ret, parentVal);
     if (childVal) { extend(ret, childVal); }
     return ret
@@ -1394,7 +1394,7 @@
   /**
    * Default strategy.
    */
-  var defaultStrat = function (parentVal, childVal) {
+  let defaultStrat = function (parentVal, childVal) {
     return childVal === undefined
       ? parentVal
       : childVal
@@ -1404,7 +1404,7 @@
    * Validate component names
    */
   function checkComponents (options) {
-    for (var key in options.components) {
+    for (let key in options.components) {
       validateComponentName(key);
     }
   }
@@ -1429,10 +1429,10 @@
    * Object-based format.
    */
   function normalizeProps (options, vm) {
-    var props = options.props;
+    let props = options.props;
     if (!props) { return }
-    var res = {};
-    var i, val, name;
+    let res = {};
+    let i, val, name;
     if (Array.isArray(props)) {
       i = props.length;
       while (i--) {
@@ -1445,7 +1445,7 @@
         }
       }
     } else if (isPlainObject(props)) {
-      for (var key in props) {
+      for (let key in props) {
         val = props[key];
         name = camelize(key);
         res[name] = isPlainObject(val)
@@ -1466,16 +1466,16 @@
    * Normalize all injections into Object-based format
    */
   function normalizeInject (options, vm) {
-    var inject = options.inject;
+    let inject = options.inject;
     if (!inject) { return }
-    var normalized = options.inject = {};
+    let normalized = options.inject = {};
     if (Array.isArray(inject)) {
-      for (var i = 0; i < inject.length; i++) {
+      for (let i = 0; i < inject.length; i++) {
         normalized[inject[i]] = { from: inject[i] };
       }
     } else if (isPlainObject(inject)) {
-      for (var key in inject) {
-        var val = inject[key];
+      for (let key in inject) {
+        let val = inject[key];
         normalized[key] = isPlainObject(val)
           ? extend({ from: key }, val)
           : { from: val };
@@ -1493,10 +1493,10 @@
    * Normalize raw function directives into object format.
    */
   function normalizeDirectives (options) {
-    var dirs = options.directives;
+    let dirs = options.directives;
     if (dirs) {
-      for (var key in dirs) {
-        var def$$1 = dirs[key];
+      for (let key in dirs) {
+        let def$$1 = dirs[key];
         if (typeof def$$1 === 'function') {
           dirs[key] = { bind: def$$1, update: def$$1 };
         }
@@ -1544,14 +1544,14 @@
         parent = mergeOptions(parent, child.extends, vm);
       }
       if (child.mixins) {
-        for (var i = 0, l = child.mixins.length; i < l; i++) {
+        for (let i = 0, l = child.mixins.length; i < l; i++) {
           parent = mergeOptions(parent, child.mixins[i], vm);
         }
       }
     }
 
-    var options = {};
-    var key;
+    let options = {};
+    let key;
     for (key in parent) {
       mergeField(key);
     }
@@ -1561,7 +1561,7 @@
       }
     }
     function mergeField (key) {
-      var strat = strats[key] || defaultStrat;
+      let strat = strats[key] || defaultStrat;
       options[key] = strat(parent[key], child[key], vm, key);
     }
     return options
@@ -1582,15 +1582,15 @@
     if (typeof id !== 'string') {
       return
     }
-    var assets = options[type];
+    let assets = options[type];
     // check local registration variations first
     if (hasOwn(assets, id)) { return assets[id] }
-    var camelizedId = camelize(id);
+    let camelizedId = camelize(id);
     if (hasOwn(assets, camelizedId)) { return assets[camelizedId] }
-    var PascalCaseId = capitalize(camelizedId);
+    let PascalCaseId = capitalize(camelizedId);
     if (hasOwn(assets, PascalCaseId)) { return assets[PascalCaseId] }
     // fallback to prototype chain
-    var res = assets[id] || assets[camelizedId] || assets[PascalCaseId];
+    let res = assets[id] || assets[camelizedId] || assets[PascalCaseId];
     if (warnMissing && !res) {
       warn(
         'Failed to resolve ' + type.slice(0, -1) + ': ' + id,
@@ -1610,9 +1610,9 @@
     propsData,
     vm
   ) {
-    var prop = propOptions[key];
-    var absent = !hasOwn(propsData, key);
-    var value = propsData[key];
+    let prop = propOptions[key];
+    let absent = !hasOwn(propsData, key);
+    let value = propsData[key];
     // boolean casting
     var booleanIndex = getTypeIndex(Boolean, prop.type);
     if (booleanIndex > -1) {

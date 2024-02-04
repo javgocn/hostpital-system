@@ -26,22 +26,12 @@ public class NumVO {
     private Long doctorNum;
 
     /**
-     * 部门数量
+     * 反馈数量
      */
-    private Long deptNum;
+    private Long feedBackNum;
 
     /**
-     * 病房数量
+     * 预约数量
      */
-    private Long roomNum;
-
-    /**
-     * 病床数量
-     */
-    private Long bedNum;
-
-    /**
-     * 通知数量
-     */
-    private Long noticeNum;
+    private Long appointNum;
 }

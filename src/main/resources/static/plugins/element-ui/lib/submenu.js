@@ -1,7 +1,7 @@
 module.exports =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
-/******/ 	var installedModules = {};
+/******/ 	let installedModules = {};
 /******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
@@ -11,7 +11,7 @@ module.exports =
 /******/ 			return installedModules[moduleId].exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
+/******/ 		let module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
@@ -58,16 +58,16 @@ module.exports =
 /******/ 		if(mode & 1) value = __webpack_require__(value);
 /******/ 		if(mode & 8) return value;
 /******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
+/******/ 		let ns = Object.create(null);
 /******/ 		__webpack_require__.r(ns);
 /******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		if(mode & 2 && typeof value != 'string') for(let key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
 /******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
+/******/ 		let getter = module && module.__esModule ?
 /******/ 			function getDefault() { return module['default']; } :
 /******/ 			function getModuleExports() { return module; };
 /******/ 		__webpack_require__.d(getter, 'a', getter);
@@ -109,7 +109,7 @@ function normalizeComponent (
   shadowMode /* vue-cli only */
 ) {
   // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
+  let options = typeof scriptExports === 'function'
     ? scriptExports.options
     : scriptExports
 
@@ -130,7 +130,7 @@ function normalizeComponent (
     options._scopeId = 'data-v-' + scopeId
   }
 
-  var hook
+  let hook
   if (moduleIdentifier) { // server build
     hook = function (context) {
       // 2.3 injection
@@ -166,14 +166,14 @@ function normalizeComponent (
       // go through the normalizer
       options._injectStyles = hook
       // register for functioal component in vue file
-      var originalRender = options.render
+      let originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
         return originalRender(h, context)
       }
     } else {
       // inject component registration as beforeCreate hook
-      var existing = options.beforeCreate
+      let existing = options.beforeCreate
       options.beforeCreate = existing
         ? [].concat(existing, hook)
         : [hook]
@@ -196,19 +196,19 @@ function normalizeComponent (
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: external "element-ui/lib/transitions/collapse-transition"
-var collapse_transition_ = __webpack_require__(28);
-var collapse_transition_default = /*#__PURE__*/__webpack_require__.n(collapse_transition_);
+let collapse_transition_ = __webpack_require__(28);
+let collapse_transition_default = /*#__PURE__*/__webpack_require__.n(collapse_transition_);
 
 // EXTERNAL MODULE: ./packages/menu/src/menu-mixin.js
-var menu_mixin = __webpack_require__(37);
+let menu_mixin = __webpack_require__(37);
 
 // EXTERNAL MODULE: external "element-ui/lib/mixins/emitter"
-var emitter_ = __webpack_require__(4);
-var emitter_default = /*#__PURE__*/__webpack_require__.n(emitter_);
+let emitter_ = __webpack_require__(4);
+let emitter_default = /*#__PURE__*/__webpack_require__.n(emitter_);
 
 // EXTERNAL MODULE: external "element-ui/lib/utils/vue-popper"
-var vue_popper_ = __webpack_require__(5);
-var vue_popper_default = /*#__PURE__*/__webpack_require__.n(vue_popper_);
+let vue_popper_ = __webpack_require__(5);
+let vue_popper_default = /*#__PURE__*/__webpack_require__.n(vue_popper_);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/menu/src/submenu.vue?vue&type=script&lang=js&
 
@@ -217,7 +217,7 @@ var vue_popper_default = /*#__PURE__*/__webpack_require__.n(vue_popper_);
 
 
 
-var poperMixins = {
+let poperMixins = {
   props: {
     transformOrigin: {
       type: [Boolean, String],
@@ -233,7 +233,7 @@ var poperMixins = {
   deactivated: vue_popper_default.a.deactivated
 };
 
-/* harmony default export */ var submenuvue_type_script_lang_js_ = ({
+/* harmony default export */ let submenuvue_type_script_lang_js_ = ({
   name: 'ElSubmenu',
 
   componentName: 'ElSubmenu',
@@ -275,7 +275,7 @@ var poperMixins = {
 
   watch: {
     opened: function opened(val) {
-      var _this = this;
+      let _this = this;
 
       if (this.isMenuPopup) {
         this.$nextTick(function (_) {
@@ -296,9 +296,9 @@ var poperMixins = {
       return this.rootMenu.openedMenus.indexOf(this.index) > -1;
     },
     active: function active() {
-      var isActive = false;
-      var submenus = this.submenus;
-      var items = this.items;
+      let isActive = false;
+      let submenus = this.submenus;
+      let items = this.items;
 
       Object.keys(items).forEach(function (index) {
         if (items[index].active) {
@@ -344,8 +344,8 @@ var poperMixins = {
       };
     },
     isFirstLevel: function isFirstLevel() {
-      var isFirstLevel = true;
-      var parent = this.$parent;
+      let isFirstLevel = true;
+      let parent = this.$parent;
       while (parent && parent !== this.rootMenu) {
         if (['ElSubmenu', 'ElMenuItemGroup'].indexOf(parent.$options.componentName) > -1) {
           isFirstLevel = false;
@@ -378,7 +378,7 @@ var poperMixins = {
       delete this.submenus[item.index];
     },
     handleClick: function handleClick() {
-      var rootMenu = this.rootMenu,
+      let rootMenu = this.rootMenu,
           disabled = this.disabled;
 
       if (rootMenu.menuTrigger === 'hover' && rootMenu.mode === 'horizontal' || rootMenu.collapse && rootMenu.mode === 'vertical' || disabled) {
@@ -387,15 +387,15 @@ var poperMixins = {
       this.dispatch('ElMenu', 'submenu-click', this);
     },
     handleMouseenter: function handleMouseenter(event) {
-      var _this2 = this;
+      let _this2 = this;
 
-      var showTimeout = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.showTimeout;
+      let showTimeout = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.showTimeout;
 
 
       if (!('ActiveXObject' in window) && event.type === 'focus' && !event.relatedTarget) {
         return;
       }
-      var rootMenu = this.rootMenu,
+      let rootMenu = this.rootMenu,
           disabled = this.disabled;
 
       if (rootMenu.menuTrigger === 'click' && rootMenu.mode === 'horizontal' || !rootMenu.collapse && rootMenu.mode === 'vertical' || disabled) {
@@ -412,10 +412,10 @@ var poperMixins = {
       }
     },
     handleMouseleave: function handleMouseleave() {
-      var _this3 = this;
+      let _this3 = this;
 
-      var deepDispatch = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-      var rootMenu = this.rootMenu;
+      let deepDispatch = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+      let rootMenu = this.rootMenu;
 
       if (rootMenu.menuTrigger === 'click' && rootMenu.mode === 'horizontal' || !rootMenu.collapse && rootMenu.mode === 'vertical') {
         return;
@@ -434,12 +434,12 @@ var poperMixins = {
     },
     handleTitleMouseenter: function handleTitleMouseenter() {
       if (this.mode === 'horizontal' && !this.rootMenu.backgroundColor) return;
-      var title = this.$refs['submenu-title'];
+      let title = this.$refs['submenu-title'];
       title && (title.style.backgroundColor = this.rootMenu.hoverBackground);
     },
     handleTitleMouseleave: function handleTitleMouseleave() {
       if (this.mode === 'horizontal' && !this.rootMenu.backgroundColor) return;
-      var title = this.$refs['submenu-title'];
+      let title = this.$refs['submenu-title'];
       title && (title.style.backgroundColor = this.rootMenu.backgroundColor || '');
     },
     updatePlacement: function updatePlacement() {
@@ -452,7 +452,7 @@ var poperMixins = {
     }
   },
   created: function created() {
-    var _this4 = this;
+    let _this4 = this;
 
     this.$on('toggle-collapse', this.handleCollapseToggle);
     this.$on('mouse-enter-child', function () {
@@ -474,9 +474,9 @@ var poperMixins = {
     this.rootMenu.removeSubmenu(this);
   },
   render: function render(h) {
-    var _this5 = this;
+    let _this5 = this;
 
-    var active = this.active,
+    let active = this.active,
         opened = this.opened,
         paddingStyle = this.paddingStyle,
         titleStyle = this.titleStyle,
@@ -491,7 +491,7 @@ var poperMixins = {
         isFirstLevel = this.isFirstLevel;
 
 
-    var popupMenu = h(
+    let popupMenu = h(
       'transition',
       {
         attrs: { name: menuTransitionName }
@@ -531,7 +531,7 @@ var poperMixins = {
       )]
     );
 
-    var inlineMenu = h('el-collapse-transition', [h(
+    let inlineMenu = h('el-collapse-transition', [h(
       'ul',
       {
         attrs: {
@@ -547,7 +547,7 @@ var poperMixins = {
       [$slots.default]
     )]);
 
-    var submenuTitleIcon = rootMenu.mode === 'horizontal' && isFirstLevel || rootMenu.mode === 'vertical' && !rootMenu.collapse ? 'el-icon-arrow-down' : 'el-icon-arrow-right';
+    let submenuTitleIcon = rootMenu.mode === 'horizontal' && isFirstLevel || rootMenu.mode === 'vertical' && !rootMenu.collapse ? 'el-icon-arrow-down' : 'el-icon-arrow-right';
 
     return h(
       'li',
@@ -589,19 +589,19 @@ var poperMixins = {
   }
 });
 // CONCATENATED MODULE: ./packages/menu/src/submenu.vue?vue&type=script&lang=js&
- /* harmony default export */ var src_submenuvue_type_script_lang_js_ = (submenuvue_type_script_lang_js_); 
+ /* harmony default export */ let src_submenuvue_type_script_lang_js_ = (submenuvue_type_script_lang_js_); 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(0);
+let componentNormalizer = __webpack_require__(0);
 
 // CONCATENATED MODULE: ./packages/menu/src/submenu.vue
-var render, staticRenderFns
+let render, staticRenderFns
 
 
 
 
 /* normalize component */
 
-var component = Object(componentNormalizer["a" /* default */])(
+let component = Object(componentNormalizer["a" /* default */])(
   src_submenuvue_type_script_lang_js_,
   render,
   staticRenderFns,
@@ -613,9 +613,9 @@ var component = Object(componentNormalizer["a" /* default */])(
 )
 
 /* hot reload */
-if (false) { var api; }
+if (false) { let api; }
 component.options.__file = "packages/menu/src/submenu.vue"
-/* harmony default export */ var submenu = (component.exports);
+/* harmony default export */ let submenu = (component.exports);
 // CONCATENATED MODULE: ./packages/submenu/index.js
 
 
@@ -624,7 +624,7 @@ submenu.install = function (Vue) {
   Vue.component(submenu.name, submenu);
 };
 
-/* harmony default export */ var packages_submenu = __webpack_exports__["default"] = (submenu);
+/* harmony default export */ let packages_submenu = __webpack_exports__["default"] = (submenu);
 
 /***/ }),
 
@@ -643,8 +643,8 @@ module.exports = require("element-ui/lib/transitions/collapse-transition");
   inject: ['rootMenu'],
   computed: {
     indexPath: function indexPath() {
-      var path = [this.index];
-      var parent = this.$parent;
+      let path = [this.index];
+      let parent = this.$parent;
       while (parent.$options.componentName !== 'ElMenu') {
         if (parent.index) {
           path.unshift(parent.index);
@@ -654,7 +654,7 @@ module.exports = require("element-ui/lib/transitions/collapse-transition");
       return path;
     },
     parentMenu: function parentMenu() {
-      var parent = this.$parent;
+      let parent = this.$parent;
       while (parent && ['ElMenu', 'ElSubmenu'].indexOf(parent.$options.componentName) === -1) {
         parent = parent.$parent;
       }
@@ -663,8 +663,8 @@ module.exports = require("element-ui/lib/transitions/collapse-transition");
     paddingStyle: function paddingStyle() {
       if (this.rootMenu.mode !== 'vertical') return {};
 
-      var padding = 20;
-      var parent = this.$parent;
+      let padding = 20;
+      let parent = this.$parent;
 
       if (this.rootMenu.collapse) {
         padding = 20;

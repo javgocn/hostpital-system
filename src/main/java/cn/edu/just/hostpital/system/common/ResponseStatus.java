@@ -19,7 +19,9 @@ import java.util.List;
 public enum ResponseStatus {
 
     SUCCESS("200", "success"),
-    FAIL("500", "failed"),
+    SERVER_EXCEPTION("500", "failed"),
+    BUSINESS_EXCEPTION("400", "business exception"),
+    PARAMETER_VALIDATION_FAILED("401", "validate fail"),
 
     HTTP_STATUS_200("200", "ok"),
     HTTP_STATUS_400("400", "request error"),

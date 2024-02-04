@@ -1,8 +1,8 @@
 package cn.edu.just.hostpital.system.service;
 
 import cn.edu.just.hostpital.system.common.Result;
+import cn.edu.just.hostpital.system.dto.UserAppointmentDTO;
 import cn.edu.just.hostpital.system.model.UserAppointment;
-import cn.edu.just.hostpital.system.req.UserAppointmentReq;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -23,7 +23,7 @@ public interface UserAppointmentService extends IService<UserAppointment> {
      * @param userAppointmentReq 查询条件
      * @return 用户预约列表（分页）
      */
-    Result<?> selectByPage(Integer currentPage, Integer size, UserAppointmentReq userAppointmentReq);
+    Result<?> selectByPage(Integer currentPage, Integer size, UserAppointmentDTO userAppointmentDTO);
 
     /**
      * 删除多余的预约记录（带就诊）
@@ -38,7 +38,7 @@ public interface UserAppointmentService extends IService<UserAppointment> {
      * @param userAppointmentReq 预约信息
      * @return 预约结果
      */
-    Result<?> appointmentWithDoctor(UserAppointmentReq userAppointmentReq);
+    Result<?> appointmentWithDoctor(UserAppointmentDTO userAppointmentDTO);
 
     /**
      * 完成预约

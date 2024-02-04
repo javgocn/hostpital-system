@@ -2,7 +2,7 @@ package cn.edu.just.hostpital.system.service;
 
 import cn.edu.just.hostpital.system.common.Result;
 import cn.edu.just.hostpital.system.model.UserInfo;
-import cn.edu.just.hostpital.system.req.UserInfoReq;
+import cn.edu.just.hostpital.system.dto.UserInfoDTO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +23,7 @@ public interface UserInfoService extends IService<UserInfo> {
      * @param user 用户信息
      * @return 注册结果
      */
-    Result<?> register(UserInfoReq user);
+    Result<?> register(UserInfoDTO user);
 
     /**
      * 登录用户
@@ -31,7 +31,7 @@ public interface UserInfoService extends IService<UserInfo> {
      * @param request 请求
      * @return 登录结果
      */
-    Result<?> login(UserInfoReq user, HttpServletRequest request);
+    Result<?> login(UserInfoDTO user, HttpServletRequest request);
 
     /**
      * 获取用户
@@ -40,14 +40,14 @@ public interface UserInfoService extends IService<UserInfo> {
      * @param user 用户信息
      * @return 用户列表
      */
-    Result<?> selectByPage(int currentPage, int size, UserInfoReq user);
+    Result<?> selectByPage(int currentPage, int size, UserInfoDTO user);
 
     /**
      * 锁定用户
      * @param user 用户信息
      * @return 锁定结果
      */
-    Result<?> lock(UserInfoReq user);
+    Result<?> lock(UserInfoDTO user);
 
     /**
      * 删除用户
@@ -68,7 +68,7 @@ public interface UserInfoService extends IService<UserInfo> {
      * @param user 用户信息
      * @return 更新结果
      */
-    Result<?> update(UserInfoReq user);
+    Result<?> update(UserInfoDTO user);
 
     /**
      * 修改密码
