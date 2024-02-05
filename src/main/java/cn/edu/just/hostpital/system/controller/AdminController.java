@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 @Api(tags = "管理员信息 API", value = "AdminInfoController")
 @RestController
 @RequestMapping("/admin")
-public class AdminInfoController {
+public class AdminController {
 
     @Resource
     private AdminInfoService adminInfoService;

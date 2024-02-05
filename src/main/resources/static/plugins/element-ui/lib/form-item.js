@@ -639,7 +639,7 @@ component.options.__file = "packages/form/src/label-wrap.vue"
 
   methods: {
     validate: function validate(trigger) {
-      var _this = this;
+      let _this = this;
 
       var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : util_["noop"];
 

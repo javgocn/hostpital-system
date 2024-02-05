@@ -515,7 +515,7 @@ LoadingConstructor.prototype.originalPosition = '';
 LoadingConstructor.prototype.originalOverflow = '';
 
 LoadingConstructor.prototype.close = function () {
-  var _this = this;
+  let _this = this;
 
   if (this.fullscreen) {
     fullscreenLoading = undefined;

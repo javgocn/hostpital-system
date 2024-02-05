@@ -128,7 +128,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     }
   },
   render: function render(h) {
-    var _this = this;
+    let _this = this;
 
     var classList = [];
     var style = {};

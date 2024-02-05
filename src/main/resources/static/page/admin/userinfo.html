@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>用户信息</title>
-
     <script src="../../plugins/js/vue.js"></script>
     <script src="../../plugins/element-ui/lib/index.js"></script>
     <script src="../../plugins/js/axios-0.18.0.js"></script>
@@ -15,8 +14,9 @@
     <div class="search">
         <el-input v-model="search.username" placeholder="请输入用户名"></el-input>
         <el-input v-model="search.name" placeholder="请输入姓名"></el-input>
-        <el-input v-model="search.IDcard" placeholder="请输入身份证号"></el-input>
-        <el-button icon="el-icon-search" @click="selects" circle></el-button>
+        <el-input v-model="search.IdCard" placeholder="请输入身份证号"></el-input>
+        <el-button type="primary" icon="el-icon-search" @click="selects">搜索</el-button>
+        <el-button @click="add" type="primary">添加</el-button>
         <el-button icon="el-icon-refresh-right" @click="refresh" circle style="float: right"></el-button>
     </div>
     <hr>
@@ -41,7 +41,7 @@
                         width="80px">
                 </el-table-column>
                 <el-table-column
-                        prop="IDcard"
+                        prop="IdCard"
                         label="身份证">
                 </el-table-column>
                 <el-table-column
@@ -58,7 +58,7 @@
                         label="性别"
                         width="60px">
                     <template slot-scope="scope">
-                        <span>{{scope.row.sex==1? "男":"女"}}</span>
+                        <span>{{scope.row.sex == 1 ? "男" : "女"}}</span>
                     </template>
 
                 </el-table-column>
@@ -67,8 +67,8 @@
                         label="状态"
                         width="70px">
                     <template slot-scope="scope">
-                        <el-tag type="success" v-if="scope.row.status==0">启用</el-tag>
-                        <el-tag type="warning" v-if="scope.row.status==1">禁用</el-tag>
+                        <el-tag type="success" v-if="scope.row.status === 0">启用</el-tag>
+                        <el-tag type="warning" v-if="scope.row.status === 1">禁用</el-tag>
                     </template>
 
                 </el-table-column>
@@ -84,6 +84,9 @@
                         </el-tooltip>
                         <el-tooltip effect="dark" content="删除" placement="top-start">
                             <el-button type="danger" icon="el-icon-delete" circle @click="del(scope.row)"></el-button>
+                        </el-tooltip>
+                        <el-tooltip effect="dark" content="编辑" placement="top-start">
+                            <el-button type="primary" icon="el-icon-edit" circle @click="upd(scope.row)"></el-button>
                         </el-tooltip>
                     </template>
 
@@ -110,7 +113,7 @@
                 user: [{
                     username: '',
                     name: '',
-                    IDcard: '',
+                    IdCard: '',
                     telphone: '',
                     email: '',
                     sex: 1,
@@ -120,11 +123,11 @@
                 search: {
                     username: '',
                     name: '',
-                    IDcard: '',
+                    IdCard: '',
                 },
                 page: {
                     currentPage: 1,
-                    pageSize: 5,
+                    pageSize: 50,
                     total: 0
                 }
             }
@@ -138,23 +141,38 @@
                 this.selects();
             },
             selects() {
-                var _this = this;
-                axios.post("/user/select/" + _this.page.currentPage + "/" + _this.page.pageSize, _this.search).then((res) => {
-                    _this.page.currentPage = res.data.data.current;
-                    _this.page.total = res.data.data.total;
-                    _this.page.pageSize = res.data.data.size;
-                    _this.user = res.data.data.records;
-                })
+                let _this = this;
+                if (_this.search.username === '' && _this.search.name === '' && _this.search.IdCard === '') {
+                    axios.post("/user/select/" + _this.page.currentPage + "/" + _this.page.pageSize).then((res) => {
+                        _this.page.currentPage = res.data.data.current;
+                        _this.page.total = res.data.data.total;
+                        _this.page.pageSize = res.data.data.size;
+                        for (let i = 0; i < res.data.data.records.length; i++) {
+                            res.data.data.records[i].createTime = new Date(res.data.data.records[i].createTime).toLocaleDateString();
+                        }
+                        _this.user = res.data.data.records;
+                    })
+                } else {
+                    axios.post("/user/select/" + _this.page.currentPage + "/" + _this.page.pageSize, _this.search).then((res) => {
+                        _this.page.currentPage = res.data.data.current;
+                        _this.page.total = res.data.data.total;
+                        _this.page.pageSize = res.data.data.size;
+                        for (let i = 0; i < res.data.data.records.length; i++) {
+                            res.data.data.records[i].createTime = new Date(res.data.data.records[i].createTime).toLocaleDateString();
+                        }
+                        _this.user = res.data.data.records;
+                    })
+                }
             },
             refresh() {
-                var _this = this;
+                let _this = this;
                 _this.search.username = '';
                 _this.search.name = '';
-                _this.search.IDcard = '';
+                _this.search.IdCard = '';
                 _this.selects();
             },
             lock(row) {
-                var _this = this;
+                let _this = this;
                 axios.post("/user/lock/", row).then((res) => {
                     this.$notify({
                         title: '成功',
@@ -165,21 +183,21 @@
                 })
             },
             del(row) {
-                var _this = this;
+                let _this = this;
                 this.$confirm('此用户将被删除, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
                     axios.delete("/user/delete/" + row.id).then((res) => {
-                        if(res.data.code=='001'){
+                        if (res.data.code == '001') {
                             this.$notify({
                                 title: '成功',
                                 message: res.data.msg,
                                 type: 'success'
                             });
                             _this.selects();
-                        }else {
+                        } else {
                             this.$notify.error({
                                 title: '失败',
                                 message: res.data.msg

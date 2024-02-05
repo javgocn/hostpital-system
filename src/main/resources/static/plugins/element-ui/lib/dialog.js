@@ -463,7 +463,7 @@ var emitter_default = /*#__PURE__*/__webpack_require__.n(emitter_);
 
   watch: {
     visible: function visible(val) {
-      var _this = this;
+      let _this = this;
 
       if (val) {
         this.closed = false;

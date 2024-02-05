@@ -141,7 +141,7 @@
                 this.select();
             },
             select() {
-                var _this = this;
+                let _this = this;
                 var userStr = localStorage.getItem("userInfo");
                 var userObj = JSON.parse(userStr);
                 _this.search.userId = userObj.id;
@@ -153,12 +153,12 @@
                 })
             },
             refresh() {
-                var _this = this;
+                let _this = this;
                 _this.search.consultTime = '';
                 _this.select();
             },
             openinfo(row) {
-                var _this = this;
+                let _this = this;
                 _this.dialogVisible = true;
                 _this.form.doctorname = row.doctorname;
                 _this.form.deptname = row.deptname;

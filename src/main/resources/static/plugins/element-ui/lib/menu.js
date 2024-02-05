@@ -375,7 +375,7 @@ SubMenu.prototype.gotoSubIndex = function (idx) {
 };
 
 SubMenu.prototype.addListeners = function () {
-  var _this = this;
+  let _this = this;
 
   var keys = aria_utils.keys;
   var parentNode = this.parent.domNode;
@@ -430,7 +430,7 @@ MenuItem.prototype.init = function () {
 };
 
 MenuItem.prototype.addListeners = function () {
-  var _this = this;
+  let _this = this;
 
   var keys = aria_utils.keys;
   this.domNode.addEventListener('keydown', function (event) {
@@ -741,7 +741,7 @@ var dom_ = __webpack_require__(2);
       }
     },
     handleItemClick: function handleItemClick(item) {
-      var _this = this;
+      let _this = this;
 
       var index = item.index,
           indexPath = item.indexPath;

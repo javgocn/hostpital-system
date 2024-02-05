@@ -31,7 +31,7 @@ var aria = aria || {};
 var tabEvent;
 
 aria.Dialog = function (dialog, focusAfterClosed, focusFirst) {
-  var _this = this;
+  let _this = this;
 
   this.dialogNode = dialog;
   if (this.dialogNode === null || this.dialogNode.getAttribute('role') !== 'dialog') {

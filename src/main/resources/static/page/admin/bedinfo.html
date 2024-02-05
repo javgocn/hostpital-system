@@ -181,7 +181,7 @@
                 this.select();
             },
             select() {
-                var _this = this;
+                let _this = this;
                 axios.post("/bed/select/" + _this.page.currentPage + "/" + _this.page.pageSize, _this.search).then((res) => {
                     _this.page.currentPage = res.data.data.current;
                     _this.page.total = res.data.data.total;
@@ -190,7 +190,7 @@
                 })
             },
             refresh() {
-                var _this = this;
+                let _this = this;
                 _this.search.bedid = '';
                 _this.search.room = '';
                 _this.select();
@@ -204,9 +204,9 @@
                     });
             },
             add() {
-                var _this = this;
+                let _this = this;
                 axios.post("/bed/add/", _this.newbed).then((res) => {
-                    if (res.data.code == '001') {
+                    if (res.data.code === '200') {
                         this.$notify({
                             title: '成功',
                             message: res.data.msg,
@@ -226,7 +226,7 @@
                 })
             },
             del(row) {
-                var _this = this;
+                let _this = this;
                 this.$confirm('此床位将被删除, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -234,7 +234,7 @@
                 }).then(() => {
                     axios.post("/bed/delete/", row).then((res) => {
 
-                        if (res.data.code == "001") {
+                        if (res.data.code === "200") {
                             this.$notify({
                                 title: '成功',
                                 message: res.data.msg,
@@ -258,7 +258,7 @@
 
             },
             edit(row) {
-                var _this = this;
+                let _this = this;
                 _this.editdialog = true;
                 _this.rebed.id = row.id;
                 _this.rebed.bedid = row.bedid;
@@ -267,7 +267,7 @@
                 _this.rebed.price = row.price;
             },
             upd() {
-                var _this = this;
+                let _this = this;
                 axios.post("/bed/update", _this.rebed).then((res) => {
                     if (res.data.code === "200") {
                         this.$notify({

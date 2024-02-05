@@ -259,7 +259,7 @@
                 this.select();
             },
             select() {
-                var _this = this;
+                let _this = this;
                 axios.post("/doctor/select/" + _this.page.currentPage + "/" + _this.page.pageSize, _this.search).then((res) => {
                     _this.page.currentPage = res.data.data.current;
                     _this.page.total = res.data.data.total;
@@ -276,13 +276,13 @@
                     });
             },
             searchdept() {
-                var _this = this;
+                let _this = this;
                 axios.get("/doctor/dept").then((res) => {
                     _this.dept = res.data.data;
                 })
             },
             add() {
-                var _this = this;
+                let _this = this;
                 if (_this.newdoctor.deptname == '' || _this.newdoctor.name == '' || _this.newdoctor.password == '' || _this.newdoctor.username == '' || _this.newdoctor.position == '') {
                     this.$notify.error({
                         title: '错误',
@@ -290,7 +290,7 @@
                     });
                 } else {
                     axios.post("/doctor/add/", _this.newdoctor).then((res) => {
-                        if (res.data.code == '001') {
+                        if (res.data.code === '200') {
                             this.$notify({
                                 title: '成功',
                                 message: res.data.msg,
@@ -313,13 +313,13 @@
             },
             refresh() {
                 console.log("123");
-                var _this = this;
+                let _this = this;
                 _this.search.username = '';
                 _this.search.name = '';
                 _this.select();
             },
             lock(row) {
-                var _this = this;
+                let _this = this;
                 axios.post("/doctor/lock/", row).then((res) => {
                     this.$notify({
                         title: '成功',
@@ -330,7 +330,7 @@
                 })
             },
             del(row) {
-                var _this = this;
+                let _this = this;
                 this.$confirm('此医生将被删除, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -352,7 +352,7 @@
                 });
             },
             upd(row) {
-                var _this = this;
+                let _this = this;
                 _this.updatedialog = true;
                 _this.upddoc.id = row.id;
                 _this.upddoc.username = row.username;
@@ -368,9 +368,9 @@
                 _this.formpass = row.password;
             },
             updat() {
-                var _this = this;
+                let _this = this;
                 axios.post("/doctor/update/" + _this.formpass, _this.upddoc).then((res) => {
-                    if (res.data.code == '001') {
+                    if (res.data.code === '200') {
                         this.$notify({
                             title: '成功',
                             message: res.data.msg,

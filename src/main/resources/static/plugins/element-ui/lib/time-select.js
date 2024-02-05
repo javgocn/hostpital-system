@@ -1130,7 +1130,7 @@ var validator = function validator(val) {
       this.$emit('focus', this);
     },
     handleKeydown: function handleKeydown(event) {
-      var _this = this;
+      let _this = this;
 
       var keyCode = event.keyCode;
 
@@ -1551,7 +1551,7 @@ var nextTime = function nextTime(time, step) {
 
   watch: {
     value: function value(val) {
-      var _this = this;
+      let _this = this;
 
       if (!val) return;
       this.$nextTick(function () {

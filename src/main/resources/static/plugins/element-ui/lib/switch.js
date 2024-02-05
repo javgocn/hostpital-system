@@ -465,7 +465,7 @@ var migrating_default = /*#__PURE__*/__webpack_require__.n(migrating_);
   },
   methods: {
     handleChange: function handleChange(event) {
-      var _this = this;
+      let _this = this;
 
       var val = this.checked ? this.inactiveValue : this.activeValue;
       this.$emit('input', val);

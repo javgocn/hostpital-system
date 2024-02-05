@@ -381,7 +381,7 @@ var time_spinner = __webpack_require__(35);
 
   watch: {
     visible: function visible(val) {
-      var _this = this;
+      let _this = this;
 
       if (val) {
         this.oldValue = this.value;
@@ -1493,7 +1493,7 @@ var validator = function validator(val) {
       this.$emit('focus', this);
     },
     handleKeydown: function handleKeydown(event) {
-      var _this = this;
+      let _this = this;
 
       var keyCode = event.keyCode;
 
@@ -2259,7 +2259,7 @@ var repeat_click = __webpack_require__(30);
     };
   },
   mounted: function mounted() {
-    var _this = this;
+    let _this = this;
 
     this.$nextTick(function () {
       !_this.arrowControl && _this.bindScrollEvent();
@@ -2747,7 +2747,7 @@ var advanceTime = function advanceTime(date, amount) {
       }
     },
     visible: function visible(val) {
-      var _this = this;
+      let _this = this;
 
       if (val) {
         this.oldValue = this.value;

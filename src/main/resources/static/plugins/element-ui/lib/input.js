@@ -787,7 +787,7 @@ var shared_ = __webpack_require__(21);
     // update DOM dependent value and styles
     // https://github.com/ElemeFE/element/issues/14857
     type: function type() {
-      var _this = this;
+      let _this = this;
 
       this.$nextTick(function () {
         _this.setNativeInputValue();

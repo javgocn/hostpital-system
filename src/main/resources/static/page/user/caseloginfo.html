@@ -149,7 +149,7 @@
                 this.select();
             },
             select() {
-                var _this = this;
+                let _this = this;
                 var userStr = localStorage.getItem("userInfo");
                 var userObj = JSON.parse(userStr);
                 _this.search.userId = userObj.id;
@@ -161,13 +161,13 @@
                 })
             },
             refresh() {
-                var _this = this;
+                let _this = this;
                 _this.search.userId = '';
                 _this.search.logTime = '';
                 _this.select();
             },
             opendialog(row) {
-                var _this = this;
+                let _this = this;
                 _this.dialogVisible = true;
                 _this.form = row;
             }

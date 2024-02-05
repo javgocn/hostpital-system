@@ -264,7 +264,7 @@
                 this.select();
             },
             select() {
-                var _this = this;
+                let _this = this;
                 axios.post("/doctor/sel/" + _this.page.currentPage + "/" + _this.page.pageSize, _this.search).then((res) => {
                     _this.page.currentPage = res.data.data.current;
                     _this.page.total = res.data.data.total;
@@ -273,19 +273,19 @@
                 })
             },
             searchdept() {
-                var _this = this;
+                let _this = this;
                 axios.get("/doctor/dept").then((res) => {
                     _this.dept = res.data.data;
                 })
             },
             refresh() {
-                var _this = this;
+                let _this = this;
                 _this.search.deptname = '';
                 _this.search.name = '';
                 _this.select();
             },
             upd(row) {
-                var _this = this;
+                let _this = this;
                 _this.updatedialog = true;
                 _this.upddoc.id = row.id;
                 _this.upddoc.username = row.username;
@@ -301,7 +301,7 @@
                 _this.formpass = row.password;
             },
             openappoint(row) {
-                var _this = this;
+                let _this = this;
                 var userStr = localStorage.getItem("userInfo");
                 var userObj = JSON.parse(userStr);
                 _this.appointdialog = true;
@@ -311,7 +311,7 @@
                 _this.appoint.doctorname = row.name;
             },
             yuyue() {
-                var _this = this;
+                let _this = this;
                 if (_this.appoint.remark == '') {
                     this.$notify({
                         title: '提示',
@@ -326,7 +326,7 @@
                     });
                 } else {
                     axios.post("/appoint/yuyue/", _this.appoint).then((res) => {
-                        if (res.data.code == "001") {
+                        if (res.data.code === "200") {
                             this.$notify({
                                 title: '成功',
                                 message: res.data.msg,

@@ -280,7 +280,7 @@ var vue_popper_default = /*#__PURE__*/__webpack_require__.n(vue_popper_);
   inject: ['dropdown'],
 
   created: function created() {
-    var _this = this;
+    let _this = this;
 
     this.$on('updatePopper', function () {
       if (_this.showPopper) _this.updatePopper();

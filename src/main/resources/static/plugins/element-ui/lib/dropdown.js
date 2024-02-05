@@ -350,7 +350,7 @@ var util_ = __webpack_require__(3);
       };
     },
     show: function show() {
-      var _this = this;
+      let _this = this;
 
       if (this.triggerElm.disabled) return;
       clearTimeout(this.timeout);

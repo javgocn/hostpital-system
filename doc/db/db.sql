@@ -37,7 +37,7 @@ CREATE TABLE `user_info`  (
     `id_card`       VARCHAR(30) NULL DEFAULT NULL COMMENT '身份证',
     `status`        TINYINT NOT NULL DEFAULT 0 COMMENT '启用状态：0 启用，1 禁用，-1 已删除',
     `sex`           TINYINT NOT NULL DEFAULT 1 COMMENT '性别：0 女性，1 男性, 2 保密',
-    `birthday`      DATE NOT NULL COMMENT '生日',
+    `birthday`      DATE DEFAULT NULL COMMENT '生日',
     `telephone`     VARCHAR(30) NULL DEFAULT NULL COMMENT '电话',
     `email`         VARCHAR(50) NULL DEFAULT NULL COMMENT '邮箱',
     `address`       VARCHAR(50) NULL DEFAULT NULL COMMENT '地址',

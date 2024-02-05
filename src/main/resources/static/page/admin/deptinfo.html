@@ -153,7 +153,7 @@
                     });
             },
             select() {
-                var _this = this;
+                let _this = this;
                 axios.post("/dept/select/" + _this.page.currentPage + "/" + _this.page.pageSize, _this.search).then((res) => {
                     _this.page.currentPage = res.data.data.current;
                     _this.page.total = res.data.data.total;
@@ -162,19 +162,19 @@
                 })
             },
             refresh() {
-                var _this = this;
+                let _this = this;
                 _this.search.deptname = '';
                 _this.select();
             },
             updatedept(row) {
-                var _this = this;
+                let _this = this;
                 _this.updates.id = row.id;
                 _this.updates.deptname = row.deptname;
                 _this.updates.remark = row.remark;
                 _this.diaVisible = true;
             },
             upd() {
-                var _this = this;
+                let _this = this;
                 if (_this.updates.deptname == '') {
                     this.$notify.error({
                         title: '错误',
@@ -194,7 +194,7 @@
                 _this.diaVisible = false;
             },
             add() {
-                var _this = this;
+                let _this = this;
                 if (_this.newdept.deptname == '') {
                     this.$notify.error({
                         title: '错误',
@@ -202,7 +202,7 @@
                     });
                 } else {
                     axios.post("/dept/add/", _this.newdept).then((res) => {
-                        if (res.data.code == "001") {
+                        if (res.data.code === "200") {
                             this.$notify({
                                 title: '成功',
                                 message: res.data.msg,
@@ -221,13 +221,13 @@
                 _this.dialogVisible = false;
             },
             opendialog() {
-                var _this = this;
+                let _this = this;
                 _this.newdept.deptname = '';
                 _this.newdept.remark = '';
                 _this.dialogVisible = true;
             },
             del(row) {
-                var _this = this;
+                let _this = this;
                 this.$confirm('此科室将被删除, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',

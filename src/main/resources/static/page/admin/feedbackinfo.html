@@ -130,7 +130,7 @@
                 this.select();
             },
             select() {
-                var _this = this;
+                let _this = this;
                 axios.post("/feedback/select/" + _this.page.currentPage + "/" + _this.page.pageSize).then((res) => {
                     _this.page.currentPage = res.data.data.current;
                     _this.page.total = res.data.data.total;
@@ -139,14 +139,14 @@
                 })
             },
             check(row) {
-                var _this = this;
+                let _this = this;
                 _this.dialogVisible = true;
                 _this.form.id = row.id;
                 _this.form.status = row.status;
                 _this.form.theme = row.theme;
             },
             fd() {
-                var _this = this;
+                let _this = this;
                 if (_this.form.fdback == '') {
                     this.$notify({
                         title: '警告',
@@ -155,7 +155,7 @@
                     });
                 } else {
                     axios.post("/feedback/fd/", _this.form).then((res) => {
-                        if (res.data.code == "001") {
+                        if (res.data.code === "200") {
                             this.$notify({
                                 title: '成功',
                                 message: res.data.msg,

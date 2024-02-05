@@ -386,7 +386,7 @@ var util_ = __webpack_require__(3);
   },
 
   mounted: function mounted() {
-    var _this = this;
+    let _this = this;
 
     var reference = this.referenceElm = this.reference || this.$refs.reference;
     var popper = this.popper || this.$refs.popper;

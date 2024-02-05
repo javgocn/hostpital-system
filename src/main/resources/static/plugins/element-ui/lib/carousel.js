@@ -540,7 +540,7 @@ var resize_event_ = __webpack_require__(16);
       return false;
     },
     handleButtonEnter: function handleButtonEnter(arrow) {
-      var _this = this;
+      let _this = this;
 
       if (this.direction === 'vertical') return;
       this.items.forEach(function (item, index) {

@@ -425,7 +425,7 @@ var typeMap = {
       clearTimeout(this.timer);
     },
     startTimer: function startTimer() {
-      var _this = this;
+      let _this = this;
 
       if (this.duration > 0) {
         this.timer = setTimeout(function () {

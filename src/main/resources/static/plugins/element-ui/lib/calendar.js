@@ -549,7 +549,7 @@ var date_util_ = __webpack_require__(1);
   },
 
   render: function render() {
-    var _this = this;
+    let _this = this;
 
     var h = arguments[0];
 
@@ -830,7 +830,7 @@ var oneDay = 86400000;
 
     // if range is valid, we get a two-digit array
     validatedRange: function validatedRange() {
-      var _this = this;
+      let _this = this;
 
       var range = this.range;
       if (!range) return [];

@@ -344,7 +344,7 @@ var stopPropagation = function stopPropagation(e) {
       return this.isInPath(this.panel.activePath);
     },
     inCheckedPath: function inCheckedPath() {
-      var _this = this;
+      let _this = this;
 
       if (!this.config.checkStrictly) return false;
 
@@ -822,7 +822,7 @@ var node_Node = function () {
   };
 
   Node.prototype.initChildren = function initChildren() {
-    var _this = this;
+    let _this = this;
 
     var config = this.config;
 
@@ -1012,7 +1012,7 @@ var store_Store = function () {
   }
 
   Store.prototype.initNodes = function initNodes(data) {
-    var _this = this;
+    let _this = this;
 
     data = Object(util_["coerceTruthyValueToArray"])(data);
     this.nodes = data.map(function (nodeData) {
@@ -1273,7 +1273,7 @@ var checkNode = function checkNode(el) {
       this.$nextTick(this.scrollIntoView);
     },
     syncMultiCheckState: function syncMultiCheckState() {
-      var _this = this;
+      let _this = this;
 
       var nodes = this.getFlattedNodes(this.leafOnly);
 

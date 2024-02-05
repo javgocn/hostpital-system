@@ -16,22 +16,22 @@
         <div class="moudule" style="margin-left: 7%;background-color: #f98d45">
             <img class="img" src="../../img/icon/user.png"></img>
             <p class="t">患者总数</p>
-            <span class="num">{{usernum}}个</span>
+            <span class="num">{{usernum}} 个</span>
         </div>
         <div class="moudule" style="background-color: #0abdfe">
             <img class="img" src="../../img/icon/doctor.png"></img>
             <p class="t">医生总数</p>
-            <span class="num">{{doctornum}}个</span>
+            <span class="num">{{doctornum}} 个</span>
         </div>
         <div class="moudule" style="background-color: darkorchid">
             <img class="img" src="../../img/icon/message.png"></img>
             <p class="t">留言数量</p>
-            <span class="num">{{messagenum}}条</span>
+            <span class="num">{{messagenum}} 条</span>
         </div>
         <div class="moudule" style="background-color: #13ce66">
             <img class="img" src="../../img/icon/appoint.png"></img>
             <p class="t" style="margin-left: 60px">未处理预约</p>
-            <span class="num">{{appointnum}}条</span>
+            <span class="num">{{appointnum}} 条</span>
         </div>
     </div>
     <div style="height: 400px;width: 100%;float: left">
@@ -115,8 +115,8 @@
         },
         methods: {
             async getnum() {
-                var _this = this;
-                await axios.post("/admin/getnum").then((res) => {
+                let _this = this;
+                await axios.post("/admin/getNum").then((res) => {
                     _this.usernum = res.data.data.usernum;
                     _this.doctornum = res.data.data.doctornum;
                     _this.messagenum = res.data.data.messagenum;

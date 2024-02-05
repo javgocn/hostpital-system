@@ -28,7 +28,7 @@ MenuItem.prototype.init = function () {
 };
 
 MenuItem.prototype.addListeners = function () {
-  var _this = this;
+  let _this = this;
 
   var keys = _ariaUtils2.default.keys;
   this.domNode.addEventListener('keydown', function (event) {

@@ -177,7 +177,7 @@ var external_vue_default = /*#__PURE__*/__webpack_require__.n(external_vue_);
     };
   },
   beforeCreate: function beforeCreate() {
-    var _this = this;
+    let _this = this;
 
     if (this.$isServer) return;
 

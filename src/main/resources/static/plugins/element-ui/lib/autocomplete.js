@@ -554,7 +554,7 @@ var scrollbar_default = /*#__PURE__*/__webpack_require__.n(scrollbar_);
   },
 
   updated: function updated() {
-    var _this = this;
+    let _this = this;
 
     this.$nextTick(function (_) {
       _this.popperJS && _this.updatePopper();
@@ -788,7 +788,7 @@ var focus_default = /*#__PURE__*/__webpack_require__.n(focus_);
       };
     },
     getData: function getData(queryString) {
-      var _this = this;
+      let _this = this;
 
       if (this.suggestionDisabled) {
         return;

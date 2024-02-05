@@ -1155,7 +1155,7 @@ var vue_popper_default = /*#__PURE__*/__webpack_require__.n(vue_popper_);
   },
 
   mounted: function mounted() {
-    var _this = this;
+    let _this = this;
 
     this.referenceElm = this.$parent.$refs.reference.$el;
     this.$parent.popperElm = this.popperElm = this.$el;
@@ -1246,7 +1246,7 @@ var util_ = __webpack_require__(3);
 
   watch: {
     hoverIndex: function hoverIndex(val) {
-      var _this = this;
+      let _this = this;
 
       if (typeof val === 'number' && val > -1) {
         this.hoverOption = this.options[val] || {};
@@ -1503,7 +1503,7 @@ var shared_ = __webpack_require__(21);
       return null;
     },
     showNewOption: function showNewOption() {
-      var _this = this;
+      let _this = this;
 
       var hasExistingOption = this.options.filter(function (option) {
         return !option.created;

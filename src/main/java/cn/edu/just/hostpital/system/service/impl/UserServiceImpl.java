@@ -8,7 +8,7 @@ import cn.edu.just.hostpital.system.enums.BedType;
 import cn.edu.just.hostpital.system.enums.StatusType;
 import cn.edu.just.hostpital.system.mapper.*;
 import cn.edu.just.hostpital.system.model.*;
-import cn.edu.just.hostpital.system.service.UserInfoService;
+import cn.edu.just.hostpital.system.service.UserService;
 import cn.edu.just.hostpital.system.utils.DataTransferUtil;
 import cn.edu.just.hostpital.system.utils.MD5Util;
 import cn.edu.just.hostpital.system.vo.UserNumVO;
@@ -19,6 +19,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +37,7 @@ import java.util.Objects;
  */
 @Slf4j
 @Service
-public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> implements UserInfoService {
+public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> implements UserService {
 
     @Resource
     private UserInfoMapper userInfoMapper;
@@ -57,12 +58,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     private DepartmentMapper departmentMapper;
 
     @Override
-    public Result<?> register(UserInfoDTO user) {
-        Result<?> Result = checkUserParam(user);
-        if (!Result.isSuccess()) {
-            return Result;
-        }
-
+    public Result<?> register(@Validated UserInfoDTO user) {
         UserInfo userInfo = DataTransferUtil.shallowCopy(user, UserInfo.class);
 
         QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
@@ -87,19 +83,8 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         return Result.success(userInfoDTO);
     }
 
-    private Result<?> checkUserParam(UserInfoDTO user) {
-        if (StringUtils.isBlank(user.getUsername())) {
-            return Result.fail("用户名不能为空");
-        }
-        if (StringUtils.isBlank(user.getPassword())) {
-            return Result.fail("密码不能为空");
-        }
-        return Result.success(null);
-    }
-
     @Override
-    public Result<?> login(UserInfoDTO user, HttpServletRequest request) {
-        checkUserParam(user);
+    public Result<?> login(@Validated UserInfoDTO user, HttpServletRequest request) {
         UserInfo userInfo = DataTransferUtil.shallowCopy(user, UserInfo.class);
         String md5Pwd = MD5Util.md5(userInfo.getPassword(), UserConstants.USER_SLAT);
 
@@ -125,44 +110,24 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     }
 
     @Override
-    public Result<?> selectByPage(int currentPage, int size, UserInfoDTO user) {
-        UserInfo userInfo = DataTransferUtil.shallowCopy(user, UserInfo.class);
+    public Result<?> selectByPage(Integer currentPage, Integer size, UserInfoDTO user) {
         IPage<UserInfo> page = new Page<>(currentPage, size);
-        QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
         IPage<UserInfo> userInfoIPage = null;
+        QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
 
-        if (!userInfo.getUsername().equals("") && userInfo.getName().equals("") && userInfo.getIdCard().equals("")) {
-            queryWrapper.like("username", userInfo.getUsername());
-            userInfoIPage = userInfoMapper.selectPage(page, queryWrapper);
-        } else if (userInfo.getUsername().equals("") && !user.getName().equals("") && userInfo.getIdCard().equals("")) {
-            queryWrapper.like("name", userInfo.getName());
-            userInfoIPage = userInfoMapper.selectPage(page, queryWrapper);
-        } else if (userInfo.getUsername().equals("") && user.getName().equals("") && !userInfo.getIdCard().equals("")) {
-            queryWrapper.like("id_card", userInfo.getIdCard());
-            userInfoIPage = userInfoMapper.selectPage(page, queryWrapper);
-        } else if (!userInfo.getUsername().equals("") && !user.getName().equals("") && userInfo.getIdCard().equals("")) {
-            queryWrapper.like("username", userInfo.getUsername());
-            queryWrapper.like("name", userInfo.getName());
-            userInfoIPage = userInfoMapper.selectPage(page, queryWrapper);
-        } else if (!userInfo.getUsername().equals("") && userInfo.getName().equals("") && !userInfo.getIdCard().equals("")) {
-            queryWrapper.like("username", userInfo.getUsername());
-            queryWrapper.like("id_card", userInfo.getIdCard());
-            userInfoIPage = userInfoMapper.selectPage(page, queryWrapper);
-        } else if (userInfo.getUsername().equals("") && !userInfo.getName().equals("") && !userInfo.getIdCard().equals("")) {
-            queryWrapper.like("name", userInfo.getName());
-            queryWrapper.like("id_card", userInfo.getIdCard());
-            userInfoIPage = userInfoMapper.selectPage(page, queryWrapper);
-        } else if (!userInfo.getUsername().equals("") && !user.getName().equals("") && !userInfo.getIdCard().equals("")) {
-            queryWrapper.like("username", userInfo.getUsername());
-            queryWrapper.like("name", userInfo.getName());
-            queryWrapper.like("id_card", userInfo.getIdCard());
-            userInfoIPage = userInfoMapper.selectPage(page, queryWrapper);
-        } else {
-            userInfoIPage = userInfoMapper.selectPage(page, null);
+        if (Objects.nonNull(user)) {
+            if (StringUtils.isNotBlank(user.getName())) {
+                queryWrapper.like("name", user.getName());
+            }
+            if (StringUtils.isNotBlank(user.getUsername())) {
+                queryWrapper.like("username", user.getUsername());
+            }
+            if (StringUtils.isNotBlank(user.getIdCard())) {
+                queryWrapper.like("id_card", user.getIdCard());
+            }
         }
-
-        IPage<UserInfoDTO> userInfoDTOIPage = DataTransferUtil.shallowCopy(userInfoIPage, IPage.class);
-        return Result.success(userInfoDTOIPage);
+        userInfoIPage = userInfoMapper.selectPage(page, queryWrapper);
+        return Result.success(userInfoIPage);
     }
 
     @Override

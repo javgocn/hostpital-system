@@ -1031,7 +1031,7 @@ var InputSizeMap = {
   },
 
   mounted: function mounted() {
-    var _this = this;
+    let _this = this;
 
     var input = this.$refs.input;
 

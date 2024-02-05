@@ -383,7 +383,7 @@ var columnIdSeed = 1;
 
   methods: {
     getPropsData: function getPropsData() {
-      var _this = this;
+      let _this = this;
 
       for (var _len = arguments.length, props = Array(_len), _key = 0; _key < _len; _key++) {
         props[_key] = arguments[_key];

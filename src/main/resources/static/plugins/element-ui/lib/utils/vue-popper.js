@@ -88,7 +88,7 @@ exports.default = {
 
   methods: {
     createPopper: function createPopper() {
-      var _this = this;
+      let _this = this;
 
       if (this.$isServer) return;
       this.currentPlacement = this.currentPlacement || this.placement;

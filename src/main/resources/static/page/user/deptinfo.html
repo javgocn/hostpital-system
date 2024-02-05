@@ -149,7 +149,7 @@
                     });
             },
             select() {
-                var _this = this;
+                let _this = this;
                 axios.post("/dept/select/" + _this.page.currentPage + "/" + _this.page.pageSize, _this.search).then((res) => {
                     _this.page.currentPage = res.data.data.current;
                     _this.page.total = res.data.data.total;
@@ -158,12 +158,12 @@
                 })
             },
             refresh() {
-                var _this = this;
+                let _this = this;
                 _this.search.deptname = '';
                 _this.select();
             },
             check(row) {
-                var _this = this;
+                let _this = this;
                 _this.doctorVisible = true;
                 axios.post("/doctor/selectdoctor/" + row.deptname).then((res) => {
                     _this.doctorData = res.data.data;

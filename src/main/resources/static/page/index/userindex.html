@@ -56,7 +56,7 @@
         },
         methods: {
             async getnum() {
-                var _this = this;
+                let _this = this;
                 await axios.post("/user/getnum").then((res) => {
                     _this.deptnum = res.data.data.deptnum;
                     _this.doctornum = res.data.data.doctornum;

@@ -86,7 +86,7 @@ exports.default = {
 
   watch: {
     visible: function visible(val) {
-      var _this = this;
+      let _this = this;
 
       if (val) {
         if (this._opening) return;

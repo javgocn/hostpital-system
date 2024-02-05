@@ -525,7 +525,7 @@ var Color = function () {
   };
 
   Color.prototype.fromString = function fromString(value) {
-    var _this = this;
+    let _this = this;
 
     if (!value) {
       this._hue = 0;
@@ -982,7 +982,7 @@ var isDragging = false;
   },
 
   mounted: function mounted() {
-    var _this = this;
+    let _this = this;
 
     draggable(this.$el, {
       drag: function drag(event) {
@@ -1170,7 +1170,7 @@ hue_slidervue_type_template_id_5cdc43b1_render._withStripped = true
   },
 
   mounted: function mounted() {
-    var _this = this;
+    let _this = this;
 
     var _$refs = this.$refs,
         bar = _$refs.bar,
@@ -1367,7 +1367,7 @@ alpha_slidervue_type_template_id_068c66cb_render._withStripped = true
     };
   },
   mounted: function mounted() {
-    var _this = this;
+    let _this = this;
 
     var _$refs = this.$refs,
         bar = _$refs.bar,
@@ -1655,7 +1655,7 @@ var button_default = /*#__PURE__*/__webpack_require__.n(button_);
 
   watch: {
     showPopper: function showPopper(val) {
-      var _this = this;
+      let _this = this;
 
       if (val === true) {
         this.$nextTick(function () {
@@ -1854,7 +1854,7 @@ var emitter_default = /*#__PURE__*/__webpack_require__.n(emitter_);
       this.resetColor();
     },
     resetColor: function resetColor() {
-      var _this = this;
+      let _this = this;
 
       this.$nextTick(function (_) {
         if (_this.value) {

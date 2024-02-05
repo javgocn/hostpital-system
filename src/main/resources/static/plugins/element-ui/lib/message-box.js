@@ -735,7 +735,7 @@ var typeMap = {
 
   methods: {
     getSafeClose: function getSafeClose() {
-      var _this = this;
+      let _this = this;
 
       var currentId = this.uid;
       return function () {

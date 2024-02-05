@@ -677,7 +677,7 @@ var input_default = /*#__PURE__*/__webpack_require__.n(input_);
       }
     },
     data: function data() {
-      var _this = this;
+      let _this = this;
 
       var checked = [];
       var filteredDataKeys = this.filteredData.map(function (item) {
@@ -976,7 +976,7 @@ var migrating_default = /*#__PURE__*/__webpack_require__.n(migrating_);
       }, {});
     },
     sourceData: function sourceData() {
-      var _this = this;
+      let _this = this;
 
       return this.data.filter(function (item) {
         return _this.value.indexOf(item[_this.props.key]) === -1;

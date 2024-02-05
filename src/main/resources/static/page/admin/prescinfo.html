@@ -192,7 +192,7 @@
                 this.select();
             },
             CurrentChange(currentPage) {
-                var _this = this;
+                let _this = this;
                 this.drugpage.currentPage = currentPage;
                 axios.post("/prescdrug/selectdrug/" + _this.drugpage.currentPage + "/" + _this.drugpage.pageSize + "/" + _this.prescid).then((res) => {
                     _this.drugpage.currentPage = res.data.data.current;
@@ -202,7 +202,7 @@
                 })
             },
             select() {
-                var _this = this;
+                let _this = this;
                 axios.post("/presc/select/" + _this.page.currentPage + "/" + _this.page.pageSize, _this.search).then((res) => {
                     _this.page.currentPage = res.data.data.current;
                     _this.page.total = res.data.data.total;
@@ -211,13 +211,13 @@
                 })
             },
             refresh() {
-                var _this = this;
+                let _this = this;
                 _this.search.createDate = '';
                 _this.search.username = '';
                 _this.select();
             },
             druginfo(row) {
-                var _this = this;
+                let _this = this;
                 _this.drugdialog = true;
                 _this.prescid = row.id;
                 axios.post("/prescdrug/selectdrug/" + _this.drugpage.currentPage + "/" + _this.drugpage.pageSize + "/" + _this.prescid).then((res) => {
@@ -229,7 +229,7 @@
                 _this.getsum();
             },
             getsum() {
-                var _this = this;
+                let _this = this;
                 _this.sum = 0;
                 axios.post("/prescdrug/getsum/" + _this.prescid).then((res) => {
                     for (var it in res.data.data) {
@@ -238,7 +238,7 @@
                 })
             },
             submit(row) {
-                var _this = this;
+                let _this = this;
                 if (row.status === 1) {
                     this.$notify.info({
                         title: '消息',

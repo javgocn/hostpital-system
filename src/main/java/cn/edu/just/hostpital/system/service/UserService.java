@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author javgo
  * @since 2024-01-07
  */
-public interface UserInfoService extends IService<UserInfo> {
+public interface UserService extends IService<UserInfo> {
 
     /**
      * 注册用户
@@ -40,7 +40,7 @@ public interface UserInfoService extends IService<UserInfo> {
      * @param user 用户信息
      * @return 用户列表
      */
-    Result<?> selectByPage(int currentPage, int size, UserInfoDTO user);
+    Result<?> selectByPage(Integer currentPage, Integer size, UserInfoDTO user);
 
     /**
      * 锁定用户

@@ -301,7 +301,7 @@ var merge_default = /*#__PURE__*/__webpack_require__.n(merge_);
     };
   },
   created: function created() {
-    var _this = this;
+    let _this = this;
 
     this.$on('el.form.addField', function (field) {
       if (field) {

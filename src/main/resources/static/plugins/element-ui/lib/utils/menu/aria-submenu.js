@@ -32,7 +32,7 @@ SubMenu.prototype.gotoSubIndex = function (idx) {
 };
 
 SubMenu.prototype.addListeners = function () {
-  var _this = this;
+  let _this = this;
 
   var keys = _ariaUtils2.default.keys;
   var parentNode = this.parent.domNode;

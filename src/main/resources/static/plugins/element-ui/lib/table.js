@@ -1495,7 +1495,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       }
     },
     loadData: function loadData(row, key, treeNode) {
-      var _this = this;
+      let _this = this;
 
       var load = this.table.load;
       var _states6 = this.states,
@@ -1818,7 +1818,7 @@ var doFlattenColumns = function doFlattenColumns(columns) {
       this.states.sortOrder = order;
     },
     execFilter: function execFilter() {
-      var _this = this;
+      let _this = this;
 
       var states = this.states;
       var _data = states._data,
@@ -2208,7 +2208,7 @@ var table_layout_TableLayout = function () {
   };
 
   TableLayout.prototype.setHeight = function setHeight(value) {
-    var _this = this;
+    let _this = this;
 
     var prop = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'height';
 
@@ -2540,7 +2540,7 @@ var table_body_extends = Object.assign || function (target) { for (var i = 1; i 
   },
 
   render: function render(h) {
-    var _this = this;
+    let _this = this;
 
     var data = this.data || [];
     return h(
@@ -3313,7 +3313,7 @@ var scrollbar_default = /*#__PURE__*/__webpack_require__.n(scrollbar_);
       return filter.value === this.filterValue;
     },
     handleOutsideClick: function handleOutsideClick() {
-      var _this = this;
+      let _this = this;
 
       setTimeout(function () {
         _this.showPopper = false;
@@ -3529,7 +3529,7 @@ var convertToRows = function convertToRows(originColumns) {
   mixins: [layout_observer],
 
   render: function render(h) {
-    var _this = this;
+    let _this = this;
 
     var originColumns = this.store.states.originColumns;
     var columnRows = convertToRows(originColumns, this.columns);
@@ -4010,7 +4010,7 @@ var table_footer_extends = Object.assign || function (target) { for (var i = 1; 
   mixins: [layout_observer],
 
   render: function render(h) {
-    var _this = this;
+    let _this = this;
 
     var sums = [];
     if (this.summaryMethod) {
@@ -4789,7 +4789,7 @@ var tableIdSeed = 1;
   },
 
   created: function created() {
-    var _this = this;
+    let _this = this;
 
     this.tableId = 'el-table_' + tableIdSeed++;
     this.debouncedUpdateLayout = Object(external_throttle_debounce_["debounce"])(50, function () {

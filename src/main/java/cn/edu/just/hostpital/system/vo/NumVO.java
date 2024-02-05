@@ -18,20 +18,20 @@ public class NumVO {
     /**
      * 用户数量
      */
-    private Long userNum;
+    private Long usernum;
 
     /**
      * 医生数量
      */
-    private Long doctorNum;
+    private Long doctornum;
 
     /**
      * 反馈数量
      */
-    private Long feedBackNum;
+    private Long messagenum;
 
     /**
      * 预约数量
      */
-    private Long appointNum;
+    private Long appointnum;
 }

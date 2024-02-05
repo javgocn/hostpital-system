@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author javgo
  * @since 2024-01-07
  */
-public interface DoctorInfoService extends IService<DoctorInfo> {
+public interface DoctorService extends IService<DoctorInfo> {
 
     /**
      * 医生登录
@@ -60,7 +60,7 @@ public interface DoctorInfoService extends IService<DoctorInfo> {
      * @param DoctorInfoDTO 医生信息请求类
      * @return Result
      */
-    Result<?> add(DoctorInfoDTO DoctorInfoDTO);
+    Result<?> add(DoctorInfoDTO doctorInfoDTO);
 
     /**
      * 锁定 / 解锁 医生信息
@@ -68,7 +68,7 @@ public interface DoctorInfoService extends IService<DoctorInfo> {
      * @param DoctorInfoDTO 医生信息请求类
      * @return Result
      */
-    Result<?> lock(DoctorInfoDTO DoctorInfoDTO);
+    Result<?> lock(DoctorInfoDTO doctorInfoDTO);
 
     /**
      * 删除医生信息
@@ -84,7 +84,7 @@ public interface DoctorInfoService extends IService<DoctorInfo> {
      * @param DoctorInfoDTO 医生信息请求类
      * @return Result
      */
-    Result<?> update(DoctorInfoDTO DoctorInfoDTO);
+    Result<?> update(DoctorInfoDTO doctorInfoDTO);
 
     /**
      * 重置密码

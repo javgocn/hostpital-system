@@ -932,7 +932,7 @@ var util_ = __webpack_require__(2);
       },
 
       render: function render(h) {
-        var _this = this;
+        let _this = this;
 
         return h(
           'span',
@@ -1418,7 +1418,7 @@ var emitter_default = /*#__PURE__*/__webpack_require__.n(emitter_);
 
   watch: {
     visible: function visible(val) {
-      var _this = this;
+      let _this = this;
 
       if (val) {
         this.closed = false;
@@ -1831,7 +1831,7 @@ var scrollbar_default = /*#__PURE__*/__webpack_require__.n(scrollbar_);
   },
 
   updated: function updated() {
-    var _this = this;
+    let _this = this;
 
     this.$nextTick(function (_) {
       _this.popperJS && _this.updatePopper();
@@ -2055,7 +2055,7 @@ var focus_default = /*#__PURE__*/__webpack_require__.n(focus_);
       };
     },
     getData: function getData(queryString) {
-      var _this = this;
+      let _this = this;
 
       if (this.suggestionDisabled) {
         return;
@@ -2334,7 +2334,7 @@ var button_group_default = /*#__PURE__*/__webpack_require__.n(button_group_);
       };
     },
     show: function show() {
-      var _this = this;
+      let _this = this;
 
       if (this.triggerElm.disabled) return;
       clearTimeout(this.timeout);
@@ -2643,7 +2643,7 @@ dropdown_menuvue_type_template_id_0da6b714_render._withStripped = true
   inject: ['dropdown'],
 
   created: function created() {
-    var _this = this;
+    let _this = this;
 
     this.$on('updatePopper', function () {
       if (_this.showPopper) _this.updatePopper();
@@ -2955,7 +2955,7 @@ SubMenu.prototype.gotoSubIndex = function (idx) {
 };
 
 SubMenu.prototype.addListeners = function () {
-  var _this = this;
+  let _this = this;
 
   var keys = aria_utils.keys;
   var parentNode = this.parent.domNode;
@@ -3010,7 +3010,7 @@ MenuItem.prototype.init = function () {
 };
 
 MenuItem.prototype.addListeners = function () {
-  var _this = this;
+  let _this = this;
 
   var keys = aria_utils.keys;
   this.domNode.addEventListener('keydown', function (event) {
@@ -3321,7 +3321,7 @@ var dom_ = __webpack_require__(1);
       }
     },
     handleItemClick: function handleItemClick(item) {
-      var _this = this;
+      let _this = this;
 
       var index = item.index,
           indexPath = item.indexPath;
@@ -3546,7 +3546,7 @@ var poperMixins = {
 
   watch: {
     opened: function opened(val) {
-      var _this = this;
+      let _this = this;
 
       if (this.isMenuPopup) {
         this.$nextTick(function (_) {
@@ -4776,7 +4776,7 @@ var shared_ = __webpack_require__(19);
     // update DOM dependent value and styles
     // https://github.com/ElemeFE/element/issues/14857
     type: function type() {
-      var _this = this;
+      let _this = this;
 
       this.$nextTick(function () {
         _this.setNativeInputValue();
@@ -5695,7 +5695,7 @@ radiovue_type_template_id_69cd6268_render._withStripped = true
 
   methods: {
     handleChange: function handleChange() {
-      var _this = this;
+      let _this = this;
 
       this.$nextTick(function () {
         _this.$emit('change', _this.model);
@@ -5815,7 +5815,7 @@ var keyCode = Object.freeze({
   },
 
   created: function created() {
-    var _this = this;
+    let _this = this;
 
     this.$on('handleChange', function (value) {
       _this.$emit('change', value);
@@ -6114,7 +6114,7 @@ radio_buttonvue_type_template_id_18a77a32_render._withStripped = true
 
   methods: {
     handleChange: function handleChange() {
-      var _this = this;
+      let _this = this;
 
       this.$nextTick(function () {
         _this.dispatch('ElRadioGroup', 'handleChange', _this.value);
@@ -6498,7 +6498,7 @@ checkboxvue_type_template_id_d0387074_render._withStripped = true
       }
     },
     handleChange: function handleChange(ev) {
-      var _this = this;
+      let _this = this;
 
       if (this.isLimitExceeded) return;
       var value = void 0;
@@ -6878,7 +6878,7 @@ checkbox_buttonvue_type_template_id_478e906e_render._withStripped = true
       }
     },
     handleChange: function handleChange(ev) {
-      var _this = this;
+      let _this = this;
 
       if (this.isLimitExceeded) return;
       var value = void 0;
@@ -7268,7 +7268,7 @@ componentvue_type_template_id_2dcd8fbb_render._withStripped = true
   },
   methods: {
     handleChange: function handleChange(event) {
-      var _this = this;
+      let _this = this;
 
       var val = this.checked ? this.inactiveValue : this.activeValue;
       this.$emit('input', val);
@@ -7908,7 +7908,7 @@ select_dropdownvue_type_template_id_06828748_render._withStripped = true
   },
 
   mounted: function mounted() {
-    var _this = this;
+    let _this = this;
 
     this.referenceElm = this.$parent.$refs.reference.$el;
     this.$parent.popperElm = this.popperElm = this.$el;
@@ -8212,7 +8212,7 @@ var scroll_into_view_default = /*#__PURE__*/__webpack_require__.n(scroll_into_vi
 
   watch: {
     hoverIndex: function hoverIndex(val) {
-      var _this = this;
+      let _this = this;
 
       if (typeof val === 'number' && val > -1) {
         this.hoverOption = this.options[val] || {};
@@ -8466,7 +8466,7 @@ var scroll_into_view_default = /*#__PURE__*/__webpack_require__.n(scroll_into_vi
       return null;
     },
     showNewOption: function showNewOption() {
-      var _this = this;
+      let _this = this;
 
       var hasExistingOption = this.options.filter(function (option) {
         return !option.created;
@@ -10620,7 +10620,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       }
     },
     loadData: function loadData(row, key, treeNode) {
-      var _this = this;
+      let _this = this;
 
       var load = this.table.load;
       var _states6 = this.states,
@@ -10943,7 +10943,7 @@ var doFlattenColumns = function doFlattenColumns(columns) {
       this.states.sortOrder = order;
     },
     execFilter: function execFilter() {
-      var _this = this;
+      let _this = this;
 
       var states = this.states;
       var _data = states._data,
@@ -11329,7 +11329,7 @@ var table_layout_TableLayout = function () {
   };
 
   TableLayout.prototype.setHeight = function setHeight(value) {
-    var _this = this;
+    let _this = this;
 
     var prop = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'height';
 
@@ -11654,7 +11654,7 @@ var table_body_extends = Object.assign || function (target) { for (var i = 1; i 
   },
 
   render: function render(h) {
-    var _this = this;
+    let _this = this;
 
     var data = this.data || [];
     return h(
@@ -12412,7 +12412,7 @@ var checkbox_group_default = /*#__PURE__*/__webpack_require__.n(checkbox_group_)
       return filter.value === this.filterValue;
     },
     handleOutsideClick: function handleOutsideClick() {
-      var _this = this;
+      let _this = this;
 
       setTimeout(function () {
         _this.showPopper = false;
@@ -12625,7 +12625,7 @@ var convertToRows = function convertToRows(originColumns) {
   mixins: [layout_observer],
 
   render: function render(h) {
-    var _this = this;
+    let _this = this;
 
     var originColumns = this.store.states.originColumns;
     var columnRows = convertToRows(originColumns, this.columns);
@@ -13106,7 +13106,7 @@ var table_footer_extends = Object.assign || function (target) { for (var i = 1; 
   mixins: [layout_observer],
 
   render: function render(h) {
-    var _this = this;
+    let _this = this;
 
     var sums = [];
     if (this.summaryMethod) {
@@ -13885,7 +13885,7 @@ var tableIdSeed = 1;
   },
 
   created: function created() {
-    var _this = this;
+    let _this = this;
 
     this.tableId = 'el-table_' + tableIdSeed++;
     this.debouncedUpdateLayout = Object(external_throttle_debounce_["debounce"])(50, function () {
@@ -14272,7 +14272,7 @@ var columnIdSeed = 1;
 
   methods: {
     getPropsData: function getPropsData() {
-      var _this = this;
+      let _this = this;
 
       for (var _len = arguments.length, props = Array(_len), _key = 0; _key < _len; _key++) {
         props[_key] = arguments[_key];
@@ -15379,7 +15379,7 @@ var pickervue_type_script_lang_js_validator = function validator(val) {
       this.$emit('focus', this);
     },
     handleKeydown: function handleKeydown(event) {
-      var _this = this;
+      let _this = this;
 
       var keyCode = event.keyCode;
 
@@ -16586,7 +16586,7 @@ time_spinnervue_type_template_id_1facadeb_render._withStripped = true
     };
   },
   mounted: function mounted() {
-    var _this = this;
+    let _this = this;
 
     this.$nextTick(function () {
       !_this.arrowControl && _this.bindScrollEvent();
@@ -16795,7 +16795,7 @@ time_spinner_component.options.__file = "packages/date-picker/src/basic/time-spi
 
   watch: {
     visible: function visible(val) {
-      var _this = this;
+      let _this = this;
 
       if (val) {
         this.oldValue = this.value;
@@ -17379,7 +17379,7 @@ var getMonthTimestamp = function getMonthTimestamp(time) {
       return this.date.getFullYear() === value.getFullYear() && Number(cell.text) === value.getMonth();
     },
     getCellStyle: function getCellStyle(cell) {
-      var _this = this;
+      let _this = this;
 
       var style = {};
       var year = this.date.getFullYear();
@@ -17763,7 +17763,7 @@ var date_tablevue_type_script_lang_js_removeFromArray = function removeFromArray
       return Object(date_util_["getStartDateOfMonth"])(this.year, this.month);
     },
     rows: function rows() {
-      var _this = this;
+      let _this = this;
 
       // TODO: refactory rows / getCellClasses
       var date = new Date(this.year, this.month, 1);
@@ -18267,7 +18267,7 @@ date_table_component.options.__file = "packages/date-picker/src/basic/date-table
 
   watch: {
     showTime: function showTime(val) {
-      var _this = this;
+      let _this = this;
 
       /* istanbul ignore if */
       if (!val) return;
@@ -19472,7 +19472,7 @@ var date_rangevue_type_script_lang_js_calcDefaultValue = function calcDefaultVal
 
   watch: {
     minDate: function minDate(val) {
-      var _this = this;
+      let _this = this;
 
       this.dateUserInput.min = null;
       this.timeUserInput.min = null;
@@ -20172,7 +20172,7 @@ var month_rangevue_type_script_lang_js_calcDefaultValue = function calcDefaultVa
       this.rangeState = val.rangeState;
     },
     handleRangePick: function handleRangePick(val) {
-      var _this = this;
+      let _this = this;
 
       var close = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
@@ -20477,7 +20477,7 @@ var nextTime = function nextTime(time, step) {
 
   watch: {
     value: function value(val) {
-      var _this = this;
+      let _this = this;
 
       if (!val) return;
       this.$nextTick(function () {
@@ -20919,7 +20919,7 @@ var advanceTime = function advanceTime(date, amount) {
       }
     },
     visible: function visible(val) {
-      var _this = this;
+      let _this = this;
 
       if (val) {
         this.oldValue = this.value;
@@ -21240,7 +21240,7 @@ mainvue_type_template_id_52060272_render._withStripped = true
   },
 
   mounted: function mounted() {
-    var _this = this;
+    let _this = this;
 
     var reference = this.referenceElm = this.reference || this.$refs.reference;
     var popper = this.popper || this.$refs.popper;
@@ -21516,7 +21516,7 @@ main.directive = directive;
     };
   },
   beforeCreate: function beforeCreate() {
-    var _this = this;
+    let _this = this;
 
     if (this.$isServer) return;
 
@@ -22172,7 +22172,7 @@ var typeMap = {
 
   methods: {
     getSafeClose: function getSafeClose() {
-      var _this = this;
+      let _this = this;
 
       var currentId = this.uid;
       return function () {
@@ -22764,7 +22764,7 @@ breadcrumb_itemvue_type_template_id_fcf9eaac_render._withStripped = true
   inject: ['elBreadcrumb'],
 
   mounted: function mounted() {
-    var _this = this;
+    let _this = this;
 
     this.separator = this.elBreadcrumb.separator;
     this.separatorClass = this.elBreadcrumb.separatorClass;
@@ -22915,7 +22915,7 @@ formvue_type_template_id_a1b5ff34_render._withStripped = true
     };
   },
   created: function created() {
-    var _this = this;
+    let _this = this;
 
     this.$on('el.form.addField', function (field) {
       if (field) {
@@ -23472,7 +23472,7 @@ label_wrap_component.options.__file = "packages/form/src/label-wrap.vue"
 
   methods: {
     validate: function validate(trigger) {
-      var _this = this;
+      let _this = this;
 
       var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : util_["noop"];
 
@@ -23678,7 +23678,7 @@ tab_barvue_type_template_id_2031f33a_render._withStripped = true
   computed: {
     barStyle: {
       get: function get() {
-        var _this = this;
+        let _this = this;
 
         var style = {};
         var offset = 0;
@@ -23926,7 +23926,7 @@ var tab_navvue_type_script_lang_js_firstUpperCase = function firstUpperCase(str)
       this.isFocus = false;
     },
     visibilityChangeHandler: function visibilityChangeHandler() {
-      var _this = this;
+      let _this = this;
 
       var visibility = document.visibilityState;
       if (visibility === 'hidden') {
@@ -24152,7 +24152,7 @@ tab_nav_component.options.__file = "packages/tabs/src/tab-nav.vue"
       this.setCurrentName(_value);
     },
     currentName: function currentName(value) {
-      var _this = this;
+      let _this = this;
 
       if (this.$refs.nav) {
         this.$nextTick(function () {
@@ -24935,7 +24935,7 @@ var node_Node = function () {
   };
 
   Node.prototype.expand = function expand(callback, expandParent) {
-    var _this = this;
+    let _this = this;
 
     var done = function done() {
       if (expandParent) {
@@ -25206,7 +25206,7 @@ function tree_store_classCallCheck(instance, Constructor) { if (!(instance insta
 
 var tree_store_TreeStore = function () {
   function TreeStore(options) {
-    var _this = this;
+    let _this = this;
 
     tree_store_classCallCheck(this, TreeStore);
 
@@ -25891,7 +25891,7 @@ tree_nodevue_type_template_id_3ba3ef0e_render._withStripped = true
       this.handleSelectChange(val, this.node.indeterminate);
     },
     'node.expanded': function nodeExpanded(val) {
-      var _this = this;
+      let _this = this;
 
       this.$nextTick(function () {
         return _this.expanded = val;
@@ -26348,7 +26348,7 @@ tree_node_component.options.__file = "packages/tree/src/tree-node.vue"
   },
 
   created: function created() {
-    var _this = this;
+    let _this = this;
 
     this.isTree = true;
 
@@ -26978,7 +26978,7 @@ var mainvue_type_script_lang_js_typeMap = {
       clearTimeout(this.timer);
     },
     startTimer: function startTimer() {
-      var _this = this;
+      let _this = this;
 
       if (this.duration > 0) {
         this.timer = setTimeout(function () {
@@ -27569,7 +27569,7 @@ buttonvue_type_template_id_e72d2ad2_render._withStripped = true
       }
     },
     onDragEnd: function onDragEnd() {
-      var _this = this;
+      let _this = this;
 
       if (this.dragging) {
         /*
@@ -27871,7 +27871,7 @@ src_button_component.options.__file = "packages/slider/src/button.vue"
 
   methods: {
     valueChanged: function valueChanged() {
-      var _this = this;
+      let _this = this;
 
       if (this.range) {
         return ![this.minValue, this.maxValue].every(function (item, index) {
@@ -28391,7 +28391,7 @@ LoadingConstructor.prototype.originalPosition = '';
 LoadingConstructor.prototype.originalOverflow = '';
 
 LoadingConstructor.prototype.close = function () {
-  var _this = this;
+  let _this = this;
 
   if (this.fullscreen) {
     fullscreenLoading = undefined;
@@ -28633,7 +28633,7 @@ var col_typeof = typeof Symbol === "function" && typeof Symbol.iterator === "sym
     }
   },
   render: function render(h) {
-    var _this = this;
+    let _this = this;
 
     var classList = [];
     var style = {};
@@ -29267,7 +29267,7 @@ upload_dragger_component.options.__file = "packages/upload/src/upload-dragger.vu
       this.uploadFiles(files);
     },
     uploadFiles: function uploadFiles(files) {
-      var _this = this;
+      let _this = this;
 
       if (this.limit && this.fileList.length + files.length > this.limit) {
         this.onExceed && this.onExceed(files, this.fileList);
@@ -29600,7 +29600,7 @@ function srcvue_type_script_lang_js_noop() {}
     fileList: {
       immediate: true,
       handler: function handler(fileList) {
-        var _this = this;
+        let _this = this;
 
         this.uploadFiles = fileList.map(function (item) {
           item.uid = item.uid || Date.now() + _this.tempIndex++;
@@ -30455,7 +30455,7 @@ var src_mainvue_type_script_lang_js_typeMap = {
       clearTimeout(this.timer);
     },
     startTimer: function startTimer() {
-      var _this = this;
+      let _this = this;
 
       if (this.duration > 0) {
         this.timer = setTimeout(function () {
@@ -31652,7 +31652,7 @@ stepvue_type_template_id_f414a87a_render._withStripped = true
   },
 
   mounted: function mounted() {
-    var _this = this;
+    let _this = this;
 
     var unwatch = this.$watch('index', function (val) {
       _this.$watch('$parent.active', _this.updateStatus, { immediate: true });
@@ -32026,7 +32026,7 @@ var throttle_default = /*#__PURE__*/__webpack_require__.n(throttle_);
       return false;
     },
     handleButtonEnter: function handleButtonEnter(arrow) {
-      var _this = this;
+      let _this = this;
 
       if (this.direction === 'vertical') return;
       this.items.forEach(function (item, index) {
@@ -33003,7 +33003,7 @@ collapse_itemvue_type_template_id_2d05faac_render._withStripped = true
 
   methods: {
     handleFocus: function handleFocus() {
-      var _this = this;
+      let _this = this;
 
       setTimeout(function () {
         if (!_this.isClick) {
@@ -33731,7 +33731,7 @@ var InputSizeMap = {
   },
 
   mounted: function mounted() {
-    var _this = this;
+    let _this = this;
 
     var input = this.$refs.input;
 
@@ -34407,7 +34407,7 @@ var Color = function () {
   };
 
   Color.prototype.fromString = function fromString(value) {
-    var _this = this;
+    let _this = this;
 
     if (!value) {
       this._hue = 0;
@@ -34860,7 +34860,7 @@ var isDragging = false;
   },
 
   mounted: function mounted() {
-    var _this = this;
+    let _this = this;
 
     draggable(this.$el, {
       drag: function drag(event) {
@@ -35045,7 +35045,7 @@ hue_slidervue_type_template_id_5cdc43b1_render._withStripped = true
   },
 
   mounted: function mounted() {
-    var _this = this;
+    let _this = this;
 
     var _$refs = this.$refs,
         bar = _$refs.bar,
@@ -35242,7 +35242,7 @@ alpha_slidervue_type_template_id_068c66cb_render._withStripped = true
     };
   },
   mounted: function mounted() {
-    var _this = this;
+    let _this = this;
 
     var _$refs = this.$refs,
         bar = _$refs.bar,
@@ -35514,7 +35514,7 @@ predefine_component.options.__file = "packages/color-picker/src/components/prede
 
   watch: {
     showPopper: function showPopper(val) {
-      var _this = this;
+      let _this = this;
 
       if (val === true) {
         this.$nextTick(function () {
@@ -35705,7 +35705,7 @@ picker_dropdown_component.options.__file = "packages/color-picker/src/components
       this.resetColor();
     },
     resetColor: function resetColor() {
-      var _this = this;
+      let _this = this;
 
       this.$nextTick(function (_) {
         if (_this.value) {
@@ -36197,7 +36197,7 @@ transfer_panelvue_type_template_id_2ddab8bd_render._withStripped = true
       }
     },
     data: function data() {
-      var _this = this;
+      let _this = this;
 
       var checked = [];
       var filteredDataKeys = this.filteredData.map(function (item) {
@@ -36489,7 +36489,7 @@ transfer_panel_component.options.__file = "packages/transfer/src/transfer-panel.
       }, {});
     },
     sourceData: function sourceData() {
-      var _this = this;
+      let _this = this;
 
       return this.data.filter(function (item) {
         return _this.value.indexOf(item[_this.props.key]) === -1;
@@ -37789,7 +37789,7 @@ var mousewheelEventName = Object(util_["isFirefox"])() ? 'DOMMouseScroll' : 'mou
       }
     },
     currentImg: function currentImg(val) {
-      var _this = this;
+      let _this = this;
 
       this.$nextTick(function (_) {
         var $img = _this.$refs.img[0];
@@ -38113,7 +38113,7 @@ var prevOverflow = '';
 
   methods: {
     loadImage: function loadImage() {
-      var _this = this;
+      let _this = this;
 
       if (this.$isServer) return;
 
@@ -38566,7 +38566,7 @@ var date_default = /*#__PURE__*/__webpack_require__.n(date_);
   },
 
   render: function render() {
-    var _this = this;
+    let _this = this;
 
     var h = arguments[0];
 
@@ -38844,7 +38844,7 @@ var oneDay = 86400000;
 
     // if range is valid, we get a two-digit array
     validatedRange: function validatedRange() {
-      var _this = this;
+      let _this = this;
 
       var range = this.range;
       if (!range) return [];
@@ -39484,7 +39484,7 @@ var stopPropagation = function stopPropagation(e) {
       return this.isInPath(this.panel.activePath);
     },
     inCheckedPath: function inCheckedPath() {
-      var _this = this;
+      let _this = this;
 
       if (!this.config.checkStrictly) return false;
 
@@ -39952,7 +39952,7 @@ var src_node_Node = function () {
   };
 
   Node.prototype.initChildren = function initChildren() {
-    var _this = this;
+    let _this = this;
 
     var config = this.config;
 
@@ -40142,7 +40142,7 @@ var store_Store = function () {
   }
 
   Store.prototype.initNodes = function initNodes(data) {
-    var _this = this;
+    let _this = this;
 
     data = Object(util_["coerceTruthyValueToArray"])(data);
     this.nodes = data.map(function (nodeData) {
@@ -40391,7 +40391,7 @@ var checkNode = function checkNode(el) {
       this.$nextTick(this.scrollIntoView);
     },
     syncMultiCheckState: function syncMultiCheckState() {
-      var _this = this;
+      let _this = this;
 
       var nodes = this.getFlattedNodes(this.leafOnly);
 
@@ -41069,7 +41069,7 @@ mainvue_type_template_id_a4885264_render._withStripped = true
 
   watch: {
     visible: function visible(val) {
-      var _this = this;
+      let _this = this;
 
       if (val) {
         this.closed = false;

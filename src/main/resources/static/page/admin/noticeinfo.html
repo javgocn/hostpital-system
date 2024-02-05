@@ -140,7 +140,7 @@
                 this.select();
             },
             select() {
-                var _this = this;
+                let _this = this;
                 axios.post("/notice/select/" + _this.page.currentPage + "/" + _this.page.pageSize, _this.search).then((res) => {
                     _this.page.currentPage = res.data.data.current;
                     _this.page.total = res.data.data.total;
@@ -149,16 +149,16 @@
                 })
             },
             refresh() {
-                var _this = this;
+                let _this = this;
                 _this.search.theme = '';
                 _this.select();
             },
             submit() {
-                var _this = this;
+                let _this = this;
                 var adminStr = localStorage.getItem("adminInfo");
                 var adminObj = JSON.parse(adminStr);
                 var name = adminObj.name;
-                if (_this.form.theme == '' || _this.form.content == '') {
+                if (_this.form.theme === '' || _this.form.content === '') {
                     this.$notify({
                         title: '警告',
                         message: "请将公告信息输入完整",
@@ -166,7 +166,7 @@
                     });
                 } else {
                     axios.post("/notice/lunch/" + name + "/", _this.form).then((res) => {
-                        if (res.data.code == "001") {
+                        if (res.data.code === "200") {
                             this.$notify({
                                 title: '成功',
                                 message: res.data.msg,
@@ -186,12 +186,12 @@
                 }
             },
             check(row) {
-                var _this = this;
+                let _this = this;
                 _this.contentdialog = true;
                 _this.content = row.content;
             },
             del(row) {
-                var _this = this;
+                let _this = this;
                 this.$confirm('是否删除此条公告?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',

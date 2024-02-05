@@ -409,7 +409,7 @@ var emitter_default = /*#__PURE__*/__webpack_require__.n(emitter_);
 
   methods: {
     handleChange: function handleChange() {
-      var _this = this;
+      let _this = this;
 
       this.$nextTick(function () {
         _this.dispatch('ElRadioGroup', 'handleChange', _this.value);

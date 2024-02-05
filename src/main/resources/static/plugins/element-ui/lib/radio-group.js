@@ -283,7 +283,7 @@ var keyCode = Object.freeze({
   },
 
   created: function created() {
-    var _this = this;
+    let _this = this;
 
     this.$on('handleChange', function (value) {
       _this.$emit('change', value);

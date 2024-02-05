@@ -587,7 +587,7 @@ var mousewheelEventName = Object(util_["isFirefox"])() ? 'DOMMouseScroll' : 'mou
       }
     },
     currentImg: function currentImg(val) {
-      var _this = this;
+      let _this = this;
 
       this.$nextTick(function (_) {
         var $img = _this.$refs.img[0];
@@ -925,7 +925,7 @@ var prevOverflow = '';
 
   methods: {
     loadImage: function loadImage() {
-      var _this = this;
+      let _this = this;
 
       if (this.$isServer) return;
 

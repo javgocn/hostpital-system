@@ -263,7 +263,7 @@ render._withStripped = true
   inject: ['elBreadcrumb'],
 
   mounted: function mounted() {
-    var _this = this;
+    let _this = this;
 
     this.separator = this.elBreadcrumb.separator;
     this.separatorClass = this.elBreadcrumb.separatorClass;

@@ -466,7 +466,7 @@ render._withStripped = true
   },
 
   mounted: function mounted() {
-    var _this = this;
+    let _this = this;
 
     var unwatch = this.$watch('index', function (val) {
       _this.$watch('$parent.active', _this.updateStatus, { immediate: true });

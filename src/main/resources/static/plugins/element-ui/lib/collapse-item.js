@@ -432,7 +432,7 @@ var util_ = __webpack_require__(3);
 
   methods: {
     handleFocus: function handleFocus() {
-      var _this = this;
+      let _this = this;
 
       setTimeout(function () {
         if (!_this.isClick) {

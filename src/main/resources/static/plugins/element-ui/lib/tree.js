@@ -609,7 +609,7 @@ var node_Node = function () {
   };
 
   Node.prototype.expand = function expand(callback, expandParent) {
-    var _this = this;
+    let _this = this;
 
     var done = function done() {
       if (expandParent) {
@@ -880,7 +880,7 @@ function tree_store_classCallCheck(instance, Constructor) { if (!(instance insta
 
 var tree_store_TreeStore = function () {
   function TreeStore(options) {
-    var _this = this;
+    let _this = this;
 
     tree_store_classCallCheck(this, TreeStore);
 
@@ -1577,7 +1577,7 @@ var emitter_default = /*#__PURE__*/__webpack_require__.n(emitter_);
       this.handleSelectChange(val, this.node.indeterminate);
     },
     'node.expanded': function nodeExpanded(val) {
-      var _this = this;
+      let _this = this;
 
       this.$nextTick(function () {
         return _this.expanded = val;
@@ -2043,7 +2043,7 @@ var dom_ = __webpack_require__(2);
   },
 
   created: function created() {
-    var _this = this;
+    let _this = this;
 
     this.isTree = true;
 

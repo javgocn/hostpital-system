@@ -282,7 +282,7 @@
                 this.select();
             },
             CurrentChange(currentPage) {
-                var _this = this;
+                let _this = this;
                 this.drugpage.currentPage = currentPage;
                 axios.post("/prescdrug/selectdrug/" + _this.drugpage.currentPage + "/" + _this.drugpage.pageSize + "/" + _this.prescid).then((res) => {
                     _this.drugpage.currentPage = res.data.data.current;
@@ -292,7 +292,7 @@
                 })
             },
             select() {
-                var _this = this;
+                let _this = this;
                 var doctorStr = localStorage.getItem("doctorInfo");
                 var doctorObj = JSON.parse(doctorStr);
                 _this.search.doctorId = doctorObj.id;
@@ -304,13 +304,13 @@
                 })
             },
             refresh() {
-                var _this = this;
+                let _this = this;
                 _this.search.createDate = '';
                 _this.search.username = '';
                 _this.select();
             },
             druginfo(row) {
-                var _this = this;
+                let _this = this;
                 _this.drugdialog = true;
                 _this.prescid = row.id;
                 axios.post("/prescdrug/selectdrug/" + _this.drugpage.currentPage + "/" + _this.drugpage.pageSize + "/" + _this.prescid).then((res) => {
@@ -322,7 +322,7 @@
                 _this.getsum();
             },
             getsum() {
-                var _this = this;
+                let _this = this;
                 _this.sum = 0;
                 axios.post("/prescdrug/getsum/" + _this.prescid).then((res) => {
                     for (var it in res.data.data) {
@@ -331,7 +331,7 @@
                 })
             },
             submit(row) {
-                var _this = this;
+                let _this = this;
                 if (row.status === 1) {
                     this.$notify.info({
                         title: '消息',
@@ -361,14 +361,14 @@
                 });
             },
             alocatedrug(row) {
-                var _this = this;
+                let _this = this;
                 _this.drugsearch.drugname = '';
                 _this.drugsearch.id = '';
                 _this.prescreptionid = row.id;
                 _this.alocatedrugVisible = true;
             },
             selectdrug() {
-                var _this = this;
+                let _this = this;
                 if (_this.drugsearch.id == '' && _this.drugsearch.drugname == '') {
                     this.$notify({
                         title: '警告',
@@ -382,14 +382,14 @@
                 }
             },
             opennum(row) {
-                var _this = this;
+                let _this = this;
                 _this.drugid = row.id;
                 _this.drugnum = true;
             },
             confirm() {
-                var _this = this;
+                let _this = this;
                 axios.post("/prescdrug/newpresc/" + _this.prescreptionid + "/" + _this.drugid + "/" + _this.num).then((res) => {
-                    if (res.data.code == '001') {
+                    if (res.data.code === '200') {
                         this.$notify({
                             title: '成功',
                             message: res.data.msg,
@@ -407,7 +407,7 @@
                 })
             },
             deletedrug(row) {
-                var _this = this;
+                let _this = this;
                 axios.post("/prescdrug/deletedrug/" + row.id).then((res) => {
                     axios.post("/prescdrug/selectdrug/" + 1 + "/" + 5 + "/" + row.prescId).then((res) => {
                         _this.drugpage.currentPage = res.data.data.current;
@@ -420,14 +420,14 @@
                 })
             },
             deletepresc(row) {
-                var _this = this;
+                let _this = this;
                 this.$confirm('是否删除本条处方信息', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
                     axios.post("/presc/deletepresc/" + row.id).then((res) => {
-                        if (res.data.code == '001') {
+                        if (res.data.code === '200') {
                             this.$notify({
                                 title: '成功',
                                 message: res.data.msg,

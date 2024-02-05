@@ -487,7 +487,7 @@ var aria_utils_default = /*#__PURE__*/__webpack_require__.n(aria_utils_);
 
   watch: {
     visible: function visible(val) {
-      var _this = this;
+      let _this = this;
 
       if (val) {
         this.closed = false;

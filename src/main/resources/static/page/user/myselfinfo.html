@@ -82,7 +82,7 @@
         },
         methods: {
             getItem() {
-                var _this = this;
+                let _this = this;
                 var userStr = localStorage.getItem("userInfo");
                 var userObj = JSON.parse(userStr);
                 axios.post("/user/getitem/" + userObj.id).then((res) => {
@@ -90,7 +90,7 @@
                 })
             },
             upd() {
-                var _this = this;
+                let _this = this;
                 axios.post("/user/update/", _this.myself).then((res) => {
                     this.$notify({
                         title: '成功',

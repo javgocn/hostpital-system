@@ -36,6 +36,9 @@ public class UserInfoDTO {
     @NotNull(groups = {Update.class, Save.class}, message = "密码不能为空")
     private String password;
 
+    @ApiModelProperty("身份证")
+    private String idCard;
+
     @ApiModelProperty("用户名")
     @NotNull(groups = {Update.class, Save.class}, message = "用户名不能为空")
     private String name;

@@ -143,22 +143,22 @@ public class AdminInfoServiceImpl extends ServiceImpl<AdminInfoMapper, AdminInfo
         QueryWrapper<UserInfo> userInfoQueryWrapper = new QueryWrapper<>();
         userInfoQueryWrapper.eq("status", StatusType.ENABLE.getCode());
         Long userNum = userInfoMapper.selectCount(userInfoQueryWrapper);
-        numVO.setUserNum(userNum);
+        numVO.setUsernum(userNum);
 
         QueryWrapper<DoctorInfo> doctorInfoQueryWrapper = new QueryWrapper<>();
         doctorInfoQueryWrapper.eq("status", StatusType.ENABLE.getCode());
         Long doctorNum = doctorInfoMapper.selectCount(doctorInfoQueryWrapper);
-        numVO.setDoctorNum(doctorNum);
+        numVO.setDoctornum(doctorNum);
 
         QueryWrapper<UserFeedback> userFeedbackQueryWrapper = new QueryWrapper<>();
         userFeedbackQueryWrapper.eq("status", StatusType.ENABLE.getCode());
         Long feedbackNum = userFeedbackMapper.selectCount(userFeedbackQueryWrapper);
-        numVO.setFeedBackNum(feedbackNum);
+        numVO.setMessagenum(feedbackNum);
 
         QueryWrapper<UserAppointment> userAppointmentQueryWrapper = new QueryWrapper<>();
         userAppointmentQueryWrapper.eq("status", StatusType.ENABLE.getCode());
         Long appointmentNum = userAppointmentMapper.selectCount(userAppointmentQueryWrapper);
-        numVO.setAppointNum(appointmentNum);
+        numVO.setAppointnum(appointmentNum);
 
         return Result.success(numVO);
     }

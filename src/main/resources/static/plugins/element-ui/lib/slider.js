@@ -648,7 +648,7 @@ var tooltip_default = /*#__PURE__*/__webpack_require__.n(tooltip_);
       }
     },
     onDragEnd: function onDragEnd() {
-      var _this = this;
+      let _this = this;
 
       if (this.dragging) {
         /*
@@ -957,7 +957,7 @@ var emitter_default = /*#__PURE__*/__webpack_require__.n(emitter_);
 
   methods: {
     valueChanged: function valueChanged() {
-      var _this = this;
+      let _this = this;
 
       if (this.range) {
         return ![this.minValue, this.maxValue].every(function (item, index) {

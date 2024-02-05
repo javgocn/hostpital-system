@@ -701,7 +701,7 @@ var util_ = __webpack_require__(3);
       },
 
       render: function render(h) {
-        var _this = this;
+        let _this = this;
 
         return h(
           'span',

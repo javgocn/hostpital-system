@@ -214,7 +214,7 @@
         },
         methods: {
             select() {
-                var _this = this;
+                let _this = this;
                 axios.post("/drug/select/" + _this.page.currentPage + "/" + _this.page.pageSize, _this.search).then((res) => {
                     _this.page.currentPage = res.data.data.current;
                     _this.page.total = res.data.data.total;
@@ -235,7 +235,7 @@
                     });
             },
             add() {
-                var _this = this;
+                let _this = this;
                 if (_this.newdrug.drugname == '' || _this.newdrug.manufactor == '' || _this.newdrug.price == '' || _this.newdrug.unit == '' || _this.newdrug.stock == '') {
                     this.$notify({
                         title: '警告',
@@ -244,7 +244,7 @@
                     });
                 } else {
                     axios.post("/drug/add/", _this.newdrug).then((res) => {
-                        if (res.data.code == "001") {
+                        if (res.data.code === "200") {
                             this.$notify({
                                 title: '成功',
                                 message: res.data.msg,
@@ -267,13 +267,13 @@
                 }
             },
             refresh() {
-                var _this = this;
+                let _this = this;
                 _this.search.drugname = '';
                 _this.search.id = '';
                 _this.select();
             },
             edit(row) {
-                var _this = this;
+                let _this = this;
                 _this.upddrugdialog = true;
                 _this.upddrug.id = row.id;
                 _this.upddrug.drugname = row.drugname;
@@ -284,9 +284,9 @@
                 _this.upddrug.remark = row.remark;
             },
             upd() {
-                var _this = this;
+                let _this = this;
                 axios.post("/drug/update/", _this.upddrug).then((res) => {
-                    if (res.data.code == "001") {
+                    if (res.data.code === "200") {
                         this.$notify({
                             title: '成功',
                             message: res.data.msg,
@@ -303,7 +303,7 @@
                 })
             },
             del(row) {
-                var _this = this;
+                let _this = this;
                 this.$confirm('此药品将从仓库删除, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',

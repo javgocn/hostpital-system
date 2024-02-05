@@ -162,7 +162,7 @@
                 this.select();
             },
             select() {
-                var _this = this;
+                let _this = this;
                 var userStr = localStorage.getItem("userInfo");
                 var userObj = JSON.parse(userStr);
                 _this.search.userId = userObj.id;
@@ -174,20 +174,20 @@
                 })
             },
             refresh() {
-                var _this = this;
+                let _this = this;
                 _this.search.name = '';
                 _this.search.status = '';
                 _this.select();
             },
             outlive(row) {
-                var _this = this;
+                let _this = this;
                 this.$confirm('是否办理出院', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
                     axios.post("/live/outlive/", row).then((res) => {
-                        if (res.data.code == "001") {
+                        if (res.data.code === "200") {
                             this.$notify({
                                 title: '成功',
                                 message: res.data.msg,
@@ -209,7 +209,7 @@
                 });
             },
             check(row) {
-                var _this = this;
+                let _this = this;
                 _this.dialogVisible = true;
                 _this.form.place = row.room + "房--" + row.bid + "号床";
                 _this.form.beginDate = row.beginDate;

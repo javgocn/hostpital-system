@@ -162,7 +162,7 @@
                 this.select();
             },
             select() {
-                var _this = this;
+                let _this = this;
                 axios.post("/appoint/select/" + _this.page.currentPage + "/" + _this.page.pageSize, _this.search).then((res) => {
                     _this.page.currentPage = res.data.data.current;
                     _this.page.total = res.data.data.total;
@@ -171,26 +171,26 @@
                 })
             },
             searchdept() {
-                var _this = this;
+                let _this = this;
                 axios.get("/doctor/dept").then((res) => {
                     _this.dept = res.data.data;
                 })
             },
             refresh() {
-                var _this = this;
+                let _this = this;
                 _this.search.consultTime = '';
                 _this.search.username = '';
                 _this.search.deptname = '';
                 _this.select();
             },
             check(row) {
-                var _this = this;
+                let _this = this;
                 _this.dialogVisible = true;
                 _this.form.username = row.username;
                 _this.form.remark = row.remark;
             },
             del() {
-                var _this = this;
+                let _this = this;
                 this.$confirm('是否确认删除?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',

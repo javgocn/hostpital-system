@@ -430,7 +430,7 @@ var time_spinner = __webpack_require__(35);
 
   watch: {
     visible: function visible(val) {
-      var _this = this;
+      let _this = this;
 
       if (val) {
         this.oldValue = this.value;
@@ -1544,7 +1544,7 @@ var validator = function validator(val) {
       this.$emit('focus', this);
     },
     handleKeydown: function handleKeydown(event) {
-      var _this = this;
+      let _this = this;
 
       var keyCode = event.keyCode;
 
@@ -2310,7 +2310,7 @@ var repeat_click = __webpack_require__(30);
     };
   },
   mounted: function mounted() {
-    var _this = this;
+    let _this = this;
 
     this.$nextTick(function () {
       !_this.arrowControl && _this.bindScrollEvent();
@@ -3322,7 +3322,7 @@ var getMonthTimestamp = function getMonthTimestamp(time) {
       return this.date.getFullYear() === value.getFullYear() && Number(cell.text) === value.getMonth();
     },
     getCellStyle: function getCellStyle(cell) {
-      var _this = this;
+      let _this = this;
 
       var style = {};
       var year = this.date.getFullYear();
@@ -3706,7 +3706,7 @@ var date_tablevue_type_script_lang_js_removeFromArray = function removeFromArray
       return Object(date_util_["getStartDateOfMonth"])(this.year, this.month);
     },
     rows: function rows() {
-      var _this = this;
+      let _this = this;
 
       // TODO: refactory rows / getCellClasses
       var date = new Date(this.year, this.month, 1);
@@ -4210,7 +4210,7 @@ date_table_component.options.__file = "packages/date-picker/src/basic/date-table
 
   watch: {
     showTime: function showTime(val) {
-      var _this = this;
+      let _this = this;
 
       /* istanbul ignore if */
       if (!val) return;
@@ -5415,7 +5415,7 @@ var date_rangevue_type_script_lang_js_calcDefaultValue = function calcDefaultVal
 
   watch: {
     minDate: function minDate(val) {
-      var _this = this;
+      let _this = this;
 
       this.dateUserInput.min = null;
       this.timeUserInput.min = null;
@@ -6115,7 +6115,7 @@ var month_rangevue_type_script_lang_js_calcDefaultValue = function calcDefaultVa
       this.rangeState = val.rangeState;
     },
     handleRangePick: function handleRangePick(val) {
-      var _this = this;
+      let _this = this;
 
       var close = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 

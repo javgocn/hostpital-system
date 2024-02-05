@@ -275,7 +275,7 @@ var poperMixins = {
 
   watch: {
     opened: function opened(val) {
-      var _this = this;
+      let _this = this;
 
       if (this.isMenuPopup) {
         this.$nextTick(function (_) {

@@ -14,7 +14,7 @@
 <div id="main">
     <el-container>
 
-        <el-header><img style="width: 50px;height: 50px;margin-top:5px;float:left;" src="../../img/icon/hospital.png"/>
+        <el-header><img style="width: 50px;height: 50px;margin-top:5px;float:left;" src="../../img/icon/logo.png"/>
             <p style="float: left;margin-left: 10px">医护管理系统</p></el-header>
         <el-main>
             <div style="height: 100%;width: 100%;border-radius: 3%;">
@@ -74,7 +74,7 @@
                                       placeholder="请再次输入密码" style="width: 70%"></el-input>
                         </el-form-item>
                         <el-form-item style="margin-bottom: 0">
-                            <el-button type="success" @click="regist">立即注册</el-button>
+                            <el-button type="success" @click="register">立即注册</el-button>
                         </el-form-item>
                         <el-form-item style="text-align: right;padding-right: 10px;">
                             <el-link type="primary" @click="login_open">已有账号，立即登录</el-link>
@@ -119,31 +119,32 @@
         },
         methods: {
             regi_open() {
-                var _this = this;
+                let _this = this;
                 _this.login = false;
                 _this.register = true;
             },
             login_open() {
-                var _this = this;
+                let _this = this;
                 _this.register = false;
                 _this.login = true;
             },
-            regist() {
-                var _this = this;
-                if (_this.regi.username == '' || _this.regi.name == '' || _this.regi.password == '' || _this.repassword == '') {
+            // 注册
+            register() {
+                let _this = this;
+                if (_this.regi.username === '' || _this.regi.name === '' || _this.regi.password === '' || _this.repassword === '') {
                     _this.$message({
                         message: '请将注册信息填写完整',
                         type: 'warning'
                     });
                 } else {
-                    if (_this.regi.password != _this.repassword) {
+                    if (_this.regi.password !== _this.repassword) {
                         _this.$message({
                             message: '两次输入密码不一致',
                             type: 'warning'
                         });
                     } else {
                         axios.post("/user/register", _this.regi).then((res) => {
-                            if (res.data.code == '001') {
+                            if (res.data.code === '200') {
                                 this.$message({
                                     message: res.data.msg,
                                     type: 'success'
@@ -163,7 +164,7 @@
                 }
             },
             logi() {
-                var _this = this;
+                let _this = this;
                 if (_this.logins.username === '') {
                     _this.$message({
                         message: '请输入用户名',

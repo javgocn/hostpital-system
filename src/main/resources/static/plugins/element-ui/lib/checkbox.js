@@ -548,7 +548,7 @@ var emitter_default = /*#__PURE__*/__webpack_require__.n(emitter_);
       }
     },
     handleChange: function handleChange(ev) {
-      var _this = this;
+      let _this = this;
 
       if (this.isLimitExceeded) return;
       var value = void 0;

@@ -247,7 +247,7 @@ var util_ = __webpack_require__(3);
   computed: {
     barStyle: {
       get: function get() {
-        var _this = this;
+        let _this = this;
 
         var style = {};
         var offset = 0;
@@ -501,7 +501,7 @@ var tab_navvue_type_script_lang_js_firstUpperCase = function firstUpperCase(str)
       this.isFocus = false;
     },
     visibilityChangeHandler: function visibilityChangeHandler() {
-      var _this = this;
+      let _this = this;
 
       var visibility = document.visibilityState;
       if (visibility === 'hidden') {
@@ -727,7 +727,7 @@ tab_nav_component.options.__file = "packages/tabs/src/tab-nav.vue"
       this.setCurrentName(_value);
     },
     currentName: function currentName(value) {
-      var _this = this;
+      let _this = this;
 
       if (this.$refs.nav) {
         this.$nextTick(function () {

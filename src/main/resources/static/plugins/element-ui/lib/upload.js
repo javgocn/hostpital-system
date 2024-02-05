@@ -815,7 +815,7 @@ upload_dragger_component.options.__file = "packages/upload/src/upload-dragger.vu
       this.uploadFiles(files);
     },
     uploadFiles: function uploadFiles(files) {
-      var _this = this;
+      let _this = this;
 
       if (this.limit && this.fileList.length + files.length > this.limit) {
         this.onExceed && this.onExceed(files, this.fileList);
@@ -1152,7 +1152,7 @@ function noop() {}
     fileList: {
       immediate: true,
       handler: function handler(fileList) {
-        var _this = this;
+        let _this = this;
 
         this.uploadFiles = fileList.map(function (item) {
           item.uid = item.uid || Date.now() + _this.tempIndex++;
