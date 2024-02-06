@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
 
 import io.swagger.annotations.ApiModel;
@@ -51,7 +50,7 @@ public class UserFeedback implements Serializable {
     private String reply;
 
     @ApiModelProperty("回复时间")
-    private Timestamp replyTime;
+    private Date replyTime;
 
     @ApiModelProperty("回复人")
     private String replyUser;
