@@ -64,4 +64,3 @@ request:
       - /plugins/**
       - /swagger/**
       - /doc.html
-      - /**
