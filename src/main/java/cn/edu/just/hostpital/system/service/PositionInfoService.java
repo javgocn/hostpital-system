@@ -1,5 +1,7 @@
 package cn.edu.just.hostpital.system.service;
 
+import cn.edu.just.hostpital.system.common.Result;
+import cn.edu.just.hostpital.system.dto.PrescriptionInfoDTO;
 import cn.edu.just.hostpital.system.model.PositionInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 

@@ -1,10 +1,15 @@
 package cn.edu.just.hostpital.system.service.impl;
 
+import cn.edu.just.hostpital.system.common.Result;
+import cn.edu.just.hostpital.system.dto.PrescriptionInfoDTO;
+import cn.edu.just.hostpital.system.mapper.PrescriptionInfoMapper;
 import cn.edu.just.hostpital.system.model.PositionInfo;
 import cn.edu.just.hostpital.system.mapper.PositionInfoMapper;
 import cn.edu.just.hostpital.system.service.PositionInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * <p>
