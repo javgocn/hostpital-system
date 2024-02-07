@@ -72,7 +72,7 @@ public class AdminInfoServiceImpl extends ServiceImpl<AdminInfoMapper, AdminInfo
             return Result.fail("登录失败，管理员已被删除");
         }
 
-        request.getSession().setAttribute("admin", adminInfoDTO.getName());
+        request.getSession().setAttribute("admin", adminInfo.getName());
         return Result.success(DataTransferUtil.shallowCopy(adminInfo, AdminInfoDTO.class));
     }
 

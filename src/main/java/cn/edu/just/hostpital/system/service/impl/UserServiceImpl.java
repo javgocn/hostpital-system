@@ -10,6 +10,7 @@ import cn.edu.just.hostpital.system.mapper.*;
 import cn.edu.just.hostpital.system.model.*;
 import cn.edu.just.hostpital.system.service.UserService;
 import cn.edu.just.hostpital.system.utils.DataTransferUtil;
+import cn.edu.just.hostpital.system.utils.DateUtil;
 import cn.edu.just.hostpital.system.utils.MD5Util;
 import cn.edu.just.hostpital.system.vo.UserNumVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -73,6 +74,7 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
 
         userInfo.setCreateTime(new Date());
         userInfo.setUpdateTime(new Date());
+        userInfo.setStatus(StatusType.ENABLE.getCode());
 
         int insert = userInfoMapper.insert(userInfo);
         if (insert == 0) {
@@ -134,11 +136,11 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
     public Result<?> lock(UserInfoDTO user) {
         UserInfo userInfo = DataTransferUtil.shallowCopy(user, UserInfo.class);
         if (Objects.equals(userInfo.getStatus(), StatusType.DISABLE.getCode())) {
-            userInfo.setStatus(0);
+            userInfo.setStatus(StatusType.ENABLE.getCode());
             userInfoMapper.updateById(userInfo);
             return Result.success("解锁成功");
         } else {
-            userInfo.setStatus(1);
+            userInfo.setStatus(StatusType.DISABLE.getCode());
             userInfoMapper.updateById(userInfo);
             return Result.success("锁定成功");
         }

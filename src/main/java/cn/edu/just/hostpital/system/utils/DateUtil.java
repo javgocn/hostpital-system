@@ -23,6 +23,12 @@ import java.util.Objects;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class DateUtil {
 
+    public static final String DATE_FORMAT = "yyyy-MM-dd";
+    public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String TIME_FORMAT = "HH:mm:ss";
+    public static final String DATE_FORMAT_YYYY_MM = "yyyy-MM";
+    public static final String DATE_FORMAT_DD_MM_YYYY = "dd/MM/yyyy";
+
     /**
      * 时间转换：时间戳转为指定格式时间字符串
      *
@@ -70,13 +76,33 @@ public final class DateUtil {
     }
 
     /**
+     * 时间转换：日期转格式
+     * @param date 日期
+     * @param format 格式
+     * @return 日期
+     */
+    public static Date parseDate(Date date, String format) {
+        if (Objects.isNull(date) || Objects.isNull(format) || format.isEmpty()) {
+            return null;
+        }
+
+        try {
+            DateFormat dateFormat = new SimpleDateFormat(format);
+            return dateFormat.parse(date.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
      * 时间转换：字符串转日期(默认格式：yyyy-MM-dd)
      *
      * @param dateStr 日期字符串
      * @return 日期
      */
     public static Date parseDate(String dateStr) {
-        return parseDate(dateStr, "yyyy-MM-dd");
+        return parseDate(dateStr, DATE_FORMAT);
     }
 
     /**
@@ -101,7 +127,7 @@ public final class DateUtil {
      * @return 日期字符串
      */
     public static String format(Date date) {
-        return format(date, "yyyy-MM-dd");
+        return format(date, DATE_FORMAT);
     }
 
     /**
@@ -211,7 +237,7 @@ public final class DateUtil {
      * @return 日期字符串
      */
     public static String getDate(Date date) {
-        return format(date, "yyyy-MM-dd");
+        return format(date, DATE_FORMAT);
     }
 
     /**
@@ -220,7 +246,7 @@ public final class DateUtil {
      * @return 日期字符串
      */
     public static String getTime(Date date) {
-        return format(date, "HH:mm:ss");
+        return format(date, TIME_FORMAT);
     }
 
     /**
@@ -229,7 +255,7 @@ public final class DateUtil {
      * @return 日期字符串
      */
     public static String getDateTime(Date date) {
-        return format(date, "yyyy-MM-dd HH:mm:ss");
+        return format(date, DATE_TIME_FORMAT);
     }
 
     /**
@@ -240,7 +266,7 @@ public final class DateUtil {
      */
     public static String getMonthBegin(String dateStr) {
         Date date = parseDate(dateStr);
-        return format(date, "yyyy-MM") + "-01";
+        return format(date, DATE_FORMAT_YYYY_MM) + "-01";
     }
 
     /**
@@ -265,7 +291,7 @@ public final class DateUtil {
      * @return 日期字符串
      */
     public static String formatDate(Date date) {
-        return formatDateByFormat(date, "yyyy-MM-dd");
+        return formatDateByFormat(date, DATE_FORMAT);
     }
 
     /**
@@ -310,7 +336,7 @@ public final class DateUtil {
      * @return 日期
      */
     public static String addDate(String dateStr, int day) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT_DD_MM_YYYY);
         try {
             long date = simpleDateFormat.parse(dateStr).getTime();
             long millis = date + ((long) day) * 24 * 3600 * 1000;
@@ -355,7 +381,7 @@ public final class DateUtil {
      */
     public static int dayDateDiff(String beginDate, String endDate) {
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
             Date start = sdf.parse(beginDate);
             Date end = sdf.parse(endDate);
             long between = end.getTime() - start.getTime();
@@ -376,7 +402,7 @@ public final class DateUtil {
      */
     public static int yearDateDiff(String startYear, String endYear) {
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
             Date start = sdf.parse(startYear);
             Date end = sdf.parse(endYear);
             long between = end.getTime() - start.getTime();

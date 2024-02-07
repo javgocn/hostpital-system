@@ -1,8 +1,10 @@
 package cn.edu.just.hostpital.system.dto;
 
+import cn.edu.just.hostpital.system.common.CustomDateSerializer;
 import cn.edu.just.hostpital.system.validation.group.Delete;
 import cn.edu.just.hostpital.system.validation.group.Save;
 import cn.edu.just.hostpital.system.validation.group.Update;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -59,9 +61,14 @@ public class UserInfoDTO {
     @NotNull(groups = {Save.class}, message = "地址不能为空")
     private String address;
 
+    @ApiModelProperty("启用状态：0 启用，1 禁用，-1 已删除")
+    private Integer status;
+
     @ApiModelProperty("创建时间")
+    @JsonSerialize(using = CustomDateSerializer.class)
     private Date createTime;
 
     @ApiModelProperty("更新时间")
+    @JsonSerialize(using = CustomDateSerializer.class)
     private Date updateTime;
 }

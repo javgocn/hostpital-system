@@ -51,7 +51,7 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
     public Result<?> add(String name, AnnouncementDTO announcementDTO) {
         Announcement announcement = DataTransferUtil.shallowCopy(announcementDTO, Announcement.class);
         announcement.setCreateTime(new Date());
-        announcement.setAuthor(name);
+        announcement.setSubject(name);
         int count = announcementMapper.insert(announcement);
         return count == 1 ? Result.success("发布成功") : Result.fail("发布失败");
     }

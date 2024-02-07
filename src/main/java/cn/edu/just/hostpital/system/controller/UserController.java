@@ -3,6 +3,8 @@ package cn.edu.just.hostpital.system.controller;
 import cn.edu.just.hostpital.system.common.Result;
 import cn.edu.just.hostpital.system.dto.UserInfoDTO;
 import cn.edu.just.hostpital.system.service.UserService;
+import cn.edu.just.hostpital.system.utils.DataTransferUtil;
+import cn.edu.just.hostpital.system.utils.DateUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
@@ -61,8 +63,8 @@ public class UserController {
 
     @ApiOperation(value = "锁定用户")
     @PostMapping("/lock")
-    Result<?> lock(@RequestBody UserInfoDTO UserInfoDTO) {
-        return userService.lock(UserInfoDTO);
+    Result<?> lock(@RequestBody UserInfoDTO userInfoDTO) {
+        return userService.lock(userInfoDTO);
     }
 
     @ApiOperation(value = "删除用户")

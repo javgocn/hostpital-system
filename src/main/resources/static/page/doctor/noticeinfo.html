@@ -11,7 +11,7 @@
 </head>
 <body>
 <div id="app">
-    <el-input v-model="search.theme" placeholder="请输入查询主题" style="width: 200px"></el-input>
+    <el-input v-model="search.subject" placeholder="请输入查询主题" style="width: 200px"></el-input>
     <el-button type="primary" @click="select">查询</el-button>
     <el-button icon="el-icon-refresh-right" circle style="float: right" @click="refresh"></el-button>
     <hr>
@@ -26,7 +26,7 @@
                         type="selection">
                 </el-table-column>
                 <el-table-column
-                        prop="theme"
+                        prop="subject"
                         label="公告主题">
                 </el-table-column>
                 <el-table-column
@@ -64,7 +64,7 @@
             :visible.sync="dialog">
         <el-form ref="form" :model="form" label-width="80px">
             <el-form-item label="公告主题">
-                <el-input v-model="form.theme"></el-input>
+                <el-input v-model="form.subject"></el-input>
             </el-form-item>
             <el-form-item label="公告内容">
                 <el-input
@@ -106,10 +106,10 @@
         data() {
             return {
                 search: {
-                    theme: '',
+                    subject: '',
                 },
                 notice: [{
-                    theme: '',
+                    subject: '',
                     initiator: '',
                     createTime: '',
                     content: '',
@@ -120,7 +120,7 @@
                     total: 0
                 },
                 form: {
-                    theme: '',
+                    subject: '',
                     content: ''
                 },
                 dialog: false,
@@ -147,7 +147,7 @@
             },
             refresh() {
                 let _this = this;
-                _this.search.theme = '';
+                _this.search.subject = '';
                 _this.select();
             },
             submit() {
@@ -155,14 +155,14 @@
                 var adminStr = localStorage.getItem("adminInfo");
                 var adminObj = JSON.parse(adminStr);
                 var name = adminObj.name;
-                if (_this.form.theme === '' || _this.form.content === '') {
+                if (_this.form.subject === '' || _this.form.content === '') {
                     this.$notify({
                         title: '警告',
                         message: "请将公告信息输入完整",
                         type: 'warning'
                     });
                 } else {
-                    axios.post("/notice/lunch/" + name + "/", _this.form).then((res) => {
+                    axios.post("/announcement/add/" + name + "/", _this.form).then((res) => {
                         if (res.data.code === "200") {
                             this.$notify({
                                 title: '成功',
@@ -170,7 +170,7 @@
                                 type: 'success'
                             });
                             _this.refresh();
-                            _this.form.theme = '';
+                            _this.form.subject = '';
                             _this.form.content = '';
                             _this.dialog = false;
                         } else {

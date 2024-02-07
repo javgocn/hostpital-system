@@ -26,10 +26,10 @@ public class LoginCheckFilter implements Filter {
     @Resource
     private RequestWhiteList requestWhiteList;
 
-    /**
-     * Ant 风格的路径匹配器
-     */
-    public static final AntPathMatcher ANT_PATH_MATCHER = new AntPathMatcher();
+    private static final AntPathMatcher ANT_PATH_MATCHER = new AntPathMatcher();
+    private static final String ATTR_ADMIN = "admin";
+    private static final String ATTR_USER = "user";
+    private static final String ATTR_DOCTOR = "doctor";
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -39,46 +39,37 @@ public class LoginCheckFilter implements Filter {
         String requestURI = request.getRequestURI();
         log.info("拦截到请求:{}", requestURI);
 
-        // 判断本次请求是否需要处理
-        boolean checked = check(requestWhiteList.getUrls(), requestURI);
-        if (checked) {
+        if (isInWhiteList(requestURI)) {
             log.info("本次请求 {} 不需要处理", requestURI);
-            filterChain.doFilter(request, response);
+        } else if (isAuthenticated(request)) {
+            log.info("用户已认证，请求 {} 被放行", requestURI);
+        } else {
+            log.info("用户未认证，请求 {} 被重定向到登录页面", requestURI);
+            response.sendRedirect(requestWhiteList.getLoginPage());
             return;
         }
 
-        // 判断登录状态，如果已登录则直接放行
-        if (Objects.nonNull(request.getSession().getAttribute("admin")) && ANT_PATH_MATCHER.match(requestWhiteList.getAdminPage(), requestURI)) {
-            filterChain.doFilter(request, response);
-            return;
-        }
-        if (Objects.nonNull(request.getSession().getAttribute("user")) && ANT_PATH_MATCHER.match(requestWhiteList.getUserPage(), requestURI)) {
-            filterChain.doFilter(request, response);
-            return;
-        }
-        if (Objects.nonNull(request.getSession().getAttribute("doctor")) && ANT_PATH_MATCHER.match(requestWhiteList.getDoctorPage(), requestURI)) {
-            filterChain.doFilter(request, response);
-            return;
-        }
-
-        // 未登录，重定向到登录页
-        log.info("本次请求 {} 需要处理", requestURI);
-        response.sendRedirect(requestWhiteList.getLoginPage());
+        filterChain.doFilter(request, response);
     }
 
     /**
-     * 检查请求是否需要处理
-     *
-     * @param urls       无需处理的请求（请求白名单）
-     * @param requestURI 本次请求
-     * @return true 需要处理，false 不需要处理
+     * 判断请求是否在白名单中
+     * @param requestURI 请求URI
+     * @return 是否在白名单中
      */
-    public boolean check(List<String> urls, String requestURI) {
-        for (String url : urls) {
-            if (ANT_PATH_MATCHER.match(url, requestURI)) {
-                return true;
-            }
-        }
-        return false;
+    private boolean isInWhiteList(String requestURI) {
+        return requestWhiteList.getUrls().stream().anyMatch(url -> ANT_PATH_MATCHER.match(url, requestURI));
+    }
+
+    /**
+     * 判断用户是否已认证
+     * @param request 请求
+     * @param requestURI 请求URI
+     * @return 是否已认证
+     */
+    private boolean isAuthenticated(HttpServletRequest request) {
+        return Objects.nonNull(request.getSession().getAttribute(ATTR_ADMIN)) ||
+                Objects.nonNull(request.getSession().getAttribute(ATTR_USER)) ||
+                Objects.nonNull(request.getSession().getAttribute(ATTR_DOCTOR));
     }
 }

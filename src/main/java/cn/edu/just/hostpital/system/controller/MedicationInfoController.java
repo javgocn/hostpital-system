@@ -19,7 +19,7 @@ import javax.annotation.Resource;
  */
 @Api(tags = "药品信息 API", value = "MedicationInfoController")
 @RestController
-@RequestMapping("/medicationInfo")
+@RequestMapping("/drug")
 public class MedicationInfoController {
 
     @Resource

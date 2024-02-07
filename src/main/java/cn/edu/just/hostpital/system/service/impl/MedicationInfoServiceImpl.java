@@ -46,6 +46,9 @@ public class MedicationInfoServiceImpl extends ServiceImpl<MedicationInfoMapper,
             if (StringUtils.isNotBlank(medicationInfo.getMedicationName())) {
                 queryWrapper.like("medication_name", medicationInfo.getMedicationName());
             }
+            if (StringUtils.isNotBlank(medicationInfo.getMedicationCode())) {
+                queryWrapper.like("medication_code", medicationInfo.getMedicationCode());
+            }
         }
         medicationInfoIPage = medicationInfoMapper.selectPage(page, queryWrapper);
         return Result.success(medicationInfoIPage);

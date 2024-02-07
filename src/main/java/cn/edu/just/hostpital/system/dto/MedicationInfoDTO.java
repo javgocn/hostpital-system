@@ -1,5 +1,7 @@
 package cn.edu.just.hostpital.system.dto;
 
+import cn.edu.just.hostpital.system.common.CustomDateSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -49,8 +51,10 @@ public class MedicationInfoDTO {
     private Integer status;
 
     @ApiModelProperty("创建时间")
+    @JsonSerialize(using = CustomDateSerializer.class)
     private Date createTime;
 
     @ApiModelProperty("更新时间")
+    @JsonSerialize(using = CustomDateSerializer.class)
     private Date updateTime;
 }

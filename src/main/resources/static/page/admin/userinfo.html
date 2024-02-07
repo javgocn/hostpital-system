@@ -76,9 +76,8 @@
                         prop="createTime"
                         label="录入时间">
                 </el-table-column>
-                <el-table-column
-                        label="操作">
-                    <template slot-scope="scope">
+                <el-table-column label="操作">
+                    <template slot-scope = "scope">
                         <el-tooltip effect="dark" content="锁定" placement="top-start">
                             <el-button type="warning" icon="el-icon-lock" circle @click="lock(scope.row)"></el-button>
                         </el-tooltip>
@@ -89,7 +88,6 @@
                             <el-button type="primary" icon="el-icon-edit" circle @click="upd(scope.row)"></el-button>
                         </el-tooltip>
                     </template>
-
                 </el-table-column>
             </el-table>
         </template>
@@ -147,9 +145,6 @@
                         _this.page.currentPage = res.data.data.current;
                         _this.page.total = res.data.data.total;
                         _this.page.pageSize = res.data.data.size;
-                        for (let i = 0; i < res.data.data.records.length; i++) {
-                            res.data.data.records[i].createTime = new Date(res.data.data.records[i].createTime).toLocaleDateString();
-                        }
                         _this.user = res.data.data.records;
                     })
                 } else {
@@ -157,9 +152,6 @@
                         _this.page.currentPage = res.data.data.current;
                         _this.page.total = res.data.data.total;
                         _this.page.pageSize = res.data.data.size;
-                        for (let i = 0; i < res.data.data.records.length; i++) {
-                            res.data.data.records[i].createTime = new Date(res.data.data.records[i].createTime).toLocaleDateString();
-                        }
                         _this.user = res.data.data.records;
                     })
                 }
@@ -173,7 +165,7 @@
             },
             lock(row) {
                 let _this = this;
-                axios.post("/user/lock/", row).then((res) => {
+                axios.post("/user/lock", row).then((res) => {
                     this.$notify({
                         title: '成功',
                         message: res.data.msg,
@@ -190,7 +182,7 @@
                     type: 'warning'
                 }).then(() => {
                     axios.delete("/user/delete/" + row.id).then((res) => {
-                        if (res.data.code == '001') {
+                        if (res.data.code === '200') {
                             this.$notify({
                                 title: '成功',
                                 message: res.data.msg,

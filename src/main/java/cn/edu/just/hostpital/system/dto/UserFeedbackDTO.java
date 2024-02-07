@@ -1,8 +1,10 @@
 package cn.edu.just.hostpital.system.dto;
 
+import cn.edu.just.hostpital.system.common.CustomDateSerializer;
 import cn.edu.just.hostpital.system.validation.group.Delete;
 import cn.edu.just.hostpital.system.validation.group.Save;
 import cn.edu.just.hostpital.system.validation.group.Update;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -68,5 +70,6 @@ public class UserFeedbackDTO {
     private String remark;
 
     @ApiModelProperty("创建时间")
+    @JsonSerialize(using = CustomDateSerializer.class)
     private Date createTime;
 }

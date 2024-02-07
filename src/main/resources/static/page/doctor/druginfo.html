@@ -15,7 +15,7 @@
     <div class="search">
         <el-input v-model="search.id" placeholder="请输入药品编号"
                   onKeypress="return(/^[0-9]*$/.test(String.fromCharCode(event.keyCode)))"></el-input>
-        <el-input v-model="search.drugname" placeholder="请输入药品名称"></el-input>
+        <el-input v-model="search.medicationName" placeholder="请输入药品名称"></el-input>
         <el-button icon="el-icon-search" circle @click="select"></el-button>
         <el-button icon="el-icon-refresh-right" circle style="float: right" @click="refresh"></el-button>
     </div>
@@ -35,11 +35,11 @@
                         label="药品编号">
                 </el-table-column>
                 <el-table-column
-                        prop="drugname"
+                        prop="medicationName"
                         label="药品名称">
                 </el-table-column>
                 <el-table-column
-                        prop="manufactor"
+                        prop="manufacturer"
                         label="生产厂家">
                 </el-table-column>
                 <el-table-column
@@ -82,10 +82,10 @@
             width="60%">
         <el-form ref="form" :model="newdrug" class="demo-form-inline" :inline="true" label-width="100px">
             <el-form-item label="药品名称">
-                <el-input v-model="newdrug.drugname"></el-input>
+                <el-input v-model="newdrug.medicationName"></el-input>
             </el-form-item>
             <el-form-item label="生产厂家">
-                <el-input v-model="newdrug.manufactor"></el-input>
+                <el-input v-model="newdrug.manufacturer"></el-input>
             </el-form-item>
             <el-form-item label="单价">
                 <el-input v-model="newdrug.price"
@@ -121,10 +121,10 @@
                 <el-input v-model="upddrug.id" :disabled="true"></el-input>
             </el-form-item>
             <el-form-item label="药品名称">
-                <el-input v-model="upddrug.drugname"></el-input>
+                <el-input v-model="upddrug.medicationName"></el-input>
             </el-form-item>
             <el-form-item label="生产厂家">
-                <el-input v-model="upddrug.manufactor"></el-input>
+                <el-input v-model="upddrug.manufacturer"></el-input>
             </el-form-item>
             <el-form-item label="单价">
                 <el-input v-model="upddrug.price"
@@ -159,7 +159,7 @@
             return {
                 search: {
                     id: '',
-                    drugname: '',
+                    medicationName: '',
                 },
                 page: {
                     currentPage: 1,
@@ -168,8 +168,8 @@
                 },
                 drug: [{
                     id: '',
-                    drugname: '',
-                    manufactor: '',
+                    medicationName: '',
+                    manufacturer: '',
                     price: '',
                     unit: '',
                     stock: '',
@@ -177,8 +177,8 @@
                     createTime: '',
                 }],
                 newdrug: {
-                    drugname: '',
-                    manufactor: '',
+                    medicationName: '',
+                    manufacturer: '',
                     price: '',
                     unit: '',
                     stock: '',
@@ -188,8 +188,8 @@
                 upddrugdialog: false,
                 upddrug: {
                     id: '',
-                    drugname: '',
-                    manufactor: '',
+                    medicationName: '',
+                    manufacturer: '',
                     price: '',
                     unit: '',
                     stock: '',
@@ -224,7 +224,7 @@
             },
             add() {
                 let _this = this;
-                if (_this.newdrug.drugname == '' || _this.newdrug.manufactor == '' || _this.newdrug.price == '' || _this.newdrug.unit == '' || _this.newdrug.stock == '') {
+                if (_this.newdrug.medicationName == '' || _this.newdrug.manufacturer == '' || _this.newdrug.price == '' || _this.newdrug.unit == '' || _this.newdrug.stock == '') {
                     this.$notify({
                         title: '警告',
                         message: '请将信息填写完整',
@@ -239,8 +239,8 @@
                                 type: 'success'
                             });
                             _this.select();
-                            _this.newdrug.drugname = '';
-                            _this.newdrug.manufactor = '';
+                            _this.newdrug.medicationName = '';
+                            _this.newdrug.manufacturer = '';
                             _this.newdrug.price = '';
                             _this.newdrug.unit = '';
                             _this.newdrug.stock = '';
@@ -256,7 +256,7 @@
             },
             refresh() {
                 let _this = this;
-                _this.search.drugname = '';
+                _this.search.medicationName = '';
                 _this.search.id = '';
                 _this.select();
             },
@@ -264,8 +264,8 @@
                 let _this = this;
                 _this.upddrugdialog = true;
                 _this.upddrug.id = row.id;
-                _this.upddrug.drugname = row.drugname;
-                _this.upddrug.manufactor = row.manufactor;
+                _this.upddrug.medicationName = row.medicationName;
+                _this.upddrug.manufacturer = row.manufacturer;
                 _this.upddrug.price = row.price;
                 _this.upddrug.unit = row.unit;
                 _this.upddrug.stock = row.stock;

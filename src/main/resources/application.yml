@@ -47,9 +47,9 @@ knife4j:
 
 request:
   white-list: # 白名单
-    adminPage: /page/admin/**
-    userPage: /page/user/**
-    doctorPage: /page/doctor/**
+    adminPage: /page/admin/admin.html
+    userPage: /page/user/user.html
+    doctorPage: /page/doctor/doctor.html
     loginPage: /page/login/login.html
     urls:
       - /admin/login
@@ -62,5 +62,5 @@ request:
       - /img/**
       - /js/**
       - /plugins/**
-      - /swagger/**
       - /doc.html
+      - /favicon.ico

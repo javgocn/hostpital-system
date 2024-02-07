@@ -1,7 +1,9 @@
 package cn.edu.just.hostpital.system.dto;
 
+import cn.edu.just.hostpital.system.common.CustomDateSerializer;
 import cn.edu.just.hostpital.system.validation.group.Delete;
 import cn.edu.just.hostpital.system.validation.group.Save;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -47,8 +49,10 @@ public class AnnouncementDTO {
     private Integer status;
 
     @ApiModelProperty("发布时间")
+    @JsonSerialize(using = CustomDateSerializer.class)
     private Date createTime;
 
     @ApiModelProperty("更新时间")
+    @JsonSerialize(using = CustomDateSerializer.class)
     private Date updateTime;
 }

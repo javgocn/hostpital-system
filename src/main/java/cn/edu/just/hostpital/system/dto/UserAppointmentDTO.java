@@ -1,9 +1,11 @@
 package cn.edu.just.hostpital.system.dto;
 
+import cn.edu.just.hostpital.system.common.CustomDateSerializer;
 import cn.edu.just.hostpital.system.validation.group.Delete;
 import cn.edu.just.hostpital.system.validation.group.Save;
 import cn.edu.just.hostpital.system.validation.group.Select;
 import cn.edu.just.hostpital.system.validation.group.Update;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,6 +31,7 @@ public class UserAppointmentDTO {
     private Integer id;
 
     @ApiModelProperty("就诊时间")
+    @JsonSerialize(using = CustomDateSerializer.class)
     private Date consultTime;
 
     @ApiModelProperty("预约科室号")
@@ -56,5 +59,6 @@ public class UserAppointmentDTO {
     private String remark;
 
     @ApiModelProperty("预约时间")
+    @JsonSerialize(using = CustomDateSerializer.class)
     private Date createTime;
 }

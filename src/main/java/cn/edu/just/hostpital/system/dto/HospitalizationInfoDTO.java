@@ -1,8 +1,10 @@
 package cn.edu.just.hostpital.system.dto;
 
+import cn.edu.just.hostpital.system.common.CustomDateSerializer;
 import cn.edu.just.hostpital.system.validation.group.Delete;
 import cn.edu.just.hostpital.system.validation.group.Save;
 import cn.edu.just.hostpital.system.validation.group.Update;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotBlank;
@@ -39,10 +41,12 @@ public class HospitalizationInfoDTO {
 
     @ApiModelProperty("入院日期")
     @NotNull(message = "入院日期不能为空", groups = {Save.class})
+    @JsonSerialize(using = CustomDateSerializer.class)
     private Date admissionDate;
 
     @ApiModelProperty("出院日期")
     @NotNull(message = "出院日期不能为空", groups = {Update.class})
+    @JsonSerialize(using = CustomDateSerializer.class)
     private Date dischargeDate;
 
     @ApiModelProperty("总费用")
@@ -55,8 +59,10 @@ public class HospitalizationInfoDTO {
     private String remark;
 
     @ApiModelProperty("创建时间")
+    @JsonSerialize(using = CustomDateSerializer.class)
     private Date createTime;
 
     @ApiModelProperty("更新时间")
+    @JsonSerialize(using = CustomDateSerializer.class)
     private Date updateTime;
 }
