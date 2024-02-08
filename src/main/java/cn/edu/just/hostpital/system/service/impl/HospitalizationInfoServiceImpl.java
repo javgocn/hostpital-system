@@ -65,6 +65,8 @@ public class HospitalizationInfoServiceImpl extends ServiceImpl<HospitalizationI
                 queryWrapper.eq("patient_id", hospitalizationInfo.getPatientId());
             }
         }
+        queryWrapper.ne("status", HospitalizationType.DELETED.getCode());
+        queryWrapper.orderByDesc("create_time");
 
         hospitalizationInfoIPage = hospitalizationInfoMapper.selectPage(page, queryWrapper);
         return Result.success(hospitalizationInfoIPage);

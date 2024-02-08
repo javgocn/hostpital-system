@@ -45,6 +45,7 @@ public class PrescriptionDrugServiceImpl extends ServiceImpl<PrescriptionDrugMap
         IPage<PrescriptionDrug> prescriptionDrugIPage = null;
         QueryWrapper<PrescriptionDrug> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("prescriptionId", id);
+        queryWrapper.orderByDesc("create_time");
         prescriptionDrugIPage = prescriptionDrugMapper.selectPage(page, queryWrapper);
         return Result.success(prescriptionDrugIPage);
     }

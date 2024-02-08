@@ -13,7 +13,7 @@
 <body>
 <div id="app">
     <div class="search">
-        <el-input v-model="search.deptname" placeholder="请输入科室名"></el-input>
+        <el-input v-model="search.departmentName" placeholder="请输入科室名"></el-input>
         <el-button icon="el-icon-search" circle @click="select"></el-button>
         <el-button icon="el-icon-refresh-right" circle @click="refresh" style="float: right"></el-button>
     </div>
@@ -29,7 +29,7 @@
                         type="selection">
                 </el-table-column>
                 <el-table-column
-                        prop="deptname"
+                        prop="departmentName"
                         label="部门名称">
                 </el-table-column>
                 <el-table-column
@@ -101,10 +101,10 @@
         data() {
             return {
                 search: {
-                    deptname: '',
+                    departmentName: '',
                 },
                 dept: [{
-                    deptname: "",
+                    departmentName: "",
                     remark: "",
                     createTime: ""
                 }],
@@ -114,12 +114,12 @@
                     total: 0
                 },
                 newdept: {
-                    deptname: '',
+                    departmentName: '',
                     remark: '',
                 },
                 updates: {
                     id: 1,
-                    deptname: '',
+                    departmentName: '',
                     remark: '',
                 },
                 doctorData: [{
@@ -159,13 +159,13 @@
             },
             refresh() {
                 let _this = this;
-                _this.search.deptname = '';
+                _this.search.departmentName = '';
                 _this.select();
             },
             check(row) {
                 let _this = this;
                 _this.doctorVisible = true;
-                axios.post("/doctor/selectdoctor/" + row.deptname).then((res) => {
+                axios.post("/doctor/selectdoctor/" + row.departmentName).then((res) => {
                     _this.doctorData = res.data.data;
                 })
             }

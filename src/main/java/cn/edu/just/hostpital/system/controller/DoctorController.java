@@ -46,7 +46,7 @@ public class DoctorController {
 
     @ApiOperation(value = "锁定账户")
     @PostMapping("/lock")
-    public Result<?> lock(@RequestBody @Validated(Update.class) DoctorInfoDTO doctorInfoDTO) {
+    public Result<?> lock(@RequestBody DoctorInfoDTO doctorInfoDTO) {
         return doctorService.lock(doctorInfoDTO);
     }
 
@@ -69,7 +69,7 @@ public class DoctorController {
     }
 
     @ApiOperation(value = "删除医生")
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public Result<?> delete(@PathVariable("id") @NotNull(message = "医生 id 不能为空") Integer id) {
         return doctorService.delete(id);
     }

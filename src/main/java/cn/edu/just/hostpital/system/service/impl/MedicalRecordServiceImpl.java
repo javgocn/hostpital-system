@@ -2,6 +2,7 @@ package cn.edu.just.hostpital.system.service.impl;
 
 import cn.edu.just.hostpital.system.common.Result;
 import cn.edu.just.hostpital.system.dto.MedicalRecordDTO;
+import cn.edu.just.hostpital.system.enums.StatusType;
 import cn.edu.just.hostpital.system.model.MedicalRecord;
 import cn.edu.just.hostpital.system.mapper.MedicalRecordMapper;
 import cn.edu.just.hostpital.system.service.MedicalRecordService;
@@ -46,6 +47,8 @@ public class MedicalRecordServiceImpl extends ServiceImpl<MedicalRecordMapper, M
                 queryWrapper.eq("patient_id", medicalRecord.getPatientId());
             }
         }
+        queryWrapper.ne("status", StatusType.DELETED.getCode());
+        queryWrapper.orderByDesc("create_time");
         medicalRecordIPage = medicalRecordMapper.selectPage(page1, queryWrapper);
         return Result.success(medicalRecordIPage);
     }

@@ -86,7 +86,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "获取用户数量")
-    @PostMapping("/getUserNum")
+    @PostMapping("/getNum")
     Result<?> getUserMenus() {
         return userService.getUserMenus();
     }

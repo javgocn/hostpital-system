@@ -9,16 +9,39 @@
     <script src="../../plugins/js/axios-0.18.0.js"></script>
     <link rel="stylesheet" href="../../plugins/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="../../css/admin.css">
+    <link rel="stylesheet" href="../../css/user-home.css">
 </head>
-<body>
-<body style="height: 100%">
+<body style="height: 100%;">
 <div id="main" style="height: 100%">
-    <el-container>
+    <el-container style="height: 100%;">
         <el-header id="header">
             <div id="title">
                 <img id="hospital" src="../../img/icon/logo.png"></img>
-                <p style="float: left;margin-left: 5px">医护管理系统</p>
+                <p style="float: left; margin-left: 5px; font-size: 20px;">志雄医院</p>
             </div>
+            <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect" style="background-color: rgb(250,250,250)">
+                <el-menu-item index="1" @click="address='../index/userindex.html'">
+                    <i class="el-icon-s-home"></i><span slot="title">首页</span>
+                </el-menu-item>
+                <el-menu-item index="2" @click="address='../user/myappointinfo.html'">
+                    <i class="el-icon-phone"></i><span slot="title">预约信息</span>
+                </el-menu-item>
+                <el-menu-item index="3" @click="address='../user/caseloginfo.html'">
+                    <i class="el-icon-notebook-1"></i><span slot="title">病历信息</span>
+                </el-menu-item>
+                <el-menu-item index="4" @click="address='../user/prescinfo.html'">
+                    <i class="el-icon-document-copy"></i><span slot="title">处方信息</span>
+                </el-menu-item>
+                <el-menu-item index="5" @click="address='../user/liveinfo.html'">
+                    <i class="el-icon-office-building"></i><span slot="title">住院信息</span>
+                </el-menu-item>
+                <el-menu-item index="6" @click="address='../user/feedbackinfo.html'">
+                    <i class="el-icon-chat-line-round"></i><span slot="title">反馈信息</span>
+                </el-menu-item>
+                <el-menu-item index="7" @click="address='../user/noticeinfo.html'">
+                    <i class="el-icon-data-board"></i><span slot="title">公告信息</span>
+                </el-menu-item>
+            </el-menu>
             <div id="name">
                 <img src="../../img/icon/draw.png"
                      style="margin-top: 15px;margin-right:10px;float:left; height: 26px;width: 26px">
@@ -35,80 +58,9 @@
             </div>
         </el-header>
         <el-container>
-            <el-aside width="300px">
-                <el-menu>
-                    <el-menu-item index="1" @click="address='../index/userindex.html'">
-                        <i class="el-icon-s-home"></i><span slot="title">首&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;页</span>
-                    </el-menu-item>
-                    <el-submenu index="2">
-                        <template slot="title"><i class="el-icon-s-marketing"></i><span>科室管理</span></template>
-                        <el-menu-item-group>
-                            <el-menu-item index="2-1" style="font-size: 12px" @click="address='../user/deptinfo.html'">
-                                科室信息
-                            </el-menu-item>
-                        </el-menu-item-group>
-                    </el-submenu>
-                    <el-submenu index="3">
-                        <template slot="title"><i class="el-icon-s-help"></i><span>医生管理</span></template>
-                        <el-menu-item-group>
-                            <el-menu-item index="3-1" style="font-size: 12px" @click="address='../user/doctorinfo.html'">
-                                医生信息
-                            </el-menu-item>
-                        </el-menu-item-group>
-                    </el-submenu>
-                    <el-submenu index="4">
-                        <template slot="title"><i class="el-icon-phone"></i><span>我的预约</span></template>
-                        <el-menu-item-group>
-                            <el-menu-item index="4-1" style="font-size: 12px"
-                                          @click="address='../user/myappointinfo.html'">预约信息
-                            </el-menu-item>
-                        </el-menu-item-group>
-                    </el-submenu>
-                    <el-submenu index="5">
-                        <template slot="title"><i class="el-icon-notebook-1"></i><span>我的病历</span></template>
-                        <el-menu-item-group>
-                            <el-menu-item index="5-1" style="font-size: 12px" @click="address='../user/caseloginfo.html'">
-                                病历信息
-                            </el-menu-item>
-                        </el-menu-item-group>
-                    </el-submenu>
-                    <el-submenu index="6">
-                        <template slot="title"><i class="el-icon-document-copy"></i><span>我的处方</span></template>
-                        <el-menu-item-group>
-                            <el-menu-item index="6-1" style="font-size: 12px" @click="address='../user/prescinfo.html'">
-                                处方信息
-                            </el-menu-item>
-                        </el-menu-item-group>
-                    </el-submenu>
-                    <el-submenu index="7">
-                        <template slot="title"><i class="el-icon-office-building"></i><span>我的住院</span></template>
-                        <el-menu-item-group>
-                            <el-menu-item index="7-1" style="font-size: 12px"
-                                          @click="address='../user/liveinfo.html'">住院信息
-                            </el-menu-item>
-                        </el-menu-item-group>
-                    </el-submenu>
-                    <el-submenu index="8">
-                        <template slot="title"><i class="el-icon-chat-line-round"></i><span>反馈留言</span></template>
-                        <el-menu-item-group>
-                            <el-menu-item index="8-1" style="font-size: 12px"
-                                          @click="address='../user/feedbackinfo.html'">反馈信息
-                            </el-menu-item>
-                        </el-menu-item-group>
-                    </el-submenu>
-                    <el-submenu index="9">
-                        <template slot="title"><i class="el-icon-data-board"></i><span>系统公告</span></template>
-                        <el-menu-item-group>
-                            <el-menu-item index="9-1" style="font-size: 12px"
-                                          @click="address='../user/noticeinfo.html'">公告信息
-                            </el-menu-item>
-                        </el-menu-item-group>
-                    </el-submenu>
-                </el-menu>
-            </el-aside>
             <el-container>
-                <el-main style="overflow-y: hidden">
-                    <iframe :src="address" style="width: 100%;height: 100%;" frameborder="0">
+                <el-main style="overflow-y: hidden;">
+                    <iframe :src="address" style="width: 85%; height: 100%; padding-left: 8%;" frameborder="0">
                     </iframe>
                 </el-main>
             </el-container>
@@ -134,13 +86,14 @@
   </span>
     </el-dialog>
 </div>
-</body>
+</>
 
 <script>
     new Vue({
         el: "#main",
         data() {
             return {
+                activeIndex: '1',
                 username:'username',
                 address:'../index/userindex.html',
                 pwddialog:false,
@@ -224,7 +177,10 @@
                     });
                 });
             }
-        }
+        },
+        handleSelect(key, keyPath) {
+            this.activeIndex = key;
+        },
     })
 </script>
 </body>

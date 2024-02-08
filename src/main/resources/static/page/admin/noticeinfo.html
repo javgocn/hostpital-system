@@ -11,35 +11,35 @@
 </head>
 <body>
 <div id="app">
+    <!--  按钮  -->
     <el-input v-model="search.subject" placeholder="请输入查询主题" style="width: 200px"></el-input>
     <el-button type="primary" @click="select">查询</el-button>
     <el-button type="primary" @click="dialog=true">新增公告</el-button>
     <el-button icon="el-icon-refresh-right" circle style="float: right" @click="refresh"></el-button>
     <hr>
     <br>
+    <!--  内容  -->
     <div style="height: 400px">
         <template>
             <el-table
                     :data="notice"
                     border
                     style="width: 100%;">
-                <el-table-column
-                        type="selection">
+                <el-table-column type="selection">
                 </el-table-column>
                 <el-table-column
                         prop="subject"
                         label="公告主题">
                 </el-table-column>
                 <el-table-column
-                        prop="initiator"
+                        prop="author"
                         label="发布人">
                 </el-table-column>
                 <el-table-column
                         prop="createTime"
                         label="发布时间">
                 </el-table-column>
-                <el-table-column
-                        label="操作">
+                <el-table-column label="操作">
                     <template slot-scope="scope">
                         <el-tooltip effect="dark" content="查看公告" placement="top-start">
                             <el-button type="primary" icon="el-icon-s-order" circle
@@ -53,6 +53,7 @@
             </el-table>
         </template>
     </div>
+    <!--   分页  -->
     <div>
         <el-pagination
                 @current-change="handleCurrentChange"
@@ -62,9 +63,8 @@
                 :total="page.total">
         </el-pagination>
     </div>
-    <el-dialog
-            title="发布公告"
-            :visible.sync="dialog">
+    <!--  发布公告  -->
+    <el-dialog title="发布公告" :visible.sync="dialog">
         <el-form ref="form" :model="form" label-width="80px">
             <el-form-item label="公告主题">
                 <el-input v-model="form.subject"></el-input>
@@ -78,12 +78,11 @@
             </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
-    <el-button type="primary" @click="submit">确 定</el-button>
-  </span>
+            <el-button type="primary" @click="submit">确 定</el-button>
+        </span>
     </el-dialog>
-    <el-dialog
-            title="公告"
-            :visible.sync="contentdialog">
+    <!--  查看公告  -->
+    <el-dialog title="公告" :visible.sync="contentdialog">
         <el-form ref="form" :model="form" label-width="80px">
             <el-form-item label="公告内容">
                 <el-input
@@ -93,14 +92,11 @@
                         :disabled="true">
                 </el-input>
             </el-form-item>
-
         </el-form>
-
         <span slot="footer" class="dialog-footer">
-    <el-button type="primary" @click="contentdialog=false">确 定</el-button>
-  </span>
+            <el-button type="primary" @click="contentdialog=false">确 定</el-button>
+        </span>
     </el-dialog>
-
 </div>
 
 <script>
@@ -113,7 +109,7 @@
                 },
                 notice: [{
                     subject: '',
-                    initiator: '',
+                    author: '',
                     createTime: '',
                     content: '',
                 }],
@@ -124,7 +120,9 @@
                 },
                 form: {
                     subject: '',
-                    content: ''
+                    content: '',
+                    author: '',
+                    authorId: ''
                 },
                 dialog: false,
                 contentdialog: false,
@@ -133,6 +131,14 @@
         },
         mounted() {
             this.select();
+            let adminInfo = localStorage.getItem("adminInfo");
+            if (adminInfo) {
+                adminInfo = JSON.parse(adminInfo);
+                this.form.author = adminInfo.name;
+                this.form.authorId = adminInfo.id;
+            } else {
+                console.error("Admin information not found in localStorage.");
+            }
         },
         methods: {
             handleCurrentChange(currentPage) {
@@ -141,7 +147,7 @@
             },
             select() {
                 let _this = this;
-                axios.post("/notice/select/" + _this.page.currentPage + "/" + _this.page.pageSize, _this.search).then((res) => {
+                axios.post("/announcement/select/" + _this.page.currentPage + "/" + _this.page.pageSize, _this.search).then((res) => {
                     _this.page.currentPage = res.data.data.current;
                     _this.page.total = res.data.data.total;
                     _this.page.pageSize = res.data.data.size;
@@ -155,9 +161,9 @@
             },
             submit() {
                 let _this = this;
-                var adminStr = localStorage.getItem("adminInfo");
-                var adminObj = JSON.parse(adminStr);
-                var name = adminObj.name;
+                let adminStr = localStorage.getItem("adminInfo");
+                let adminObj = JSON.parse(adminStr);
+                let name = adminObj.name;
                 if (_this.form.subject === '' || _this.form.content === '') {
                     this.$notify({
                         title: '警告',
@@ -197,7 +203,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    axios.post("/notice/delete/" + row.id).then((res) => {
+                    axios.post("/announcement/delete/" + row.id).then((res) => {
                         this.$message({
                             type: 'success',
                             message: res.data.msg

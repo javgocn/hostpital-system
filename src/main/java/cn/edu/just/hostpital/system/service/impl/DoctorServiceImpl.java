@@ -17,6 +17,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -105,8 +107,24 @@ public class DoctorServiceImpl extends ServiceImpl<DoctorInfoMapper, DoctorInfo>
                 queryWrapper.eq("position_id", doctorInfo.getPositionId());
             }
         }
+        queryWrapper.ne("status", StatusType.DELETED.getCode());
         doctorInfoIPage = doctorInfoMapper.selectPage(page, queryWrapper);
-        return Result.success(doctorInfoIPage, "查询成功");
+        List<DoctorInfo> records = doctorInfoIPage.getRecords();
+        List<DoctorInfoDTO> resultRecords = Lists.newArrayList();
+        records.forEach(record -> {
+            DoctorInfoDTO result = DataTransferUtil.shallowCopy(record, DoctorInfoDTO.class);
+            Department department = departmentMapper.selectById(record.getDepartmentId());
+            result.setDepartmentName(Optional.ofNullable(department).map(Department::getDepartmentName).orElse(""));
+            PositionInfo positionInfo = positionInfoMapper.selectById(record.getPositionId());
+            result.setPositionName(Optional.ofNullable(positionInfo).map(PositionInfo::getPositionName).orElse(""));
+            result.setPassword(null);
+            resultRecords.add(result);
+        });
+
+        IPage<DoctorInfoDTO> doctorInfoIPageResult = new Page<>();
+        doctorInfoIPageResult.setRecords(resultRecords);
+
+        return Result.success(doctorInfoIPageResult, "查询成功");
     }
 
     @Override
@@ -117,6 +135,9 @@ public class DoctorServiceImpl extends ServiceImpl<DoctorInfoMapper, DoctorInfo>
         DoctorInfo doctorInfo = doctorInfoMapper.selectById(id);
         if (Objects.isNull(doctorInfo)) {
             return Result.fail("该医生不存在");
+        }
+        if (Objects.equals(doctorInfo.getStatus(), StatusType.DELETED.getCode())) {
+            return Result.fail("该医生已被删除");
         }
         DoctorInfoDTO doctorInfoDTO = DataTransferUtil.shallowCopy(doctorInfo, DoctorInfoDTO.class);
         return Result.success(doctorInfoDTO, "查询成功");
@@ -133,7 +154,7 @@ public class DoctorServiceImpl extends ServiceImpl<DoctorInfoMapper, DoctorInfo>
         int insert = doctorInfoMapper.insert(doctorInfo);
         DoctorInfoDTO resultDoctorInfoDTO = DataTransferUtil.shallowCopy(doctorInfo, DoctorInfoDTO.class);
         Department department = departmentMapper.selectById(doctorInfo.getDepartmentId());
-        resultDoctorInfoDTO.setDepartmentName(Optional.ofNullable(department).map(Department::getName).orElse(""));
+        resultDoctorInfoDTO.setDepartmentName(Optional.ofNullable(department).map(Department::getDepartmentName).orElse(""));
         PositionInfo positionInfo = positionInfoMapper.selectById(doctorInfo.getPositionId());
         resultDoctorInfoDTO.setPositionName(Optional.ofNullable(positionInfo).map(PositionInfo::getPositionName).orElse(""));
         return insert > 0 ? Result.success(resultDoctorInfoDTO, "添加成功") : Result.fail("添加失败");
@@ -155,12 +176,14 @@ public class DoctorServiceImpl extends ServiceImpl<DoctorInfoMapper, DoctorInfo>
             return Result.fail("状态不能为空");
         }
         if (doctorInfo.getStatus().equals(StatusType.ENABLE.getCode())) {
-            doctorInfoMapper.updateById(doctorInfo);
-            return Result.success("解锁成功");
-        }
-        if (doctorInfo.getStatus().equals(StatusType.DISABLE.getCode())) {
+            doctorInfo.setStatus(StatusType.DISABLE.getCode());
             doctorInfoMapper.updateById(doctorInfo);
             return Result.success("锁定成功");
+        }
+        if (doctorInfo.getStatus().equals(StatusType.DISABLE.getCode())) {
+            doctorInfo.setStatus(StatusType.ENABLE.getCode());
+            doctorInfoMapper.updateById(doctorInfo);
+            return Result.success("解锁成功");
         }
         return Result.fail("状态错误");
     }
@@ -183,7 +206,7 @@ public class DoctorServiceImpl extends ServiceImpl<DoctorInfoMapper, DoctorInfo>
         int update = doctorInfoMapper.updateById(doctorInfo);
         DoctorInfoDTO resultDoctorInfoDTO = DataTransferUtil.shallowCopy(doctorInfo, DoctorInfoDTO.class);
         Department department = departmentMapper.selectById(doctorInfo.getDepartmentId());
-        resultDoctorInfoDTO.setDepartmentName(Optional.ofNullable(department).map(Department::getName).orElse(""));
+        resultDoctorInfoDTO.setDepartmentName(Optional.ofNullable(department).map(Department::getDepartmentName).orElse(""));
         PositionInfo positionInfo = positionInfoMapper.selectById(doctorInfo.getPositionId());
         resultDoctorInfoDTO.setPositionName(Optional.ofNullable(positionInfo).map(PositionInfo::getPositionName).orElse(""));
         return update > 0 ? Result.success(resultDoctorInfoDTO, "更新成功") : Result.fail("更新失败");

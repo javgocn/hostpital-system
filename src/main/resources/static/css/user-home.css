@@ -1,0 +1,25 @@
+#header {
+    display: flex; /* 使用弹性盒布局 */
+    justify-content: space-between; /* 在项目之间保持平均的空间 */
+    align-items: center; /* 垂直居中对齐 */
+}
+
+#title {
+    flex: 1; /* 使其可以占据空间 */
+    display: flex; /* 启用弹性盒子 */
+    align-items: center; /* 垂直居中对齐 */
+    background-color: rgb(250,250,250); /* 设置背景颜色 */
+    box-shadow: none; /* 去掉阴影 */
+}
+
+.el-menu-demo {
+    flex: 4; /* 分配更多空间给菜单 */
+    margin-left: 10%; /* 使菜单与标题之间有一定的间距 */
+}
+
+#name {
+    flex: 1; /* 使其可以占据空间 */
+    display: flex; /* 启用弹性盒子 */
+    justify-content: flex-end; /* 推到容器的末端 */
+    align-items: center; /* 垂直居中对齐 */
+}

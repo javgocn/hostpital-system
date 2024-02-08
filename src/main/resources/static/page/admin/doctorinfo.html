@@ -12,8 +12,9 @@
 </head>
 <body>
 <div id="app">
+    <!--  搜索框  -->
     <div class="search">
-        <el-input v-model="search.username" placeholder="请输入工号" class="in"></el-input>
+        <el-input v-model="search.jobNumber" placeholder="请输入工号" class="in"></el-input>
         <el-input v-model="search.name" placeholder="请输入姓名" class="in"></el-input>
         <el-button icon="el-icon-search" circle @click="select"></el-button>
         <el-button type="primary" @click="adddialog=true">新增</el-button>
@@ -22,16 +23,14 @@
     <hr>
     <br>
     <div style="height: 400px">
+        <!--    表格内容    -->
         <template>
-            <el-table
-                    :data="doctor"
-                    border
-                    style="width: 100%;">
+            <el-table :data="doctor" border style="width: 100%;">
                 <el-table-column
                         type="selection">
                 </el-table-column>
                 <el-table-column
-                        prop="username"
+                        prop="jobNumber"
                         label="工号"
                         width="70px">
                 </el-table-column>
@@ -41,12 +40,12 @@
                         width="70px">
                 </el-table-column>
                 <el-table-column
-                        prop="deptname"
+                        prop="departmentName"
                         label="科室"
                         width="70px">
                 </el-table-column>
                 <el-table-column
-                        prop="position"
+                        prop="positionName"
                         label="职位"
                         width="70px">
                 </el-table-column>
@@ -63,7 +62,7 @@
                         label="性别"
                         width="70px">
                     <template slot-scope="scope">
-                        <span>{{scope.row.sex == 1 ? "男" : "女"}}</span>
+                        <span>{{scope.row.sex === 1 ? "男" : "女"}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -71,8 +70,8 @@
                         label="状态"
                         width="70px">
                     <template slot-scope="scope">
-                        <el-tag type="success" v-if="scope.row.status==0">启用</el-tag>
-                        <el-tag type="warning" v-if="scope.row.status==1">禁用</el-tag>
+                        <el-tag type="success" v-if="scope.row.status === 0">启用</el-tag>
+                        <el-tag type="warning" v-if="scope.row.status === 1">禁用</el-tag>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -97,6 +96,7 @@
             </el-table>
         </template>
     </div>
+    <!--  分页  -->
     <div>
         <el-pagination
                 @current-change="handleCurrentChange"
@@ -106,14 +106,13 @@
                 :total="page.total">
         </el-pagination>
     </div>
-
-    <el-dialog
-            title="新增医生"
-            :visible.sync="adddialog"
-            :before-close="handleClose"
-    >
+    <!-- 新增医生 -->
+    <el-dialog title="新增医生" :visible.sync="adddialog" :before-close="handleClose">
         <el-form ref="form" :model="newdoctor" class="demo-form-inline" :inline="true" label-width="70px">
             <el-form-item label="工号">
+                <el-input v-model="newdoctor.jobNumber" :disabled="true"></el-input>
+            </el-form-item>
+            <el-form-item label="账号">
                 <el-input v-model="newdoctor.username"></el-input>
             </el-form-item>
             <el-form-item label="密码">
@@ -122,28 +121,58 @@
             <el-form-item label="姓名">
                 <el-input v-model="newdoctor.name"></el-input>
             </el-form-item>
-
+            <el-form-item label="电话">
+                <el-input v-model="newdoctor.telephone" style="width: 110%"></el-input>
+            </el-form-item>
+            <el-form-item label="邮箱">
+                <el-input v-model="newdoctor.email"></el-input>
+            </el-form-item>
+            <el-form-item label="性别">
+                <el-radio-group v-model="newdoctor.sex">
+                    <el-radio :label="1">男</el-radio>
+                    <el-radio :label="0">女</el-radio>
+                </el-radio-group>
+            </el-form-item>
+            <el-form-item label="生日">
+                <el-date-picker
+                        v-model="newdoctor.birthday"
+                        type="date"
+                        placeholder="请选择生日"
+                        style="width: 85%">
+                </el-date-picker>
+            </el-form-item>
+            <!--<el-form-item label="地址">
+                <el-input
+                        type="textarea"
+                        autosize
+                        placeholder="请输入地址"
+                        v-model="newdoctor.address"
+                        style="width: 90%">
+                </el-input>
+            </el-form-item>-->
+            <!-- 部门选择 -->
             <el-form-item label="部门">
-                <el-select v-model="newdoctor.deptname" placeholder="请选择">
+                <el-select v-model="newdoctor.departmentName" placeholder="请选择" @focus="fetchDeptData" @change="handleDeptChange">
                     <el-option
-                            v-for="item in dept"
-                            :key="item.deptname"
-                            :label="item.deptname"
-                            :value="item.deptname">
-                    </el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item label="职位">
-                <el-select v-model="newdoctor.position" placeholder="请选择">
-                    <el-option
-                            v-for="item in posi"
-                            :key="item.value"
-                            :label="item.value"
-                            :value="item.value">
+                            v-for="deptItem in dept"
+                            :key="deptItem.id"
+                            :label="deptItem.departmentName"
+                            :value="deptItem.departmentName">
                     </el-option>
                 </el-select>
             </el-form-item>
 
+            <!-- 职位选择 -->
+            <el-form-item label="职位">
+                <el-select v-model="newdoctor.positionName" placeholder="请选择" @focus="fetchPosiData" @change="handlePosiChange">
+                    <el-option
+                            v-for="posiItem in posi"
+                            :key="posiItem.positionId"
+                            :label="posiItem.positionName"
+                            :value="posiItem.positionName">
+                    </el-option>
+                </el-select>
+            </el-form-item>
         </el-form>
         <el-button type="primary" @click="add">确 定</el-button>
     </el-dialog>
@@ -156,6 +185,9 @@
 
         <el-form ref="form" :model="upddoc" class="demo-form-inline" :inline="true">
             <el-form-item label="工号">
+                <el-input v-model="upddoc.jobNumber" :disabled="true"></el-input>
+            </el-form-item>
+            <el-form-item label="账号">
                 <el-input v-model="upddoc.username" :disabled="true"></el-input>
             </el-form-item>
             <el-form-item label="密码">
@@ -164,23 +196,26 @@
             <el-form-item label="姓名">
                 <el-input v-model="upddoc.name" placeholder="请输入姓名(必填)"></el-input>
             </el-form-item>
-            <el-form-item label="科室">
-                <el-select v-model="upddoc.deptname" placeholder="请选择(必填)">
+            <!-- 部门选择 -->
+            <el-form-item label="部门">
+                <el-select v-model="newdoctor.departmentName" placeholder="请选择" @focus="fetchDeptData" @change="handleDeptChange">
                     <el-option
-                            v-for="item in dept"
-                            :key="item.deptname"
-                            :label="item.deptname"
-                            :value="item.deptname">
+                            v-for="deptItem in dept"
+                            :key="deptItem.id"
+                            :label="deptItem.departmentName"
+                            :value="deptItem.departmentName">
                     </el-option>
                 </el-select>
             </el-form-item>
+
+            <!-- 职位选择 -->
             <el-form-item label="职位">
-                <el-select v-model="upddoc.position" placeholder="请选择(必填)" style="width: 205px">
+                <el-select v-model="newdoctor.positionName" placeholder="请选择" @focus="fetchPosiData" @change="handlePosiChange">
                     <el-option
-                            v-for="item in posi"
-                            :key="item.value"
-                            :label="item.value"
-                            :value="item.value">
+                            v-for="posiItem in posi"
+                            :key="posiItem.positionId"
+                            :label="posiItem.positionName"
+                            :value="posiItem.positionName">
                     </el-option>
                 </el-select>
             </el-form-item>
@@ -235,14 +270,15 @@
         data() {
             return {
                 search: {
-                    username: '',
+                    jobNumber: '',
                     name: '',
                 },
                 doctor: [{
+                    jobNumber: '',
                     username: '',
                     name: '',
-                    deptname: '',
-                    position: '',
+                    departmentName: '',
+                    positionName: '',
                     telephone: '',
                     email: '',
                     sex: 1,
@@ -256,32 +292,36 @@
                 },
                 adddialog: false,
                 newdoctor: {
-                    username: '',
+                    jobNumber: '',
                     password: '',
+                    username: '',
                     name: '',
-                    deptname: '',
-                    position: ''
+                    telephone: '',
+                    email: '',
+                    sex: 1,
+                    birthday: '',
+                    address: '',
+                    departmentId: null,
+                    departmentName: '',
+                    positionName: '',
+                    positionId: null
                 },
-                dept: [{
-                    deptname: '',
-                }],
-                posi: [{
-                    value: "主任"
-                }, {
-                    value: "副主任"
-                }, {
-                    value: "主治医师"
-                }, {
-                    value: "医师"
-                }],
+                dept: [],
+                posi: [],
                 updatedialog: false,
                 upddoc: {
                     id: '',
+                    jobNumber: '',
                     username: '',
                     password: '',
                     name: '',
-                    deptname: '',
-                    position: '',
+                    telephone: '',
+                    email: '',
+                    sex: 1,
+                    birthday: '',
+                    address: '',
+                    departmentName: '',
+                    positionName: '',
                     telephone: '',
                     email: '',
                     sex: '',
@@ -294,7 +334,6 @@
         },
         mounted() {
             this.select();
-            this.searchdept();
         },
         methods: {
             handleCurrentChange(currentPage) {
@@ -318,15 +357,9 @@
                     .catch(_ => {
                     });
             },
-            searchdept() {
-                let _this = this;
-                axios.get("/doctor/dept").then((res) => {
-                    _this.dept = res.data.data;
-                })
-            },
             add() {
                 let _this = this;
-                if (_this.newdoctor.deptname == '' || _this.newdoctor.name == '' || _this.newdoctor.password == '' || _this.newdoctor.username == '' || _this.newdoctor.position == '') {
+                if (_this.newdoctor.departmentName === '' || _this.newdoctor.name === '' || _this.newdoctor.password === '' || _this.newdoctor.positionName === '') {
                     this.$notify.error({
                         title: '错误',
                         message: '请检查信息是否填写完整'
@@ -339,11 +372,11 @@
                                 message: res.data.msg,
                                 type: 'success'
                             });
-                            _this.newdoctor.deptname = '';
+                            _this.newdoctor.departmentName = '';
                             _this.newdoctor.name = '';
                             _this.newdoctor.password = '';
-                            _this.newdoctor.username = '';
-                            _this.newdoctor.position = '';
+                            _this.newdoctor.jobNumber = '';
+                            _this.newdoctor.positionName = '';
                         } else {
                             this.$notify.error({
                                 title: '错误',
@@ -357,7 +390,7 @@
             refresh() {
                 console.log("123");
                 let _this = this;
-                _this.search.username = '';
+                _this.search.jobNumber = '';
                 _this.search.name = '';
                 _this.select();
             },
@@ -398,22 +431,23 @@
                 let _this = this;
                 _this.updatedialog = true;
                 _this.upddoc.id = row.id;
-                _this.upddoc.username = row.username;
+                _this.upddoc.jobNumber = row.jobNumber;
                 _this.upddoc.password = row.password;
+                _this.upddoc.username = row.username;
                 _this.upddoc.name = row.name;
-                _this.upddoc.deptname = row.deptname;
-                _this.upddoc.position = row.position;
+                _this.upddoc.departmentName = row.departmentName;
+                _this.upddoc.positionName = row.positionName;
                 _this.upddoc.telephone = row.telephone;
                 _this.upddoc.email = row.email;
                 _this.upddoc.sex = row.sex;
                 _this.upddoc.birthday = row.birthday;
                 _this.upddoc.address = row.address;
                 _this.upddoc.remark = row.remark;
-                _this.formpass = row.password;
+               //  _this.formpass = row.password;
             },
             updat() {
                 let _this = this;
-                axios.post("/doctor/update/" + _this.formpass, _this.upddoc).then((res) => {
+                axios.post("/doctor/update", _this.upddoc).then((res) => {
                     if (res.data.code === '200') {
                         this.$notify({
                             title: '成功',
@@ -429,7 +463,39 @@
                         });
                     }
                 })
-            }
+            },
+            // 获取部门数据
+            fetchDeptData() {
+                // 防止重复加载数据
+                if (this.dept.length === 0) {
+                    axios.post('/dept/selectAll').then(response => {
+                        this.dept = response.data.data; // 假设返回的数据列表在 data 属性内
+                    }).catch(error => {
+                        console.error('获取部门数据失败: ', error);
+                    });
+                }
+            },
+            // 获取职位数据
+            fetchPosiData() {
+                // 防止重复加载数据
+                if (this.posi.length === 0) {
+                    axios.post('/position/selectAll').then(response => {
+                        this.posi = response.data.data; // 假设返回的数据列表在 data 属性内
+                    }).catch(error => {
+                        console.error('获取职位数据失败: ', error);
+                    });
+                }
+            },
+            handleDeptChange(value) {
+                // 找到选择的部门对象并更新 departmentId
+                const selectedDept = this.dept.find(dept => dept.departmentName === value);
+                this.newdoctor.departmentId = selectedDept ? selectedDept.id : null;
+            },
+            handlePosiChange(value) {
+                // 找到选择的职位对象并更新 positionId
+                const selectedPosi = this.posi.find(posi => posi.positionName === value);
+                this.newdoctor.positionId = selectedPosi ? selectedPosi.positionId : null;
+            },
         }
     })
 </script>

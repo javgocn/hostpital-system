@@ -2,6 +2,7 @@ package cn.edu.just.hostpital.system.service.impl;
 
 import cn.edu.just.hostpital.system.common.Result;
 import cn.edu.just.hostpital.system.dto.AnnouncementDTO;
+import cn.edu.just.hostpital.system.enums.AnnouncementType;
 import cn.edu.just.hostpital.system.model.Announcement;
 import cn.edu.just.hostpital.system.mapper.AnnouncementMapper;
 import cn.edu.just.hostpital.system.service.AnnouncementService;
@@ -42,6 +43,7 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
                 queryWrapper.like("subject", announcement.getSubject());
             }
         }
+        queryWrapper.ne("status", AnnouncementType.DELETED.getCode());
         queryWrapper.orderByDesc("create_time");
         announcementIPage = announcementMapper.selectPage(page, queryWrapper);
         return Result.success(announcementIPage);
@@ -50,8 +52,12 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
     @Override
     public Result<?> add(String name, AnnouncementDTO announcementDTO) {
         Announcement announcement = DataTransferUtil.shallowCopy(announcementDTO, Announcement.class);
+        announcement.setSubject(announcement.getSubject());
+        announcement.setContent(announcement.getContent());
+        announcement.setAuthorId(announcement.getAuthorId());
+        announcement.setAuthor(name);
         announcement.setCreateTime(new Date());
-        announcement.setSubject(name);
+        announcement.setUpdateTime(new Date());
         int count = announcementMapper.insert(announcement);
         return count == 1 ? Result.success("发布成功") : Result.fail("发布失败");
     }

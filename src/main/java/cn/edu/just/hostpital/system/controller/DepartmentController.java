@@ -22,7 +22,7 @@ import javax.annotation.Resource;
  */
 @Api(tags = "科室信息 API", value = "DepartmentController")
 @RestController
-@RequestMapping("/department")
+@RequestMapping("/dept")
 public class DepartmentController {
 
     @Resource
@@ -36,6 +36,12 @@ public class DepartmentController {
         return departmentService.selectByPage(currentPage, size, departmentDTO);
     }
 
+    @ApiOperation(value = "查询所有科室信息")
+    @PostMapping("/selectAll")
+    public Result<?> selectAll() {
+        return departmentService.selectAll();
+    }
+
     @ApiOperation(value = "新增科室信息")
     @PostMapping("/add")
     public Result<?> add(@RequestBody @Validated(Save.class) DepartmentDTO departmentDTO) {
@@ -43,7 +49,7 @@ public class DepartmentController {
     }
 
     @ApiOperation(value = "删除科室信息")
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public Result<?> delete(@PathVariable("id") Integer id) {
         return departmentService.delete(id);
     }

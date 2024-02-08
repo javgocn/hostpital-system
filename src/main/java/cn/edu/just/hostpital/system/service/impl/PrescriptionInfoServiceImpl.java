@@ -2,6 +2,7 @@ package cn.edu.just.hostpital.system.service.impl;
 
 import cn.edu.just.hostpital.system.common.Result;
 import cn.edu.just.hostpital.system.dto.PrescriptionInfoDTO;
+import cn.edu.just.hostpital.system.enums.PrescriptionType;
 import cn.edu.just.hostpital.system.model.PrescriptionInfo;
 import cn.edu.just.hostpital.system.mapper.PrescriptionInfoMapper;
 import cn.edu.just.hostpital.system.service.PrescriptionInfoService;
@@ -52,6 +53,7 @@ public class PrescriptionInfoServiceImpl extends ServiceImpl<PrescriptionInfoMap
                 queryWrapper.eq("create_date", prescriptionInfo.getCreateDate());
             }
         }
+        queryWrapper.ne("status", PrescriptionType.DELETED.getCode());
         queryWrapper.orderByDesc("create_date");
         prescriptionInfoIPage = prescriptionInfoMapper.selectPage(page, queryWrapper);
         return Result.success(prescriptionInfoIPage);

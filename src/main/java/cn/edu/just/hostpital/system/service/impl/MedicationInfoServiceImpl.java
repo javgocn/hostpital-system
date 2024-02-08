@@ -3,6 +3,7 @@ package cn.edu.just.hostpital.system.service.impl;
 import cn.edu.just.hostpital.system.common.Result;
 import cn.edu.just.hostpital.system.dto.MedicalRecordDTO;
 import cn.edu.just.hostpital.system.dto.MedicationInfoDTO;
+import cn.edu.just.hostpital.system.enums.StatusType;
 import cn.edu.just.hostpital.system.model.MedicationInfo;
 import cn.edu.just.hostpital.system.mapper.MedicationInfoMapper;
 import cn.edu.just.hostpital.system.service.MedicationInfoService;
@@ -50,6 +51,8 @@ public class MedicationInfoServiceImpl extends ServiceImpl<MedicationInfoMapper,
                 queryWrapper.like("medication_code", medicationInfo.getMedicationCode());
             }
         }
+        queryWrapper.ne("status", StatusType.DELETED.getCode());
+        queryWrapper.orderByDesc("create_time");
         medicationInfoIPage = medicationInfoMapper.selectPage(page, queryWrapper);
         return Result.success(medicationInfoIPage);
     }

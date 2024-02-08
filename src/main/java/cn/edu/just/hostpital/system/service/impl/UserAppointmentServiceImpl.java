@@ -46,30 +46,34 @@ public class UserAppointmentServiceImpl extends ServiceImpl<UserAppointmentMappe
     public Result<?> selectByPage(Integer currentPage, Integer size, UserAppointmentDTO userAppointmentDTO) {
         IPage<UserAppointment> page = new Page<>(currentPage, size);
         IPage<UserAppointment> appointmentIPage = null;
-        UserAppointment userAppointment = DataTransferUtil.shallowCopy(userAppointmentDTO, UserAppointment.class);
         QueryWrapper<UserAppointment> appointmentQueryWrapper = new QueryWrapper<>();
-        if (Objects.nonNull(userAppointment.getCreateTime())) {
-            appointmentQueryWrapper.eq("create_time", userAppointment.getCreateTime());
-        }
-        if (Objects.nonNull(userAppointment.getConsultTime())) {
-            appointmentQueryWrapper.eq("consult_time", userAppointment.getConsultTime());
-        }
-        if (Objects.nonNull(userAppointmentDTO.getUserName())) {
-            String userName = userAppointmentDTO.getUserName();
-            QueryWrapper<UserInfo> userInfoQueryWrapper = new QueryWrapper<>();
-            userInfoQueryWrapper.eq("name", userName);
-            UserInfo userInfo = userInfoMapper.selectOne(userInfoQueryWrapper);
-            if (Objects.isNull(userInfo)) {
-                return Result.fail("用户不存在");
+        if (Objects.nonNull(userAppointmentDTO)) {
+            UserAppointment userAppointment = DataTransferUtil.shallowCopy(userAppointmentDTO, UserAppointment.class);
+            if (Objects.nonNull(userAppointment.getCreateTime())) {
+                appointmentQueryWrapper.eq("create_time", userAppointment.getCreateTime());
             }
-            appointmentQueryWrapper.eq("user_id", userInfo.getId());
+            if (Objects.nonNull(userAppointment.getConsultTime())) {
+                appointmentQueryWrapper.eq("consult_time", userAppointment.getConsultTime());
+            }
+            if (Objects.nonNull(userAppointmentDTO.getUserName())) {
+                String userName = userAppointmentDTO.getUserName();
+                QueryWrapper<UserInfo> userInfoQueryWrapper = new QueryWrapper<>();
+                userInfoQueryWrapper.eq("name", userName);
+                UserInfo userInfo = userInfoMapper.selectOne(userInfoQueryWrapper);
+                if (Objects.isNull(userInfo)) {
+                    return Result.fail("用户不存在");
+                }
+                appointmentQueryWrapper.eq("user_id", userInfo.getId());
+            }
+            if (Objects.nonNull(userAppointment.getDeptId())) {
+                appointmentQueryWrapper.eq("dept_id", userAppointment.getDeptId());
+            }
+            if (Objects.nonNull(userAppointment.getStatus())) {
+                appointmentQueryWrapper.eq("status", userAppointment.getStatus());
+            }
         }
-        if (Objects.nonNull(userAppointment.getDeptId())) {
-            appointmentQueryWrapper.eq("dept_id", userAppointment.getDeptId());
-        }
-        if (Objects.nonNull(userAppointment.getStatus())) {
-            appointmentQueryWrapper.eq("status", userAppointment.getStatus());
-        }
+        appointmentQueryWrapper.ne("status", AppointmentType.DELETE.getCode());
+        appointmentQueryWrapper.orderByDesc("create_time");
         appointmentIPage = userAppointmentMapper.selectPage(page, appointmentQueryWrapper);
         return Result.success(appointmentIPage);
     }

@@ -25,23 +25,27 @@
                         type="selection">
                 </el-table-column>
                 <el-table-column
-                        prop="theme"
+                        prop="subject"
                         label="主题">
                 </el-table-column>
                 <el-table-column
-                        prop="name"
+                        prop="userName"
                         label="反馈人">
+                </el-table-column>
+                <el-table-column
+                    prop="feedback"
+                    label="反馈内容">
                 </el-table-column>
                 <el-table-column
                         prop="status"
                         label="回复状态">
                     <template slot-scope="scope">
-                        <el-tag type="warning" v-if="scope.row.status==0">待回复</el-tag>
-                        <el-tag type="success" v-if="scope.row.status==1">已回复</el-tag>
+                        <el-tag type="warning" v-if="scope.row.status === 0">待回复</el-tag>
+                        <el-tag type="success" v-if="scope.row.status === 1">已回复</el-tag>
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="fdback"
+                        prop="feedback"
                         label="回复内容">
                 </el-table-column>
                 <el-table-column
@@ -68,15 +72,18 @@
             width="30%">
         <el-form ref="form" :model="form" label-width="80px">
             <el-form-item label="反馈主题">
+                <el-input v-model="form.subject"></el-input>
+            </el-form-item>
+            <el-form-item label="反馈内容">
                 <el-input
                         type="textarea"
                         :rows="6"
-                        v-model="form.theme">
+                        v-model="form.feedback">
                 </el-input>
             </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
-    <el-button type="primary" @click="feedbac">提 交</el-button>
+    <el-button type="primary" @click="fdback">提 交</el-button>
   </span>
     </el-dialog>
 
@@ -87,10 +94,10 @@
         data() {
             return {
                 feedback: [{
-                    theme: '',
-                    name: '',
+                    subject: '',
+                    userName: '',
                     status: '',
-                    fdback: '',
+                    feedback: '',
                     createTime: ''
                 }],
                 page: {
@@ -102,7 +109,8 @@
                 dialogVisible: false,
                 form: {
                     userId: '',
-                    theme: '',
+                    subject: '',
+                    feedback: '',
                 }
             }
         },
@@ -128,18 +136,18 @@
                 _this.dialogVisible = true;
                 _this.form.id = row.id;
                 _this.form.status = row.status;
-                _this.form.theme = row.theme;
+                _this.form.subject = row.subject;
             },
             fd() {
                 let _this = this;
-                if (_this.form.fdback === '') {
+                if (_this.form.feedback === '') {
                     this.$notify({
                         title: '警告',
                         message: "请输入回复",
                         type: 'warning'
                     });
                 } else {
-                    axios.post("/feedback/fd/", _this.form).then((res) => {
+                    axios.post("/feedback/fd", _this.form).then((res) => {
                         if (res.data.code === "200") {
                             this.$notify({
                                 title: '成功',
@@ -157,19 +165,26 @@
                 }
                 _this.dialogVisible = false;
             },
-            feedbac() {
+            fdback() {
                 let _this = this;
-                var userStr = localStorage.getItem("userInfo");
-                var userObj = JSON.parse(userStr);
+                let userStr = localStorage.getItem("userInfo");
+                let userObj = JSON.parse(userStr);
                 _this.form.userId = userObj.id;
-                if (_this.form.theme === '') {
+                if (_this.form.subject === '') {
                     this.$notify({
                         title: '警告',
                         message: "请输入您的反馈主题",
                         type: 'warning'
                     });
-                } else {
-                    axios.post("/feedback/feed/", _this.form).then((res) => {
+                } else if (_this.form.feedback === '') {
+                    this.$notify({
+                        title: '警告',
+                        message: "请输入您的反馈内容",
+                        type: 'warning'
+                    });
+                }
+                else {
+                    axios.post("/feedback/feed", _this.form).then((res) => {
                         this.$notify({
                             title: '成功',
                             message: res.data.msg,
@@ -183,7 +198,7 @@
             },
             open() {
                 let _this = this;
-                _this.form.theme = '';
+                _this.form.subject = '';
                 _this.feedVisible = true;
             }
         },

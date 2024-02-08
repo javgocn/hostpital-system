@@ -40,6 +40,7 @@ public class UserFeedbackServiceImpl extends ServiceImpl<UserFeedbackMapper, Use
     public Result<?> selectByPage(Integer currentPage, Integer size) {
         IPage<UserFeedback> page = new Page<>(currentPage, size);
         QueryWrapper<UserFeedback> queryWrapper = new QueryWrapper<>();
+        queryWrapper.ne("status", FeedbackType.DELETED.getCode());
         queryWrapper.orderByDesc("create_time");
         IPage<UserFeedback> userFeedbackIPage = userFeedbackMapper.selectPage(page, queryWrapper);
         return Result.success(userFeedbackIPage);
@@ -61,7 +62,7 @@ public class UserFeedbackServiceImpl extends ServiceImpl<UserFeedbackMapper, Use
         UserFeedback userFeedback = DataTransferUtil.shallowCopy(userFeedbackDTO, UserFeedback.class);
         UserInfo userInfo = userInfoMapper.selectById(userFeedback.getUserId());
         userFeedback.setUserName(userInfo.getName());
-        userFeedback.setReplyTime(new Date());
+        userFeedback.setCreateTime(new Date());
         int count = userFeedbackMapper.insert(userFeedback);
         return count == 1 ? Result.success("发布成功") : Result.fail("发布失败");
     }

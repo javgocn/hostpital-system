@@ -23,7 +23,7 @@
         </el-form-item>
         <br>
         <el-form-item label="部门">
-            <el-input v-model="myself.deptname" :disabled="true"></el-input>
+            <el-input v-model="myself.departmentName" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="性别" style="width: 400px">
             <el-radio-group v-model="myself.sex" style="width: 300px">
@@ -71,7 +71,7 @@
                 myself: {
                     username: '',
                     name: '',
-                    deptname: '',
+                    departmentName: '',
                     sex: 1,
                     position: '',
                     telephone: '',

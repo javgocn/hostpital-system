@@ -26,11 +26,6 @@ public class UserNumVO {
     private Long doctorNum;
 
     /**
-     * 病房数量
-     */
-    private Long roomNum;
-
-    /**
      * 病床数量
      */
     private Long bedNum;

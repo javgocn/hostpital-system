@@ -24,23 +24,27 @@
                         type="selection">
                 </el-table-column>
                 <el-table-column
-                        prop="theme"
+                        prop="subject"
                         label="主题">
                 </el-table-column>
                 <el-table-column
-                        prop="name"
+                        prop="userName"
                         label="反馈人">
+                </el-table-column>
+                <el-table-column
+                        prop="feedback"
+                        label="反馈内容">
                 </el-table-column>
                 <el-table-column
                         prop="status"
                         label="回复状态">
                     <template slot-scope="scope">
-                        <el-tag type="warning" v-if="scope.row.status==0">待回复</el-tag>
-                        <el-tag type="success" v-if="scope.row.status==1">已回复</el-tag>
+                        <el-tag type="warning" v-if="scope.row.status === 0">待回复</el-tag>
+                        <el-tag type="success" v-if="scope.row.status === 1">已回复</el-tag>
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="fdback"
+                        prop="reply"
                         label="回复内容">
                 </el-table-column>
                 <el-table-column
@@ -76,7 +80,7 @@
                 <el-input
                         type="textarea"
                         autosize
-                        v-model="form.theme"
+                        v-model="form.subject"
                         :disabled="true">
                 </el-input>
             </el-form-item>
@@ -85,7 +89,7 @@
                         type="textarea"
                         autosize
                         placeholder="请输入回复内容"
-                        v-model="form.fdback">
+                        v-model="form.reply">
                 </el-input>
             </el-form-item>
         </el-form>
@@ -101,10 +105,11 @@
         data() {
             return {
                 feedback: [{
-                    theme: '',
-                    name: '',
+                    subject: '',
+                    userName: '',
                     status: '',
-                    fdback: '',
+                    feedback: '',
+                    reply: '',
                     createTime: ''
                 }],
                 page: {
@@ -115,9 +120,9 @@
                 dialogVisible: false,
                 form: {
                     id: '',
-                    theme: '',
+                    subject: '',
                     status: '',
-                    fdback: ''
+                    reply: ''
                 }
             }
         },
@@ -143,18 +148,18 @@
                 _this.dialogVisible = true;
                 _this.form.id = row.id;
                 _this.form.status = row.status;
-                _this.form.theme = row.theme;
+                _this.form.subject = row.subject;
             },
             fd() {
                 let _this = this;
-                if (_this.form.fdback == '') {
+                if (_this.form.feedback === '') {
                     this.$notify({
                         title: '警告',
                         message: "请输入回复",
                         type: 'warning'
                     });
                 } else {
-                    axios.post("/feedback/fd/", _this.form).then((res) => {
+                    axios.post("/feedback/reply", _this.form).then((res) => {
                         if (res.data.code === "200") {
                             this.$notify({
                                 title: '成功',

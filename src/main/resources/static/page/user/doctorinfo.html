@@ -13,12 +13,12 @@
 <body>
 <div id="app">
     <div class="search">
-        <el-select v-model="search.deptname" placeholder="请选择部门">
+        <el-select v-model="search.departmentName" placeholder="请选择部门">
             <el-option
                     v-for="item in dept"
-                    :key="item.deptname"
-                    :label="item.deptname"
-                    :value="item.deptname">
+                    :key="item.departmentName"
+                    :label="item.departmentName"
+                    :value="item.departmentName">
             </el-option>
         </el-select>
         <el-input v-model="search.name" placeholder="请输入姓名" class="in"></el-input>
@@ -37,7 +37,7 @@
                         type="selection">
                 </el-table-column>
                 <el-table-column
-                        prop="username"
+                        prop="jobNumber"
                         label="工号"
                         width="70px">
                 </el-table-column>
@@ -47,12 +47,12 @@
                         width="70px">
                 </el-table-column>
                 <el-table-column
-                        prop="deptname"
+                        prop="departmentName"
                         label="科室"
                         width="70px">
                 </el-table-column>
                 <el-table-column
-                        prop="position"
+                        prop="positionName"
                         label="职位"
                         width="70px">
                 </el-table-column>
@@ -118,16 +118,16 @@
 
         <el-form ref="form" :model="upddoc" class="demo-form-inline" :inline="true">
             <el-form-item label="工号">
-                <el-input v-model="upddoc.username" :disabled="true"></el-input>
+                <el-input v-model="upddoc.jobNumber" :disabled="true"></el-input>
             </el-form-item>
             <el-form-item label="姓名">
                 <el-input v-model="upddoc.name" :disabled="true"></el-input>
             </el-form-item>
             <el-form-item label="科室">
-                <el-input v-model="upddoc.deptname" :disabled="true"></el-input>
+                <el-input v-model="upddoc.departmentName" :disabled="true"></el-input>
             </el-form-item>
             <el-form-item label="职位">
-                <el-input v-model="upddoc.position" :disabled="true"></el-input>
+                <el-input v-model="upddoc.positionName" :disabled="true"></el-input>
             </el-form-item>
             <el-form-item label="电话">
                 <el-input v-model="upddoc.telephone" style="width: 220px" :disabled="true"></el-input>
@@ -189,15 +189,15 @@
         data() {
             return {
                 search: {
-                    deptname: '',
+                    departmentName: '',
                     name: '',
                 },
                 doctor: [{
                     id: '',
-                    username: '',
+                    jobNumber: '',
                     name: '',
-                    deptname: '',
-                    position: '',
+                    departmentName: '',
+                    positionName: '',
                     telephone: '',
                     email: '',
                     sex: 1,
@@ -211,14 +211,14 @@
                 },
                 appointdialog: false,
                 newdoctor: {
-                    username: '',
+                    jobNumber: '',
                     password: '',
                     name: '',
-                    deptname: '',
-                    position: ''
+                    departmentName: '',
+                    positionName: ''
                 },
                 dept: [{
-                    deptname: '',
+                    departmentName: '',
                 }],
                 posi: [{
                     value: "主任"
@@ -232,10 +232,10 @@
                 updatedialog: false,
                 upddoc: {
                     id: '',
-                    username: '',
+                    jobNumber: '',
                     name: '',
-                    deptname: '',
-                    position: '',
+                    departmentName: '',
+                    positionName: '',
                     telephone: '',
                     email: '',
                     sex: '',
@@ -246,7 +246,7 @@
                 formpass: '',
                 appoint: {
                     consultTime: '',
-                    deptname: '',
+                    departmentName: '',
                     doctorId: '',
                     userId: '',
                     doctorname: '',
@@ -280,7 +280,7 @@
             },
             refresh() {
                 let _this = this;
-                _this.search.deptname = '';
+                _this.search.departmentName = '';
                 _this.search.name = '';
                 _this.select();
             },
@@ -288,10 +288,10 @@
                 let _this = this;
                 _this.updatedialog = true;
                 _this.upddoc.id = row.id;
-                _this.upddoc.username = row.username;
+                _this.upddoc.jobNumber = row.jobNumber;
                 _this.upddoc.name = row.name;
-                _this.upddoc.deptname = row.deptname;
-                _this.upddoc.position = row.position;
+                _this.upddoc.departmentName = row.departmentName;
+                _this.upddoc.positionName = row.positionName;
                 _this.upddoc.telephone = row.telephone;
                 _this.upddoc.email = row.email;
                 _this.upddoc.sex = row.sex;
@@ -305,7 +305,7 @@
                 var userStr = localStorage.getItem("userInfo");
                 var userObj = JSON.parse(userStr);
                 _this.appointdialog = true;
-                _this.appoint.deptname = row.deptname;
+                _this.appoint.departmentName = row.departmentName;
                 _this.appoint.doctorId = row.id;
                 _this.appoint.userId = userObj.id;
                 _this.appoint.doctorname = row.name;

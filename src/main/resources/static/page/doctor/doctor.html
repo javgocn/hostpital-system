@@ -24,7 +24,7 @@
                      style="margin-top: 15px;margin-right:10px;float:left; height: 26px;width: 26px">
                 <el-dropdown>
                       <span class="el-dropdown-link">
-                        {{username}}<i class="el-icon-arrow-down el-icon--right"></i>
+                        {{jobNumber}}<i class="el-icon-arrow-down el-icon--right"></i>
                       </span>
                     <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item @click.native="address='../doctor/myselfinfo.html'">个人信息</el-dropdown-item>
@@ -149,7 +149,7 @@
         el: "#main",
         data() {
             return {
-                username:'username',
+                jobNumber:'jobNumber',
                 address:'../index/userindex.html',
                 pwddialog:false,
                 pwd: {
@@ -167,7 +167,7 @@
                 let _this = this;
                 var doctorStr = localStorage.getItem("doctorInfo");
                 var doctorObj = JSON.parse(doctorStr);
-                _this.username = doctorObj.username;
+                _this.jobNumber = doctorObj.jobNumber;
             },
             openpwddialog() {
                 let _this = this;

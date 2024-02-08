@@ -128,6 +128,8 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
                 queryWrapper.like("id_card", user.getIdCard());
             }
         }
+        queryWrapper.ne("status", StatusType.DELETED.getCode());
+        queryWrapper.orderByDesc("create_time");
         userInfoIPage = userInfoMapper.selectPage(page, queryWrapper);
         return Result.success(userInfoIPage);
     }
@@ -204,11 +206,6 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
         doctorInfoQueryWrapper.eq("status", StatusType.ENABLE.getCode());
         Long doctorNum = doctorInfoMapper.selectCount(doctorInfoQueryWrapper);
         userNumVO.setDoctorNum(doctorNum);
-
-        QueryWrapper<Room> roomQueryWrapper = new QueryWrapper<>();
-        roomQueryWrapper.eq("status", BedType.FREE.getCode());
-        Long roomNum = roomMapper.selectCount(roomQueryWrapper);
-        userNumVO.setRoomNum(roomNum);
 
         QueryWrapper<Bed> bedQueryWrapper = new QueryWrapper<>();
         bedQueryWrapper.eq("status", BedType.FREE.getCode());

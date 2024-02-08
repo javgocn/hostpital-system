@@ -40,12 +40,12 @@
                         width="70px">
                 </el-table-column>
                 <el-table-column
-                        prop="deptname"
+                        prop="departmentName"
                         label="科室"
                         width="70px">
                 </el-table-column>
                 <el-table-column
-                        prop="position"
+                        prop="positionName"
                         label="职位"
                         width="70px">
                 </el-table-column>
@@ -117,17 +117,17 @@
             </el-form-item>
 
             <el-form-item label="部门">
-                <el-select v-model="newdoctor.deptname" placeholder="请选择">
+                <el-select v-model="newdoctor.departmentName" placeholder="请选择">
                     <el-option
                             v-for="item in dept"
-                            :key="item.deptname"
-                            :label="item.deptname"
-                            :value="item.deptname">
+                            :key="item.departmentName"
+                            :label="item.departmentName"
+                            :value="item.departmentName">
                     </el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="职位">
-                <el-select v-model="newdoctor.position" placeholder="请选择">
+                <el-select v-model="newdoctor.positionName" placeholder="请选择">
                     <el-option
                             v-for="item in posi"
                             :key="item.value"
@@ -154,10 +154,10 @@
                 <el-input v-model="upddoc.name" :disabled="true"></el-input>
             </el-form-item>
             <el-form-item label="科室">
-                <el-input v-model="upddoc.deptname" :disabled="true"></el-input>
+                <el-input v-model="upddoc.departmentName" :disabled="true"></el-input>
             </el-form-item>
             <el-form-item label="职位">
-                <el-input v-model="upddoc.position" :disabled="true"></el-input>
+                <el-input v-model="upddoc.positionName" :disabled="true"></el-input>
             </el-form-item>
             <el-form-item label="电话">
                 <el-input v-model="upddoc.telephone" style="width: 220px" :disabled="true"></el-input>
@@ -199,8 +199,8 @@
                 doctor: [{
                     username: '',
                     name: '',
-                    deptname: '',
-                    position: '',
+                    departmentName: '',
+                    positionName: '',
                     telephone: '',
                     email: '',
                     sex: 1,
@@ -217,11 +217,11 @@
                     username: '',
                     password: '',
                     name: '',
-                    deptname: '',
-                    position: ''
+                    departmentName: '',
+                    positionName: ''
                 },
                 dept: [{
-                    deptname: '',
+                    departmentName: '',
                 }],
                 posi: [{
                     value: "主任"
@@ -237,8 +237,8 @@
                     id: '',
                     username: '',
                     name: '',
-                    deptname: '',
-                    position: '',
+                    departmentName: '',
+                    positionName: '',
                     telephone: '',
                     email: '',
                     sex: '',
@@ -283,7 +283,7 @@
             },
             add() {
                 let _this = this;
-                if (_this.newdoctor.deptname == '' || _this.newdoctor.name == '' || _this.newdoctor.password == '' || _this.newdoctor.username == '' || _this.newdoctor.position == '') {
+                if (_this.newdoctor.departmentName == '' || _this.newdoctor.name == '' || _this.newdoctor.password == '' || _this.newdoctor.username == '' || _this.newdoctor.positionName == '') {
                     this.$notify.error({
                         title: '错误',
                         message: '请检查信息是否填写完整'
@@ -296,11 +296,11 @@
                                 message: res.data.msg,
                                 type: 'success'
                             });
-                            _this.newdoctor.deptname = '';
+                            _this.newdoctor.departmentName = '';
                             _this.newdoctor.name = '';
                             _this.newdoctor.password = '';
                             _this.newdoctor.username = '';
-                            _this.newdoctor.position = '';
+                            _this.newdoctor.positionName = '';
                         } else {
                             this.$notify.error({
                                 title: '错误',
@@ -357,8 +357,8 @@
                 _this.upddoc.id = row.id;
                 _this.upddoc.username = row.username;
                 _this.upddoc.name = row.name;
-                _this.upddoc.deptname = row.deptname;
-                _this.upddoc.position = row.position;
+                _this.upddoc.departmentName = row.departmentName;
+                _this.upddoc.positionName = row.positionName;
                 _this.upddoc.telephone = row.telephone;
                 _this.upddoc.email = row.email;
                 _this.upddoc.sex = row.sex;

@@ -25,6 +25,12 @@ public interface DepartmentService extends IService<Department> {
     Result<?> selectByPage(Integer currentPage, Integer size, DepartmentDTO departmentDTO);
 
     /**
+     * 查询所有科室信息
+     * @return 科室列表
+     */
+    Result<?> selectAll();
+
+    /**
      * 新增科室信息
      * @param departmentDTO 科室信息 DTO
      * @return 新增结果

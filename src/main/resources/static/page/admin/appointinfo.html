@@ -20,12 +20,12 @@
                 value-format="yyyy-MM-dd">
         </el-date-picker>
         <el-input v-model="search.username" placeholder="请输入患者姓名" style="width: 250px"></el-input>
-        <el-select v-model="search.deptname" placeholder="请选择科室">
+        <el-select v-model="search.departmentName" placeholder="请选择科室">
             <el-option
                     v-for="item in dept"
-                    :key="item.deptname"
-                    :label="item.deptname"
-                    :value="item.deptname">
+                    :key="item.departmentName"
+                    :label="item.departmentName"
+                    :value="item.departmentName">
             </el-option>
         </el-select>
         <el-button type="primary" @click="select">查询</el-button>
@@ -48,7 +48,7 @@
                         label="就诊日期">
                 </el-table-column>
                 <el-table-column
-                        prop="deptname"
+                        prop="departmentName"
                         label="预约科室">
                 </el-table-column>
                 <el-table-column
@@ -121,11 +121,11 @@
         data() {
             return {
                 dept: [{
-                    deptname: '',
+                    departmentName: '',
                 }],
                 search: {
                     username: '',
-                    deptname: '',
+                    departmentName: '',
                     consultTime: ''
                 },
                 form: {
@@ -134,7 +134,7 @@
                 },
                 appoint: [{
                     consultTime: '',
-                    deptname: '',
+                    departmentName: '',
                     username: '',
                     doctorname: '',
                     status: 1,
@@ -146,7 +146,7 @@
                     total: 0
                 },
                 dept: [{
-                    deptname: '',
+                    departmentName: '',
                 }],
                 dialogVisible: false,
             }
@@ -180,7 +180,7 @@
                 let _this = this;
                 _this.search.consultTime = '';
                 _this.search.username = '';
-                _this.search.deptname = '';
+                _this.search.departmentName = '';
                 _this.select();
             },
             check(row) {

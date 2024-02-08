@@ -13,7 +13,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 /**
@@ -35,6 +37,10 @@ public class DoctorInfoDTO {
     @ApiModelProperty("医生用户名")
     @NotNull(groups = {Update.class, Save.class}, message = "医生用户名不能为空")
     private String username;
+
+    @ApiModelProperty("医生密码")
+    @NotNull(groups = {Save.class}, message = "医生密码不能为空")
+    private String password;
 
     @ApiModelProperty("医生名字")
     @NotNull(groups = {Update.class, Save.class}, message = "医生名字不能为空")
@@ -62,19 +68,21 @@ public class DoctorInfoDTO {
     private String positionName;
 
     @ApiModelProperty("电话")
-    @NotNull(groups = {Save.class}, message = "电话不能为空")
+    @Pattern(regexp = "^1[3|4|5|7|8][0-9]\\d{8}$", groups = {Save.class, Update.class}, message = "手机号码格式不正确")
+    @NotNull(groups = {Save.class, Update.class}, message = "电话不能为空")
     private String telephone;
 
     @ApiModelProperty("邮箱")
-    @NotNull(groups = {Save.class}, message = "邮箱不能为空")
+    @Email(groups = {Save.class, Update.class}, message = "邮箱格式不正确")
+    @NotNull(groups = {Save.class, Update.class}, message = "邮箱不能为空")
     private String email;
 
     @ApiModelProperty("性别：0 女性，1 男性，2 保密")
-    @NotNull(groups = {Save.class}, message = "性别不能为空")
+    @NotNull(groups = {Save.class, Update.class}, message = "性别不能为空")
     private Integer sex;
 
     @ApiModelProperty("生日")
-    @NotNull(groups = {Save.class}, message = "生日不能为空")
+    @NotNull(groups = {Save.class, Update.class}, message = "生日不能为空")
     @JsonSerialize(using = CustomDateSerializer.class)
     private Date birthday;
 

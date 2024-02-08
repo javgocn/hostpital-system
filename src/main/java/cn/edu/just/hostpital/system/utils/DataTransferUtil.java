@@ -1,5 +1,7 @@
 package cn.edu.just.hostpital.system.utils;
 
+import cn.edu.just.hostpital.system.dto.PrescriptionInfoDTO;
+import cn.edu.just.hostpital.system.model.PositionInfo;
 import com.github.dozermapper.core.DozerBeanMapperBuilder;
 import com.github.dozermapper.core.Mapper;
 import org.springframework.beans.BeanUtils;

@@ -1,3 +1,23 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.carousel-image {
+    border-radius: 10px; /* 设置圆角的大小 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加阴影来提高层次感 */
+    transition: transform 0.5s ease; /* 平滑变换效果 */
+}
+
+.carousel-image:hover {
+    transform: scale(1.05); /* 鼠标悬停时图片放大 */
+}
+
+#main {
+    height: 100%; /* 确保#main也有100%的高度 */
+}
+
 #top{
     height: 200px;
 }
@@ -27,4 +47,67 @@
     color: #f0f7ff;
     font-size: 25px;
     margin-top: -10px;
+}
+
+
+.carousel-image {
+    width: 100%;
+    height: 400px; /* 调整为您的实际高度 */
+    border-radius: 15px;
+}
+
+.news-item,
+.notice-item {
+    position: relative;
+    padding-right: 100px; /* 右侧留出空间用于显示时间 */
+}
+
+.news-time,
+.notice-time {
+    position: absolute;
+    right: 20px; /* 从右侧20px的位置显示 */
+    top: 0;
+    color: #999; /* 时间文字的颜色 */
+    font-size: 0.85em;
+}
+
+/* 调整新闻和公告的标题样式 */
+.news-item h3,
+.notice-item h3 {
+    color: #333;
+    font-weight: 600;
+}
+
+/* 调整新闻和公告的摘要样式 */
+.news-item p,
+.notice-item p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* 以下是之前的样式，保持不变 */
+.hospital-image {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+h2 {
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.slogan {
+    text-align: center; /* 居中标语 */
+    margin: 20px 0; /* 添加一些上下间距 */
+}
+
+.slogan h1 {
+    font-family: 'Long Cang', cursive; /* 应用Google Fonts的毛笔字体 */
+    font-size: 3em; /* 调整字体大小 */
+    color: #409EFF; /* 字体颜色 */
+    text-shadow: 5px 5px 0px rgba(0,0,0,0.1), /* 平行阴影 */
+    10px 10px 0px rgba(0,0,0,0.05); /* 更远的阴影产生立体效果 */
+    margin-bottom: 30px; /* 与轮播图的间距 */
 }

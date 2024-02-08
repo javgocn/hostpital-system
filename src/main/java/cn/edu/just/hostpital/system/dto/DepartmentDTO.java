@@ -35,10 +35,10 @@ public class DepartmentDTO {
 
     @ApiModelProperty("科室名称")
     @NotBlank(message = "科室名称不能为空", groups = {Save.class})
-    private String name;
+    private String departmentName;
 
     @ApiModelProperty("科室描述")
-    private String description;
+    private String remark;
 
     @ApiModelProperty("科室状态：0 启用，1 禁用，-1 已删除")
     private Integer status;

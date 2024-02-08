@@ -11,7 +11,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 /**
@@ -50,10 +52,12 @@ public class UserInfoDTO {
     private Integer sex;
 
     @ApiModelProperty("电话")
+    @Pattern(regexp = "^[1][3,4,5,7,8][0-9]{9}$", groups = {Save.class, Update.class}, message = "电话格式不正确")
     @NotNull(groups = {Save.class}, message = "电话不能为空")
     private String telephone;
 
     @ApiModelProperty("邮箱")
+    @Email(groups = {Save.class, Update.class}, message = "邮箱格式不正确")
     @NotNull(groups = {Save.class}, message = "邮箱不能为空")
     private String email;
 

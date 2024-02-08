@@ -50,17 +50,26 @@ public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Departm
 
         if (Objects.nonNull(departmentDTO)) {
             Department department = DataTransferUtil.shallowCopy(departmentDTO, Department.class);
-            if (StringUtils.isNotBlank(department.getName())) {
-                queryWrapper.like("name", department.getName());
+            if (StringUtils.isNotBlank(department.getDepartmentName())) {
+                queryWrapper.like("department_name", department.getDepartmentName());
             }
         }
+        queryWrapper.ne("status", StatusType.DELETED.getCode());
         departmentIPage = departmentMapper.selectPage(page, queryWrapper);
         return Result.success(departmentIPage);
     }
 
     @Override
+    public Result<?> selectAll() {
+        QueryWrapper<Department> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("status", StatusType.ENABLE.getCode());
+        return Result.success(departmentMapper.selectList(queryWrapper));
+    }
+
+    @Override
     public Result<?> add(DepartmentDTO departmentDTO) {
         departmentDTO.setCreateTime(new Date());
+        departmentDTO.setUpdateTime(new Date());
         departmentDTO.setStatus(StatusType.ENABLE.getCode());
         Department department = DataTransferUtil.shallowCopy(departmentDTO, Department.class);
         try {

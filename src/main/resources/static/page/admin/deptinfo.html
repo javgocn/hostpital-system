@@ -13,7 +13,7 @@
 <body>
 <div id="app">
     <div class="search">
-        <el-input v-model="search.deptname" placeholder="请输入科室名"></el-input>
+        <el-input v-model="search.departmentName" placeholder="请输入科室名"></el-input>
         <el-button icon="el-icon-search" circle @click="select"></el-button>
         <el-button type="primary" @click="opendialog">新增</el-button>
         <el-button icon="el-icon-refresh-right" circle @click="refresh" style="float: right"></el-button>
@@ -30,7 +30,7 @@
                         type="selection">
                 </el-table-column>
                 <el-table-column
-                        prop="deptname"
+                        prop="departmentName"
                         label="部门名称">
                 </el-table-column>
                 <el-table-column
@@ -72,7 +72,7 @@
             :before-close="handleClose">
         <el-form ref="form" :model="newdept" label-width="80px">
             <el-form-item label="部门名称">
-                <el-input v-model="newdept.deptname"></el-input>
+                <el-input v-model="newdept.departmentName"></el-input>
             </el-form-item>
             <el-form-item label="部门备注">
                 <el-input type="textarea" v-model="newdept.remark"></el-input>
@@ -93,7 +93,7 @@
                 <el-input v-model="updates.id" :disabled="true"></el-input>
             </el-form-item>
             <el-form-item label="部门名称">
-                <el-input v-model="updates.deptname"></el-input>
+                <el-input v-model="updates.departmentName"></el-input>
             </el-form-item>
             <el-form-item label="部门备注">
                 <el-input type="textarea" v-model="updates.remark"></el-input>
@@ -111,10 +111,10 @@
         data() {
             return {
                 search: {
-                    deptname: '',
+                    departmentName: '',
                 },
                 dept: [{
-                    deptname: "",
+                    departmentName: "",
                     remark: "",
                     createTime: ""
                 }],
@@ -126,12 +126,12 @@
                 dialogVisible: false,
                 diaVisible: false,
                 newdept: {
-                    deptname: '',
+                    departmentName: '',
                     remark: '',
                 },
                 updates: {
                     id: 1,
-                    deptname: '',
+                    departmentName: '',
                     remark: '',
                 }
             }
@@ -163,19 +163,19 @@
             },
             refresh() {
                 let _this = this;
-                _this.search.deptname = '';
+                _this.search.departmentName = '';
                 _this.select();
             },
             updatedept(row) {
                 let _this = this;
                 _this.updates.id = row.id;
-                _this.updates.deptname = row.deptname;
+                _this.updates.departmentName = row.departmentName;
                 _this.updates.remark = row.remark;
                 _this.diaVisible = true;
             },
             upd() {
                 let _this = this;
-                if (_this.updates.deptname == '') {
+                if (_this.updates.departmentName == '') {
                     this.$notify.error({
                         title: '错误',
                         message: '科室名不能为空'
@@ -195,7 +195,7 @@
             },
             add() {
                 let _this = this;
-                if (_this.newdept.deptname == '') {
+                if (_this.newdept.departmentName == '') {
                     this.$notify.error({
                         title: '错误',
                         message: '请输入科室名'
@@ -222,7 +222,7 @@
             },
             opendialog() {
                 let _this = this;
-                _this.newdept.deptname = '';
+                _this.newdept.departmentName = '';
                 _this.newdept.remark = '';
                 _this.dialogVisible = true;
             },

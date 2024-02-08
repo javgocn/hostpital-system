@@ -38,7 +38,7 @@
                         label="就诊日期">
                 </el-table-column>
                 <el-table-column
-                        prop="deptname"
+                        prop="departmentName"
                         label="预约科室">
                 </el-table-column>
                 <el-table-column
@@ -90,7 +90,7 @@
                 <el-input v-model="form.doctorname" :disabled="true"></el-input>
             </el-form-item>
             <el-form-item label="预约科室">
-                <el-input v-model="form.deptname" :disabled="true"></el-input>
+                <el-input v-model="form.departmentName" :disabled="true"></el-input>
             </el-form-item>
             <el-form-item label="病患情况">
                 <el-input
@@ -114,7 +114,7 @@
                 },
                 appoint: [{
                     consultTime: '',
-                    deptname: '',
+                    departmentName: '',
                     doctorname: '',
                     status: '',
                     createTime: '',
@@ -127,7 +127,7 @@
                 dialogVisible: false,
                 form: {
                     username: '',
-                    deptname: '',
+                    departmentName: '',
                     remark: '',
                 }
             }
@@ -161,7 +161,7 @@
                 let _this = this;
                 _this.dialogVisible = true;
                 _this.form.doctorname = row.doctorname;
-                _this.form.deptname = row.deptname;
+                _this.form.departmentName = row.departmentName;
                 _this.form.remark = row.remark;
             }
         }
